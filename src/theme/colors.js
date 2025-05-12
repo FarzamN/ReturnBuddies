@@ -1,0 +1,18 @@
+export const colors = {
+  white: "#fff",
+  black: "#000",
+  transparent: "transparent",
+  success: "#198754",
+  error: "#D04D54",
+  none: "transparent",
+  grey: "#838383",
+  lightGrey: "#EDEDED",
+  purple: "#B152EE",
+  skipButton: "rgba(177, 82, 238, 0.1)",
+  Ash: "#141824",
+  highlight: "#E3EAF0",
+  background: "#D8D8D8",
+  description: "#777777",
+  placeholder: "#9E9E9E",
+  inActiveText: "#A3A3A3",
+};
