@@ -12,7 +12,7 @@ export default StyleSheet.create({
     width: "100%",
     backgroundColor: colors.purple,
     overflow: "hidden",
-    height: HEIGHT_SIZES.LARGE,
+    height: HEIGHT_SIZES.DEFAULT,
     borderRadius: BORDER_RADIUS.CIRCLE ? 35 : 20,
     justifyContent: "center",
     alignItems: "center",

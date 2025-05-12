@@ -2,7 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   Login,
-  // Overboard,
+  Overboard,
   // Register,
   // CheckEmail,
   // OtpScreen,
@@ -16,11 +16,11 @@ const AuthNavigation = () => {
 
   return (
     <Navigator
-      initialRouteName="login"
+      initialRouteName="overboard"
       screenOptions={{ headerShown: false, animation: "ios_from_left" }}
     >
       {[
-        // { n: "overboard", c: Overboard },
+        { n: "overboard", c: Overboard },
         { n: "login", c: Login },
         // { n: "register", c: Register },
         // { n: "checkEmail", c: CheckEmail },

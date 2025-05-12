@@ -1,20 +1,28 @@
 import { useDispatch } from "react-redux";
-import { View, Text } from "react-native";
+import { ScrollView, Text } from "react-native";
 import React from "react";
-import { Body, MainButton } from "../../components";
-import { setUser } from "../../redux/slices/authSlice";
+import { Body, MainButton, Header } from "../../components";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { wp } from "../../theme/responsive";
+import styles from "./authStyle";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { goBack } = useNavigation();
   const { user, token } = useSelector((state) => state.auth);
-  const handleSubmit = () => {
-    dispatch(setUser("Farzam"));
-    console.log("user", user);
-  };
+
+  const handleSubmit = () => {};
   return (
-    <Body>
-      <Text>Login</Text>
+    <Body horizontal={wp(4)}>
+      <Header rightIcon leftIcon onleftIconPress={goBack} imageLogo />
+
+      <ScrollView
+        keyboardShouldPersistTaps={"always"}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.mainTitle}>Welcome back</Text>
+      </ScrollView>
       <MainButton title={"ok"} onPress={handleSubmit} />
     </Body>
   );

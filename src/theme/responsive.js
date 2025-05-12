@@ -3,6 +3,9 @@ import DeviceInfo from "react-native-device-info";
 
 export const { width, height } = Dimensions.get("window");
 
+export const wp = (p) => width * (p / 100);
+export const hp = (p) => height * (p / 100);
+
 export const f_inch = width <= 350 && height <= 600;
 // export const tab = width >= 768 && height >= 1024;
 export const tab = DeviceInfo.isTablet();
