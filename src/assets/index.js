@@ -22,4 +22,11 @@ export const appImages = {
   driver: require(`${imageUrl}/driver.png`),
   checkZipCode: require(`${imageUrl}/checkZipCode.png`),
   otpImage: require(`${imageUrl}/otpImage.png`),
+  otpSuccess: require(`${imageUrl}/otpSuccess.png`),
+  apple: require(`${imageUrl}/apple.png`),
+  google: require(`${imageUrl}/google.png`),
+
+  instagram: require(`${imageUrl}/instagram.png`),
+  x: require(`${imageUrl}/x.png`),
+  website: require(`${imageUrl}/website.png`),
 };

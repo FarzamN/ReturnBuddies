@@ -1,25 +1,36 @@
 import React, { useRef, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import { useDispatch } from "react-redux";
 import { hp, width, wp } from "../../theme/responsive";
 import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
-import { globalStyle } from "../../theme/globalStyle";
+import { globalStyle, Height } from "../../theme/globalStyle";
 import { MainButton } from "../../components";
+import { iOS } from "../../utils/constants";
 
 const onboardingArray = [
   {
+    key: 0,
     title: "Easy returns from your doorstep",
     desc: "Say goodbye to return hassles",
     image: appImages.onboard4,
   },
   {
+    key: 1,
     title: "Choose items you want to return",
     desc: "Add your return items to your bag",
     image: appImages.onboard6,
   },
   {
+    key: 2,
     title: "Select a pickup time and date that works for you",
     desc: "Flexible scheduling to fit your day",
     image: appImages.onboard5,
@@ -27,36 +38,21 @@ const onboardingArray = [
 ];
 
 const Onboarding = ({ navigation }) => {
-  const { replace, navigate } = navigation;
-  const dispatch = useDispatch();
+  const { navigate } = navigation;
   const swiperRef = useRef(null);
-  const [paginationIndex, setPaginationIndex] = useState(0);
 
-  const handleButtonPress = () => {
-    if (paginationIndex < onboardingArray.length - 1) {
-      swiperRef.current.scrollToIndex({ index: paginationIndex + 1 });
-      setPaginationIndex(paginationIndex + 1);
-    } else {
-      // dispatch(saveSplash(true));
-      //   replace(routes.welcome);
-    }
-  };
-
-  const DotComponent = ({ paginationIndex }) => (
-    <View style={[globalStyle.row, globalStyle.center, globalStyle.mb30]}>
-      {[...Array(onboardingArray.length)].map((_, index) => (
-        <View key={index} style={[styles.dotWrapper]}>
+  const DotComponent = ({ page }) => (
+    <View style={[globalStyle.row_justify_center, globalStyle.mb30]}>
+      {[1, 1, 1].map((_, index) => (
+        <View key={index} style={styles.dotWrapper}>
           <View
-            style={[
-              styles.dot,
-              {
-                backgroundColor:
-                  paginationIndex === index
-                    ? colors.purple
-                    : colors.borderColor,
-                width: wp(3),
-              },
-            ]}
+            style={{
+              borderRadius: 50,
+              width: page === index ? wp(2) : wp(3),
+              height: page === index ? wp(2) : wp(3),
+              backgroundColor:
+                page === index ? colors.purple : colors.borderColor,
+            }}
           />
         </View>
       ))}
@@ -64,38 +60,44 @@ const Onboarding = ({ navigation }) => {
   );
 
   return (
-    <View style={[globalStyle.Container, styles.container]}>
+    <SafeAreaView style={[globalStyle.Container, styles.container]}>
+      <StatusBar backgroundColor={colors.white} barStyle={"dark-content"} />
+      <Height />
       <View
         style={[
-          globalStyle.space_Between,
           {
-            paddingTop: wp(5),
             paddingHorizontal: wp(5),
           },
         ]}
       >
-        <Image source={appImages.logoFullName} style={styles.imageLogo} />
+        <Image
+          resizeMode="contain"
+          style={styles.imageLogo}
+          source={appImages.logoFullName}
+        />
       </View>
 
       <View style={styles.swiperContainer}>
         <SwiperFlatList
           ref={swiperRef}
-          showPagination
-          PaginationComponent={DotComponent}
-          onChangeIndex={({ index }) => setPaginationIndex(index)}
           data={onboardingArray}
           renderItem={({ item }) => (
             <View style={styles.slide}>
-              <Image source={item.image} style={styles.dynamicImage} />
+              <Image
+                source={item.image}
+                style={styles.dynamicImage}
+                resizeMode="contain"
+              />
               <View style={globalStyle.mh10}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.subtitle}>{item.desc}</Text>
               </View>
+              <Height />
+              <DotComponent page={item.key} />
             </View>
           )}
         />
       </View>
-
       <View style={styles.rowButtonWrapper}>
         <MainButton
           style={styles.loginButton}
@@ -109,7 +111,7 @@ const Onboarding = ({ navigation }) => {
           title={"Create account"}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -118,14 +120,11 @@ export default Onboarding;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     backgroundColor: colors.white,
-    paddingTop: wp(12),
   },
   imageLogo: {
     width: wp(43),
     height: wp(4.6),
-    alignSelf: "center",
   },
   swiperContainer: {
     flex: 1,
@@ -139,9 +138,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(4),
   },
   dynamicImage: {
-    width: wp(94),
-    height: wp(112),
-    alignSelf: "center",
+    width: wp(90),
+    height: wp(110),
+    marginTop: -40,
   },
   title: {
     fontSize: hp(2.3),
@@ -158,7 +157,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "400",
     color: colors.description,
-    marginTop: hp(2),
+    // marginTop: hp(2),
   },
   dotWrapper: {
     borderRadius: 10,
@@ -167,16 +166,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 5,
   },
-  dot: {
-    height: wp(3),
-    borderRadius: 50,
-  },
+
   rowButtonWrapper: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    marginHorizontal: wp(5),
-    paddingTop: hp(3),
     paddingBottom: hp(2),
   },
   loginButton: {

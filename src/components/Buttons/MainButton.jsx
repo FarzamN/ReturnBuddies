@@ -1,31 +1,65 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
-import { globalStyle } from "../../theme/globalStyle";
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import { globalStyle, Row } from "../../theme/globalStyle";
 import styles from "./buttonStyle";
+import { FullImage } from "..";
+import { appImages } from "../../assets";
+import { colors } from "../../theme/colors";
 
-const MainButton = ({
-  load,
-  style,
-  title,
-  onPress,
-  disabled,
-  marginTop,
-  textStyle,
-}) => {
+const MainButton = (props) => {
+  const {
+    load,
+    style,
+    title,
+    onPress,
+    disabled,
+    marginTop,
+    textStyle,
+    social,
+    apple,
+  } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
-      disabled={disabled}
+      disabled={load || disabled}
       style={[
         globalStyle.row,
         styles.containerStyle,
-        { marginTop: marginTop },
+        {
+          marginTop: marginTop,
+          borderColor: "#F7F7FC",
+          backgroundColor: social
+            ? colors.white
+            : load || disabled
+            ? colors.description
+            : colors.purple,
+        },
         style,
       ]}
     >
-      <Text style={[styles.font, textStyle]}>
-        {load ? "Loading..." : title}
-      </Text>
+      {social ? (
+        <>
+          <Row>
+            <FullImage
+              source={apple ? appImages.apple : appImages.google}
+              style={styles.socialImage}
+            />
+            <Text> Login with {apple ? "Apple" : "Google"}</Text>
+          </Row>
+        </>
+      ) : (
+        <>
+          {load && (
+            <ActivityIndicator
+              color={colors.white}
+              style={{ marginRight: 7 }}
+            />
+          )}
+          <Text style={[styles.font, textStyle]}>
+            {load ? "Loading..." : title}
+          </Text>
+        </>
+      )}
     </TouchableOpacity>
   );
 };

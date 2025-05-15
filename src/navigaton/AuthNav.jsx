@@ -3,7 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   Login,
   Overboard,
-  // Register,
+  Register,
+  ContactUS,
   // CheckEmail,
   // OtpScreen,
   // ChangePassword,
@@ -22,7 +23,8 @@ const AuthNavigation = () => {
       {[
         { n: "overboard", c: Overboard },
         { n: "login", c: Login },
-        // { n: "register", c: Register },
+        { n: "register", c: Register },
+        { n: "contactUS", c: ContactUS },
         // { n: "checkEmail", c: CheckEmail },
         // { n: "otpScreen", c: OtpScreen },
         // { n: "changePassword", c: ChangePassword },

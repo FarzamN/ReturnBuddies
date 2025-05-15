@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-import { EmailRegix, strongRegix } from "./urls";
+import { EmailRegix } from "./urls";
 
 export const OS = Platform.OS;
 export const iOS = Platform.OS === "ios";
@@ -18,11 +18,6 @@ export const maxLength = {
 export const emailPattern = {
   value: EmailRegix,
   message: "Email is not valid",
-};
-
-export const passwordPattern = {
-  value: strongRegix,
-  message: "Password must include letters, numbers, and special characters",
 };
 
 export const required = (type) => {

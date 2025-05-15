@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 import { HEIGHT_SIZES, hp, wp } from "../../theme/responsive";
+import { iOS } from "../../utils/constants";
 
 export default StyleSheet.create({
   right: {
@@ -27,6 +28,21 @@ export default StyleSheet.create({
     lineHeight: 20,
   },
   headerCont: {
-    height: HEIGHT_SIZES.DEFAULT,
+    height: HEIGHT_SIZES.LARGE,
+    marginBottom: iOS ? 0 : wp(4),
+    alignItems: iOS ? "center" : "flex-end",
+  },
+  logoStyle: {
+    width: wp(10),
+    height: wp(10),
+  },
+  iconCircle: {
+    borderWidth: 1,
+    borderColor: colors.borderColor,
+    borderRadius: wp(10),
+    // width: wp(10),
+    // height: wp(10),
+    padding: 10,
+    marginRight: wp(2),
   },
 });

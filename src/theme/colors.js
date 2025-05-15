@@ -3,7 +3,7 @@ export const colors = {
   black: "#000",
   transparent: "transparent",
   success: "#198754",
-  error: "#D04D54",
+  error: "#F31215",
   none: "transparent",
   grey: "#838383",
   lightGrey: "#EDEDED",

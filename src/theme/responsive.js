@@ -17,7 +17,7 @@ const scaleSize = (size) => (width / BASE_WIDTH) * size;
 
 const verticalScaleSize = (size) => (height / BASE_HEIGHT) * size;
 
-const fontScale = (size) => {
+export const fontScale = (size) => {
   const scaleFactor = tab
     ? 1.1
     : Math.min(width / BASE_WIDTH, height / BASE_HEIGHT);
