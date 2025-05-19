@@ -9,10 +9,14 @@ import ChangePassword from "./SettingFolder/ChangePassword";
 import DeleteAccount from "./SettingFolder/DeleteAccount";
 import DeleteOTP from "./SettingFolder/DeleteOTP";
 import ReturnHistory from "./SettingFolder/ReturnHistory";
-import ReturnHistorCard from "../../components/Cards/ReturnHistorCard";
+import FAQ from "./SettingFolder/FAQ";
+import Terms from "./SettingFolder/Terms";
+import Privacy from "./SettingFolder/Privacy";
 
 export {
-  ReturnHistorCard,
+  Terms,
+  Privacy,
+  FAQ,
   ReturnHistory,
   ChangePassword,
   DraftItem,

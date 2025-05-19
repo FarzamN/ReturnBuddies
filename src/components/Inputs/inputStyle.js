@@ -11,7 +11,6 @@ const inputStyles = StyleSheet.create({
     fontWeight: "500",
     fontSize: FONT_SIZES.BODY,
     color: colors.black,
-    backgroundColor: "#F9F9F9", // soft grey background
     borderRadius: 50, // pill shape
     paddingHorizontal: 20, // inner spacing
     height: 50, // match height

@@ -29,4 +29,8 @@ export const appImages = {
   instagram: require(`${imageUrl}/instagram.png`),
   x: require(`${imageUrl}/x.png`),
   website: require(`${imageUrl}/website.png`),
+  //  -------
+  draft: require(`${imageUrl}/draft.png`),
+  pickup: require(`${imageUrl}/pickup.png`),
+  plus: require(`${imageUrl}/plus.png`),
 };

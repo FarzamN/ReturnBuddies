@@ -39,6 +39,16 @@ export const globalStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  space_evenly: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  space_around: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
   row_justify_center: {
     flexDirection: "row",
     alignItems: "center",

@@ -70,7 +70,7 @@ const Register = () => {
               password={isPassword}
               message={isError?.message}
               Container={{ marginTop: wp(5) }}
-              keyboardType={!isPassword && "email-address"}
+              keyboardType={!isPassword ? "email-address" : "default"}
             />
           );
         })}

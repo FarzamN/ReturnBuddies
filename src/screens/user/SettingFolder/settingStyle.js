@@ -64,4 +64,34 @@ export default StyleSheet.create({
     marginTop: wp(5),
     textAlign: "center",
   },
+
+  FAQsectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 15,
+    backgroundColor: "#FAFAFA",
+    marginTop: wp(5),
+    padding: wp(2),
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  FAQcontent: {
+    padding: wp(2),
+    backgroundColor: "#FAFAFA",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderTopColor: colors.borderColor,
+    borderTopWidth: 1,
+  },
+  FAQcontentText: {
+    fontSize: hp(1.5),
+    fontWeight: "500",
+    color: "#777777",
+    lineHeight: hp(2.1),
+  },
+  FAQSectionText: {
+    width: "90%",
+    fontWeight: "600",
+  },
 });

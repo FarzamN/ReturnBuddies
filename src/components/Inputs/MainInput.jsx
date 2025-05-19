@@ -20,7 +20,7 @@ const MainInput = forwardRef((props, ref) => {
     Container,
     multiline,
     placeholder,
-    keyboardType,
+    keyboardType = "default",
     defaultValue,
   } = props;
 
@@ -55,6 +55,7 @@ const MainInput = forwardRef((props, ref) => {
         style={[
           style.inputStyles,
           {
+            backgroundColor: isError ? "#fff7f7" : "#F9F9F9", // soft grey background
             borderColor: isError ? colors.error : "#F9F9F9",
           },
           restyle,

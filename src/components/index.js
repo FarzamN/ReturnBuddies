@@ -7,8 +7,12 @@ import Text from "./Helpers/Text";
 import FullImage from "./Helpers/FullImage";
 import Empty from "./Helpers/Empty";
 import PhoneInput from "./Inputs/PhoneInput";
+import ReturnHistorCard from "./Cards/ReturnHistorCard";
+import PrimeryTab from "../navigaton/PrimeryTab";
 
 export {
+  PrimeryTab,
+  ReturnHistorCard,
   PhoneInput,
   MainButton,
   Body,

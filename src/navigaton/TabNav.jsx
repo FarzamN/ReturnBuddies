@@ -10,6 +10,9 @@ import {
   DeleteAccount,
   DeleteOTP,
   ReturnHistory,
+  FAQ,
+  Terms,
+  Privacy,
 } from "../screens/user";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -60,5 +63,8 @@ const AllSettings = () => (
     <Stack.Screen name="deleteAccount" component={DeleteAccount} />
     <Stack.Screen name="deleteOTP" component={DeleteOTP} />
     <Stack.Screen name="returnHistory" component={ReturnHistory} />
+    <Stack.Screen name="faq" component={FAQ} />
+    <Stack.Screen name="terms" component={Terms} />
+    <Stack.Screen name="privacy" component={Privacy} />
   </Stack.Navigator>
 );

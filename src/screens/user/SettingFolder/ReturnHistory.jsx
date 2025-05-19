@@ -1,9 +1,8 @@
-import { View, FlatList } from "react-native";
 import React from "react";
-import { Body, Empty, Header } from "../../../components";
-import { wp } from "../../../theme/responsive";
-import ReturnHistorCard from "../../../components/Cards/ReturnHistorCard";
+import { FlatList } from "react-native";
 import { appImages } from "../../../assets";
+import { wp } from "../../../theme/responsive";
+import { Body, Empty, Header, ReturnHistorCard } from "../../../components";
 
 const ReturnHistory = () => {
   return (
@@ -12,10 +11,10 @@ const ReturnHistory = () => {
       <FlatList
         data={[
           {
-            image: appImages.status1,
             title: "Shoes",
             detail: "Need info",
             createdAt: "23.7.2024",
+            image: appImages.status1,
           },
         ]}
         keyExtractor={(_, ix) => ix.toString()}

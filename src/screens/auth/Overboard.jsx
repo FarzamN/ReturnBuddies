@@ -1,20 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
-  StatusBar,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
-import { useDispatch } from "react-redux";
 import { hp, width, wp } from "../../theme/responsive";
 import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
 import { globalStyle, Height } from "../../theme/globalStyle";
 import { MainButton } from "../../components";
-import { iOS } from "../../utils/constants";
 
 const onboardingArray = [
   {
@@ -61,7 +59,7 @@ const Onboarding = ({ navigation }) => {
 
   return (
     <SafeAreaView style={[globalStyle.Container, styles.container]}>
-      <StatusBar backgroundColor={colors.white} barStyle={"dark-content"} />
+      <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
       <Height />
       <View
         style={[
