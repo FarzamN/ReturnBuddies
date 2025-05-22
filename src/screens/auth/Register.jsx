@@ -27,7 +27,6 @@ const Register = () => {
   const [showOTP, setShowOTP] = useState({ visible: false });
 
   const onSubmit = (data) => {
-    console.log(data);
     setShowOTP({ visible: true });
     // loginApi(data, navigate, setIsPending)(dispatch);
   };

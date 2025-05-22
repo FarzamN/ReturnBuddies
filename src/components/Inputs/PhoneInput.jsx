@@ -83,14 +83,9 @@ const PhoneInput = (props) => {
           placeholderTextColor: colors.grey,
         }}
         onChangeText={(text) => {
-          console.log("onChangeText: ", text);
           props.setValue(`${text}`);
         }}
-        onChangeFormattedText={(text) => {
-          console.log("onChangeFormattedText: ", text);
-        }}
         onChangeCountry={(text) => {
-          console.log("onChangeCountry: ", `+${text?.callingCode}`);
           props.setSelectedCode(`${text?.callingCode}`);
         }}
       />

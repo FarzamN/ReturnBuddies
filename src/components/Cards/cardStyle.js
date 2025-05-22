@@ -36,4 +36,27 @@ export default StyleSheet.create({
     fontWeight: "500",
     color: colors.black,
   },
+
+  DraftCont: {
+    marginTop: wp(1),
+    borderColor: colors.purple,
+    borderRadius: 10,
+  },
+  DraftImage: {
+    width: wp(15),
+    height: wp(15),
+    borderRadius: 8,
+    marginRight: wp(3),
+  },
+  DraftTitle: {
+    fontSize: hp(1.8),
+    color: colors.black,
+    fontWeight: "600",
+  },
+  DraftStatus: {
+    marginTop: wp(2),
+    fontSize: hp(1.6),
+    color: "#777777",
+    fontWeight: "500",
+  },
 });

@@ -8,8 +8,8 @@ const FullImage = (props) => {
   return (
     <View style={style}>
       <Image
-        tintColor={color}
         source={source}
+        tintColor={color}
         style={[globalStyle.full, ImageStyle, { borderRadius: radius }]}
         resizeMode={resizeMode ? resizeMode : Image.resizeMode.contain}
       />

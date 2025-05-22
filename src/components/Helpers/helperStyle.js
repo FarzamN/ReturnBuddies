@@ -3,6 +3,7 @@ import responsive, {
   BORDER_RADIUS,
   FONT_SIZES,
   hp,
+  wp,
 } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
 
@@ -75,6 +76,23 @@ const helperStyle = StyleSheet.create({
     lineHeight: hp(2.4),
     color: colors.description,
     textAlign: "center",
+  },
+  PlusCont: {
+    position: "absolute",
+
+    zIndex: 9,
+    width: 50,
+    aspectRatio: 1 / 1,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.purple,
+  },
+  optionsContainerStyle: {
+    borderRadius: 5,
+    padding: 2,
+    marginTop: wp(6),
+    borderBottomWidth: 3,
   },
 });
 

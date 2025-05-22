@@ -8,16 +8,20 @@ import {
   FlatList,
   LayoutAnimation,
   UIManager,
-  Platform,
   Pressable,
 } from "react-native";
+import { android } from "../../../utils/constants";
 
 const FAQ = () => {
   const [expandedSection, setExpandedSection] = useState(null);
 
   // Enable LayoutAnimation on Android
   useEffect(() => {
-    UIManager.setLayoutAnimationEnabledExperimental;
+    if (android) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    } else {
+      UIManager.setLayoutAnimationEnabledExperimental;
+    }
   }, []);
 
   const handleToggle = (id) => {

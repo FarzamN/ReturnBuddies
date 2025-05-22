@@ -42,7 +42,7 @@ export default StyleSheet.create({
     borderRadius: wp(10),
     // width: wp(10),
     // height: wp(10),
-    padding: 10,
+    padding: wp(2),
     marginRight: wp(2),
   },
 });

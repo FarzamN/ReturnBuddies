@@ -13,6 +13,7 @@ import { wp } from "../../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../redux/slices/authSlice";
+import { colors } from "../../../theme/colors";
 
 const settingsData = [
   { title: "Edit Profile", route: "editProfile" },
@@ -43,6 +44,10 @@ const Setting = () => {
           <Switch
             value={isNotificationEnabled}
             onValueChange={toggleNotification}
+            thumbColor={
+              isNotificationEnabled ? colors.purple : colors.placeholder
+            }
+            trackColor={{ false: colors.borderColor, true: colors.borderColor }}
           />
         </View>
       );
@@ -88,6 +93,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: wp(4),
     color: "#000",
+    fontWeight: "500",
   },
   separator: {
     height: 1,

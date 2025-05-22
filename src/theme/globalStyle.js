@@ -23,6 +23,12 @@ export const Space_evenly = styled.View`
 export const Height = styled.View`
   height: ${responsive.height(15)};
 `;
+export const Divider = styled.View`
+  height: ${1};
+  width: 100%;
+  background-color: ${colors.borderColor};
+  margin-top: ${SPACING.DEFAULT};
+`;
 
 export const globalStyle = StyleSheet.create({
   flex: { flex: 1 },
@@ -393,5 +399,12 @@ export const globalStyle = StyleSheet.create({
   },
   mh50: {
     marginHorizontal: 50,
+  },
+  shadow: {
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
 });

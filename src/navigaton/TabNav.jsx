@@ -45,9 +45,18 @@ const AllOrderToReturn = () => (
     initialRouteName="draftItem"
   >
     <Stack.Screen name="draftItem" component={DraftItem} />
-    <Stack.Screen name="addDraftItem" component={AddDraftItem} />
+    <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
     <Stack.Screen name="notification" component={Notification} />
     <Stack.Screen name="settingRoute" component={AllSettings} />
+  </Stack.Navigator>
+);
+
+const AllAddDraft = () => (
+  <Stack.Navigator
+    screenOptions={{ headerShown: false }}
+    initialRouteName="addDraftItem"
+  >
+    <Stack.Screen name="addDraftItem" component={AddDraftItem} />
   </Stack.Navigator>
 );
 
