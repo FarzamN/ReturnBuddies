@@ -4,26 +4,34 @@ import styles from "./headerStyle";
 import { appImages } from "../../assets";
 import { wp } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
-import { globalStyle } from "../../theme/globalStyle";
+import { globalStyle, Row } from "../../theme/globalStyle";
 import Icon from "react-native-dynamic-vector-icons";
 import { Image, TouchableOpacity, View } from "react-native";
-import { iOS } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 
-const Header = ({ title, flag, imageLogo }) => {
+const Header = (props) => {
   const { goBack, navigate } = useNavigation();
-
+  const { title, flag, imageLogo, leftTitle } = props;
   return (
     <View style={[globalStyle.space_Between, styles.headerCont]}>
-      <TouchableOpacity onPress={goBack}>
-        <Icon
-          type="Ionicons"
-          name="arrow-back"
-          size={20}
-          color={colors.black}
-        />
-      </TouchableOpacity>
+      <Row>
+        <TouchableOpacity onPress={goBack}>
+          <Icon
+            type="Ionicons"
+            name="arrow-back"
+            size={20}
+            color={colors.black}
+          />
+        </TouchableOpacity>
+        {leftTitle && (
+          <Text
+            style={[styles.leftLabel, { marginLeft: wp(2) }]}
+            title={leftTitle}
+          />
+        )}
+      </Row>
       {title && <Text style={styles.leftLabel} title={title} />}
+
       {imageLogo && (
         <Image
           resizeMode="contain"
@@ -41,7 +49,15 @@ const Header = ({ title, flag, imageLogo }) => {
           />
         </TouchableOpacity>
       ) : (
-        <View />
+        <TouchableOpacity onPress={() => navigate("settingRoute")}>
+          <Icon
+            type="Feather"
+            name={"settings"}
+            size={15}
+            color={colors.black}
+            style={styles.iconCircle}
+          />
+        </TouchableOpacity>
       )}
     </View>
   );

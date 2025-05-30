@@ -13,6 +13,7 @@ import {
   FAQ,
   Terms,
   Privacy,
+  SchedulePickup,
 } from "../screens/user";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -48,6 +49,7 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
     <Stack.Screen name="notification" component={Notification} />
     <Stack.Screen name="settingRoute" component={AllSettings} />
+    <Stack.Screen name="schedulePickup" component={SchedulePickup} />
   </Stack.Navigator>
 );
 

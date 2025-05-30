@@ -1,6 +1,7 @@
 import { View, Text, Alert } from "react-native";
 import React, { useState } from "react";
-import Modal from "react-native-modal";
+import ActionSheet from "react-native-actions-sheet";
+
 import { FullImage, MainButton } from "../../components";
 import { appImages } from "../../assets";
 import styles from "./authStyle";
@@ -9,7 +10,7 @@ import { colors } from "../../theme/colors";
 import { Height } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 
-const AuthOTP = ({ visible, onDismiss }) => {
+const AuthOTP = ({ ref, onDismiss }) => {
   const { navigate, replace } = useNavigation();
   const [otpValue, setOtpValue] = useState("");
   const [isPending, setIsPending] = useState(false);
@@ -23,7 +24,11 @@ const AuthOTP = ({ visible, onDismiss }) => {
     setVerify((pre) => !pre);
   };
   return (
-    <Modal isVisible={visible} style={styles.modalContainer}>
+    <ActionSheet
+      ref={ref}
+      headerAlwaysVisible
+      containerStyle={styles.modalContainer}
+    >
       <View style={styles.card}>
         <FullImage
           source={verify ? appImages.otpSuccess : appImages.otpImage}
@@ -72,7 +77,7 @@ const AuthOTP = ({ visible, onDismiss }) => {
           title={verify ? "Login" : "Verifty"}
         />
       </View>
-    </Modal>
+    </ActionSheet>
   );
 };
 

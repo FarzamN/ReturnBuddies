@@ -1,4 +1,3 @@
-import styles from "./authStyle";
 import {
   required,
   maxLength,
@@ -6,7 +5,8 @@ import {
   emailPattern,
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
-import React, { useState } from "react";
+import styles from "./authStyle";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -15,21 +15,24 @@ import { registerInput } from "../../utils/data";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import MainInput from "../../components/Inputs/MainInput";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { Body, MainButton, Header, Text } from "../../components";
+import { checkingAPIdata, registerAPI } from "../../redux/queries/authQueries";
 
 const Register = () => {
   const dispatch = useDispatch();
   const { goBack, navigate } = useNavigation();
-  const { user, token } = useSelector((state) => state.auth);
 
-  const [isPending, setIsPending] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState({ visible: false });
 
-  const onSubmit = (data) => {
-    setShowOTP({ visible: true });
-    // loginApi(data, navigate, setIsPending)(dispatch);
+  const onSubmit = (value) => {
+    registerAPI(value, navigate, setShowOTP, setLoading);
   };
+
+  useEffect(() => {
+    checkingAPIdata()(dispatch);
+  }, []);
 
   const {
     control,
@@ -39,12 +42,10 @@ const Register = () => {
   return (
     <Body horizontal={wp(4)}>
       <Header flag title="Sign Up" />
-
       <ScrollView
         keyboardShouldPersistTaps={"always"}
         showsVerticalScrollIndicator={false}
       >
-        {/* Input here */}
         {registerInput.map(({ name, p, label, def }) => {
           const isPassword = name === "password";
           const isError = errors[name];
@@ -75,11 +76,14 @@ const Register = () => {
         })}
         <Height />
         <Height />
-        <MainButton title={"Create Account"} onPress={handleSubmit(onSubmit)} />
+        <MainButton
+          load={isLoading}
+          title={"Create Account"}
+          onPress={handleSubmit(onSubmit)}
+        />
 
         <Text style={styles.orTextStyle} title={"Or"} />
 
-        {/* <View style={[globalStyle.ph20]}> */}
         <MainButton social google />
         <MainButton social apple />
         <Row style={{ justifyContent: "center" }}>

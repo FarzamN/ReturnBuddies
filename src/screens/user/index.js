@@ -1,5 +1,6 @@
 import DraftItem from "./OrderToReturn/DraftItem";
 import AddDraftItem from "./OrderToReturn/AddDraftItem";
+import SchedulePickup from "./OrderToReturn/SchedulePickup";
 
 import Notification from "./SettingFolder/Notification";
 import Setting from "./SettingFolder/Setting";
@@ -14,6 +15,7 @@ import Terms from "./SettingFolder/Terms";
 import Privacy from "./SettingFolder/Privacy";
 
 export {
+  SchedulePickup,
   Terms,
   Privacy,
   FAQ,

@@ -33,8 +33,8 @@ const MainInput = forwardRef((props, ref) => {
     defaultValue: defaultValue || "",
   });
 
-  const { black, grey, purple } = colors;
-  const errorColor = isError ? colors.error : black;
+  const { black, grey, purple, white, error } = colors;
+  const errorColor = isError ? error : black;
 
   return (
     <View style={[style.mainInputCont, Container]}>
@@ -55,8 +55,8 @@ const MainInput = forwardRef((props, ref) => {
         style={[
           style.inputStyles,
           {
-            backgroundColor: isError ? "#fff7f7" : "#F9F9F9", // soft grey background
-            borderColor: isError ? colors.error : "#F9F9F9",
+            borderColor: isError ? error : white,
+            backgroundColor: isError ? "#fff7f7" : white, // soft grey background
           },
           restyle,
         ]}
@@ -72,16 +72,16 @@ const MainInput = forwardRef((props, ref) => {
           colors: {
             ...DefaultTheme.colors,
             background: "#f5f5f5",
-            error: colors.error,
+            error: error,
           },
         }}
         right={
           password && (
             <TextInput.Icon
-              rippleColor={colors.purple}
+              rippleColor={purple}
               icon={show ? "eye" : "eye-off"}
               onPress={() => setShow((prev) => !prev)}
-              color={password ? colors.grey : errorColor}
+              color={password ? grey : errorColor}
             />
           )
         }

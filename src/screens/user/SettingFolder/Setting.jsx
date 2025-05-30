@@ -12,7 +12,7 @@ import { Body, Header } from "../../../components";
 import { wp } from "../../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../../redux/slices/authSlice";
+import { setLogout } from "../../../redux/slices/authSlice";
 import { colors } from "../../../theme/colors";
 
 const settingsData = [
@@ -58,7 +58,7 @@ const Setting = () => {
         style={styles.row}
         onPress={() => {
           if (item.type === "logout") {
-            dispatch(setUser(null));
+            dispatch(setLogout());
           } else {
             navigate(item?.route || "");
           }

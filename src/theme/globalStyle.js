@@ -34,7 +34,7 @@ export const globalStyle = StyleSheet.create({
   flex: { flex: 1 },
   Container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
   },
   row: {
     flexDirection: "row",

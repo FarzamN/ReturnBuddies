@@ -9,9 +9,9 @@ const Body = ({ children, style, horizontal, purple }) => {
       style={[globalStyle.Container, { paddingHorizontal: horizontal }, style]}
     >
       <SafeAreaView
-        style={{ backgroundColor: purple ? colors.purple : colors.white }}
+        style={{ backgroundColor: purple ? colors.purple : colors.background }}
       />
-      <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+      <StatusBar backgroundColor={colors.background} barStyle="dark-content" />
       {children}
     </View>
   );

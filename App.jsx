@@ -10,8 +10,10 @@ import Splash from "./src/screens/splash";
 
 const App = () => {
   const dispatch = useDispatch();
+
   const { user, token } = useSelector((state) => state.auth);
-  console.log("user", user);
+  console.log("user", user, token);
+
   const [showSplash, setShowSplash] = useState(true);
   useEffect(() => {
     // if (user !== null && token !== null) fetchData();

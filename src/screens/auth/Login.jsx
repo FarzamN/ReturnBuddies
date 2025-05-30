@@ -16,7 +16,7 @@ import {
 import { loginInput } from "../../utils/data";
 import { useForm } from "react-hook-form";
 import { Height, Row } from "../../theme/globalStyle";
-import { setUser } from "../../redux/slices/authSlice";
+import { setLogin } from "../../redux/slices/authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     // loginApi(data, navigate, setIsPending)(dispatch);
-    dispatch(setUser(data));
+    dispatch(setLogin({ user: data }));
   };
 
   const {
