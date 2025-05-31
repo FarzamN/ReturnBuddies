@@ -7,7 +7,7 @@ import { colors } from "../theme/colors";
 export default function Splash() {
   const opacity = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(0.5)).current;
-
+  const { white } = colors;
   useEffect(() => {
     Animated.sequence([
       Animated.parallel([
@@ -27,8 +27,10 @@ export default function Splash() {
   }, []);
 
   return (
-    <View style={[globalStyle.Container, globalStyle.center]}>
-      <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+    <View
+      style={[globalStyle.flex, globalStyle.center, { backgroundColor: white }]}
+    >
+      <StatusBar backgroundColor={white} barStyle="dark-content" />
       <Animated.View style={{ opacity, transform: [{ scale }] }}>
         <Image source={appImages.logo} style={{ width: 200, height: 200 }} />
       </Animated.View>

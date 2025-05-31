@@ -16,25 +16,29 @@ const DraftHeader = () => {
     <Space_Between
       style={{ paddingHorizontal: wp(5), marginTop: android ? 20 : 0 }}
     >
-      <FullImage source={appImages.logo} style={styles.logoStyle} />
+      <FullImage
+        color={colors.background}
+        source={appImages.logo}
+        style={styles.logoStyle}
+      />
       <Row>
         {[
+          // {
+          //   icon: "bell",
+          //   path: "notification",
+          // },
           {
-            icon: "bell",
-            path: "notification",
-          },
-          {
-            icon: "settings",
+            icon: "settings-outline",
             path: "settingRoute",
           },
         ].map((item) => (
           <TouchableOpacity key={item.icon} onPress={() => navigate(item.path)}>
             <Icon
-              type="Feather"
+              type="Ionicons"
               name={item.icon}
-              size={15}
+              size={22}
               color={colors.black}
-              style={styles.iconCircle}
+              // style={styles.iconCircle}
             />
           </TouchableOpacity>
         ))}

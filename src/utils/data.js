@@ -321,6 +321,13 @@ export const draftData = [
         status: "Pending Label",
         image: appImages.homeShoes,
       },
+      {
+        id: "3",
+        title: "Red Nike Shoe",
+        created_at: "2014-06-26 04:07:31",
+        status: "Approved Label",
+        image: appImages.homeShoes,
+      },
     ],
   },
   {
@@ -337,6 +344,20 @@ export const draftData = [
       },
       {
         id: "2",
+        title: "Red Nike Shoe",
+        created_at: "2014-06-26 04:07:31",
+        status: "Pending Label",
+        image: appImages.homeShoes,
+      },
+    ],
+  },
+  {
+    _id: "20190",
+    returnLabel: "140",
+    labelPositive: "No return label uploaded",
+    data: [
+      {
+        id: "1",
         title: "Red Nike Shoe",
         created_at: "2014-06-26 04:07:31",
         status: "Pending Label",

@@ -27,36 +27,40 @@ const DraftItem = () => {
   const { navigate } = useNavigation();
 
   const [selectedReturns, setSelectedReturns] = useState([]);
+  const [returnItemCount, setReturnItemCount] = useState(0);
 
-  const toggleSelect = (_id) => {
-    setSelectedReturns((prev) =>
-      prev.includes(_id)
-        ? prev.filter((label) => label !== _id)
-        : [...prev, _id]
-    );
+  const toggleSelect = (returns) => {
+    const { _id, data } = returns;
+    setSelectedReturns((prev) => {
+      let newSelected;
+      if (prev.includes(_id)) {
+        newSelected = prev.filter((label) => label !== _id);
+        setReturnItemCount((count) => count - data.length);
+      } else {
+        newSelected = [...prev, _id];
+        setReturnItemCount((count) => count + data.length);
+      }
+      return newSelected;
+    });
   };
-
   const selectedCount = selectedReturns.length;
-
   return (
     <Body>
       <DraftHeader />
-      {iOS && <Height />}
-      <Height />
+      {/* <Height /> */}
 
       <View style={{ paddingHorizontal: wp(5) }}>
-        <Text style={styles.draftTitle} title={"Your Returns"} />
+        <Text style={styles.draftTitle} title="Your Returns" />
         <Text
           style={styles.draftSub}
-          title={"Select return(s) to schedule pickup"}
+          title="Select return(s) to schedule pickup"
         />
+        <Height />
       </View>
 
       <FlatList
         data={draftData}
-        nestedScrollEnabled
-        scrollEnabled={false}
-        contentContainerStyle={globalStyle.p15}
+        contentContainerStyle={globalStyle.ph15}
         keyExtractor={(_, index) => index.toString()}
         ListEmptyComponent={
           <Empty
@@ -76,11 +80,10 @@ const DraftItem = () => {
 
       {selectedCount ? (
         <MainButton
-          disabled
           textStyle={styles.buttonText}
           style={styles.button}
-          title={`Schedule Pickup for ${selectedReturns.length} Item${
-            selectedReturns.length > 1 ? "s" : ""
+          title={`Schedule Pickup for ${returnItemCount} Item${
+            returnItemCount > 1 ? "s" : ""
           }`}
           onPress={() =>
             navigate("schedulePickup", { returnLabel: selectedReturns })
@@ -94,3 +97,11 @@ const DraftItem = () => {
 };
 
 export default DraftItem;
+
+// const DraftItem = () => {
+
+//   return (
+//   );
+// };
+
+// export default DraftItem;

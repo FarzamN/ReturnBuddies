@@ -12,7 +12,7 @@ const ReturnSection = (props) => {
     props;
   return (
     <Pressable
-      onPress={() => onSelect(section._id)}
+      onPress={() => onSelect(section)}
       disabled={isLabel}
       style={[styles.sectionContainer, selected && styles.selectedSection]}
     >

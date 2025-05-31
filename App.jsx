@@ -12,7 +12,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   const { user, token } = useSelector((state) => state.auth);
-  console.log("user", user, token);
 
   const [showSplash, setShowSplash] = useState(true);
   useEffect(() => {

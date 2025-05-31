@@ -14,6 +14,8 @@ import { Height } from "../../../theme/globalStyle";
 
 const SchedulePickup = ({ route }) => {
   const { returnLabel } = route.params;
+  console.log(returnLabel);
+
   const getPositive = draftData
     .map((item) => item.labelPositive === "Label uploaded")
     .includes(false);
@@ -25,14 +27,16 @@ const SchedulePickup = ({ route }) => {
         style={styles.draftSub}
         title={"Attach return labels for your items"}
       />
+      {/* {!getPositive && <></>} */}
+
       <Height />
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {draftData.map((section) => (
           <ReturnSection
             isLabel
-            key={section.returnLabel}
             section={section}
+            key={section.returnLabel}
             isPositive={section.labelPositive === "Label uploaded"}
           />
         ))}

@@ -1,7 +1,7 @@
 const imageUrl = "./images";
 
 export const appImages = {
-  logo: require(`${imageUrl}/logo.png`),
+  logo: require(`./images/logo.png`),
   onboard1: require(`${imageUrl}/onboard1.png`),
   onboard2: require(`${imageUrl}/onboard2.png`),
   onboard3: require(`${imageUrl}/onboard3.png`),
