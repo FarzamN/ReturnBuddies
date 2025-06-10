@@ -1,4 +1,5 @@
-import { View, Text, Alert } from "react-native";
+import { useDispatch } from "react-redux";
+import { View, Text } from "react-native";
 import React, { useState } from "react";
 import ActionSheet from "react-native-actions-sheet";
 
@@ -9,30 +10,34 @@ import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import { colors } from "../../theme/colors";
 import { Height } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
+import { verifyOTPAPI } from "../../redux/queries/authQueries";
 
-const AuthOTP = ({ ref, onDismiss }) => {
+const AuthOTP = ({ ref, email }) => {
+  const dispatch = useDispatch();
   const { navigate, replace } = useNavigation();
+
+  const [verify, setVerify] = useState(false);
   const [otpValue, setOtpValue] = useState("");
   const [isPending, setIsPending] = useState(false);
-  const [verify, setVerify] = useState(false);
 
-  const handleSubmit = () => {
+  const onSubmit = () => {
     if (verify) {
       replace("login");
-      onDismiss();
+    } else {
+      const data = { email, otp: otpValue };
+      verifyOTPAPI(data, setIsPending, setVerify)(dispatch);
     }
-    setVerify((pre) => !pre);
   };
   return (
     <ActionSheet
       ref={ref}
       headerAlwaysVisible
-      containerStyle={styles.modalContainer}
+      // containerStyle={styles.modalContainer}
     >
       <View style={styles.card}>
         <FullImage
           source={verify ? appImages.otpSuccess : appImages.otpImage}
-          style={{ width: 200, height: 200 }}
+          style={{ width: 150, height: 150 }}
         />
         <Height />
         <Text style={styles.title}>Account Created!</Text>
@@ -47,6 +52,7 @@ const AuthOTP = ({ ref, onDismiss }) => {
           <View style={styles.otpContainer}>
             <CodeField
               cellCount={5}
+              autoFucus
               value={otpValue}
               keyboardType="number-pad"
               textContentType="oneTimeCode"
@@ -72,10 +78,7 @@ const AuthOTP = ({ ref, onDismiss }) => {
           </View>
         )}
 
-        <MainButton
-          onPress={handleSubmit}
-          title={verify ? "Login" : "Verifty"}
-        />
+        <MainButton onPress={onSubmit} title={verify ? "Login" : "Verify"} />
       </View>
     </ActionSheet>
   );

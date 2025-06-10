@@ -19,7 +19,7 @@ const App = () => {
   }, [token]);
 
   useEffect(() => {
-    navigationColor.setNavigationColor(colors.white, "dark", "navigation");
+    navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, []);
 
   setTimeout(() => {

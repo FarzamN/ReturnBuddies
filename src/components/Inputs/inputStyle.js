@@ -11,15 +11,9 @@ const inputStyles = StyleSheet.create({
     fontWeight: "500",
     fontSize: FONT_SIZES.BODY,
     color: colors.black,
-    borderRadius: 50, // pill shape
     paddingHorizontal: 20, // inner spacing
     height: 50, // match height
     borderWidth: 1,
-  },
-  title: {
-    color: colors.black,
-    fontSize: 14,
-    marginBottom: 10,
   },
 
   SearchInput: {

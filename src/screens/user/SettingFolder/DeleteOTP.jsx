@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text as T, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Body, Header, MainButton } from "../../../components";
@@ -8,10 +9,14 @@ import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import BackgroundTimer from "react-native-background-timer";
 import { Text } from "../../../components";
 import { colors } from "../../../theme/colors";
+import { deleteAccountOTPAPI } from "../../../redux/queries/authQueries";
 
 const DeleteOTP = () => {
+  const dispatch = useDispatch();
   const [otpValue, setOtpValue] = useState("");
   const [seconds, setCountDown] = useState(60);
+  const [isPending, setIsPending] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   // *********************** Timer Start ***********************
   useEffect(() => {
@@ -25,9 +30,14 @@ const DeleteOTP = () => {
     return () => BackgroundTimer.clearInterval(intervalId);
   }, [seconds]);
 
+  const onSubmit = () => {
+    const data = { otp: otpValue, email: user.email };
+    deleteAccountOTPAPI(data, setIsPending)(dispatch);
+  };
+
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Delete Account" />
+      <Header title="Delete Account" noSetting />
       <Height />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text
@@ -73,6 +83,8 @@ const DeleteOTP = () => {
       <MainButton
         style={{ backgroundColor: colors.error }}
         title="Delete Account"
+        load={isPending}
+        onPress={onSubmit}
       />
       <Height />
     </Body>

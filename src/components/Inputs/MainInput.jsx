@@ -1,6 +1,6 @@
-import { Validation } from "..";
 import style from "./inputStyle";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { RequiredText, Validation } from "..";
 import { colors } from "../../theme/colors";
 import { useController } from "react-hook-form";
 import React, { forwardRef, useState } from "react";
@@ -22,6 +22,8 @@ const MainInput = forwardRef((props, ref) => {
     placeholder,
     keyboardType = "default",
     defaultValue,
+    rounded,
+    noTitle,
   } = props;
 
   const [show, setShow] = useState(true);
@@ -38,7 +40,8 @@ const MainInput = forwardRef((props, ref) => {
 
   return (
     <View style={[style.mainInputCont, Container]}>
-      <Text style={style.title}>{title}</Text>
+      {!noTitle && <RequiredText title={title} required />}
+
       <TextInput
         ref={ref}
         mode={"flat"} // changed from "outlined"
@@ -55,6 +58,7 @@ const MainInput = forwardRef((props, ref) => {
         style={[
           style.inputStyles,
           {
+            borderRadius: rounded ? 50 : 15,
             borderColor: isError ? error : white,
             backgroundColor: isError ? "#fff7f7" : white, // soft grey background
           },
@@ -68,7 +72,7 @@ const MainInput = forwardRef((props, ref) => {
         placeholderTextColor={grey}
         theme={{
           ...DefaultTheme,
-          roundness: 50,
+          roundness: rounded ? 50 : 15,
           colors: {
             ...DefaultTheme.colors,
             background: "#f5f5f5",

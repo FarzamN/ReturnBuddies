@@ -7,7 +7,7 @@ import { Body, Empty, Header, ReturnHistorCard } from "../../../components";
 const ReturnHistory = () => {
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Return History" />
+      <Header title="Return History" noSetting />
       <FlatList
         data={[
           {

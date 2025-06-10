@@ -18,7 +18,7 @@ const helperStyle = StyleSheet.create({
   text: {
     color: black,
     fontWeight: "400",
-    fontSize: responsive.fontSize(15),
+    fontSize: responsive.fontSize(14),
   },
   divider: {
     backgroundColor: "#D9D9D9",
@@ -93,6 +93,13 @@ const helperStyle = StyleSheet.create({
     padding: 2,
     marginTop: wp(6),
     borderBottomWidth: 3,
+  },
+
+  requiredTitle: {
+    color: colors.black,
+    fontSize: 14,
+    marginBottom: 10,
+    fontWeight: "500",
   },
 });
 

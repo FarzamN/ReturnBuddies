@@ -16,15 +16,20 @@ import {
 } from "../../../theme/globalStyle";
 
 import styles from "../userStyle";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
 import { draftData } from "../../../utils/data";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList, ScrollView, View } from "react-native";
+import { getReturnItem } from "../../../redux/queries/draftQueries";
+import { useDispatch, useSelector } from "react-redux";
 
 const DraftItem = () => {
+  const dispatch = useDispatch();
   const { navigate } = useNavigation();
+  const { user, token } = useSelector((state) => state.auth);
+  console.log(user, token);
 
   const [selectedReturns, setSelectedReturns] = useState([]);
   const [returnItemCount, setReturnItemCount] = useState(0);
@@ -44,6 +49,11 @@ const DraftItem = () => {
     });
   };
   const selectedCount = selectedReturns.length;
+
+  useEffect(() => {
+    getReturnItem()(dispatch);
+  }, []);
+
   return (
     <Body>
       <DraftHeader />
@@ -65,12 +75,11 @@ const DraftItem = () => {
         ListEmptyComponent={
           <Empty
             title="No Drafts Items"
-            sub="You don't have any draft returns"
+            sub="Please Add items by pressing (Plus +) button"
           />
         }
         renderItem={({ item }) => (
           <ReturnSection
-            key={item._id}
             section={item}
             onSelect={toggleSelect}
             selected={selectedReturns.includes(item._id)}

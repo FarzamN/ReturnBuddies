@@ -72,7 +72,7 @@ const Setting = () => {
 
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Settings" />
+      <Header title="Settings" noSetting />
       <FlatList
         data={settingsData}
         keyExtractor={(_, index) => index.toString()}

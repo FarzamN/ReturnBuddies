@@ -37,7 +37,6 @@ export default StyleSheet.create({
   card: {
     backgroundColor: "white",
     borderRadius: 30,
-    paddingVertical: 40,
     paddingHorizontal: 25,
     alignItems: "center",
     width: "100%",

@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const Header = (props) => {
   const { goBack, navigate } = useNavigation();
-  const { title, flag, imageLogo, leftTitle } = props;
+  const { title, flag, imageLogo, leftTitle, noSetting } = props;
   return (
     <View style={[globalStyle.space_Between, styles.headerCont]}>
       <Row>
@@ -48,14 +48,15 @@ const Header = (props) => {
             color={colors.black}
           />
         </TouchableOpacity>
+      ) : noSetting ? (
+        <View style={{ width: 20 }} />
       ) : (
         <TouchableOpacity onPress={() => navigate("settingRoute")}>
           <Icon
-            type="Feather"
-            name={"settings"}
-            size={15}
+            size={22}
+            type="Ionicons"
             color={colors.black}
-            style={styles.iconCircle}
+            name={"settings-outline"}
           />
         </TouchableOpacity>
       )}

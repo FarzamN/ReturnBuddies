@@ -12,8 +12,16 @@ import PrimeryTab from "../navigaton/PrimeryTab";
 import ReturnSection from "./Cards/ReturnSection";
 import PopupMenu from "./Helpers/PopupMenu";
 import PlusBox from "./Helpers/PlusBox";
+import RequiredText from "./Helpers/RequiredText";
+import ImageButton from "./Buttons/ImageButton";
+import Oversize from "./Helpers/Oversize";
+import Tootlip from "./Modals/Tootlip";
 
 export {
+  Tootlip,
+  Oversize,
+  ImageButton,
+  RequiredText,
   PlusBox,
   PopupMenu,
   ReturnSection,

@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import {
   Body,
@@ -13,22 +14,33 @@ import { useForm } from "react-hook-form";
 import { required } from "../../../utils/constants";
 import { ScrollView } from "react-native";
 import { Height } from "../../../theme/globalStyle";
+import { editProfile } from "../../../utils/data";
+import { editProfileAPI } from "../../../redux/queries/authQueries";
+import { useNavigation } from "@react-navigation/native";
 
 const EditProfile = () => {
-  const [phoneValue, setPhoneValue] = useState({
-    number: "",
-    code: "",
-    countryAbbreviationCode: "",
-  });
+  const dispatch = useDispatch();
+  const { goBack } = useNavigation();
+  const { user } = useSelector((state) => state.auth);
+  const [isPending, setIsPending] = useState(false);
+  const onSubmit = (data) => {
+    editProfileAPI(data, setIsPending, goBack)(dispatch);
+  };
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "all" });
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      name: user?.name,
+      phone: user?.phone,
+    },
+  });
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Edit Profile" />
+      <Header title="Edit Profile" noSetting />
       <Text
         style={[styles.contactUStext, { marginVertical: wp(5) }]}
         title={
@@ -36,36 +48,29 @@ const EditProfile = () => {
         }
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MainInput
-          name={"name"}
-          title={"Full Name"}
-          rules={{
-            required: required("Full Name"),
-          }}
-          placeholder={"Enter Full Name"}
-          control={control}
-          isError={errors?.name}
-          message={errors?.name?.message}
-          Container={{ marginTop: wp(5) }}
-        />
-        <PhoneInput
-          phoneNumber={phoneValue.number}
-          countryCode={phoneValue.code ?? "1"}
-          countryAbbreviationCode={phoneValue.countryAbbreviationCode || "US"}
-          onChangeCountry={(country) => {
-            console.log("Country:", country);
-            // ... rest of your code
-          }}
-          setSelectedCode={(code) => {
-            console.log("code", code);
-            setPhoneValue({ code });
-          }}
-          setValue={(text) => {
-            setPhoneValue({ number: text });
-          }}
-        />
+        {editProfile.map((item) => (
+          <MainInput
+            rounded
+            key={item.name}
+            name={item.name}
+            control={control}
+            title={item.title}
+            rules={{
+              required: required(item.rules),
+            }}
+            isError={errors?.[item.name]}
+            placeholder={item.placeholder}
+            Container={{ marginTop: wp(5) }}
+            message={errors?.[item.name]?.message}
+            keyboardType={item.keyboardType}
+          />
+        ))}
       </ScrollView>
-      <MainButton title="Save Changes" />
+      <MainButton
+        title="Save Changes"
+        load={isPending}
+        onPress={handleSubmit(onSubmit)}
+      />
       <Height />
     </Body>
   );

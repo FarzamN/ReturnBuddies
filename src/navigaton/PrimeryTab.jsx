@@ -8,6 +8,7 @@ import { globalStyle } from "../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Pressable, Image, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Icon from "react-native-dynamic-vector-icons";
 
 const PrimeryTab = (props) => {
   const { currentTab } = props;
@@ -39,21 +40,35 @@ const PrimeryTab = (props) => {
   ];
   return (
     <>
-      <View style={[styles.primeryCont, globalStyle.space_around]}>
+      <View style={[styles.primeryCont, globalStyle.space_evenly]}>
         {tabItems.map(({ id, title, icon, isPlus, path }) => {
           const isFocused = currentTab === title;
           return (
             <Pressable
               key={id}
               onPress={() => navigate(path)}
-              style={[globalStyle.center, isPlus ? styles.plusBox : null]}
+              style={[
+                globalStyle.center,
+                isPlus ? styles.plusBox : styles.normalBox,
+              ]}
             >
-              <Image
-                source={icon}
-                resizeMode="contain"
-                tintColor={isFocused ? colors.purple : undefined}
-                style={isPlus ? styles.plusImage : styles.primeryImage}
-              />
+              {isPlus ? (
+                <View style={styles.plusImage}>
+                  <Icon
+                    size={20}
+                    name="plus"
+                    type="Entypo"
+                    color={colors.white}
+                  />
+                </View>
+              ) : (
+                <Image
+                  source={icon}
+                  resizeMode="contain"
+                  style={styles.primeryImage}
+                  tintColor={isFocused ? colors.purple : "#292D32"}
+                />
+              )}
 
               {!isPlus && (
                 <Text
@@ -79,20 +94,22 @@ export default PrimeryTab;
 
 const styles = StyleSheet.create({
   plusBox: {
-    width: 40,
-    height: 40,
+    // width: 40,
+    // height: 40,
     marginTop: -50,
     borderRadius: 50,
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignSelf: "center",
+
     backgroundColor: colors.purple,
+  },
+  normalBox: {
+    marginTop: 10,
   },
   primeryCont: {
     width: "100%",
-    elevation: 10,
-    shadowRadius: 5,
-    shadowOpacity: 0.1,
+    // elevation: 10,
+    // shadowRadius: 5,
+    // shadowOpacity: 0.1,
     flexDirection: "row",
     alignItems: "center",
     height: android && 75,
@@ -108,8 +125,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   plusImage: {
-    width: wp(15),
-    height: wp(15),
+    width: wp(12),
+    height: wp(12),
+    alignItems: "center",
+    justifyContent: "center",
   },
   primeryImage: {
     width: wp(9),

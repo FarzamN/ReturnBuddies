@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ScrollView } from "react-native";
 import React from "react";
 import { Body, Header, MainButton, Text } from "../../../components";
@@ -8,8 +9,26 @@ import { changePasswordInput } from "../../../utils/data";
 import { useForm } from "react-hook-form";
 import MainInput from "../../../components/Inputs/MainInput";
 import { Height } from "../../../theme/globalStyle";
+import { showNotification } from "../../../components/Helpers/notifierHelper";
+import { changePasswordAPI } from "../../../redux/queries/authQueries";
+import { useNavigation } from "@react-navigation/native";
 
 const ChangePassword = () => {
+  const { goBack } = useNavigation();
+  const [isPending, setIsPending] = useState(false);
+
+  const onSubmit = (data) => {
+    if (data.newPassword !== data.confirmPassword) {
+      showNotification(
+        "error",
+        "New Password and Confirm Password do not match",
+        "Password Error"
+      );
+      return;
+    }
+
+    changePasswordAPI(data, setIsPending, goBack);
+  };
   const {
     control,
     handleSubmit,
@@ -17,7 +36,7 @@ const ChangePassword = () => {
   } = useForm({ mode: "all" });
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Change Password" />
+      <Header title="Change Password" noSetting />
       <Text
         style={[styles.contactUStext, { marginVertical: wp(5) }]}
         title={
@@ -30,6 +49,8 @@ const ChangePassword = () => {
           return (
             <MainInput
               small
+              rounded
+              password
               key={name}
               name={name}
               title={label}
@@ -41,14 +62,17 @@ const ChangePassword = () => {
               placeholder={p}
               control={control}
               isError={!!isError}
-              password
               message={isError?.message}
               Container={{ marginTop: wp(5) }}
             />
           );
         })}
       </ScrollView>
-      <MainButton title="Save Changes" />
+      <MainButton
+        load={isPending}
+        title="Save Changes"
+        onPress={handleSubmit(onSubmit)}
+      />
       <Height />
     </Body>
   );

@@ -51,7 +51,7 @@ const ReturnSection = (props) => {
 
       <FlatList
         data={section.data}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
             <FullImage source={item.image} style={styles.image} />

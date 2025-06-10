@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { Body, Header, MainButton, Text } from "../../../components";
 import { wp } from "../../../theme/responsive";
 import { Height, Row } from "../../../theme/globalStyle";
@@ -10,9 +10,15 @@ import MainInput from "../../../components/Inputs/MainInput";
 import { useForm } from "react-hook-form";
 import styles from "./settingStyle";
 import { ScrollView } from "react-native";
+import { deleteAccountPasswordAPI } from "../../../redux/queries/authQueries";
 
 const DeleteAccount = () => {
   const { navigate } = useNavigation();
+  const [isPending, setIsPending] = useState(false);
+
+  const onSubmit = (data) =>
+    deleteAccountPasswordAPI(data, setIsPending, navigate);
+
   const {
     control,
     handleSubmit,
@@ -20,7 +26,7 @@ const DeleteAccount = () => {
   } = useForm({ mode: "all" });
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Delete Account" />
+      <Header title="Delete Account" noSetting />
       <Height />
       <Row>
         <Icon name="warning" type="Ionicons" size={23} color={colors.error} />
@@ -45,13 +51,14 @@ const DeleteAccount = () => {
         />
 
         <MainInput
+          rounded
           password
           control={control}
           name={"password"}
           title={"Password"}
-          isError={errors?.name}
+          isError={errors?.password}
           placeholder={"Password"}
-          message={errors?.name?.message}
+          message={errors?.password?.message}
           Container={{ marginTop: wp(5) }}
           rules={{ required: required("Password") }}
         />
@@ -65,8 +72,9 @@ const DeleteAccount = () => {
         />
       </ScrollView>
       <MainButton
+        load={isPending}
         title="Delete Account"
-        onPress={() => navigate("deleteOTP")}
+        onPress={handleSubmit(onSubmit)}
       />
       <Height />
     </Body>

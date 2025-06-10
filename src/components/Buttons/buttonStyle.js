@@ -31,4 +31,21 @@ export default StyleSheet.create({
     height: responsive.height(20),
     marginRight: SPACING.SMALL,
   },
+
+  // Image Btuuon style
+
+  ImageButton: {
+    borderStyle: "dashed",
+    borderWidth: 1,
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: colors.white,
+  },
+  ImageIcon: {
+    marginRight: 10,
+  },
+  ImageText: {
+    color: "#111827", // Tailwind's gray-900
+    fontSize: 14,
+  },
 });

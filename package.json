@@ -30,6 +30,7 @@
     "react-native-dynamic-vector-icons": "^2.0.0",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.24.0",
+    "react-native-image-crop-picker": "^0.50.1",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-mmkv": "^3.2.0",
     "react-native-modal": "^14.0.0-rc.1",
@@ -46,6 +47,7 @@
     "react-native-swiper-flatlist": "^3.2.5",
     "react-native-system-navigation-bar": "^2.6.4",
     "react-native-vector-icons": "^10.2.0",
+    "react-native-walkthrough-tooltip": "^1.6.0",
     "react-redux": "^9.2.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.16"

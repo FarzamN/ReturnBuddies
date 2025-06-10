@@ -36,7 +36,7 @@ const ContactUS = () => {
 
   return (
     <Body horizontal={wp(4)}>
-      <Header title="Contact Us" />
+      <Header title="Contact Us" noSetting />
       <Text
         style={[styles.contactUStext, { marginVertical: wp(5) }]}
         title={
