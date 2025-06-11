@@ -6,10 +6,11 @@ import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import buttonStyle from "../../screens/user/userStyle";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
 
 const ReturnSection = (props) => {
-  const { section, selected, onSelect, isLabel, labelTitle, isPositive } =
-    props;
+  const { section, selected, onSelect, isLabel, isPositive } = props;
+  const { navigate } = useNavigation();
   return (
     <Pressable
       onPress={() => onSelect(section)}
@@ -28,7 +29,7 @@ const ReturnSection = (props) => {
           )}
           <Text
             style={[styles.sectionTitle, { marginLeft: selected ? 5 : 0 }]}
-            title={`Return #${section.returnLabel}`}
+            title={section.BundleName}
           />
         </Row>
         {isLabel && (
@@ -43,37 +44,48 @@ const ReturnSection = (props) => {
                 styles.labelTitle,
                 { color: isPositive ? "#4CD963" : "#ED6479" },
               ]}
-              title={section.labelPositive}
+              title={
+                section.labelPositive
+                  ? "Label uploaded"
+                  : "No return label uploaded"
+              }
             />
           </View>
         )}
       </View>
 
       <FlatList
-        data={section.data}
+        data={section.products}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <FullImage source={item.image} style={styles.image} />
-            <View>
-              <Text style={styles.title} title={item.title} />
-              <Text
-                style={styles.date}
-                title={`Added on ${moment(item.created_at).format("MMMM DD")}`}
+        renderItem={({ item }) => {
+          return (
+            <View style={styles.card}>
+              <FullImage
+                isUrl
+                radius={10}
+                style={styles.image}
+                source={item.thumbnail}
               />
+              <View>
+                <Text style={styles.title} title={item.productName} />
+                <Text
+                  style={styles.date}
+                  title={`Added on ${moment(item.created_at).format(
+                    "MMMM DD"
+                  )}`}
+                />
+              </View>
             </View>
-          </View>
-        )}
+          );
+        }}
         scrollEnabled={false}
       />
-      {isLabel && !isPositive && (
+      {isLabel && (
         <MainButton
-          textStyle={buttonStyle.buttonText}
           style={buttonStyle.button}
-          title="Upload Label"
-          // onPress={() =>
-          //   navigate("schedulePickup", { returnLabel: selectedReturns })
-          // }
+          textStyle={buttonStyle.buttonText}
+          title={isPositive ? "Edit Label" : "Upload Label"}
+          onPress={() => navigate("uploadLabel", { labels: section })}
         />
       )}
     </Pressable>

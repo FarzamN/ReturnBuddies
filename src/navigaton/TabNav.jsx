@@ -14,6 +14,7 @@ import {
   Terms,
   Privacy,
   SchedulePickup,
+  UploadLabel,
 } from "../screens/user";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -50,6 +51,7 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="notification" component={Notification} />
     <Stack.Screen name="settingRoute" component={AllSettings} />
     <Stack.Screen name="schedulePickup" component={SchedulePickup} />
+    <Stack.Screen name="uploadLabel" component={UploadLabel} />
   </Stack.Navigator>
 );
 

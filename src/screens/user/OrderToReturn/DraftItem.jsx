@@ -6,6 +6,7 @@ import {
   DraftHeader,
   ReturnSection,
   MainButton,
+  DraftSkeleton,
 } from "../../../components";
 
 import {
@@ -19,39 +20,43 @@ import styles from "../userStyle";
 import React, { useEffect, useState } from "react";
 import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
-import { draftData } from "../../../utils/data";
+// import { draftData } from "../../../utils/data";
 import { useNavigation } from "@react-navigation/native";
-import { FlatList, ScrollView, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { getReturnItem } from "../../../redux/queries/draftQueries";
 import { useDispatch, useSelector } from "react-redux";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
-  const { user, token } = useSelector((state) => state.auth);
-  console.log(user, token);
 
+  const { draftData } = useSelector((state) => state.draft);
+  console.log("draftData ==>", draftData);
+
+  const [isPending, setIsPending] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
   const [returnItemCount, setReturnItemCount] = useState(0);
 
   const toggleSelect = (returns) => {
-    const { _id, data } = returns;
+    const { _id, products } = returns;
+    console.log(returns);
     setSelectedReturns((prev) => {
       let newSelected;
       if (prev.includes(_id)) {
         newSelected = prev.filter((label) => label !== _id);
-        setReturnItemCount((count) => count - data.length);
+        setReturnItemCount((count) => count - products.length);
       } else {
         newSelected = [...prev, _id];
-        setReturnItemCount((count) => count + data.length);
+        setReturnItemCount((count) => count + products.length);
       }
       return newSelected;
     });
   };
   const selectedCount = selectedReturns.length;
+  // const selectedCount = 0;
 
   useEffect(() => {
-    getReturnItem()(dispatch);
+    getReturnItem(setIsPending)(dispatch);
   }, []);
 
   return (
@@ -67,30 +72,38 @@ const DraftItem = () => {
         />
         <Height />
       </View>
-
-      <FlatList
-        data={draftData}
-        contentContainerStyle={globalStyle.ph15}
-        keyExtractor={(_, index) => index.toString()}
-        ListEmptyComponent={
-          <Empty
-            title="No Drafts Items"
-            sub="Please Add items by pressing (Plus +) button"
-          />
-        }
-        renderItem={({ item }) => (
-          <ReturnSection
-            section={item}
-            onSelect={toggleSelect}
-            selected={selectedReturns.includes(item._id)}
-          />
-        )}
-      />
+      {isPending ? (
+        <FlatList
+          data={[1, 1, 1]}
+          contentContainerStyle={globalStyle.ph15}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={() => <DraftSkeleton height={70} />}
+        />
+      ) : (
+        <FlatList
+          data={draftData}
+          contentContainerStyle={globalStyle.ph15}
+          keyExtractor={(_, index) => index.toString()}
+          ListEmptyComponent={
+            <Empty
+              title="No Drafts Items"
+              sub="Please Add items by pressing (Plus +) button"
+            />
+          }
+          renderItem={({ item }) => (
+            <ReturnSection
+              section={item}
+              onSelect={toggleSelect}
+              selected={selectedReturns.includes(item._id)}
+            />
+          )}
+        />
+      )}
 
       {selectedCount ? (
         <MainButton
-          textStyle={styles.buttonText}
           style={styles.button}
+          textStyle={styles.buttonText}
           title={`Schedule Pickup for ${returnItemCount} Item${
             returnItemCount > 1 ? "s" : ""
           }`}
@@ -106,11 +119,3 @@ const DraftItem = () => {
 };
 
 export default DraftItem;
-
-// const DraftItem = () => {
-
-//   return (
-//   );
-// };
-
-// export default DraftItem;

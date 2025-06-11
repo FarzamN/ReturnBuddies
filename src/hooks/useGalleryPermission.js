@@ -26,7 +26,6 @@ export const useGalleryPermission = () => {
   const requestGalleryPermission = async () => {
     const permission = getPermissionType();
     const result = await check(permission);
-
     switch (result) {
       case RESULTS.GRANTED:
         return true;
@@ -52,7 +51,6 @@ export const useGalleryPermission = () => {
   const openGallery = async () => {
     const hasPermission = await requestGalleryPermission();
     if (!hasPermission) return null;
-
     try {
       const result = await ImagePicker.openPicker({
         width: 300,

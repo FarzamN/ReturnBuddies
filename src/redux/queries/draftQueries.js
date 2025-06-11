@@ -1,63 +1,151 @@
+import { showNotification } from "../../components/Helpers/notifierHelper";
+import { catchFun } from "../../function";
+import { getItem } from "../../utils/storage";
 import instance from "../../utils/urls";
+import { setDraftItem, setDraftSelectedRetun } from "../slices/draftSlice";
 
-export const uploadReturnItems = (data, image, load) => {
+const { log, error } = console;
+
+export const uploadReturnItems = (data, image, confirmOrder, load) => {
   return async (dispatch) => {
     load(true);
-    const url =
-      "https://vertically-welcome-mongrel.ngrok-free.app/api/AddProductItem";
-    const body = new FormData();
-    //   itemsWithImages.forEach((item, index) => {
-    //     body.append(`items[${index}][detail]`, item.detail);
-    //     body.append(`items[${index}][oversized]`, item.oversized);
-    //     body.append(`items[${index}][image]`, {
-    //       uri: item.image.uri,
-    //       type: item.image.type,
-    //       name: item.image.name,
-    //     });
-    //   });
-    //   image.forEach((item, index) => {
-    //     body.append(`items[${index}][image]`, {
-    //       uri: item.image.uri,
-    //       type: item.image.type,
-    //       name: item.image.name,
-    //     });
-    //   });
+    const userID = getItem("userID");
 
+    const body = new FormData();
     body.append("items", JSON.stringify(data));
     image.forEach((item, index) => {
-      body.append(`images`, {
+      body.append("files", {
         uri: item.uri,
         type: item.type,
         name: item.name,
       });
     });
+
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body,
+      const response = await instance.post("addbundle", body, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          userid: userID,
+        },
       });
-      console.log(response);
-      const result = await response.json();
-      console.log({ response, result });
+
+      const { status, message } = response.data;
+
       load(false);
+
+      if (status === 200) {
+        confirmOrder(false);
+        showNotification("success", "Success", message);
+        // Dispatch Redux actions if needed
+        getReturnItem(load)(dispatch);
+      } else {
+        showNotification(
+          "error",
+          message || "Something went wrong",
+          `Status Code ${status}`
+        );
+      }
     } catch (error) {
       load(false);
-      console.log(error);
+      showNotification(
+        "error",
+        "Error",
+        err?.response?.data?.message || err.message
+      );
+
+      error(
+        "Upload Return Items error:",
+        err?.response?.data?.message || err.message
+      );
     }
   };
 };
 
-export const getReturnItem = () => {
+//   itemsWithImages.forEach((item, index) => {
+//     body.append(`items[${index}][detail]`, item.detail);
+//     body.append(`items[${index}][oversized]`, item.oversized);
+//     body.append(`items[${index}][image]`, {
+//       uri: item.image.uri,
+//       type: item.image.type,
+//       name: item.image.name,
+//     });
+//   });
+//   image.forEach((item, index) => {
+//     body.append(`items[${index}][image]`, {
+//       uri: item.image.uri,
+//       type: item.image.type,
+//       name: item.image.name,
+//     });
+//   });
+
+export const getReturnItem = (load) => {
   return async (dispatch) => {
-    const url =
-      "http://vertically-welcome-mongrel.ngrok-free.app/api/getProductItems/683d71a8ca8de97f3f3ba7c7";
     try {
-      const response = await fetch(url);
-      const result = await response.json();
-      console.log({ response, result });
-      //   dispatch({ type: "GET_RETURN_ITEM", payload: result });
-    } catch (error) {
-      console.log(error);
+      load(true);
+      const userID = getItem("userID");
+
+      const response = await instance.get("getAllReturnBundles", {
+        headers: {
+          userid: userID,
+        },
+      });
+
+      const { status, message, data } = response.data;
+      load(false);
+
+      if (status === 200) {
+        dispatch(setDraftItem(data.reverse()));
+      } else {
+        showNotification("error", message, "Status Code 401");
+      }
+    } catch (err) {
+      load(false);
+      showNotification(
+        "error",
+        "Error",
+        err?.response?.data?.message || err.message
+      );
+
+      error(
+        "get Return Item error:",
+        err?.response?.data?.message || err.message
+      );
+    }
+  };
+};
+
+export const getSelectedReturnItem = (labelIDs, load) => {
+  return async (dispatch) => {
+    try {
+      load(true);
+      const userID = getItem("userID");
+      const url = `getbundle?bundleId=${labelIDs}`;
+      const response = await instance.get(url, {
+        headers: {
+          userid: userID,
+        },
+      });
+
+      const { status, message, data } = response.data;
+      load(false);
+
+      if (status === 200) {
+        dispatch(setDraftSelectedRetun(data.reverse()));
+      } else {
+        showNotification("error", message, "Status Code 401");
+      }
+    } catch (err) {
+      load(false);
+      showNotification(
+        "error",
+        "Error",
+        err?.response?.data?.message || err.message
+      );
+
+      error(
+        "get Return Item error:",
+        err?.response?.data?.message || err.message
+      );
     }
   };
 };

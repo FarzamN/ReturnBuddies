@@ -16,7 +16,6 @@ const helperStyle = StyleSheet.create({
     marginTop: responsive.space(7),
   },
   text: {
-    color: black,
     fontWeight: "400",
     fontSize: responsive.fontSize(14),
   },

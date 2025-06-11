@@ -16,6 +16,7 @@ export const loginAPI = (data, showOTP, saveEmail, load) => {
       load(false);
       if (status === 200) {
         setItem("token", token);
+        setItem("userID", user._id);
         dispatch(setLogin({ user, token }));
       } else if (status === 201) {
         showOTP();
@@ -170,7 +171,6 @@ export const editProfileAPI = (data, load, goBack) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
       const { status, message, user } = response.data;
       load(false);
       if (status === 200) {

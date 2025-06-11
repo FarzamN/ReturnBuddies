@@ -33,4 +33,10 @@ export default StyleSheet.create({
     fontWeight: "600",
     color: colors.purple,
   },
+
+  uploadSelectText: {
+    fontSize: wp(4),
+    fontWeight: "500",
+    color: colors.black,
+  },
 });

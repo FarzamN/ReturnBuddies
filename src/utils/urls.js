@@ -1,10 +1,10 @@
 import axios from "axios";
-import { getItem } from "./storage";
 
 export const EmailRegix = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
+const url = "https://vertically-welcome-mongrel.ngrok-free.app/";
 const instance = axios.create({
-  baseURL: "https://vertically-welcome-mongrel.ngrok-free.app/api/",
+  baseURL: `${url}api/`,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -12,3 +12,5 @@ const instance = axios.create({
 });
 
 export default instance;
+
+export const imageURl = url;

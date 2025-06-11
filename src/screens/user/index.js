@@ -1,7 +1,10 @@
+// Drafr screens
 import DraftItem from "./OrderToReturn/DraftItem";
 import AddDraftItem from "./OrderToReturn/AddDraftItem";
 import SchedulePickup from "./OrderToReturn/SchedulePickup";
+import UploadLabel from "./OrderToReturn/UploadLabel";
 
+// setting Screens
 import Notification from "./SettingFolder/Notification";
 import Setting from "./SettingFolder/Setting";
 import EditProfile from "./SettingFolder/EditProfile";
@@ -15,14 +18,18 @@ import Terms from "./SettingFolder/Terms";
 import Privacy from "./SettingFolder/Privacy";
 
 export {
+  // Drafr screens
+  UploadLabel,
   SchedulePickup,
+  DraftItem,
+  AddDraftItem,
+
+  // setting Screens
   Terms,
   Privacy,
   FAQ,
   ReturnHistory,
   ChangePassword,
-  DraftItem,
-  AddDraftItem,
   Notification,
   Setting,
   EditProfile,

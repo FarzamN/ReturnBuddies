@@ -48,4 +48,9 @@ export default StyleSheet.create({
     color: "#111827", // Tailwind's gray-900
     fontSize: 14,
   },
+  uploadText: {
+    color: colors.black,
+    fontSize: 15,
+    fontWeight: "600",
+  },
 });
