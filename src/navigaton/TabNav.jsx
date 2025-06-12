@@ -15,6 +15,7 @@ import {
   Privacy,
   SchedulePickup,
   UploadLabel,
+  MyPickups,
 } from "../screens/user";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -33,6 +34,8 @@ const TabNav = () => {
       }}
     >
       <Screen name="orderRoute" component={AllOrderToReturn} />
+      <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
+      <Screen name="myPickupsRoute" component={MyPickups} />
     </Navigator>
   );
 };
@@ -79,5 +82,14 @@ const AllSettings = () => (
     <Stack.Screen name="faq" component={FAQ} />
     <Stack.Screen name="terms" component={Terms} />
     <Stack.Screen name="privacy" component={Privacy} />
+  </Stack.Navigator>
+);
+
+const AllMyPickups = () => (
+  <Stack.Navigator
+    screenOptions={{ headerShown: false }}
+    initialRouteName="myPickups"
+  >
+    <Stack.Screen name="myPickups" component={MyPickups} />
   </Stack.Navigator>
 );

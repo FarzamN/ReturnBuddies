@@ -20,8 +20,15 @@ const LabelPickerButton = (props) => {
         },
       ]}
     >
-      <Space_Between>
-        <Row>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: noImage ? "center" : "space-between",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Row style={{}}>
           <FullImage
             source={source}
             style={[
@@ -37,7 +44,7 @@ const LabelPickerButton = (props) => {
               style={[
                 styles.uploadText,
                 {
-                  width: noImage ? "100%" : "75%",
+                  width: "100%",
                 },
               ]}
             >
@@ -51,7 +58,7 @@ const LabelPickerButton = (props) => {
           </View>
         </Row>
         {!noImage && <Icon name="edit" type="AntDesign" size={20} />}
-      </Space_Between>
+      </View>
     </TouchableOpacity>
   );
 };

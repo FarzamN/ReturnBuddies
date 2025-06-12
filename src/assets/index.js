@@ -30,6 +30,8 @@ export const appImages = {
   checkZipCode: require(`./images/checkZipCode.png`),
 
   //  ------- Bottom bar
-  draft: require(`./images/draft.png`),
-  pickup: require(`./images/pickup.png`),
+  draft: require(`./images/BottomBar/draft.png`),
+  pickup: require(`./images/BottomBar/pickup.png`),
+  homeActive: require(`./images/BottomBar/home.png`),
+  pickups: require(`./images/BottomBar/pickups.png`),
 };

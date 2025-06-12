@@ -31,7 +31,6 @@ const DraftItem = () => {
   const { navigate } = useNavigation();
 
   const { draftData } = useSelector((state) => state.draft);
-  console.log("draftData ==>", draftData);
 
   const [isPending, setIsPending] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
@@ -39,7 +38,6 @@ const DraftItem = () => {
 
   const toggleSelect = (returns) => {
     const { _id, products } = returns;
-    console.log(returns);
     setSelectedReturns((prev) => {
       let newSelected;
       if (prev.includes(_id)) {

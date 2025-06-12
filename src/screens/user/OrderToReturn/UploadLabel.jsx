@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Body,
   Text,
@@ -6,6 +6,7 @@ import {
   LabelPickerButton,
   RequiredText,
   SelectDate,
+  ReturnSection,
 } from "../../../components";
 import styles from "../userStyle";
 import { wp } from "../../../theme/responsive";
@@ -13,9 +14,14 @@ import { appImages } from "../../../assets";
 import { Height } from "../../../theme/globalStyle";
 import { Text as T } from "react-native";
 import { colors } from "../../../theme/colors";
+import { ScrollView } from "react-native-actions-sheet";
+import { useSelector } from "react-redux";
 
 const UploadLabel = ({ route }) => {
   const { labels } = route.params;
+  const { draftSelectedRetun } = useSelector((state) => state.draft);
+
+  const [selectedReturns, setSelectedReturns] = useState("");
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Upload Label" noSetting />
@@ -39,6 +45,7 @@ const UploadLabel = ({ route }) => {
           appImages.addLabel
         }
         noImage
+        // weight
         title={
           // images[index]?.name ||
           "Tap to upload label"
@@ -57,8 +64,20 @@ const UploadLabel = ({ route }) => {
       </T>
       <Height />
 
-      <RequiredText title={"Return item by"} required />
-      <SelectDate title="Select Date" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {draftSelectedRetun.map((item) => (
+          <ReturnSection
+            key={item._id}
+            // singleSelect
+            section={item}
+            onSelect={() => setSelectedReturns(item._id)}
+            selected={selectedReturns.includes(item._id)}
+          />
+        ))}
+
+        <RequiredText title={"Return item by"} required />
+        <SelectDate title="Select Date" />
+      </ScrollView>
     </Body>
   );
 };

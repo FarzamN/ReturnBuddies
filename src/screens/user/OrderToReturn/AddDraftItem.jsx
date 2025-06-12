@@ -89,7 +89,7 @@ const AddDraftItem = () => {
 
   return (
     <Body horizontal={wp(5)}>
-      {/* <Header title={"Order Details"} /> */}
+      <Header title={"Order Details"} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Height />
         <Height />

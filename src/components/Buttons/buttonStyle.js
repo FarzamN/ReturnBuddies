@@ -53,4 +53,11 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: "600",
   },
+
+  selectDate: {
+    borderWidth: 1,
+    borderRadius: 50,
+    padding: 12,
+    width: 150,
+  },
 });

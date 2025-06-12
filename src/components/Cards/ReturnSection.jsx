@@ -9,7 +9,15 @@ import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 
 const ReturnSection = (props) => {
-  const { section, selected, onSelect, isLabel, isPositive } = props;
+  const {
+    section,
+    selected,
+    onSelect,
+    isLabel,
+    isPositive,
+    onEditLabel,
+    singleSelect,
+  } = props;
   const { navigate } = useNavigation();
   return (
     <Pressable
@@ -59,7 +67,15 @@ const ReturnSection = (props) => {
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => {
           return (
-            <View style={styles.card}>
+            <Pressable style={styles.card}>
+              {singleSelect && (
+                <Icon
+                  size={20}
+                  name={selected ? "checkbox" : "checkbox-outline"}
+                  type="Ionicons"
+                  color={colors.purple}
+                />
+              )}
               <FullImage
                 isUrl
                 radius={10}
@@ -75,7 +91,7 @@ const ReturnSection = (props) => {
                   )}`}
                 />
               </View>
-            </View>
+            </Pressable>
           );
         }}
         scrollEnabled={false}
@@ -85,6 +101,7 @@ const ReturnSection = (props) => {
           style={buttonStyle.button}
           textStyle={buttonStyle.buttonText}
           title={isPositive ? "Edit Label" : "Upload Label"}
+          // onPress={onEditLabel}
           onPress={() => navigate("uploadLabel", { labels: section })}
         />
       )}

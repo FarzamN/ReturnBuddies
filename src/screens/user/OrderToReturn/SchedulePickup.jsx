@@ -54,6 +54,7 @@ const SchedulePickup = ({ route }) => {
               key={section._id}
               section={section}
               isPositive={section.labelPositive === "pending"}
+              // onEditLabel={() => navigate("uploadLabel", { labels: section })}
             />
           ))}
         </ScrollView>

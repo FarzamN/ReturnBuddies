@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   leftLabel: {
     fontWeight: "600",
-    fontSize: hp(1.8),
+    fontSize: hp(2),
     textAlign: "center",
     color: colors.black,
   },

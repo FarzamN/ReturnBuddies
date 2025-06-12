@@ -16,8 +16,14 @@ import ReturnHistory from "./SettingFolder/ReturnHistory";
 import FAQ from "./SettingFolder/FAQ";
 import Terms from "./SettingFolder/Terms";
 import Privacy from "./SettingFolder/Privacy";
+import MyPickups from "./PickupsFolder/MyPickups";
+
+// Pickups Screens
 
 export {
+  // Pickups Screens
+  MyPickups,
+
   // Drafr screens
   UploadLabel,
   SchedulePickup,
