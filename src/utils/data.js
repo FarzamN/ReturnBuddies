@@ -73,16 +73,17 @@ export const editProfile = [
 export const draftData = [
   {
     _id: "20190",
-    returnLabel: "140",
+    BundleName: "Return #140",
     labelPositive: "No return label uploaded",
-    data: [
+    products: [
       {
-        id: "1",
-        title: "Red Nike Shoe",
+        _id: "1",
+        productName: "Red Nike Shoe",
         created_at: "2014-06-26 04:07:31",
         status: "Pending Label",
-        image: appImages.homeShoes,
-        isLabelReceipt: "0",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "0",
         labelPath: {
           name: "path name",
           type: "pdf",
@@ -93,16 +94,17 @@ export const draftData = [
   },
   {
     _id: "20100",
-    returnLabel: "141",
+    BundleName: "Return #141",
     labelPositive: "Label uploaded",
-    data: [
+    products: [
       {
-        id: "1",
-        title: "Red Nike Shoe",
+        _id: "1",
+        productName: "Red Nike Shoe",
         created_at: "2014-06-26 04:07:31",
-        status: "Pending Label",
-        image: appImages.homeShoes,
-        isLabelReceipt: "0",
+        status: "Pending",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "0",
         labelPath: {
           name: "path name",
           type: "pdf",
@@ -110,12 +112,13 @@ export const draftData = [
         },
       },
       {
-        id: "1",
-        title: "Red Nike Shoe",
+        _id: "1",
+        productName: "Red Nike Shoe",
         created_at: "2014-06-26 04:07:31",
         status: "Pending Label",
-        image: appImages.homeShoes,
-        isLabelReceipt: "0",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "0",
         labelPath: {
           name: "path name",
           type: "pdf",
@@ -123,12 +126,13 @@ export const draftData = [
         },
       },
       {
-        id: "1",
-        title: "Red Nike Shoe",
+        _id: "1",
+        productName: "Red Nike Shoe",
         created_at: "2014-06-26 04:07:31",
         status: "Pending Label",
-        image: appImages.homeShoes,
-        isLabelReceipt: "0",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "0",
         labelPath: {
           name: "path name",
           type: "pdf",
@@ -139,16 +143,17 @@ export const draftData = [
   },
   {
     _id: "20101",
-    returnLabel: "142",
+    BundleName: "Return #142",
     labelPositive: "No return label uploaded",
-    data: [
+    products: [
       {
-        id: "1",
-        title: "Red Nike Shoe",
+        _id: "1",
+        productName: "Red Nike Shoe",
         created_at: "2014-06-26 04:07:31",
         status: "Pending Label",
-        image: appImages.homeShoes,
-        isLabelReceipt: "0",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "0",
         labelPath: {
           name: "path name",
           type: "pdf",
@@ -156,16 +161,72 @@ export const draftData = [
         },
       },
       {
-        id: "1",
-        title: "Red Nike Shoe",
+        _id: "1",
+        productName: "Red Nike Shoe",
         created_at: "2014-06-26 04:07:31",
         status: "Pending Label",
-        image: appImages.homeShoes,
-        isLabelReceipt: "0",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "0",
         labelPath: {
           name: "path name",
           type: "pdf",
           uri: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        },
+      },
+    ],
+  },
+];
+
+export const uploadLabelData = [
+  {
+    _id: "20100",
+    BundleName: "Return #141",
+    labelPositive: "Label uploaded",
+    products: [
+      {
+        _id: "1",
+        productName: "Red Nike Shoe",
+        created_at: "2014-06-26 04:07:31",
+        status: "Pending",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "1",
+        labelPath: {
+          weight: "97 kb",
+          name: "phela shoes ka pdf",
+          type: "pdf",
+          uri: "https://icseindia.org/document/sample.pdf",
+        },
+      },
+      {
+        _id: "2",
+        productName: "blue Nike Shoe",
+        created_at: "2014-06-26 04:07:31",
+        status: "Pending Label",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "1",
+        labelPath: {
+          name: "shoes ki qr code",
+          type: "image/png",
+          uri: "https://images.unsplash.com/photo-1735825764451-d2186b7f4bf9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          weight: "97 kb",
+        },
+      },
+      {
+        _id: "3",
+        productName: "white Nike Shoe",
+        created_at: "2014-06-26 04:07:31",
+        status: "Pending Label",
+        thumbnail:
+          "https://images.unsplash.com/photo-1726066012656-45d3ff23eaeb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        isLabelRecieved: "0",
+        labelPath: {
+          name: null,
+          type: null,
+          uri: null,
+          weight: null,
         },
       },
     ],

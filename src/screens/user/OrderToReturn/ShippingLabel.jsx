@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { getSelectedReturnItem } from "../../../redux/queries/draftQueries";
+// import { draftData as draftSelectedRetun } from "../../../utils/data";
 
 const SchedulePickup = ({ route }) => {
   const { returnLabel } = route.params;
@@ -51,8 +52,8 @@ const SchedulePickup = ({ route }) => {
           {draftSelectedRetun.map((section) => (
             <ReturnSection
               isLabel
-              key={section._id}
               section={section}
+              key={section._id}
               isPositive={section.labelPositive === "pending"}
               // onEditLabel={() => navigate("uploadLabel", { labels: section })}
             />

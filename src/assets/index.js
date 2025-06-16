@@ -14,6 +14,7 @@ export const appImages = {
   google: require(`./images/Icons/google.png`),
   camera: require(`./images/Icons/camera.png`),
   addLabel: require(`./images/Icons/add-label.png`),
+  pdf: require(`./images/Icons/pdf.png`),
 
   //  ------- Modals Images
   otpImage: require(`./images/Modals/otpImage.png`),

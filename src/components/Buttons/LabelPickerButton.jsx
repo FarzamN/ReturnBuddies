@@ -4,10 +4,11 @@ import Icon from "react-native-dynamic-vector-icons";
 import styles from "./buttonStyle";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 import { FullImage } from "..";
+import { appImages } from "../../assets";
 
 const LabelPickerButton = (props) => {
   const { onPress, source, title, weight, noImage, isError } = props;
-
+  const type = title.slice(title.lastIndexOf(".") + 1);
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -15,27 +16,26 @@ const LabelPickerButton = (props) => {
         styles.ImageButton,
         globalStyle.row,
         {
-          //   justifyContent: "center",
           borderColor: isError ? "red" : "#D1D5DB",
         },
       ]}
     >
       <View
         style={{
+          width: "100%",
+          alignItems: "center",
           flexDirection: "row",
           justifyContent: noImage ? "center" : "space-between",
-          alignItems: "center",
-          width: "100%",
         }}
       >
         <Row style={{}}>
           <FullImage
-            source={source}
+            source={type == "pdf" ? appImages.pdf : source}
             style={[
               styles.ImageIcon,
               {
-                width: 40,
-                height: 40,
+                width: 27,
+                height: 27,
               },
             ]}
           />

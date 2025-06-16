@@ -58,8 +58,8 @@ const Onboarding = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={[globalStyle.Container, styles.container]}>
-      <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+    <SafeAreaView style={[globalStyle.Container]}>
+      <StatusBar backgroundColor={colors.background} barStyle="dark-content" />
       <Height />
       <View
         style={[

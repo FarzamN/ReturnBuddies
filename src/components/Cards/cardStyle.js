@@ -59,4 +59,55 @@ export default StyleSheet.create({
     color: "#777777",
     fontWeight: "500",
   },
+
+  sectionContainer: {
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: colors.white,
+  },
+  selectedSection: {
+    borderWidth: 1,
+    borderColor: colors.purple,
+  },
+  headerRow: {
+    marginBottom: 12,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.black,
+  },
+  sectionCard: {
+    flexDirection: "row",
+    backgroundColor: colors.background,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  sectionImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: colors.black,
+  },
+  sectionDate: {
+    fontSize: 13,
+    color: "#777",
+    marginTop: 2,
+  },
+  labelBox: {
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    paddingVertical: 2,
+  },
+  labelTitle: { fontSize: 13, fontWeight: "600" },
 });

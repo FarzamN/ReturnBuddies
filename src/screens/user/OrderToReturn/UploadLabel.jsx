@@ -1,27 +1,68 @@
-import React, { useState } from "react";
 import {
   Body,
   Text,
   Header,
-  LabelPickerButton,
-  RequiredText,
   SelectDate,
+  MainButton,
+  RequiredText,
   ReturnSection,
+  UploadLabelCard,
+  LabelPickerButton,
+  DatePicker,
 } from "../../../components";
 import styles from "../userStyle";
-import { wp } from "../../../theme/responsive";
-import { appImages } from "../../../assets";
-import { Height } from "../../../theme/globalStyle";
-import { Text as T } from "react-native";
-import { colors } from "../../../theme/colors";
-import { ScrollView } from "react-native-actions-sheet";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { appImages } from "../../../assets";
+import { colors } from "../../../theme/colors";
+import { wp } from "../../../theme/responsive";
+import { Height } from "../../../theme/globalStyle";
+import { ScrollView, Text as T } from "react-native";
+import { pick, types } from "@react-native-documents/picker";
+import { showNotification } from "../../../components/Helpers/notifierHelper";
+// import { uploadLabelData as draftSelectedRetun } from "../../../utils/data";
 
 const UploadLabel = ({ route }) => {
   const { labels } = route.params;
   const { draftSelectedRetun } = useSelector((state) => state.draft);
 
-  const [selectedReturns, setSelectedReturns] = useState("");
+  const [selectedReturns, setSelectedReturns] = useState(null);
+  const [labelDocs, setLabelDocs] = useState({}); // { [productId]: documentObject }
+  const [showDate, setShowDate] = useState({ open: false, date: null });
+
+  const handleItemSelect = (productId) => {
+    setSelectedReturns((prev) => (prev === productId ? null : productId));
+  };
+
+  const handleDocumentPick = async () => {
+    if (!selectedReturns) {
+      showNotification("error", "Please select any Item first", "Error");
+      return;
+    }
+    try {
+      const [result] = await pick({
+        mode: "open",
+        type: [types.pdf, types.images],
+      });
+      if (result) {
+        setLabelDocs((prev) => ({
+          ...prev,
+          [selectedReturns]: result,
+        }));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const getSelectedProduct = () => {
+    for (const bundle of draftSelectedRetun) {
+      const match = bundle.products.find((p) => p._id === selectedReturns);
+      if (match) return match;
+    }
+    return null;
+  };
+
+  const selectedProduct = getSelectedProduct();
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Upload Label" noSetting />
@@ -36,48 +77,59 @@ const UploadLabel = ({ route }) => {
         }
       />
       <Height />
-      <LabelPickerButton
-        // onPress={() => handleImagePick(index)}
-        source={
-          // images[index]?.uri
-          //   ? { uri: images[index].uri }
-          //   :
-          appImages.addLabel
-        }
-        noImage
-        // weight
-        title={
-          // images[index]?.name ||
-          "Tap to upload label"
-        }
-      />
-      <Height />
-
-      <T style={styles.uploadSelectText}>
-        Select
-        <Text
-          title=" only "
-          style={{ fontWeight: "600" }}
-          color={colors.purple}
-        />
-        items the label above applies to
-      </T>
-      <Height />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {draftSelectedRetun.map((item) => (
-          <ReturnSection
-            key={item._id}
-            // singleSelect
-            section={item}
-            onSelect={() => setSelectedReturns(item._id)}
-            selected={selectedReturns.includes(item._id)}
+        <>
+          <LabelPickerButton
+            onPress={handleDocumentPick}
+            type={selectedProduct?.labelPath?.type}
+            // noImage={!selectedProduct?.labelPath?.type}
+            source={
+              labelDocs[selectedReturns]?.uri
+                ? { uri: labelDocs[selectedReturns].uri }
+                : selectedProduct?.labelPath?.uri
+                ? { uri: selectedProduct.labelPath.uri }
+                : appImages.addLabel
+            }
+            title={
+              labelDocs[selectedReturns]?.name ||
+              selectedProduct?.labelPath?.name ||
+              "Tap to upload label"
+            }
           />
-        ))}
 
-        <RequiredText title={"Return item by"} required />
-        <SelectDate title="Select Date" />
+          <Height />
+          <T style={styles.uploadSelectText}>
+            Select
+            <Text
+              title=" only "
+              style={{ fontWeight: "600" }}
+              color={colors.purple}
+            />
+            items the label above applies to
+          </T>
+          <Height />
+        </>
+
+        <UploadLabelCard
+          data={labels}
+          onItemSelect={handleItemSelect}
+          selectedReturns={selectedReturns}
+        />
+
+        <>
+          <RequiredText title={"Return item by"} required />
+          <SelectDate
+            title={showDate.data}
+            onPress={() => setShowDate({ open: true, data: null })}
+          />
+          <Height />
+        </>
       </ScrollView>
+      <Height />
+      <MainButton title="Upload" />
+      <Height />
+      <DatePicker visible={true} />
     </Body>
   );
 };

@@ -58,6 +58,6 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 50,
     padding: 12,
-    width: 150,
+    width: 130,
   },
 });

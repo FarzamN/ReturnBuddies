@@ -49,8 +49,8 @@ export const uploadReturnItems = (data, image, confirmOrder, load) => {
       load(false);
       showNotification(
         "error",
-        "Error",
-        err?.response?.data?.message || err.message
+        err?.response?.data?.message || err.message,
+        "Error"
       );
 
       error(
@@ -102,8 +102,8 @@ export const getReturnItem = (load) => {
       load(false);
       showNotification(
         "error",
-        "Error",
-        err?.response?.data?.message || err.message
+        err?.response?.data?.message || err.message,
+        "Error"
       );
 
       error(
@@ -138,8 +138,8 @@ export const getSelectedReturnItem = (labelIDs, load) => {
       load(false);
       showNotification(
         "error",
-        "Error",
-        err?.response?.data?.message || err.message
+        err?.response?.data?.message || err.message,
+        "Error"
       );
 
       error(

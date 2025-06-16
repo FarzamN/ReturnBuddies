@@ -18,7 +18,6 @@ import {
 
 import styles from "../userStyle";
 import React, { useEffect, useState } from "react";
-import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
 // import { draftData } from "../../../utils/data";
 import { useNavigation } from "@react-navigation/native";
@@ -35,7 +34,6 @@ const DraftItem = () => {
   const [isPending, setIsPending] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
   const [returnItemCount, setReturnItemCount] = useState(0);
-
   const toggleSelect = (returns) => {
     const { _id, products } = returns;
     setSelectedReturns((prev) => {
@@ -70,7 +68,25 @@ const DraftItem = () => {
         />
         <Height />
       </View>
-      {isPending ? (
+      <FlatList
+        data={draftData}
+        contentContainerStyle={globalStyle.ph15}
+        keyExtractor={(_, index) => index.toString()}
+        ListEmptyComponent={
+          <Empty
+            title="No Drafts Items"
+            sub="Please Add items by pressing (Plus +) button"
+          />
+        }
+        renderItem={({ item }) => (
+          <ReturnSection
+            section={item}
+            onSelect={toggleSelect}
+            selected={selectedReturns.includes(item._id)}
+          />
+        )}
+      />
+      {/* {isPending ? (
         <FlatList
           data={[1, 1, 1]}
           contentContainerStyle={globalStyle.ph15}
@@ -96,7 +112,7 @@ const DraftItem = () => {
             />
           )}
         />
-      )}
+      )} */}
 
       {selectedCount ? (
         <MainButton
@@ -106,7 +122,7 @@ const DraftItem = () => {
             returnItemCount > 1 ? "s" : ""
           }`}
           onPress={() =>
-            navigate("schedulePickup", { returnLabel: selectedReturns })
+            navigate("shippingLabel", { returnLabel: selectedReturns })
           }
         />
       ) : (

@@ -13,7 +13,7 @@ import {
   FAQ,
   Terms,
   Privacy,
-  SchedulePickup,
+  ShippingLabel,
   UploadLabel,
   MyPickups,
 } from "../screens/user";
@@ -53,7 +53,7 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
     <Stack.Screen name="notification" component={Notification} />
     <Stack.Screen name="settingRoute" component={AllSettings} />
-    <Stack.Screen name="schedulePickup" component={SchedulePickup} />
+    <Stack.Screen name="shippingLabel" component={ShippingLabel} />
     <Stack.Screen name="uploadLabel" component={UploadLabel} />
   </Stack.Navigator>
 );

@@ -1,23 +1,16 @@
 import React from "react";
 import { FullImage, MainButton, Text } from "..";
-import { View, StyleSheet, Pressable, FlatList } from "react-native";
+import { View, Pressable, FlatList } from "react-native";
 import { colors } from "../../theme/colors";
 import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import buttonStyle from "../../screens/user/userStyle";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
+import styles from "./cardStyle";
 
 const ReturnSection = (props) => {
-  const {
-    section,
-    selected,
-    onSelect,
-    isLabel,
-    isPositive,
-    onEditLabel,
-    singleSelect,
-  } = props;
+  const { section, selected, onSelect, isLabel, isPositive } = props;
   const { navigate } = useNavigation();
   return (
     <Pressable
@@ -67,31 +60,23 @@ const ReturnSection = (props) => {
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => {
           return (
-            <Pressable style={styles.card}>
-              {singleSelect && (
-                <Icon
-                  size={20}
-                  name={selected ? "checkbox" : "checkbox-outline"}
-                  type="Ionicons"
-                  color={colors.purple}
-                />
-              )}
+            <View style={styles.sectionCard}>
               <FullImage
                 isUrl
                 radius={10}
-                style={styles.image}
+                style={styles.sectionImage}
                 source={item.thumbnail}
               />
               <View>
-                <Text style={styles.title} title={item.productName} />
+                <Text style={styles.sectionTitle} title={item.productName} />
                 <Text
-                  style={styles.date}
+                  style={styles.sectionDate}
                   title={`Added on ${moment(item.created_at).format(
                     "MMMM DD"
                   )}`}
                 />
               </View>
-            </Pressable>
+            </View>
           );
         }}
         scrollEnabled={false}
@@ -108,58 +93,5 @@ const ReturnSection = (props) => {
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    backgroundColor: colors.white,
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: colors.white,
-  },
-  selectedSection: {
-    borderWidth: 1,
-    borderColor: colors.purple,
-  },
-  headerRow: {
-    marginBottom: 12,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: colors.black,
-  },
-  card: {
-    flexDirection: "row",
-    backgroundColor: colors.background,
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 10,
-    alignItems: "center",
-  },
-  image: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-    marginRight: 12,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: colors.black,
-  },
-  date: {
-    fontSize: 13,
-    color: "#777",
-    marginTop: 2,
-  },
-  labelBox: {
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    paddingVertical: 2,
-  },
-  labelTitle: { fontSize: 13, fontWeight: "600" },
-});
 
 export default ReturnSection;

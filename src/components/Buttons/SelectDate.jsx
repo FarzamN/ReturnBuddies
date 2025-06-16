@@ -7,11 +7,13 @@ import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle } from "../../theme/globalStyle";
 
 const SelectDate = (props) => {
-  const { title, isError } = props;
+  const { title, isError, onPress } = props;
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         globalStyle.row,
+        globalStyle.center,
         styles.selectDate,
         {
           backgroundColor: isError ? colors.background : "#EFE1F7",

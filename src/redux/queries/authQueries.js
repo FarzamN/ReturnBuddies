@@ -10,6 +10,7 @@ const { log, error } = console;
 export const loginAPI = (data, showOTP, saveEmail, load) => {
   return async (dispatch) => {
     try {
+      // dispatch(setLogin({ user: "frzamn64m", token: "token" }));
       load(true);
       const response = await instance.post("user/login", data);
       const { status, message, user, token } = response.data;

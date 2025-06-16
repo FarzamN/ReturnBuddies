@@ -1,7 +1,7 @@
 // Drafr screens
 import DraftItem from "./OrderToReturn/DraftItem";
 import AddDraftItem from "./OrderToReturn/AddDraftItem";
-import SchedulePickup from "./OrderToReturn/SchedulePickup";
+import ShippingLabel from "./OrderToReturn/ShippingLabel";
 import UploadLabel from "./OrderToReturn/UploadLabel";
 
 // setting Screens
@@ -26,7 +26,7 @@ export {
 
   // Drafr screens
   UploadLabel,
-  SchedulePickup,
+  ShippingLabel,
   DraftItem,
   AddDraftItem,
 
