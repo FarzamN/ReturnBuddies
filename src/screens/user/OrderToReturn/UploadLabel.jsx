@@ -127,7 +127,7 @@ const UploadLabel = ({ route }) => {
         </>
       </ScrollView>
       <Height />
-      {/* <MainButton title="Upload" onPress={handle} /> */}
+      <MainButton title="Upload" />
       <Height />
       <DatePicker
         visible={showDate.open}

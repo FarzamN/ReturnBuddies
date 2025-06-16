@@ -39,4 +39,12 @@ export default StyleSheet.create({
     fontWeight: "500",
     color: colors.black,
   },
+
+  dateContainer: {
+    flexDirection: "row",
+    marginTop: 20,
+    paddingVertical: 15,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+  },
 });

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { getSelectedReturnItem } from "../../../redux/queries/draftQueries";
+import { setDraftReturn } from "../../../redux/slices/draftSlice";
 // import { draftData as draftSelectedRetun } from "../../../utils/data";
 
 const SchedulePickup = ({ navigation, route }) => {
@@ -56,7 +57,6 @@ const SchedulePickup = ({ navigation, route }) => {
               section={section}
               key={section._id}
               isPositive={section.status !== "pending"}
-              // onEditLabel={() => navigate("uploadLabel", { labels: section })}
             />
           ))}
         </ScrollView>
@@ -65,11 +65,14 @@ const SchedulePickup = ({ navigation, route }) => {
       {!getPositive && (
         <MainButton
           title="Continue"
-          onPress={() =>
-            navigate("schedulePickup", {
-              data: draftSelectedRetun,
-            })
-          }
+          onPress={() => {
+            dispatch(
+              setDraftReturn({
+                _id: returnLabel,
+              })
+            );
+            navigate("schedulePickup");
+          }}
         />
       )}
     </Body>
