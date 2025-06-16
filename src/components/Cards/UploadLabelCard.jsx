@@ -61,8 +61,8 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
                 size={22}
                 type="Ionicons"
                 name="checkmark-done"
-                style={{ position: "absolute", top: 0, right: 0 }}
                 color={true ? colors.purple : colors.none}
+                style={{ position: "absolute", top: 0, right: 0 }}
               />
             </Row>
           );

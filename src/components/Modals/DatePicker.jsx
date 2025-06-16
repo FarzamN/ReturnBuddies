@@ -1,22 +1,102 @@
-import { View } from "react-native";
-import React from "react";
+import moment from "moment";
 import styles from "./modalStyle";
 import Modal from "react-native-modal";
-import { Height } from "../../theme/globalStyle";
+import React, { useState } from "react";
+import { colors } from "../../theme/colors";
+import { Calendar } from "react-native-calendars";
+import Icon from "react-native-dynamic-vector-icons";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Height, Space_Between } from "../../theme/globalStyle";
 
 const DatePicker = ({ visible, onClose, onPress }) => {
+  const [selected, setSelected] = useState();
+
   return (
     <Modal
       isVisible={visible}
-      animationIn="fadeInUp"
-      animationOut="fadeOut"
+      animationIn="bounceInDown"
+      animationOut="bounceOutDown"
       onBackdropPress={onClose}
       onBackButtonPress={onClose}
       style={styles.modalContainer}
     >
-      <View style={styles.modalBox}>
+      <View
+        style={{
+          padding: 20,
+          backgroundColor: "#fff",
+          borderTopRightRadius: 20,
+          borderTopLeftRadius: 20,
+        }}
+      >
+        <Calendar
+          minDate={moment().format("YYYY-MM-DD")}
+          current={selected || moment().format("YYYY-MM-DD")}
+          onDayPress={(day) => setSelected(day.dateString)}
+          markedDates={{
+            [selected]: {
+              selected: true,
+              selectedColor: "#A24BF4",
+              selectedTextColor: "#ffffff",
+            },
+          }}
+          renderArrow={(item) => (
+            <Icon
+              size={20}
+              type="Entypo"
+              color={colors.black}
+              name={`chevron-${item}`}
+            />
+          )}
+          theme={{
+            textSectionTitleColor: "#999999",
+            selectedDayBackgroundColor: "#A24BF4",
+            selectedDayTextColor: "#ffffff",
+            todayTextColor: "#A24BF4",
+            dayTextColor: "#000000",
+            textDisabledColor: "#cccccc",
+            arrowColor: "#A24BF4",
+            monthTextColor: "#000",
+            textMonthFontWeight: "600",
+            textDayFontWeight: "500",
+            textDayFontSize: 16,
+            textMonthFontSize: 18,
+            borderRadius: 20,
+            backgroundColor: "#F9ECFF",
+          }}
+        />
+
+        {/* Buttons */}
         <Height />
-        <Height />
+        <Space_Between>
+          <TouchableOpacity
+            onPress={onClose}
+            style={{
+              flex: 1,
+              borderColor: "#A24BF4",
+              borderWidth: 1,
+              padding: 12,
+              borderRadius: 50,
+              marginRight: 10,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#A24BF4", fontWeight: "600" }}>Cancel</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => onPress(selected)}
+            style={{
+              flex: 1,
+              backgroundColor: "#A24BF4",
+              padding: 12,
+              borderRadius: 50,
+              marginLeft: 10,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#fff", fontWeight: "600" }}>Apply</Text>
+          </TouchableOpacity>
+        </Space_Between>
       </View>
     </Modal>
   );

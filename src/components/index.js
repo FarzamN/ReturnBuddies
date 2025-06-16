@@ -19,9 +19,6 @@ import AboutOversizeModal from "./Modals/AboutOversize";
 import ConfirmOrderModal from "./Modals/ConfirmOrder";
 import DatePicker from "./Modals/DatePicker";
 
-// Skeleton
-import DraftSkeleton from "./Skeletons/DraftSkeleton";
-
 // Buttons
 import MainButton from "./Buttons/MainButton";
 import ImageButton from "./Buttons/ImageButton";
@@ -32,6 +29,10 @@ import SelectDate from "./Buttons/SelectDate";
 import UploadLabelCard from "./Cards/UploadLabelCard";
 import ReturnHistorCard from "./Cards/ReturnHistorCard";
 import ReturnSection from "./Cards/ReturnSection";
+
+// Skeleton
+import DraftSkeleton from "./Skeletons/DraftSkeleton";
+import ScheduleSkeleton from "./Skeletons/ScheduleSkeleton";
 export {
   // Cards
   UploadLabelCard,
@@ -66,4 +67,5 @@ export {
 
   // Skeleton
   DraftSkeleton,
+  ScheduleSkeleton,
 };

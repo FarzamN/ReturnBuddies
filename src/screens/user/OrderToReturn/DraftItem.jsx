@@ -68,25 +68,8 @@ const DraftItem = () => {
         />
         <Height />
       </View>
-      <FlatList
-        data={draftData}
-        contentContainerStyle={globalStyle.ph15}
-        keyExtractor={(_, index) => index.toString()}
-        ListEmptyComponent={
-          <Empty
-            title="No Drafts Items"
-            sub="Please Add items by pressing (Plus +) button"
-          />
-        }
-        renderItem={({ item }) => (
-          <ReturnSection
-            section={item}
-            onSelect={toggleSelect}
-            selected={selectedReturns.includes(item._id)}
-          />
-        )}
-      />
-      {/* {isPending ? (
+
+      {isPending ? (
         <FlatList
           data={[1, 1, 1]}
           contentContainerStyle={globalStyle.ph15}
@@ -112,7 +95,7 @@ const DraftItem = () => {
             />
           )}
         />
-      )} */}
+      )}
 
       {selectedCount ? (
         <MainButton

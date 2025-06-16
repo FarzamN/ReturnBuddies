@@ -1,8 +1,9 @@
-// Drafr screens
+// Draft screens
 import DraftItem from "./OrderToReturn/DraftItem";
 import AddDraftItem from "./OrderToReturn/AddDraftItem";
 import ShippingLabel from "./OrderToReturn/ShippingLabel";
 import UploadLabel from "./OrderToReturn/UploadLabel";
+import SchedulePickup from "./OrderToReturn/SchedulePickup";
 
 // setting Screens
 import Notification from "./SettingFolder/Notification";
@@ -24,11 +25,12 @@ export {
   // Pickups Screens
   MyPickups,
 
-  // Drafr screens
+  // Draft screens
   UploadLabel,
   ShippingLabel,
   DraftItem,
   AddDraftItem,
+  SchedulePickup,
 
   // setting Screens
   Terms,

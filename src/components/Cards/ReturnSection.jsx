@@ -45,11 +45,7 @@ const ReturnSection = (props) => {
                 styles.labelTitle,
                 { color: isPositive ? "#4CD963" : "#ED6479" },
               ]}
-              title={
-                section.labelPositive
-                  ? "Label uploaded"
-                  : "No return label uploaded"
-              }
+              title={isPositive ? "Label uploaded" : "No return label uploaded"}
             />
           </View>
         )}

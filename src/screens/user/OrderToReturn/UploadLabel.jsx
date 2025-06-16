@@ -120,16 +120,22 @@ const UploadLabel = ({ route }) => {
         <>
           <RequiredText title={"Return item by"} required />
           <SelectDate
-            title={showDate.data}
+            title={showDate.data || "Select Date"}
             onPress={() => setShowDate({ open: true, data: null })}
           />
           <Height />
         </>
       </ScrollView>
       <Height />
-      <MainButton title="Upload" />
+      {/* <MainButton title="Upload" onPress={handle} /> */}
       <Height />
-      <DatePicker visible={true} />
+      <DatePicker
+        visible={showDate.open}
+        onClose={() => setShowDate({ open: false, data: null })}
+        onPress={(date) => {
+          setShowDate({ open: false, data: date });
+        }}
+      />
     </Body>
   );
 };
