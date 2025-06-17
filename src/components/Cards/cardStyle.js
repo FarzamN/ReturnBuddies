@@ -110,4 +110,22 @@ export default StyleSheet.create({
     paddingVertical: 2,
   },
   labelTitle: { fontSize: 13, fontWeight: "600" },
+
+  pickupMethodCont: {
+    marginTop: 20,
+    borderRadius: 20,
+    borderColor: colors.purple,
+    padding: 20,
+    backgroundColor: colors.white,
+  },
+  pickupMethodTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  pickupMethodDetail: {
+    marginTop: 10,
+    fontSize: 15,
+    color: "#5C5A5A",
+    fontWeight: "500",
+  },
 });

@@ -28,6 +28,11 @@ const SchedulePickup = ({ navigation, route }) => {
     .map((item) => item.status !== "pending")
     .includes(false);
 
+  const onSubmit = () => {
+    dispatch(setDraftReturn({ _id: returnLabel }));
+    navigate("schedulePickup");
+  };
+
   useEffect(() => {
     getSelectedReturnItem(returnLabel, setIsLoading)(dispatch);
   }, []);
@@ -62,19 +67,7 @@ const SchedulePickup = ({ navigation, route }) => {
         </ScrollView>
       )}
 
-      {!getPositive && (
-        <MainButton
-          title="Continue"
-          onPress={() => {
-            dispatch(
-              setDraftReturn({
-                _id: returnLabel,
-              })
-            );
-            navigate("schedulePickup");
-          }}
-        />
-      )}
+      {!getPositive && <MainButton title="Continue" onPress={onSubmit} />}
     </Body>
   );
 };

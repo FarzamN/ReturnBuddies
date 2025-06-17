@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
 import {
   Body,
   Header,
@@ -7,16 +5,24 @@ import {
   Text,
   TimeSelectCard,
 } from "../../../components";
-import { wp } from "../../../theme/responsive";
 import styles from "../userStyle";
-import { DateSelectCard } from "../../../components";
-import { getNextWeekdays } from "../../../function";
-import { globalStyle, Height, Row } from "../../../theme/globalStyle";
-import Icon from "react-native-dynamic-vector-icons";
+import { useDispatch } from "react-redux";
+import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
+import React, { useEffect, useState } from "react";
+import { getNextWeekdays } from "../../../function";
+import { DateSelectCard } from "../../../components";
+import Icon from "react-native-dynamic-vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { globalStyle, Height } from "../../../theme/globalStyle";
+import { ScrollView, TouchableOpacity, View } from "react-native";
+import { setDraftReturn } from "../../../redux/slices/draftSlice";
 import { showNotification } from "../../../components/Helpers/notifierHelper";
 
 const SchedulePickup = () => {
+  const dispatch = useDispatch();
+  const { navigate } = useNavigation();
+
   const [dates, setDates] = useState([]);
   const [load, setLoad] = useState(false);
   const [selection, setSelection] = useState({
@@ -43,8 +49,13 @@ const SchedulePickup = () => {
     }
 
     setLoad(true);
-    console.log(selection);
-
+    dispatch(
+      setDraftReturn({
+        date: selection.dates,
+        time: selection.times,
+      })
+    );
+    navigate("pickupMethod");
     setLoad(false);
   };
 

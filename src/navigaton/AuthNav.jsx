@@ -18,7 +18,12 @@ const AuthNavigation = () => {
   return (
     <Navigator
       initialRouteName="overboard"
-      screenOptions={{ headerShown: false, animation: "ios_from_left" }}
+      o
+      screenOptions={{
+        headerShown: false,
+        animation: "ios_from_left",
+        orientation: "portrait_up",
+      }}
     >
       {[
         { n: "overboard", c: Overboard },
@@ -32,7 +37,12 @@ const AuthNavigation = () => {
         // { n: "country", c: Country },
         // { n: "forgetPassword", c: ForgetPassword },
       ].map(({ n, c }) => (
-        <Screen name={n} component={c} key={n} />
+        <Screen
+          name={n}
+          component={c}
+          key={n}
+          options={{ orientation: "portrait_up" }}
+        />
       ))}
     </Navigator>
   );

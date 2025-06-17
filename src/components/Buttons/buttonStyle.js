@@ -60,4 +60,22 @@ export default StyleSheet.create({
     padding: 12,
     width: 130,
   },
+  PickupCont: {
+    backgroundColor: colors.white,
+    paddingVertical: 20,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    marginTop: 20,
+  },
+  pickupTitle: { marginLeft: 15, fontWeight: "500", fontSize: 17 },
+  pickupDetail: {
+    marginLeft: 15,
+    fontWeight: "500",
+    fontSize: 15,
+    marginTop: 5,
+  },
+  pickupImage: {
+    width: 25,
+    height: 25,
+  },
 });

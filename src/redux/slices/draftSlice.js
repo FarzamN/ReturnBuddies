@@ -7,7 +7,9 @@ const initialState = {
     _id: "",
     date: null,
     time: null,
-    pickupMethod: 1,
+    pickupMethod: "Doorstep",
+    note: "",
+    address: "",
   },
 };
 
@@ -22,10 +24,10 @@ export const draftSlice = createSlice({
       state.draftSelectedRetun = action.payload;
     },
     setDraftReturn: (state, action) => {
-      state.draftReturn._id = action.payload._id;
-      state.draftReturn.date = action.payload.date;
-      state.draftReturn.time = action.payload.time;
-      state.draftReturn.pickupMethod = action.payload.pickupMethod;
+      state.draftReturn = {
+        ...state.draftReturn,
+        ...action.payload,
+      };
     },
   },
 });

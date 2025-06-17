@@ -17,6 +17,8 @@ import {
   UploadLabel,
   MyPickups,
   SchedulePickup,
+  PickupMethod,
+  ConfirmPickup,
 } from "../screens/user";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -29,6 +31,7 @@ const TabNav = () => {
       initialRouteName="orderRoute"
       screenOptions={{
         headerShown: false,
+        orientation: "portrait",
         tabBarStyle: {
           display: "none",
         },
@@ -47,7 +50,7 @@ const Stack = createNativeStackNavigator();
 
 const AllOrderToReturn = () => (
   <Stack.Navigator
-    screenOptions={{ headerShown: false }}
+    screenOptions={{ headerShown: false, orientation: "portrait_up" }}
     initialRouteName="draftItem"
   >
     <Stack.Screen name="draftItem" component={DraftItem} />
@@ -56,13 +59,15 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="settingRoute" component={AllSettings} />
     <Stack.Screen name="shippingLabel" component={ShippingLabel} />
     <Stack.Screen name="schedulePickup" component={SchedulePickup} />
+    <Stack.Screen name="pickupMethod" component={PickupMethod} />
     <Stack.Screen name="uploadLabel" component={UploadLabel} />
+    <Stack.Screen name="confirmPickup" component={ConfirmPickup} />
   </Stack.Navigator>
 );
 
 const AllAddDraft = () => (
   <Stack.Navigator
-    screenOptions={{ headerShown: false }}
+    screenOptions={{ headerShown: false, orientation: "portrait_up" }}
     initialRouteName="addDraftItem"
   >
     <Stack.Screen name="addDraftItem" component={AddDraftItem} />
@@ -71,7 +76,7 @@ const AllAddDraft = () => (
 
 const AllSettings = () => (
   <Stack.Navigator
-    screenOptions={{ headerShown: false }}
+    screenOptions={{ headerShown: false, orientation: "portrait_up" }}
     initialRouteName="setting"
   >
     <Stack.Screen name="setting" component={Setting} />
@@ -89,7 +94,7 @@ const AllSettings = () => (
 
 const AllMyPickups = () => (
   <Stack.Navigator
-    screenOptions={{ headerShown: false }}
+    screenOptions={{ headerShown: false, orientation: "portrait_up" }}
     initialRouteName="myPickups"
   >
     <Stack.Screen name="myPickups" component={MyPickups} />

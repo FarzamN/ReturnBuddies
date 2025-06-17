@@ -4,6 +4,8 @@ import AddDraftItem from "./OrderToReturn/AddDraftItem";
 import ShippingLabel from "./OrderToReturn/ShippingLabel";
 import UploadLabel from "./OrderToReturn/UploadLabel";
 import SchedulePickup from "./OrderToReturn/SchedulePickup";
+import PickupMethod from "./OrderToReturn/PickupMethod";
+import ConfirmPickup from "./OrderToReturn/ConfirmPickup";
 
 // setting Screens
 import Notification from "./SettingFolder/Notification";
@@ -31,6 +33,8 @@ export {
   DraftItem,
   AddDraftItem,
   SchedulePickup,
+  PickupMethod,
+  ConfirmPickup,
 
   // setting Screens
   Terms,

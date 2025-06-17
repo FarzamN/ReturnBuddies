@@ -15,6 +15,11 @@ export const appImages = {
   camera: require(`./images/Icons/camera.png`),
   addLabel: require(`./images/Icons/add-label.png`),
   pdf: require(`./images/Icons/pdf.png`),
+  call: require(`./images/Icons/call.png`),
+  clock: require(`./images/Icons/clock.png`),
+  location: require(`./images/Icons/location.png`),
+  truck: require(`./images/Icons/truck.png`),
+  wallet: require(`./images/Icons/wallet.png`),
 
   //  ------- Modals Images
   otpImage: require(`./images/Modals/otpImage.png`),
