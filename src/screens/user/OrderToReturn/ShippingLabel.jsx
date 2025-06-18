@@ -14,16 +14,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { getSelectedReturnItem } from "../../../redux/queries/draftQueries";
-import { setDraftReturn } from "../../../redux/slices/draftSlice";
+import { setDraftReturn, setLabelID } from "../../../redux/slices/draftSlice";
 // import { draftData as draftSelectedRetun } from "../../../utils/data";
 
 const SchedulePickup = ({ navigation, route }) => {
   const { navigate } = navigation;
   const { returnLabel } = route.params;
   const dispatch = useDispatch();
+  const { draftSelectedRetun } = useSelector((state) => state.draft);
+
   const [isPending, setIsLoading] = useState(false);
 
-  const { draftSelectedRetun } = useSelector((state) => state.draft);
   const getPositive = draftSelectedRetun
     .map((item) => item.status !== "pending")
     .includes(false);
@@ -34,6 +35,7 @@ const SchedulePickup = ({ navigation, route }) => {
   };
 
   useEffect(() => {
+    dispatch(setLabelID(returnLabel));
     getSelectedReturnItem(returnLabel, setIsLoading)(dispatch);
   }, []);
 

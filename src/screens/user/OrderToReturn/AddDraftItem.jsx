@@ -30,9 +30,11 @@ import MainInput from "../../../components/Inputs/MainInput";
 import { Height, Space_Between } from "../../../theme/globalStyle";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { uploadReturnItems } from "../../../redux/queries/draftQueries";
+import { useNavigation } from "@react-navigation/native";
 
 const AddDraftItem = () => {
   const dispatch = useDispatch();
+  const { goBack } = useNavigation();
   const { openGallery } = useGalleryPermission();
   const [images, setImages] = useState([]);
   const [imageErrors, setImageErrors] = useState([]);
@@ -78,12 +80,12 @@ const AddDraftItem = () => {
   };
 
   const onSubmit = (data) => {
-    // console.log("Returned Items:", itemsWithImages);
     uploadReturnItems(
       data.items,
       images,
       setShowConfirmOrder,
-      setLoad
+      setLoad,
+      goBack
     )(dispatch);
   };
 
@@ -95,6 +97,8 @@ const AddDraftItem = () => {
         <Height />
         <Text style={styles.draftTitle} title={"What are you returning?"} />
         <Height />
+
+        <RequiredText title="Item to return" />
 
         {fields.map((item, index) => (
           <View key={item.id} style={{ marginBottom: wp(5) }}>

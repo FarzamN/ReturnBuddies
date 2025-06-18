@@ -9,8 +9,8 @@ const initialState = {
     time: null,
     pickupMethod: "Doorstep",
     note: "",
-    address: "",
   },
+  labelID: [],
 };
 
 export const draftSlice = createSlice({
@@ -23,6 +23,9 @@ export const draftSlice = createSlice({
     setDraftSelectedRetun: (state, action) => {
       state.draftSelectedRetun = action.payload;
     },
+    setLabelID: (state, action) => {
+      state.labelID = action.payload;
+    },
     setDraftReturn: (state, action) => {
       state.draftReturn = {
         ...state.draftReturn,
@@ -32,7 +35,11 @@ export const draftSlice = createSlice({
   },
 });
 
-export const { setDraftItem, setDraftSelectedRetun, setDraftReturn } =
-  draftSlice.actions;
+export const {
+  setDraftItem,
+  setDraftSelectedRetun,
+  setDraftReturn,
+  setLabelID,
+} = draftSlice.actions;
 
 export default draftSlice.reducer;

@@ -77,11 +77,12 @@ const ReturnSection = (props) => {
         }}
         scrollEnabled={false}
       />
-      {isLabel && (
+      {isLabel && !isPositive && (
         <MainButton
           style={buttonStyle.button}
           textStyle={buttonStyle.buttonText}
-          title={isPositive ? "Edit Label" : "Upload Label"}
+          // title={isPositive ? "Edit Label" : "Upload Label"}
+          title={"Upload Label"}
           // onPress={onEditLabel}
           onPress={() => navigate("uploadLabel", { labels: section })}
         />

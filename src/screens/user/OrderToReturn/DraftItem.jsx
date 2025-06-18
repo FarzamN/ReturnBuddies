@@ -22,8 +22,12 @@ import { wp } from "../../../theme/responsive";
 // import { draftData } from "../../../utils/data";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList, View } from "react-native";
-import { getReturnItem } from "../../../redux/queries/draftQueries";
+import {
+  deleteBundle,
+  getReturnItem,
+} from "../../../redux/queries/draftQueries";
 import { useDispatch, useSelector } from "react-redux";
+import Icon from "react-native-dynamic-vector-icons";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -32,6 +36,7 @@ const DraftItem = () => {
   const { draftData } = useSelector((state) => state.draft);
 
   const [isPending, setIsPending] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
   const [returnItemCount, setReturnItemCount] = useState(0);
   const toggleSelect = (returns) => {
@@ -59,7 +64,14 @@ const DraftItem = () => {
     <Body>
       <DraftHeader />
       {/* <Height /> */}
-
+      <Icon
+        type="AntDesign"
+        name="behance-square"
+        color="red"
+        size={30}
+        style={{ position: "absolute", top: 20, left: 20 }}
+        onPress={() => deleteBundle(selectedReturns, setIsPending)(dispatch)}
+      />
       <View style={{ paddingHorizontal: wp(5) }}>
         <Text style={styles.draftTitle} title="Your Returns" />
         <Text
@@ -78,6 +90,13 @@ const DraftItem = () => {
         />
       ) : (
         <FlatList
+          showsVerticalScrollIndicator={false}
+          refreshing={refresh}
+          onRefresh={() => {
+            setRefresh(true);
+            getReturnItem(setIsPending)(dispatch);
+            setRefresh(false);
+          }}
           data={draftData}
           contentContainerStyle={globalStyle.ph15}
           keyExtractor={(_, index) => index.toString()}

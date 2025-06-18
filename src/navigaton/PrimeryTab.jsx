@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../theme/colors";
 import { Space_Between } from "../theme/globalStyle";
+import { android } from "../utils/constants";
 
 const PrimeryTab = (props) => {
   const { currentTab } = props;
@@ -30,7 +31,9 @@ const PrimeryTab = (props) => {
             style={{
               width: "33%",
               height: 50,
-              bottom: path == "addDraftRoute" ? bottom + 10 : null,
+              bottom:
+                path == "addDraftRoute" ? bottom + (android ? 40 : 10) : null,
+              // backgroundColor: "red",
             }}
           />
         ))}

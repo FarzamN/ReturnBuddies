@@ -1,2 +1,4 @@
 import { useGalleryPermission } from "./useGalleryPermission";
-export { useGalleryPermission };
+import { useFreezeScreen } from "./useFreezeScreen";
+
+export { useGalleryPermission, useFreezeScreen };

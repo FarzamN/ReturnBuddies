@@ -11,16 +11,17 @@ import { appImages } from "../../../assets";
 import moment from "moment";
 
 const ConfirmPickup = () => {
-  const { address, pickupMethod, time, date, phone } = useSelector(
+  const { pickupMethod, time, date } = useSelector(
     (state) => state.draft.draftReturn
   );
+  const { address, phone } = useSelector((state) => state.auth);
+
   const data = {
     _id: ["68495eb05e3292f1838947f4"],
     date: "2025-06-18",
     time: "2:00 PM - 6:00 PM",
     pickupMethod: "Doorstep",
     note: "",
-    address: "",
   };
   return (
     <Body horizontal={wp(5)}>

@@ -26,7 +26,7 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
         data={data.products}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
-          const isSelected = selectedReturns === item._id;
+          const isSelected = selectedReturns.includes(item._id);
           return (
             <Row>
               <Icon
@@ -57,13 +57,13 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
                   />
                 </View>
               </TouchableOpacity>
-              <Icon
+              {/* <Icon
                 size={22}
                 type="Ionicons"
                 name="checkmark-done"
                 color={true ? colors.purple : colors.none}
                 style={{ position: "absolute", top: 0, right: 0 }}
-              />
+              /> */}
             </Row>
           );
         }}

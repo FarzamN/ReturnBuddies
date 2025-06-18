@@ -17,17 +17,19 @@ import { useForm } from "react-hook-form";
 import { Height, Row } from "../../theme/globalStyle";
 import { loginAPI } from "../../redux/queries/authQueries";
 import AuthOTP from "./AuthOTP";
+import { useFreezeScreen } from "../../hooks";
 
 const Login = () => {
   const dispatch = useDispatch();
   const showOTP = useRef(false);
   const { goBack, navigate } = useNavigation();
 
-  const openOTP = () => showOTP.current?.show();
-
   const [isPending, setIsPending] = useState(false);
+  const { Overlay } = useFreezeScreen(isPending); // Pass isPending to hook
 
+  const openOTP = () => showOTP.current?.show();
   const [saveEmail, setSaveEmail] = useState("");
+
   const onSubmit = (data) =>
     loginAPI(data, openOTP, setSaveEmail, setIsPending)(dispatch);
 
@@ -36,11 +38,11 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
+
   return (
     <>
       <Body horizontal={wp(4)}>
         <Header flag imageLogo />
-
         <ScrollView
           keyboardShouldPersistTaps={"always"}
           showsVerticalScrollIndicator={false}
@@ -85,8 +87,6 @@ const Login = () => {
           {/* <View style={[globalStyle.ph20]}> */}
           <MainButton social google onPress={handleSubmit} />
           <MainButton social apple onPress={handleSubmit} />
-
-          {/* </View> */}
         </ScrollView>
         <MainButton
           load={isPending}
@@ -96,7 +96,7 @@ const Login = () => {
         <Row style={{ justifyContent: "center" }}>
           <Text
             style={styles.dontAccountTextStyle}
-            title={"Don’t have an account?"}
+            title={"Don't have an account?"}
           />
           <TouchableOpacity onPress={() => navigate("register")}>
             <Text style={styles.dontAccountSignUpTextStyle} title=" Register" />
@@ -105,6 +105,7 @@ const Login = () => {
         <Height />
         <Height />
       </Body>
+      <Overlay />
       <AuthOTP ref={showOTP} email={saveEmail} />
     </>
   );
