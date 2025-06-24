@@ -1,16 +1,15 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { Body, Header, MainButton, Text } from "../../../components";
-import { wp } from "../../../theme/responsive";
-import { Height, Row } from "../../../theme/globalStyle";
-import Icon from "react-native-dynamic-vector-icons";
-import { colors } from "../../../theme/colors";
-import { required } from "../../../utils/constants";
-import MainInput from "../../../components/Inputs/MainInput";
-import { useForm } from "react-hook-form";
 import styles from "./settingStyle";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { ScrollView } from "react-native";
+import { colors } from "../../../theme/colors";
+import { wp } from "../../../theme/responsive";
+import { required } from "../../../utils/constants";
+import Icon from "react-native-dynamic-vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { Height, Row } from "../../../theme/globalStyle";
 import { deleteAccountPasswordAPI } from "../../../redux/queries/authQueries";
+import { Body, Header, MainButton, Text, MainInput } from "../../../components";
 
 const DeleteAccount = () => {
   const { navigate } = useNavigation();
@@ -26,7 +25,7 @@ const DeleteAccount = () => {
   } = useForm({ mode: "all" });
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Delete Account" noSetting />
+      <Header title="Delete Account" />
       <Height />
       <Row>
         <Icon name="warning" type="Ionicons" size={23} color={colors.error} />

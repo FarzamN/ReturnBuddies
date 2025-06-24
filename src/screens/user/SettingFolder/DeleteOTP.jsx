@@ -37,7 +37,7 @@ const DeleteOTP = () => {
 
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Delete Account" noSetting />
+      <Header title="Delete Account" />
       <Height />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text

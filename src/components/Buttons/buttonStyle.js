@@ -67,11 +67,11 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 20,
   },
-  pickupTitle: { marginLeft: 15, fontWeight: "500", fontSize: 17 },
+  pickupTitle: { marginLeft: 15, fontWeight: "500", fontSize: 15 },
   pickupDetail: {
     marginLeft: 15,
     fontWeight: "500",
-    fontSize: 15,
+    fontSize: 13,
     marginTop: 5,
   },
   pickupImage: {

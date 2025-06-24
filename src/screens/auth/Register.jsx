@@ -6,17 +6,16 @@ import {
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
-import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { wp } from "../../theme/responsive";
+import React, { useRef, useState } from "react";
 import { registerInput } from "../../utils/data";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
-import MainInput from "../../components/Inputs/MainInput";
 import { ScrollView, TouchableOpacity } from "react-native";
-import { Body, MainButton, Header, Text } from "../../components";
 import { registerAPI } from "../../redux/queries/authQueries";
+import { Body, MainButton, Header, Text, MainInput } from "../../components";
 
 const Register = () => {
   const showOTP = useRef(false);

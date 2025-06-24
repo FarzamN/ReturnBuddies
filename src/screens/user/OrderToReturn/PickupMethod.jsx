@@ -1,32 +1,37 @@
-import { ScrollView } from "react-native";
-import React, { useState } from "react";
 import {
   Text,
   Body,
   Header,
-  PickupMethodCard,
-  RequiredText,
+  MainInput,
   MainButton,
+  RequiredText,
+  PickupMethodCard,
 } from "../../../components";
-import { wp } from "../../../theme/responsive";
 import styles from "../userStyle";
-import MainInput from "../../../components/Inputs/MainInput";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { ScrollView } from "react-native";
+import { useIskeyboard } from "../../../hooks";
+import { wp } from "../../../theme/responsive";
 import { Height } from "../../../theme/globalStyle";
-import { useDispatch } from "react-redux";
-import { setDraftReturn } from "../../../redux/slices/draftSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { setDraftReturn } from "../../../redux/slices/draftSlice";
 
 const PickupMethod = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
-  const [selectPickup, setSelectPickup] = useState("Doorstep");
+  const { isKeyboard } = useIskeyboard();
+
+  const { pickupMethod } = useSelector((state) => state.draft.draftReturn);
+  const [selectPickup, setSelectPickup] = useState(pickupMethod);
 
   const onSubmit = (data) => {
     const { note } = data;
     dispatch(setDraftReturn({ pickupMethod: selectPickup, note }));
     navigate("confirmPickup");
   };
+
   const {
     control,
     handleSubmit,
@@ -36,7 +41,7 @@ const PickupMethod = () => {
   });
   return (
     <Body horizontal={wp(4)}>
-      <Header leftTitle="Pickup method" noSetting />
+      <Header leftTitle="Pickup method" />
       <Text
         style={styles.draftTitle}
         title={"How should we collect your items?"}
@@ -76,7 +81,9 @@ const PickupMethod = () => {
           placeholder="Any notes comments"
         />
       </ScrollView>
-      <MainButton title="continue" onPress={handleSubmit(onSubmit)} />
+      {!isKeyboard && (
+        <MainButton title="continue" onPress={handleSubmit(onSubmit)} />
+      )}
     </Body>
   );
 };

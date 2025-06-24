@@ -1,30 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
-import {
-  Body,
-  Header,
-  MainButton,
-  PhoneInput,
-  Text,
-} from "../../../components";
-import { wp } from "../../../theme/responsive";
+import { Body, Header, Text, MainInput, MainButton } from "../../../components";
 import styles from "./settingStyle";
-import MainInput from "../../../components/Inputs/MainInput";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { required } from "../../../utils/constants";
 import { ScrollView } from "react-native";
-import { Height } from "../../../theme/globalStyle";
+import { wp } from "../../../theme/responsive";
 import { editProfile } from "../../../utils/data";
-import { editProfileAPI } from "../../../redux/queries/authQueries";
+import { Height } from "../../../theme/globalStyle";
+import { required } from "../../../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { editProfileAPI } from "../../../redux/queries/authQueries";
 
-const EditProfile = () => {
+const EditProfile = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { goBack } = useNavigation();
   const { user } = useSelector((state) => state.auth);
   const [isPending, setIsPending] = useState(false);
   const onSubmit = (data) => {
-    editProfileAPI(data, setIsPending, goBack)(dispatch);
+    editProfileAPI(data, "editProfile", navigation, setIsPending)(dispatch);
   };
 
   const {
@@ -40,7 +32,7 @@ const EditProfile = () => {
   });
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Edit Profile" noSetting />
+      <Header title="Edit Profile" />
       <Text
         style={[styles.contactUStext, { marginVertical: wp(5) }]}
         title={

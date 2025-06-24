@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
-import { hp, wp } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
+import { hp, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   mainTitle: {
     fontSize: hp(2.5),
     fontWeight: "600",
-    color: colors.black,
     marginTop: wp(5),
     textAlign: "left",
+    color: colors.black,
   },
   orTextStyle: {
     marginBottom: wp(5),
@@ -29,23 +29,23 @@ export default StyleSheet.create({
   },
 
   modalContainer: {
-    justifyContent: "flex-end",
-    alignItems: "center",
     flex: 1,
     margin: 0,
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   card: {
-    backgroundColor: "white",
+    width: "100%",
     borderRadius: 30,
     paddingHorizontal: 25,
     alignItems: "center",
-    width: "100%",
+    backgroundColor: "white",
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
     color: "#000",
     marginBottom: 10,
+    fontWeight: "bold",
   },
   subText: {
     fontSize: 14,
@@ -54,19 +54,19 @@ export default StyleSheet.create({
     marginBottom: 25,
   },
   otpContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 30,
     width: "100%",
+    marginBottom: 30,
+    flexDirection: "row",
     paddingHorizontal: 10,
+    justifyContent: "space-between",
   },
   cell: {
     width: wp(16),
     height: wp(13),
-    borderRadius: 30,
     borderWidth: 1,
-    backgroundColor: "#FAFAFA",
     marginRight: 5,
+    borderRadius: 30,
+    backgroundColor: "#FAFAFA",
   },
   cellText: {
     color: colors.black,

@@ -9,7 +9,8 @@ export default StyleSheet.create({
   },
   modalBox: {
     width: "100%",
-    borderRadius: 30,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
     paddingBottom: 30,
     alignSelf: "center",
     alignItems: "center",

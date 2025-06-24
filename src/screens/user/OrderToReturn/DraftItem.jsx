@@ -2,10 +2,10 @@ import {
   Body,
   Text,
   Empty,
+  MainButton,
   PrimeryTab,
   DraftHeader,
   ReturnSection,
-  MainButton,
   DraftSkeleton,
 } from "../../../components";
 
@@ -16,54 +16,78 @@ import {
   Space_Between,
 } from "../../../theme/globalStyle";
 
-import styles from "../userStyle";
-import React, { useEffect, useState } from "react";
-import { wp } from "../../../theme/responsive";
-// import { draftData } from "../../../utils/data";
-import { useNavigation } from "@react-navigation/native";
-import { FlatList, View } from "react-native";
 import {
   deleteBundle,
   getReturnItem,
 } from "../../../redux/queries/draftQueries";
-import { useDispatch, useSelector } from "react-redux";
-import Icon from "react-native-dynamic-vector-icons";
 
-const DraftItem = () => {
+import styles from "../userStyle";
+import { wp } from "../../../theme/responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { BackHandler, FlatList, View } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+
+const DraftItem = ({ navigation }) => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
 
   const { draftData } = useSelector((state) => state.draft);
 
+  const [hasUnselected, setHasUnselected] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
-  const [returnItemCount, setReturnItemCount] = useState(0);
+  // const [returnItemCount, setReturnItemCount] = useState(0);
+
   const toggleSelect = (returns) => {
-    const { _id, products } = returns;
-    setSelectedReturns((prev) => {
-      let newSelected;
-      if (prev.includes(_id)) {
-        newSelected = prev.filter((label) => label !== _id);
-        setReturnItemCount((count) => count - products.length);
-      } else {
-        newSelected = [...prev, _id];
-        setReturnItemCount((count) => count + products.length);
-      }
-      return newSelected;
-    });
+    const { _id } = returns;
+    setSelectedReturns((prev) =>
+      prev.includes(_id)
+        ? prev.filter((label) => label !== _id)
+        : [...prev, _id]
+    );
   };
+
+  const returnItemCount = useMemo(() => {
+    return selectedReturns.reduce((total, labelId) => {
+      const returnObj = draftData.find((r) => r._id === labelId);
+      return total + (returnObj?.products?.length || 0);
+    }, 0);
+  }, [selectedReturns, draftData]);
+
   const selectedCount = selectedReturns.length;
   // const selectedCount = 0;
 
   useEffect(() => {
+    // setReturnItemCount(0);
     getReturnItem(setIsPending)(dispatch);
   }, []);
+
+  useEffect(() => {
+    const backAction = () => {
+      if (selectedReturns.length > 0 && !hasUnselected) {
+        setSelectedReturns([]);
+        setHasUnselected(true);
+        // setReturnItemCount(0);
+        return true; // Block navigation, just unselect
+      }
+
+      return false; // Allow navigation now
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    setHasUnselected(false); // Reset when screen is exited
+    return () => backHandler.remove();
+  }, [selectedReturns, hasUnselected]);
 
   return (
     <Body>
       <DraftHeader />
-      {/* <Height /> */}
+      {/* <Height /> 
       <Icon
         type="AntDesign"
         name="behance-square"
@@ -72,6 +96,7 @@ const DraftItem = () => {
         style={{ position: "absolute", top: 20, left: 20 }}
         onPress={() => deleteBundle(selectedReturns, setIsPending)(dispatch)}
       />
+      */}
       <View style={{ paddingHorizontal: wp(5) }}>
         <Text style={styles.draftTitle} title="Your Returns" />
         <Text
@@ -116,16 +141,17 @@ const DraftItem = () => {
         />
       )}
 
-      {selectedCount ? (
+      {selectedCount && draftData ? (
         <MainButton
           style={styles.button}
           textStyle={styles.buttonText}
           title={`Schedule Pickup for ${returnItemCount} Item${
             returnItemCount > 1 ? "s" : ""
           }`}
-          onPress={() =>
-            navigate("shippingLabel", { returnLabel: selectedReturns })
-          }
+          onPress={() => {
+            navigate("shippingLabel", { returnLabel: selectedReturns });
+            setSelectedReturns([]);
+          }}
         />
       ) : (
         <PrimeryTab currentTab="Home" />

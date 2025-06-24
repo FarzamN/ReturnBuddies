@@ -5,6 +5,7 @@ import styles from "./buttonStyle";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 import { FullImage } from "..";
 import { appImages } from "../../assets";
+import { width } from "../../theme/responsive";
 
 const LabelPickerButton = (props) => {
   const { onPress, source, title, weight, noImage, isError } = props;
@@ -28,7 +29,7 @@ const LabelPickerButton = (props) => {
           justifyContent: noImage ? "center" : "space-between",
         }}
       >
-        <Row style={{}}>
+        <Row>
           <FullImage
             source={type == "pdf" ? appImages.pdf : source}
             style={[
@@ -44,9 +45,10 @@ const LabelPickerButton = (props) => {
               style={[
                 styles.uploadText,
                 {
-                  width: "100%",
+                  width: width / 1.7,
                 },
               ]}
+              numberOfLines={2}
             >
               {title}
             </Text>

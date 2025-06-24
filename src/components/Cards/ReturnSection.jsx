@@ -1,6 +1,6 @@
 import React from "react";
 import { FullImage, MainButton, Text } from "..";
-import { View, Pressable, FlatList } from "react-native";
+import { View, Pressable, FlatList, Text as RNText } from "react-native";
 import { colors } from "../../theme/colors";
 import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle, Row } from "../../theme/globalStyle";
@@ -8,6 +8,7 @@ import buttonStyle from "../../screens/user/userStyle";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./cardStyle";
+import { width } from "../../theme/responsive";
 
 const ReturnSection = (props) => {
   const { section, selected, onSelect, isLabel, isPositive } = props;
@@ -18,7 +19,13 @@ const ReturnSection = (props) => {
       disabled={isLabel}
       style={[styles.sectionContainer, selected && styles.selectedSection]}
     >
-      <View style={[styles.headerRow, globalStyle.space_Between]}>
+      <View
+        style={[
+          styles.headerRow,
+          globalStyle.space_Between,
+          { flexWrap: "wrap" },
+        ]}
+      >
         <Row>
           {selected && (
             <Icon
@@ -28,10 +35,18 @@ const ReturnSection = (props) => {
               color={colors.purple}
             />
           )}
-          <Text
-            style={[styles.sectionTitle, { marginLeft: selected ? 5 : 0 }]}
-            title={section.BundleName}
-          />
+          <RNText
+            style={[
+              styles.sectionTitle,
+              {
+                marginLeft: selected ? 5 : 0,
+              },
+            ]}
+            allowFontScaling
+            numberOfLines={1}
+          >
+            {section.BundleName}
+          </RNText>
         </Row>
         {isLabel && (
           <View
@@ -63,10 +78,16 @@ const ReturnSection = (props) => {
                 style={styles.sectionImage}
                 source={item.thumbnail}
               />
-              <View>
-                <Text style={styles.sectionTitle} title={item.productName} />
+              <View style={{ flex: 1 }}>
                 <Text
-                  style={styles.sectionDate}
+                  width={width / 1.7}
+                  style={styles.sectionTitle}
+                  title={item.productName}
+                />
+
+                <Text
+                  style={[styles.sectionDate]}
+                  width={width / 1.7}
                   title={`Added on ${moment(item.created_at).format(
                     "MMMM DD"
                   )}`}
@@ -77,12 +98,12 @@ const ReturnSection = (props) => {
         }}
         scrollEnabled={false}
       />
-      {isLabel && !isPositive && (
+      {isLabel && (
         <MainButton
           style={buttonStyle.button}
           textStyle={buttonStyle.buttonText}
-          // title={isPositive ? "Edit Label" : "Upload Label"}
-          title={"Upload Label"}
+          title={isPositive ? "Edit Label" : "Upload Label"}
+          // title={"Upload Label"}
           // onPress={onEditLabel}
           onPress={() => navigate("uploadLabel", { labels: section })}
         />

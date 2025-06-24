@@ -19,6 +19,12 @@ import {
   SchedulePickup,
   PickupMethod,
   ConfirmPickup,
+  AddNewAddress,
+  AddPhoneNumber,
+  UserOTP,
+  SelectPaymentMethod,
+  AddPaymentMethod,
+  SelectNewAddress,
 } from "../screens/user";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -59,9 +65,17 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="settingRoute" component={AllSettings} />
     <Stack.Screen name="shippingLabel" component={ShippingLabel} />
     <Stack.Screen name="schedulePickup" component={SchedulePickup} />
-    <Stack.Screen name="pickupMethod" component={PickupMethod} />
     <Stack.Screen name="uploadLabel" component={UploadLabel} />
+
     <Stack.Screen name="confirmPickup" component={ConfirmPickup} />
+    <Stack.Screen name="pickupMethod" component={PickupMethod} />
+    <Stack.Screen name="selectNewAddress" component={SelectNewAddress} />
+
+    <Stack.Screen name="addPhoneNumber" component={AddPhoneNumber} />
+    <Stack.Screen name="userOTP" component={UserOTP} />
+    <Stack.Screen name="selectPaymentMethod" component={SelectPaymentMethod} />
+    <Stack.Screen name="addPaymentMethod" component={AddPaymentMethod} />
+    <Stack.Screen name="addNewAddress" component={AddNewAddress} />
   </Stack.Navigator>
 );
 

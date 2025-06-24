@@ -1,23 +1,22 @@
-import { useDispatch } from "react-redux";
-import { ScrollView, TouchableOpacity } from "react-native";
-import React, { useState, useRef } from "react";
-import { Body, MainButton, Header, Text } from "../../components";
-import { useNavigation } from "@react-navigation/native";
-import { wp } from "../../theme/responsive";
-import styles from "./authStyle";
-import MainInput from "../../components/Inputs/MainInput";
 import {
-  emailPattern,
+  required,
   maxLength,
   minLength,
-  required,
+  emailPattern,
 } from "../../utils/constants";
-import { loginInput } from "../../utils/data";
-import { useForm } from "react-hook-form";
-import { Height, Row } from "../../theme/globalStyle";
-import { loginAPI } from "../../redux/queries/authQueries";
 import AuthOTP from "./AuthOTP";
+import styles from "./authStyle";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { wp } from "../../theme/responsive";
+import { loginInput } from "../../utils/data";
 import { useFreezeScreen } from "../../hooks";
+import React, { useState, useRef } from "react";
+import { Height, Row } from "../../theme/globalStyle";
+import { useNavigation } from "@react-navigation/native";
+import { loginAPI } from "../../redux/queries/authQueries";
+import { ScrollView, TouchableOpacity } from "react-native";
+import { Body, MainButton, Header, Text, MainInput } from "../../components";
 
 const Login = () => {
   const dispatch = useDispatch();

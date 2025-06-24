@@ -1,29 +1,30 @@
-import { View } from "react-native";
 import React from "react";
-import { FullImage, Text } from "..";
+import styles from "./helperStyle";
+import { View } from "react-native";
 import { appImages } from "../../assets";
 import { wp } from "../../theme/responsive";
-import styles from "./helperStyle";
+import { AddButton, FullImage, Text } from "..";
 
 const Empty = (props) => {
-  const { sub, title } = props;
+  const { sub, title, source, isButton, onPress } = props;
   return (
     <View
       style={{
-        alignItems: "center",
         marginTop: wp(20),
+        alignItems: "center",
       }}
     >
       <FullImage
-        source={appImages.emptyDraft}
-        style={{ width: wp(60), height: wp(60) }}
+        style={{ width: wp(source ? 20 : 60), aspectRatio: 1 / 1 }}
+        source={source ? source : appImages.emptyDraft}
       />
       <Text
         title={title}
         style={[styles.emptyTitle, { marginVertical: wp(5) }]}
       />
+      {!isButton && <Text style={styles.emptyDesc} title={sub} />}
 
-      <Text style={styles.emptyDesc} title={sub} />
+      {isButton && <AddButton onPress={onPress} />}
     </View>
   );
 };

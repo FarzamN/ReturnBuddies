@@ -1,4 +1,4 @@
-import { Text } from "..";
+import { AddButton, Text } from "..";
 import React from "react";
 import styles from "./headerStyle";
 import { appImages } from "../../assets";
@@ -11,7 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const Header = (props) => {
   const { goBack, navigate } = useNavigation();
-  const { title, flag, imageLogo, leftTitle, noSetting } = props;
+  const { title, flag, imageLogo, leftTitle, isSetting, addBTN, onPress } =
+    props;
   return (
     <View style={[globalStyle.space_Between, styles.headerCont]}>
       <Row>
@@ -48,9 +49,7 @@ const Header = (props) => {
             color={colors.black}
           />
         </TouchableOpacity>
-      ) : noSetting ? (
-        <View style={{ width: 20 }} />
-      ) : (
+      ) : isSetting ? (
         <TouchableOpacity onPress={() => navigate("settingRoute")}>
           <Icon
             size={22}
@@ -59,6 +58,10 @@ const Header = (props) => {
             name={"settings-outline"}
           />
         </TouchableOpacity>
+      ) : addBTN ? (
+        <AddButton onPress={onPress} />
+      ) : (
+        <View style={{ width: 20 }} />
       )}
     </View>
   );

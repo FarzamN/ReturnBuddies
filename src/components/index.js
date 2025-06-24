@@ -5,8 +5,11 @@ import Validation from "./Helpers/Validation";
 import Text from "./Helpers/Text";
 import FullImage from "./Helpers/FullImage";
 import Empty from "./Helpers/Empty";
-import PhoneInput from "./Inputs/PhoneInput";
 import PrimeryTab from "../navigaton/PrimeryTab";
+
+// Inputs
+import PhoneInput from "./Inputs/PhoneInput";
+import MainInput from "./Inputs/MainInput";
 
 import PopupMenu from "./Helpers/PopupMenu";
 import PlusBox from "./Helpers/PlusBox";
@@ -26,6 +29,7 @@ import LabelPickerButton from "./Buttons/LabelPickerButton";
 import SelectDate from "./Buttons/SelectDate";
 import PickupButton from "./Buttons/PickupButton";
 import ItemPickupButton from "./Buttons/ItemPickupButton";
+import AddButton from "./Buttons/AddButton";
 
 // Cards
 import UploadLabelCard from "./Cards/UploadLabelCard";
@@ -34,6 +38,9 @@ import ReturnSection from "./Cards/ReturnSection";
 import DateSelectCard from "./Cards/DateSelectCard";
 import TimeSelectCard from "./Cards/TimeSelectCard";
 import PickupMethodCard from "./Cards/PickupMethodCard";
+import AddDraftCard from "./Cards/AddDraftCard";
+import PaymentCard from "./Cards/PaymentCard.jsx";
+import AddressCard from "./Cards/AddressCard.jsx";
 
 // Skeleton
 import DraftSkeleton from "./Skeletons/DraftSkeleton";
@@ -46,7 +53,9 @@ export {
   UploadLabelCard,
   ReturnHistorCard,
   PickupMethodCard,
-
+  AddDraftCard,
+  PaymentCard,
+  AddressCard,
   // Buttons
   MainButton,
   LabelPickerButton,
@@ -54,6 +63,7 @@ export {
   SelectDate,
   PickupButton,
   ItemPickupButton,
+  AddButton,
 
   // others
   Oversize,
@@ -61,7 +71,6 @@ export {
   PlusBox,
   PopupMenu,
   PrimeryTab,
-  PhoneInput,
   Body,
   Header,
   Validation,
@@ -79,4 +88,8 @@ export {
   // Skeleton
   DraftSkeleton,
   ScheduleSkeleton,
+
+  // Inputs
+  PhoneInput,
+  MainInput,
 };

@@ -1,17 +1,16 @@
-import { useState } from "react";
-import { ScrollView } from "react-native";
 import React from "react";
-import { Body, Header, MainButton, Text } from "../../../components";
-import { wp } from "../../../theme/responsive";
+import { useState } from "react";
 import styles from "./settingStyle";
-import { maxLength, minLength, required } from "../../../utils/constants";
-import { changePasswordInput } from "../../../utils/data";
 import { useForm } from "react-hook-form";
-import MainInput from "../../../components/Inputs/MainInput";
+import { ScrollView } from "react-native";
+import { wp } from "../../../theme/responsive";
 import { Height } from "../../../theme/globalStyle";
-import { showNotification } from "../../../components/Helpers/notifierHelper";
-import { changePasswordAPI } from "../../../redux/queries/authQueries";
+import { showNotification } from "../../../function";
 import { useNavigation } from "@react-navigation/native";
+import { changePasswordInput } from "../../../utils/data";
+import { changePasswordAPI } from "../../../redux/queries/authQueries";
+import { maxLength, minLength, required } from "../../../utils/constants";
+import { Body, Header, MainButton, Text, MainInput } from "../../../components";
 
 const ChangePassword = () => {
   const { goBack } = useNavigation();
@@ -36,7 +35,7 @@ const ChangePassword = () => {
   } = useForm({ mode: "all" });
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Change Password" noSetting />
+      <Header title="Change Password" />
       <Text
         style={[styles.contactUStext, { marginVertical: wp(5) }]}
         title={

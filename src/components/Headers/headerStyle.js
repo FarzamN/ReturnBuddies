@@ -30,7 +30,7 @@ export default StyleSheet.create({
   headerCont: {
     height: HEIGHT_SIZES.LARGE,
     marginBottom: iOS ? 0 : wp(4),
-    alignItems: iOS ? "center" : "flex-end",
+    marginTop: iOS ? 10 : 20,
   },
   logoStyle: {
     width: wp(10),

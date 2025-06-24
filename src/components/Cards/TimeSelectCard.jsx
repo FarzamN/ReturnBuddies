@@ -4,26 +4,26 @@ import { Text } from "..";
 import Icon from "react-native-dynamic-vector-icons";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
+import styles from "./cardStyle";
+import { width } from "../../theme/responsive";
 const TimeSelectCard = ({ data, focus, onPress, index }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
+        styles.TimeSelectCont,
         globalStyle.space_Between,
         {
           marginTop: index === 0 ? 0 : 10,
           backgroundColor: focus ? colors.skipButton : "#FAFAFA",
-          borderRadius: 10,
-          padding: 12,
-          borderWidth: 1,
           borderColor: focus ? colors.purple : "#E3E3E3",
-          marginHorizontal: 10,
         },
       ]}
     >
       <Text
         title={data}
         color={focus ? colors.purple : colors.black}
+        width={width / 1.4}
         style={{ fontWeight: "600" }}
       />
       <Icon

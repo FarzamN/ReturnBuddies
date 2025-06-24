@@ -31,7 +31,7 @@ const FAQ = () => {
 
   return (
     <Body horizontal={wp(5)}>
-      <Header title={"FAQ"} noSetting />
+      <Header title={"FAQ"} />
       <FlatList
         data={[
           {

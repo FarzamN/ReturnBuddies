@@ -6,6 +6,9 @@ import UploadLabel from "./OrderToReturn/UploadLabel";
 import SchedulePickup from "./OrderToReturn/SchedulePickup";
 import PickupMethod from "./OrderToReturn/PickupMethod";
 import ConfirmPickup from "./OrderToReturn/ConfirmPickup";
+import AddNewAddress from "./OrderToReturn/AddNewAddress";
+import SelectNewAddress from "./OrderToReturn/SelectNewAddress.jsx";
+import AddPhoneNumber from "./OrderToReturn/AddPhoneNumber";
 
 // setting Screens
 import Notification from "./SettingFolder/Notification";
@@ -20,6 +23,9 @@ import FAQ from "./SettingFolder/FAQ";
 import Terms from "./SettingFolder/Terms";
 import Privacy from "./SettingFolder/Privacy";
 import MyPickups from "./PickupsFolder/MyPickups";
+import UserOTP from "./SettingFolder/UserOTP.jsx";
+import SelectPaymentMethod from "./SettingFolder/SelectPaymentMethod.jsx";
+import AddPaymentMethod from "./SettingFolder/AddPaymentMethod.jsx";
 
 // Pickups Screens
 
@@ -35,6 +41,12 @@ export {
   SchedulePickup,
   PickupMethod,
   ConfirmPickup,
+  AddNewAddress,
+  SelectNewAddress,
+  AddPhoneNumber,
+  UserOTP,
+  SelectPaymentMethod,
+  AddPaymentMethod,
 
   // setting Screens
   Terms,

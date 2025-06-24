@@ -130,7 +130,7 @@ const renderSectionHeader = ({ section: { title } }) => (
 const Notification = () => {
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Notification" />
+      <Header title="Notification" isSetting />
 
       {notificationData.length === 0 ? (
         <Empty

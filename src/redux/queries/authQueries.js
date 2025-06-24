@@ -1,9 +1,7 @@
-import axios from "axios";
-import { setLogin, setLogout } from "../slices/authSlice";
 import instance from "../../utils/urls";
-import { catchFun } from "../../function";
-import { showNotification } from "../../components/Helpers/notifierHelper";
 import { getItem, setItem } from "../../utils/storage";
+import { setLogin, setLogout, setOTP } from "../slices/authSlice";
+import { catchFun, showNotification } from "../../function";
 
 const { log, error } = console;
 
@@ -25,9 +23,9 @@ export const loginAPI = (data, showOTP, saveEmail, load) => {
         showNotification("error", "Status Code 401", message);
       }
     } catch (err) {
-      catchFun();
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
       load(false);
-      error("Login error:", err?.response?.data || err.message);
     }
   };
 };
@@ -45,9 +43,9 @@ export const registerAPI = async (data, showOTP, saveEmail, load) => {
       showNotification("error", "Status Code 401", message);
     }
   } catch (err) {
-    catchFun();
     load(false);
-    error("Register error:", err?.response?.data.message || err.message);
+    const msg = err?.response?.data?.message || err.message;
+    catchFun(msg);
   }
 };
 
@@ -64,9 +62,9 @@ export const verifyOTPAPI = (data, load, verify) => {
         showNotification("error", "Status Code 401", message);
       }
     } catch (err) {
-      catchFun();
       load(false);
-      error("Verify OTP error:", err?.response?.data.message || err.message);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
     }
   };
 };
@@ -92,8 +90,8 @@ export const deleteAccountPasswordAPI = async (data, load, nav) => {
     }
   } catch (err) {
     load(false);
-    catchFun();
-    error("Delete Account error:", err?.response?.data?.message || err.message);
+    const msg = err?.response?.data?.message || err.message;
+    catchFun(msg);
   }
 };
 
@@ -122,11 +120,8 @@ export const deleteAccountOTPAPI = (data, load) => {
       }
     } catch (err) {
       load(false);
-      catchFun();
-      error(
-        "Delete Account OTP error:",
-        err?.response?.data?.message || err.message
-      );
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
     }
   };
 };
@@ -160,7 +155,7 @@ export const changePasswordAPI = async (data, load, goBack) => {
   }
 };
 
-export const editProfileAPI = (data, load, goBack) => {
+export const editProfileAPI = (data, type, navigation, load) => {
   return async (dispatch) => {
     try {
       load(true);
@@ -171,19 +166,53 @@ export const editProfileAPI = (data, load, goBack) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { status, message, user } = response.data;
+      const { status, message, OTP } = response.data;
       load(false);
       if (status === 200) {
-        goBack();
-        dispatch(setLogin({ user }));
+        dispatch(setOTP(OTP));
+        navigation.navigate("userOTP", { number: data.phone, type });
         showNotification("success", "Hurry", message);
       } else {
         showNotification("error", message, "Status Code 401");
       }
     } catch (err) {
       load(false);
-      catchFun();
-      error("Edit Profile error:", err?.response?.data?.message || err.message);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
+    }
+  };
+};
+
+export const editProfileVerificationAPI = (data, type, navigation) => {
+  return async (dispatch) => {
+    try {
+      // load(true);
+
+      const token = getItem("token");
+      const response = await instance.post(
+        "/user/updateNameandPhoneVerification",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const { status, message, user } = response.data;
+      // load(false);
+      if (status === 200) {
+        console.log("user", user);
+        dispatch(setLogin({ user }));
+        navigation.goBack();
+        navigation.goBack();
+        showNotification("success", "Hurry", message);
+      } else {
+        showNotification("error", message, "Status Code 401");
+      }
+    } catch (err) {
+      // load(false);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
     }
   };
 };

@@ -59,7 +59,7 @@ const MainInput = forwardRef((props, ref) => {
           style.inputStyles,
           {
             borderRadius: rounded ? 50 : 15,
-            borderColor: isError ? error : white,
+            borderColor: isError ? error : "#EEEEEE",
             backgroundColor: isError ? "#fff7f7" : white, // soft grey background
           },
           restyle,

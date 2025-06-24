@@ -31,7 +31,7 @@ const SchedulePickup = ({ navigation, route }) => {
 
   const onSubmit = () => {
     dispatch(setDraftReturn({ _id: returnLabel }));
-    navigate("schedulePickup");
+    navigate("schedulePickup", { isEdit: false });
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const SchedulePickup = ({ navigation, route }) => {
 
   return (
     <Body horizontal={wp(4)}>
-      <Header leftTitle="Shipping Label" noSetting />
+      <Header leftTitle="Shipping Label" />
       <Text style={styles.draftTitle} title={"Upload Return Labels"} />
       <Text
         style={styles.draftSub}
@@ -69,7 +69,9 @@ const SchedulePickup = ({ navigation, route }) => {
         </ScrollView>
       )}
 
-      {!getPositive && <MainButton title="Continue" onPress={onSubmit} />}
+      {!getPositive && !isPending && (
+        <MainButton title="Continue" onPress={onSubmit} />
+      )}
     </Body>
   );
 };

@@ -10,7 +10,7 @@ const ItemPickupButton = (props) => {
   const { title } = props;
   return (
     <TouchableOpacity style={[globalStyle.space_Between, styles.PickupCont]}>
-      <Text title={title} />
+      <Text style={styles.pickupTitle} title={title} />
       <Icon type="Entypo" name="chevron-right" size={20} color={colors.black} />
     </TouchableOpacity>
   );

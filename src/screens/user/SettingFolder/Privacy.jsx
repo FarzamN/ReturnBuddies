@@ -7,7 +7,7 @@ import styles from "./settingStyle";
 const Privacy = () => {
   return (
     <Body horizontal={wp(5)}>
-      <Header title="Privacy Policy" noSetting />
+      <Header title="Privacy Policy" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <Text

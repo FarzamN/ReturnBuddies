@@ -1,5 +1,6 @@
 export const appImages = {
   logo: require(`./images/logo.png`),
+  profileBackground: require(`./images/logo.png`),
 
   //  ------- Onboard
   onboard4: require(`./images/Overboard/onboard4.png`),
@@ -20,6 +21,9 @@ export const appImages = {
   location: require(`./images/Icons/location.png`),
   truck: require(`./images/Icons/truck.png`),
   wallet: require(`./images/Icons/wallet.png`),
+  wallet_empty: require(`./images/Icons/wallet-empty.png`),
+  location_empty: require(`./images/Icons/location-empty.png`),
+  card: require(`./images/Icons/card.png`),
 
   //  ------- Modals Images
   otpImage: require(`./images/Modals/otpImage.png`),
@@ -40,4 +44,17 @@ export const appImages = {
   pickup: require(`./images/BottomBar/pickup.png`),
   homeActive: require(`./images/BottomBar/home.png`),
   pickups: require(`./images/BottomBar/pickups.png`),
+
+  //  ------- Card Images
+  visa: require(`./images/cards/visa.png`),
+  master: require(`./images/cards/master.png`),
+
+  //  ------- Setting Icons
+  user: require(`./images/settingIcons/user.png`),
+  shield: require(`./images/settingIcons/shield-tick.png`),
+  notification: require(`./images/settingIcons/notification-bing.png`),
+  support: require(`./images/settingIcons/support.png`),
+  logout: require(`./images/settingIcons/logout.png`),
+  box: require(`./images/settingIcons/box.png`),
+  wallet_setting: require(`./images/settingIcons/wallet.png`),
 };

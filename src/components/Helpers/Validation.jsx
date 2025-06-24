@@ -1,14 +1,15 @@
 import React from "react";
+import { Text } from "..";
 import style from "./helperStyle";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 const Validation = (props) => {
-  const { isError, message, mh } = props;
+  const { isError, message, mh, center } = props;
   return (
     <>
       {isError && (
         <View style={{ marginHorizontal: mh }}>
-          <Text style={[style.helperText]}>{message}</Text>
+          <Text style={[style.helperText]} title={message} center={center} />
         </View>
       )}
     </>

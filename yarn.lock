@@ -1761,6 +1761,11 @@
   resolved "https://registry.yarnpkg.com/@react-native/normalize-colors/-/normalize-colors-0.79.2.tgz#9ab70ca257c7411e4ab74cf7f91332c27d39cc6f"
   integrity sha512-+b+GNrupWrWw1okHnEENz63j7NSMqhKeFMOyzYLBwKcprG8fqJQhDIGXfizKdxeIa5NnGSAevKL1Ev1zJ56X8w==
 
+"@react-native/normalize-colors@<0.73.0":
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/@react-native/normalize-colors/-/normalize-colors-0.72.0.tgz#14294b7ed3c1d92176d2a00df48456e8d7d62212"
+  integrity sha512-285lfdqSXaqKuBbbtP9qL2tDrfxdOFtIMvkKadtleRQkdOxx+uzGvFr82KHmc/sSiMtfXGp7JnFYWVh4sFl7Yw==
+
 "@react-native/typescript-config@0.79.2":
   version "0.79.2"
   resolved "https://registry.yarnpkg.com/@react-native/typescript-config/-/typescript-config-0.79.2.tgz#02cb07db89ef80159b3c1b3e82e81b0c0d5ce908"
@@ -2677,6 +2682,13 @@ caniuse-lite@^1.0.30001716:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001717.tgz#5d9fec5ce09796a1893013825510678928aca129"
   integrity sha512-auPpttCq6BDEG8ZAuHJIplGw6GODhjw+/11e7IjpnYCxZcW/ONgPs0KVBJ0d1bY3e2+7PRe5RCLyP+PfwVgkYw==
 
+card-validator@^10.0.0:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/card-validator/-/card-validator-10.0.2.tgz#22deab8172bcb8cb6c878f5824636707e313e191"
+  integrity sha512-Mq8puzE9LqVoKK83Vpcl7x4CF2brHk/1ufYQWvVVpedGc/wXt844oWzwAkBbnbRdYQKwfBkfoWtR7vRvnIbf2g==
+  dependencies:
+    credit-card-type "^10.0.2"
+
 chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
@@ -2946,6 +2958,11 @@ create-jest@^29.7.0:
     jest-util "^29.7.0"
     prompts "^2.0.1"
 
+credit-card-type@^10.0.2:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/credit-card-type/-/credit-card-type-10.0.2.tgz#a9be299ecd0ea44f4b51c8212109670bb0f4e669"
+  integrity sha512-vt/iQokU0mtrT7ceRU75FSmWnIh5JFpLsUUUWYRmztYekOGm0ZbCuzwFTbNkq41k92y+0B8ChscFhRN9DhVZEA==
+
 cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.6.tgz#8a58fe78f00dcd70c370451759dfbfaf03e8ee9f"
@@ -3120,6 +3137,15 @@ depd@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/depd/-/depd-2.0.0.tgz#b696163cc757560d09cf22cc8fad1571b79e76df"
   integrity sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==
+
+deprecated-react-native-prop-types@^4.0.0:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/deprecated-react-native-prop-types/-/deprecated-react-native-prop-types-4.2.3.tgz#0ef845c1a80ef1636bd09060e4cdf70f9727e5ad"
+  integrity sha512-2rLTiMKidIFFYpIVM69UnQKngLqQfL6I11Ch8wGSBftS18FUXda+o2we2950X+1dmbgps28niI3qwyH4eX3Z1g==
+  dependencies:
+    "@react-native/normalize-colors" "<0.73.0"
+    invariant "^2.2.4"
+    prop-types "^15.8.1"
 
 destroy@1.2.0:
   version "1.2.0"
@@ -5922,6 +5948,14 @@ react-native-country-picker-modal@^2.0.0:
     prop-types "15.7.2"
     react-async-hook "3.6.1"
 
+react-native-credit-card-input@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-credit-card-input/-/react-native-credit-card-input-1.0.0.tgz#8090514d86785e616b36855dc84a08efd7c87a17"
+  integrity sha512-x7TKe0o065LKuSWrHIqrBG/o8Qa21aOTihi986hG+7bLnP8D5W5TcZS+C3RKVECpaEn/KLnmqcxhyZ5Ano69BQ==
+  dependencies:
+    card-validator "^10.0.0"
+    react-native-flip-card "^3.5.7"
+
 react-native-curved-bottom-bar@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/react-native-curved-bottom-bar/-/react-native-curved-bottom-bar-3.5.1.tgz#1100dc529537ffb6aec224218205510409ce7858"
@@ -5956,6 +5990,14 @@ react-native-fast-image@^8.6.3:
   version "8.6.3"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz#6edc3f9190092a909d636d93eecbcc54a8822255"
   integrity sha512-Sdw4ESidXCXOmQ9EcYguNY2swyoWmx53kym2zRsvi+VeFCHEdkO+WG1DK+6W81juot40bbfLNhkc63QnWtesNg==
+
+react-native-flip-card@^3.5.7:
+  version "3.5.7"
+  resolved "https://registry.yarnpkg.com/react-native-flip-card/-/react-native-flip-card-3.5.7.tgz#b9c0d5d85e0be41199cb5583227b0fd5b58ad42f"
+  integrity sha512-++ePtVn+4vICWaBUhNpVMa/g6ZdLFl77vabWAFqfO7yyVmpyhs4CEZvkZUBxs30IRShqWsqSpmhgVCmP5AYfQw==
+  dependencies:
+    deprecated-react-native-prop-types "^4.0.0"
+    prop-types "^15.8.1"
 
 react-native-gesture-handler@^2.24.0:
   version "2.25.0"

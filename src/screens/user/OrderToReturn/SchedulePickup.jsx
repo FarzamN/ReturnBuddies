@@ -1,34 +1,36 @@
 import {
   Body,
+  Text,
   Header,
   MainButton,
-  Text,
   TimeSelectCard,
 } from "../../../components";
 import styles from "../userStyle";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import React, { useEffect, useState } from "react";
-import { getNextWeekdays } from "../../../function";
 import { DateSelectCard } from "../../../components";
 import Icon from "react-native-dynamic-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
-import { showNotification } from "../../../components/Helpers/notifierHelper";
+import { getNextWeekdays, showNotification } from "../../../function";
 
-const SchedulePickup = () => {
+const SchedulePickup = ({ route }) => {
+  const { isEdit } = route.params;
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
-
+  const { pickupMethod, time, date } = useSelector(
+    (state) => state.draft.draftReturn
+  );
   const [dates, setDates] = useState([]);
   const [load, setLoad] = useState(false);
   const [selection, setSelection] = useState({
-    dates: null,
-    times: null,
-    confirm: false,
+    dates: date,
+    times: time,
+    confirm: true,
   });
 
   const onSubmit = () => {
@@ -55,12 +57,12 @@ const SchedulePickup = () => {
         time: selection.times,
       })
     );
-    navigate("pickupMethod");
+    navigate(isEdit ? "confirmPickup" : "pickupMethod");
     setLoad(false);
   };
 
   useEffect(() => {
-    const weekdays = getNextWeekdays(5);
+    const weekdays = getNextWeekdays(6);
     setDates(weekdays);
     // setSelection((prev) => ({
     //   ...prev,
@@ -70,11 +72,11 @@ const SchedulePickup = () => {
 
   return (
     <Body horizontal={wp(4)}>
-      <Header leftTitle="Schedule Pickup" noSetting />
+      <Header leftTitle="Schedule Pickup" />
       <Text style={styles.draftTitle} title={"Choose Pickup date and time"} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.dateContainer}>
+        <ScrollView horizontal style={styles.dateContainer}>
           {dates.map((date, index) => {
             const formatted = date.format("YYYY-MM-DD");
             const isSelected = selection.dates === formatted;
@@ -90,7 +92,7 @@ const SchedulePickup = () => {
               />
             );
           })}
-        </View>
+        </ScrollView>
 
         <View style={[styles.dateContainer, { flexDirection: "column" }]}>
           {[

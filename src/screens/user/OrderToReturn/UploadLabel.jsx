@@ -1,28 +1,28 @@
-import { useNavigation } from "@react-navigation/native";
 import {
   Body,
   Text,
   Header,
+  DatePicker,
   SelectDate,
   MainButton,
   RequiredText,
   ReturnSection,
   UploadLabelCard,
   LabelPickerButton,
-  DatePicker,
 } from "../../../components";
 import styles from "../userStyle";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { appImages } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
-import { Height } from "../../../theme/globalStyle";
-import { ScrollView, Text as T } from "react-native";
-import { pick, types } from "@react-native-documents/picker";
-import { showNotification } from "../../../components/Helpers/notifierHelper";
-import { uploadLabelAPI } from "../../../redux/queries/draftQueries";
 import { useFreezeScreen } from "../../../hooks";
+import { Height } from "../../../theme/globalStyle";
+import { showNotification } from "../../../function";
+import { ScrollView, Text as T } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { pick, types } from "@react-native-documents/picker";
+import { uploadLabelAPI } from "../../../redux/queries/draftQueries";
 // import { uploadLabelData as draftSelectedRetun } from "../../../utils/data";
 
 const UploadLabel = ({ route }) => {
@@ -95,7 +95,7 @@ const UploadLabel = ({ route }) => {
   // const selectedProduct = getSelectedProduct();
   return (
     <Body horizontal={wp(4)}>
-      <Header leftTitle="Upload Label" noSetting />
+      <Header leftTitle="Upload Label" />
       <Text
         style={styles.draftTitle}
         title={"Upload Return Label or QR Code"}
@@ -167,7 +167,7 @@ const UploadLabel = ({ route }) => {
         }}
       />
 
-      {/* <Overlay /> */}
+      <Overlay />
     </Body>
   );
 };

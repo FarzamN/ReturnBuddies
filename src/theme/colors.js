@@ -16,4 +16,5 @@ export const colors = {
   placeholder: "#9E9E9E",
   inActiveText: "#A3A3A3",
   borderColor: "#E2E2E2",
+  lightPurple: "#F3EAFD",
 };
