@@ -1,5 +1,3 @@
-import { ScrollView, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
 import {
   Body,
   Text,
@@ -8,36 +6,64 @@ import {
   MainButton,
   RequiredText,
 } from "../../../components";
-import { wp } from "../../../theme/responsive";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { required } from "../../../utils/constants";
-import { globalStyle, Row, Space_Between } from "../../../theme/globalStyle";
-import Icon from "react-native-dynamic-vector-icons";
+import { useDispatch } from "react-redux";
+import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
-import styles from "../userStyle";
+import { required } from "../../../utils/constants";
+import Icon from "react-native-dynamic-vector-icons";
+import { ScrollView, TouchableOpacity } from "react-native";
+import {
+  addAddressAPI,
+  editAddressAPI,
+} from "../../../redux/queries/authQueries";
+import { globalStyle, Space_Between } from "../../../theme/globalStyle";
+import { useNavigation } from "@react-navigation/native";
 
-const AddNewAddress = () => {
-  const [focus, setFocus] = useState(false);
+const AddNewAddress = ({ route }) => {
+  const { item, editing } = route?.params || {};
+  const dispatch = useDispatch();
+  const { goBack } = useNavigation();
+  const [isPending, setIsPending] = useState(false);
   const onSubmit = (data) => {
-    console.log(data);
+    if (editing) {
+      editAddressAPI(item._id, data, goBack, setIsPending)(dispatch);
+      return;
+    }
+    addAddressAPI(data, goBack, setIsPending)(dispatch);
   };
+
   const {
     control,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
-  } = useForm({ mode: "all" });
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      street: item?.street ?? "",
+      suite: item?.suite ?? "",
+      city: item?.city ?? "",
+      state: item?.state ?? "",
+      postalCode: item?.postalCode ?? "",
+      isDefault: item?.isDefault ?? 0, // direct bind
+    },
+  });
+  const isDefault = watch("isDefault");
   return (
     <Body horizontal={wp(5)}>
-      <Header leftTitle="Add New Address" />
+      <Header leftTitle={`${editing ? "Edit" : "Add New"} Address`} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <RequiredText title="Address" required />
         {[
           {
-            name: "address",
+            name: "street",
             placeholder: "Street Address",
           },
           {
-            name: "apt",
+            name: "suite",
             placeholder: "Apt, suits, unit, etc",
           },
           {
@@ -68,7 +94,7 @@ const AddNewAddress = () => {
               placeholder: "State",
             },
             {
-              name: "zipCode",
+              name: "postalCode",
               placeholder: "Zip Code",
             },
           ].map((item) => (
@@ -92,13 +118,13 @@ const AddNewAddress = () => {
         </Space_Between>
         <TouchableOpacity
           style={globalStyle.row}
-          onPress={() => setFocus((prev) => !prev)}
+          onPress={() => setValue("isDefault", isDefault ? 0 : 1)}
         >
           <Icon
             size={20}
-            color={focus ? colors.purple : colors.grey}
-            type={focus ? "Ionicons" : "Entypo"}
-            name={focus ? "checkmark-circle" : "circle"}
+            type={isDefault ? "Ionicons" : "Entypo"}
+            color={isDefault ? colors.purple : colors.grey}
+            name={isDefault ? "checkmark-circle" : "circle"}
           />
           <Text
             title="Set as your default address."
@@ -106,7 +132,11 @@ const AddNewAddress = () => {
           />
         </TouchableOpacity>
       </ScrollView>
-      <MainButton title="Save" onPress={handleSubmit(onSubmit)} />
+      <MainButton
+        title="Save"
+        load={isPending}
+        onPress={handleSubmit(onSubmit)}
+      />
     </Body>
   );
 };

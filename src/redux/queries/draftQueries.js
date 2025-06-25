@@ -3,8 +3,6 @@ import { getItem } from "../../utils/storage";
 import { catchFun, showNotification } from "../../function";
 import { setDraftItem, setDraftSelectedRetun } from "../slices/draftSlice";
 
-const { log, error } = console;
-
 export const uploadReturnItems = (
   submittedItems,
   confirmOrder,
@@ -104,7 +102,6 @@ export const getReturnItem = (load) => {
 export const getSelectedReturnItem = (labelIDs, load) => {
   return async (dispatch) => {
     try {
-      console.log({ labelIDs });
       load(true);
       const url = `getbundle?bundleId=${labelIDs}`;
       const response = await instance.get(url, {

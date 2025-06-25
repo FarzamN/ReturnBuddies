@@ -1,44 +1,49 @@
-import React, { useState, useEffect } from "react";
 import {
   View,
-  StyleSheet,
-  TextInput,
   Text,
+  TextInput,
   ScrollView,
+  StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import {
   Body,
-  FullImage,
   Header,
+  FullImage,
   MainButton,
   RequiredText,
 } from "../../../components";
+import { useDispatch } from "react-redux";
+import { appImages } from "../../../assets";
 import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 import { cardValidator } from "../../../function";
-import { appImages } from "../../../assets";
+import React, { useState, useEffect } from "react";
 import Icon from "react-native-dynamic-vector-icons";
+import {
+  addPaymentAPI,
+  editPaymentAPI,
+} from "../../../redux/queries/authQueries";
+import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
+import { useNavigation } from "@react-navigation/native";
 
-const AddPaymentMethod = () => {
+const AddPaymentMethod = ({ route }) => {
+  const { item, editing } = route?.params || {};
+
+  const dispatch = useDispatch();
+  const { goBack } = useNavigation();
   const [cardData, setCardData] = useState({
-    name: "",
-    number: "",
-    date: "",
-    cvv: "",
+    name: item?.cardHolderName ?? "",
+    number: item?.cardNumber ?? "",
+    date: item?.expirationDate ?? "",
+    cvv: item?.cvv ?? "",
   });
-  const [focus, setFocus] = useState(false);
+  const [load, setLoad] = useState(false);
   const [errors, setErrors] = useState({});
+  const [focus, setFocus] = useState(false);
   const [cardType, setCardType] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  useEffect(() => {
-    if (isSubmitted) {
-      validateForm();
-    }
-  }, [cardData]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -152,20 +157,30 @@ const AddPaymentMethod = () => {
     if (!isFormValid) return;
 
     const cardInfo = {
-      name: cardData.name,
-      cardNumber: cardData.number.replace(/\s/g, ""),
-      expiryDate: cardData.date,
+      cardHolderName: cardData.name,
+      // cardNumber: cardData.number.replace(/\s/g, ""),
+      cardNumber: cardData.number,
+      expirationDate: cardData.date,
       cvv: cardData.cvv,
       type: cardType,
+      isDefault: focus ? 1 : 0,
     };
 
-    console.log("Card submitted:", cardInfo);
-    // Submit cardInfo to backend here
+    if (editing) {
+      editPaymentAPI(item._id, cardInfo, goBack, setLoad)(dispatch);
+      return;
+    }
+
+    addPaymentAPI(cardInfo, goBack, setLoad)(dispatch);
   };
 
+  useEffect(() => {
+    if (isSubmitted) validateForm();
+  }, [cardData]);
   return (
     <Body horizontal={wp(5)}>
-      <Header leftTitle="Add Payment Method" />
+      <Header leftTitle={`${editing ? "Edit" : "Add"} Payment Method`} />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <Height />
         {/* Cardholder Name Input */}
@@ -257,11 +272,7 @@ const AddPaymentMethod = () => {
         </TouchableOpacity>
       </ScrollView>
 
-      <MainButton
-        title="Save Card"
-        // disabled={!isFormValid}
-        onPress={onSubmit}
-      />
+      <MainButton load={load} title="Save Card" onPress={onSubmit} />
     </Body>
   );
 };

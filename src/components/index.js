@@ -41,6 +41,7 @@ import PickupMethodCard from "./Cards/PickupMethodCard";
 import AddDraftCard from "./Cards/AddDraftCard";
 import PaymentCard from "./Cards/PaymentCard.jsx";
 import AddressCard from "./Cards/AddressCard.jsx";
+import ReturnInnerCard from "./Cards/ReturnInnerCard";
 
 // Skeleton
 import DraftSkeleton from "./Skeletons/DraftSkeleton";
@@ -56,6 +57,8 @@ export {
   AddDraftCard,
   PaymentCard,
   AddressCard,
+  ReturnInnerCard,
+
   // Buttons
   MainButton,
   LabelPickerButton,

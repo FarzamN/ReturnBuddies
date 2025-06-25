@@ -1,9 +1,13 @@
+import {
+  setOTP,
+  setLogin,
+  setLogout,
+  setGetAddress,
+  setGetPayments,
+} from "../slices/authSlice";
 import instance from "../../utils/urls";
 import { getItem, setItem } from "../../utils/storage";
-import { setLogin, setLogout, setOTP } from "../slices/authSlice";
 import { catchFun, showNotification } from "../../function";
-
-const { log, error } = console;
 
 export const loginAPI = (data, showOTP, saveEmail, load) => {
   return async (dispatch) => {
@@ -20,7 +24,7 @@ export const loginAPI = (data, showOTP, saveEmail, load) => {
         showOTP();
         saveEmail(data.email);
       } else {
-        showNotification("error", "Status Code 401", message);
+        showNotification("error", message, "Status Code 401");
       }
     } catch (err) {
       const msg = err?.response?.data?.message || err.message;
@@ -40,7 +44,7 @@ export const registerAPI = async (data, showOTP, saveEmail, load) => {
       showOTP();
       saveEmail(data.email);
     } else {
-      showNotification("error", "Status Code 401", message);
+      showNotification("error", message, "Status Code 401");
     }
   } catch (err) {
     load(false);
@@ -59,7 +63,7 @@ export const verifyOTPAPI = (data, load, verify) => {
       if (status === 200) {
         verify((pre) => !pre);
       } else {
-        showNotification("error", "Status Code 401", message);
+        showNotification("error", message, "Status Code 401");
       }
     } catch (err) {
       load(false);
@@ -147,11 +151,8 @@ export const changePasswordAPI = async (data, load, goBack) => {
     }
   } catch (err) {
     load(false);
-    catchFun();
-    error(
-      "Delete Account OTP error:",
-      err?.response?.data?.message || err.message
-    );
+    const msg = err?.response?.data?.message || err.message;
+    catchFun(msg);
   }
 };
 
@@ -201,7 +202,6 @@ export const editProfileVerificationAPI = (data, type, navigation) => {
       const { status, message, user } = response.data;
       // load(false);
       if (status === 200) {
-        console.log("user", user);
         dispatch(setLogin({ user }));
         navigation.goBack();
         navigation.goBack();
@@ -211,6 +211,164 @@ export const editProfileVerificationAPI = (data, type, navigation) => {
       }
     } catch (err) {
       // load(false);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
+    }
+  };
+};
+
+export const addAddressAPI = (data, goBack, load) => {
+  return async (dispatch) => {
+    try {
+      load(true);
+      const token = getItem("token");
+      const response = await instance.post("add-address", data, {
+        headers: {
+          userid: getItem("userID"),
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { status, message } = response.data;
+      load(false);
+      if (status === 200) {
+        goBack();
+        getAddressAPI(load)(dispatch);
+      } else {
+        showNotification("error", message, `Status Code ${status}`);
+      }
+    } catch (err) {
+      load(false);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
+    }
+  };
+};
+
+export const getAddressAPI = (load) => {
+  return async (dispatch) => {
+    try {
+      load(true);
+
+      const token = getItem("token");
+      const response = await instance.get("get-all-address", {
+        headers: {
+          userid: getItem("userID"),
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { status, addresses } = response.data;
+      load(false);
+      if (status === 200) {
+        dispatch(setGetAddress(addresses.reverse()));
+      }
+    } catch (err) {
+      load(false);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
+    }
+  };
+};
+
+export const editAddressAPI = (_id, data, goBack, load) => {
+  return async (dispatch) => {
+    try {
+      load(true);
+      const token = getItem("token");
+      const response = await instance.post(`edit-address/${_id}`, data, {
+        headers: {
+          userid: getItem("userID"),
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { status, message } = response.data;
+      load(false);
+      if (status === 200) {
+        goBack();
+        getAddressAPI(load)(dispatch);
+      } else {
+        showNotification("error", message, `Status Code ${status}`);
+      }
+    } catch (err) {
+      load(false);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
+    }
+  };
+};
+
+export const addPaymentAPI = (data, goBack, load) => {
+  return async (dispatch) => {
+    try {
+      load(true);
+      const token = getItem("token");
+      const response = await instance.post("add-Payment-card", data, {
+        headers: {
+          userid: getItem("userID"),
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { status, message } = response.data;
+      load(false);
+      if (status === 200) {
+        goBack();
+        getPaymentAPI(load)(dispatch);
+      } else {
+        showNotification("error", message, `Status Code ${status}`);
+      }
+    } catch (err) {
+      load(false);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
+    }
+  };
+};
+
+export const getPaymentAPI = (load) => {
+  return async (dispatch) => {
+    try {
+      load(true);
+
+      const token = getItem("token");
+      const response = await instance.get("get-payment-card", {
+        headers: {
+          userid: getItem("userID"),
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { status, cards } = response.data;
+      load(false);
+      if (status === 200) {
+        dispatch(setGetPayments(cards.reverse()));
+      }
+    } catch (err) {
+      load(false);
+      const msg = err?.response?.data?.message || err.message;
+      catchFun(msg);
+    }
+  };
+};
+
+export const editPaymentAPI = (_id, data, goBack, load) => {
+  return async (dispatch) => {
+    try {
+      load(true);
+      const token = getItem("token");
+      const response = await instance.post(`edit-payment-card/${_id}`, data, {
+        headers: {
+          userid: getItem("userID"),
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { status, message } = response.data;
+      load(false);
+      if (status === 200) {
+        goBack();
+        getPaymentAPI(load)(dispatch);
+      } else {
+        showNotification("error", message, `Status Code ${status}`);
+      }
+    } catch (err) {
+      load(false);
       const msg = err?.response?.data?.message || err.message;
       catchFun(msg);
     }

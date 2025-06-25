@@ -15,12 +15,15 @@ const Empty = (props) => {
       }}
     >
       <FullImage
-        style={{ width: wp(source ? 20 : 60), aspectRatio: 1 / 1 }}
         source={source ? source : appImages.emptyDraft}
+        style={{ width: wp(source ? 20 : 60), aspectRatio: 1 / 1 }}
       />
       <Text
         title={title}
-        style={[styles.emptyTitle, { marginVertical: wp(5) }]}
+        style={[
+          styles.emptyTitle,
+          { marginVertical: wp(5), fontSize: source ? 15 : 20 },
+        ]}
       />
       {!isButton && <Text style={styles.emptyDesc} title={sub} />}
 

@@ -1,17 +1,19 @@
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import React from "react";
-import { Row, Space_Between } from "../../theme/globalStyle";
 import { FullImage } from "..";
 import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
+import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
+import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
+import Icon from "react-native-dynamic-vector-icons";
 
-const PaymentCard = ({ data, onPress, focus }) => {
+const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
   const getCardType = (cardNumber) => {
     if (!cardNumber) return null;
     const firstDigit = cardNumber[0];
+    if (firstDigit === "3") return "amex";
     if (firstDigit === "4") return "visa";
     if (firstDigit === "5") return "mastercard";
-    return "visa";
+    return "unknown";
   };
 
   const maskCardNumber = (cardNumber) => {
@@ -22,8 +24,32 @@ const PaymentCard = ({ data, onPress, focus }) => {
 
   const cardType = getCardType(data?.cardNumber);
 
+  const CARD_TYPES = {
+    mastercard: {
+      image: appImages.master,
+      displayName: "MASTER",
+    },
+    amex: {
+      image: appImages.amex,
+      displayName: "AMEX",
+    },
+    visa: {
+      image: appImages.visa,
+      displayName: "VISA",
+    },
+    default: {
+      image: appImages.card,
+      displayName: "UNKNOWN",
+    },
+  };
+
+  const getCardInfo = (cardType) => {
+    return CARD_TYPES[cardType] || CARD_TYPES.default;
+  };
+
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={[
         styles.cardContainer,
         {
@@ -35,25 +61,29 @@ const PaymentCard = ({ data, onPress, focus }) => {
       <Space_Between style={styles.cardContent}>
         <Row style={styles.cardInfo}>
           <FullImage
-            source={
-              cardType === "mastercard" ? appImages.master : appImages.visa
-            }
+            source={getCardInfo(cardType).image}
             style={styles.cardLogo}
           />
           <View style={styles.cardDetails}>
             <Text style={styles.cardTypeText}>
-              {cardType === "mastercard" ? "MASTER" : "VISA"}{" "}
-              {maskCardNumber(data?.cardNumber)}
+              {`${getCardInfo(cardType).displayName} ${maskCardNumber(
+                data?.cardNumber
+              )}`}
             </Text>
-            <Text style={styles.expiryText}>Expires {data?.expiryDate}</Text>
+            <Text style={styles.expiryText}>
+              Expires {data?.expirationDate}
+            </Text>
           </View>
         </Row>
 
-        {data?.isDefault === "1" && (
+        {data?.isDefault === 1 && (
           <View style={styles.defaultBadge}>
             <Text style={styles.defaultText}>Default</Text>
           </View>
         )}
+        {/* <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
+          <Icon name="edit" type="AntDesign" size={20} color={colors.black} />
+        </TouchableOpacity> */}
       </Space_Between>
     </TouchableOpacity>
   );

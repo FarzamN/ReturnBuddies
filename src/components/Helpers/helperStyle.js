@@ -65,7 +65,6 @@ const helperStyle = StyleSheet.create({
   },
   emptyTitle: {
     fontWeight: "600",
-    fontSize: 15,
     color: colors.black,
   },
   emptyDesc: {

@@ -1,5 +1,3 @@
-import { FlatList } from "react-native";
-import React, { useState } from "react";
 import {
   Body,
   Empty,
@@ -7,47 +5,59 @@ import {
   MainButton,
   AddressCard,
 } from "../../../components";
-import { wp } from "../../../theme/responsive";
 import { appImages } from "../../../assets";
+import { wp } from "../../../theme/responsive";
+import { colors } from "../../../theme/colors";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FlatList, RefreshControl } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { getAddressAPI } from "../../../redux/queries/authQueries";
 
-const SelectNewAddress = () => {
+const SelectNewAddress = ({ route }) => {
+  const { isPickup } = route.params || {};
+  const disptch = useDispatch();
+
   const { navigate } = useNavigation();
-  const [select, setSelect] = useState({ card: "", data });
-  const data = [
-    {
-      streen: "53 park view",
-      suits: "apt 11e",
-      city: "new York",
-      state: "NY",
-      zip: "10001",
-      isDefault: "1",
-    },
-    {
-      streen: "53 park view",
-      suits: "apt 11e",
-      city: "new York",
-      state: "NY",
-      zip: "10001",
-      isDefault: "0",
-    },
-  ];
+  const { getAddress } = useSelector((state) => state.auth);
+
+  const [load, setLoad] = useState(false);
+  const [select, setSelect] = useState({ index: "", data: null });
+
+  const onRefresh = () => {
+    getAddressAPI(setLoad)(disptch);
+  };
+
+  useEffect(() => {
+    getAddressAPI(setLoad)(disptch);
+  }, []);
+
   return (
     <Body horizontal={wp(5)}>
       <Header
         leftTitle="Address"
-        addBTN={data.length >= 0}
+        addBTN={getAddress.length !== 0}
         onPress={() => navigate("addNewAddress")}
       />
 
       <FlatList
-        data={data}
+        data={getAddress}
         keyExtractor={(_, i) => i.toString()}
-        renderItem={({ item }) => (
+        refreshControl={
+          <RefreshControl
+            refreshing={load}
+            onRefresh={onRefresh}
+            colors={[colors.purple]}
+            tintColor={colors.purple}
+          />
+        }
+        renderItem={({ item, index }) => (
           <AddressCard
             data={item}
-            focus={item.streen === select.card}
-            onPress={() => setSelect({ card: item.streen, data: item })}
+            disabled={!isPickup}
+            focus={index === select.index}
+            onPress={() => setSelect({ index, data: item })}
+            onEdit={() => navigate("addNewAddress", { item, editing: true })}
           />
         )}
         ListEmptyComponent={
@@ -59,9 +69,9 @@ const SelectNewAddress = () => {
           />
         }
       />
-      <MainButton title="Continue" />
+      {isPickup && getAddress.length !== 0 && <MainButton title="Continue" />}
     </Body>
   );
 };
-
+// onPress={() => disptch()}
 export default SelectNewAddress;

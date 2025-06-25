@@ -1,24 +1,24 @@
-import { useSelector } from "react-redux";
-import React from "react";
 import {
   View,
   Text,
   FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
   StatusBar,
+  StyleSheet,
+  SafeAreaView,
   ImageBackground,
+  TouchableOpacity,
+  Image,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { appImages } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
-import { setLogout } from "../../../redux/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { globalStyle } from "../../../theme/globalStyle";
-import { appImages } from "../../../assets";
-import { FullImage, MainButton } from "../../../components";
 import { useNavigation } from "@react-navigation/native";
+import { FullImage, MainButton } from "../../../components";
+import { setLogout } from "../../../redux/slices/authSlice";
 
 const settingsData = [
   { title: "Profile settings", icon: appImages.user, route: "editProfile" },
@@ -69,10 +69,22 @@ const Setting = () => {
     <View style={globalStyle.flex}>
       <SafeAreaView style={styles.safeArea} />
       <StatusBar barStyle="dark-content" backgroundColor={colors.lightPurple} />
-      <ImageBackground
-        source={appImages.profileBackground}
-        style={styles.topSection}
-      >
+      <View style={styles.topSection}>
+        {/* <ImageBackground
+          resizeMode="contain"
+          
+          source={appImages.profileBackground}
+        > */}
+        <Image
+          resizeMode="cover"
+          source={appImages.profileBackground}
+          style={{
+            height: 100,
+            width: "100%",
+            position: "absolute",
+            transform: [{ rotate: "-10deg" }], // Rotate 45 degrees
+          }}
+        />
         <TouchableOpacity onPress={goBack} style={styles.backButton}>
           <Icon name="chevron-left" type="Entypo" size={24} color="#000" />
         </TouchableOpacity>
@@ -80,8 +92,8 @@ const Setting = () => {
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>
         </View>
-      </ImageBackground>
-
+        {/* </ImageBackground> */}
+      </View>
       <View style={styles.contentContainer}>
         <Text style={styles.sectionTitle}>Settings</Text>
         <FlatList

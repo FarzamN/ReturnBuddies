@@ -9,6 +9,8 @@ const initialState = {
     time: null,
     pickupMethod: "Doorstep",
     note: "",
+    selectedAddress: null,
+    selectedPayment: null,
   },
   labelID: [],
 };

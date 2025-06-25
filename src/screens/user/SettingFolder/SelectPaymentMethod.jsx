@@ -1,51 +1,64 @@
-import { View, Text, FlatList } from "react-native";
-import React, { useState } from "react";
 import {
   Body,
   Empty,
   Header,
   MainButton,
+  AddressCard,
   PaymentCard,
 } from "../../../components";
-import { wp } from "../../../theme/responsive";
 import { appImages } from "../../../assets";
+import { wp } from "../../../theme/responsive";
+import { colors } from "../../../theme/colors";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FlatList, RefreshControl } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { getPaymentAPI } from "../../../redux/queries/authQueries";
 
-const SelectPaymentMethod = () => {
+const SelectPaymentMethod = ({ route }) => {
+  const { isPickup } = route.params || {};
+  const disptch = useDispatch();
+
   const { navigate } = useNavigation();
-  const [select, setSelect] = useState({ card: "", data });
-  const data = [
-    {
-      name: "John Doe",
-      cardNumber: "5424 2424 2424 1234",
-      expiryDate: "12/24",
-      cvv: "123",
-      isDefault: "1",
-    },
-    {
-      name: "John Doe",
-      cardNumber: "2424 2424 2424 1234",
-      expiryDate: "12/24",
-      cvv: "123",
-      isDefault: "0",
-    },
-  ];
+  const { getPayments } = useSelector((state) => state.auth);
+
+  const [load, setLoad] = useState(false);
+  const [select, setSelect] = useState({ index: "", data: null });
+
+  const onRefresh = () => {
+    getPaymentAPI(setLoad)(disptch);
+  };
+
+  useEffect(() => {
+    getPaymentAPI(setLoad)(disptch);
+  }, []);
+
   return (
     <Body horizontal={wp(5)}>
       <Header
         leftTitle="Payment methods"
-        addBTN={data.length >= 0}
+        addBTN={getPayments.length !== 0}
         onPress={() => navigate("addPaymentMethod")}
       />
 
       <FlatList
-        data={data}
+        data={getPayments}
         keyExtractor={(_, i) => i.toString()}
-        renderItem={({ item }) => (
+        refreshControl={
+          <RefreshControl
+            refreshing={load}
+            onRefresh={onRefresh}
+            colors={[colors.purple]}
+            tintColor={colors.purple}
+          />
+        }
+        renderItem={({ item, index }) => (
           <PaymentCard
             data={item}
-            focus={item.cardNumber === select.card}
-            onPress={() => setSelect({ card: item.cardNumber, data: item })}
+            disabled={!isPickup}
+            focus={index === select.index}
+            onPress={() => setSelect({ index, data: item })}
+            onEdit={() => navigate("addPaymentMethod", { item, editing: true })}
           />
         )}
         ListEmptyComponent={
@@ -57,7 +70,8 @@ const SelectPaymentMethod = () => {
           />
         }
       />
-      <MainButton title="Continue" />
+
+      {isPickup && getPayments.length !== 0 && <MainButton title="Continue" />}
     </Body>
   );
 };

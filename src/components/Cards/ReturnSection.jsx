@@ -1,22 +1,20 @@
 import React from "react";
-import { FullImage, MainButton, Text } from "..";
+import { ReturnInnerCard, MainButton, Text } from "..";
 import { View, Pressable, FlatList, Text as RNText } from "react-native";
 import { colors } from "../../theme/colors";
 import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import buttonStyle from "../../screens/user/userStyle";
-import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./cardStyle";
-import { width } from "../../theme/responsive";
 
 const ReturnSection = (props) => {
-  const { section, selected, onSelect, isLabel, isPositive } = props;
   const { navigate } = useNavigation();
+  const { section, selected, onSelect, isLabel, isPositive, disabled } = props;
   return (
     <Pressable
       onPress={() => onSelect(section)}
-      disabled={isLabel}
+      disabled={isLabel || disabled}
       style={[styles.sectionContainer, selected && styles.selectedSection]}
     >
       <View
@@ -69,33 +67,13 @@ const ReturnSection = (props) => {
       <FlatList
         data={section.products}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.sectionCard}>
-              <FullImage
-                isUrl
-                radius={10}
-                style={styles.sectionImage}
-                source={item.thumbnail}
-              />
-              <View style={{ flex: 1 }}>
-                <Text
-                  width={width / 1.7}
-                  style={styles.sectionTitle}
-                  title={item.productName}
-                />
-
-                <Text
-                  style={[styles.sectionDate]}
-                  width={width / 1.7}
-                  title={`Added on ${moment(item.created_at).format(
-                    "MMMM DD"
-                  )}`}
-                />
-              </View>
-            </View>
-          );
-        }}
+        renderItem={({ item }) => (
+          <ReturnInnerCard
+            source={item.thumbnail}
+            title={item.productName}
+            created_at={item.created_at}
+          />
+        )}
         scrollEnabled={false}
       />
       {isLabel && (

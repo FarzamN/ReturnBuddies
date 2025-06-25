@@ -1,6 +1,6 @@
 export const appImages = {
   logo: require(`./images/logo.png`),
-  profileBackground: require(`./images/logo.png`),
+  profileBackground: require(`./images/profileBackground.png`),
 
   //  ------- Onboard
   onboard4: require(`./images/Overboard/onboard4.png`),
@@ -48,6 +48,7 @@ export const appImages = {
   //  ------- Card Images
   visa: require(`./images/cards/visa.png`),
   master: require(`./images/cards/master.png`),
+  amex: require(`./images/cards/amex.png`),
 
   //  ------- Setting Icons
   user: require(`./images/settingIcons/user.png`),

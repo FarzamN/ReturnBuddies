@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
+import Splash from "./src/screens/splash";
 import { colors } from "./src/theme/colors";
 import TabNav from "./src/navigaton/TabNav";
 import AuthNav from "./src/navigaton/AuthNav";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NotifierWrapper } from "react-native-notifier";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
-import Splash from "./src/screens/splash";
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const { user, token } = useSelector((state) => state.auth);
-  console.log("token", token);
+  const { user } = useSelector((state) => state.auth);
+  console.log("user", user);
 
   const [showSplash, setShowSplash] = useState(true);
-  useEffect(() => {
-    // if (user !== null && token !== null) fetchData();
-  }, [token]);
 
   useEffect(() => {
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");

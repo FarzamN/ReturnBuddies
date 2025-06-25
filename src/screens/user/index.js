@@ -9,6 +9,7 @@ import ConfirmPickup from "./OrderToReturn/ConfirmPickup";
 import AddNewAddress from "./OrderToReturn/AddNewAddress";
 import SelectNewAddress from "./OrderToReturn/SelectNewAddress.jsx";
 import AddPhoneNumber from "./OrderToReturn/AddPhoneNumber";
+import ItemsToBePickedup from "./OrderToReturn/ItemsToBePickedup";
 
 // setting Screens
 import Notification from "./SettingFolder/Notification";
@@ -47,6 +48,7 @@ export {
   UserOTP,
   SelectPaymentMethod,
   AddPaymentMethod,
+  ItemsToBePickedup,
 
   // setting Screens
   Terms,

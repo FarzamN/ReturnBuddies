@@ -25,6 +25,7 @@ import {
   SelectPaymentMethod,
   AddPaymentMethod,
   SelectNewAddress,
+  ItemsToBePickedup,
 } from "../screens/user";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -76,6 +77,8 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="selectPaymentMethod" component={SelectPaymentMethod} />
     <Stack.Screen name="addPaymentMethod" component={AddPaymentMethod} />
     <Stack.Screen name="addNewAddress" component={AddNewAddress} />
+
+    <Stack.Screen name="itemsToBePickedup" component={ItemsToBePickedup} />
   </Stack.Navigator>
 );
 

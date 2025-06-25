@@ -1,12 +1,13 @@
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import React from "react";
-import { Row, Space_Between } from "../../theme/globalStyle";
-import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
+import Icon from "react-native-dynamic-vector-icons";
+import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
+import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 
-const AddressCard = ({ data, onPress, focus }) => {
+const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={[
         styles.cardContainer,
         {
@@ -18,18 +19,21 @@ const AddressCard = ({ data, onPress, focus }) => {
       <Space_Between style={styles.cardContent}>
         <Row style={styles.cardInfo}>
           <View style={styles.cardDetails}>
-            <Text style={styles.cardTypeText}>{data?.streen}</Text>
+            <Text style={styles.cardTypeText}>{data?.street}</Text>
             <Text style={styles.expiryText}>
-              {data?.city + " " + data?.state + " " + data?.zip}
+              {data?.city + ", " + data?.state + ", " + data?.postalCode}
             </Text>
           </View>
         </Row>
 
-        {data?.isDefault === "1" && (
+        {data?.isDefault === 1 && (
           <View style={styles.defaultBadge}>
             <Text style={styles.defaultText}>Default</Text>
           </View>
         )}
+        <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
+          <Icon name="edit" type="AntDesign" size={20} color={colors.black} />
+        </TouchableOpacity>
       </Space_Between>
     </TouchableOpacity>
   );

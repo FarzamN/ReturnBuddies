@@ -63,6 +63,7 @@ const SchedulePickup = ({ route }) => {
 
   useEffect(() => {
     const weekdays = getNextWeekdays(6);
+    weekdays.shift();
     setDates(weekdays);
     // setSelection((prev) => ({
     //   ...prev,

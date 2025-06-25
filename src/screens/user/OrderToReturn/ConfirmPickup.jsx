@@ -1,45 +1,64 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
 import {
   Body,
-  Header,
-  ItemPickupButton,
-  MainButton,
-  MainInput,
-  PickupButton,
   Text,
+  Header,
+  MainInput,
+  MainButton,
+  PickupButton,
+  ItemPickupButton,
 } from "../../../components";
-import { wp } from "../../../theme/responsive";
-import { useSelector } from "react-redux";
-import { appImages } from "../../../assets";
 import moment from "moment";
-import { ScrollView, TouchableOpacity } from "react-native";
-import { colors } from "../../../theme/colors";
 import styles from "../userStyle";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { appImages } from "../../../assets";
+import { wp } from "../../../theme/responsive";
+import { colors } from "../../../theme/colors";
 import { useIskeyboard } from "../../../hooks";
+import { useNavigation } from "@react-navigation/native";
+import { ScrollView, TouchableOpacity } from "react-native";
+import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 
 const ConfirmPickup = () => {
   const { navigate } = useNavigation();
   const { isKeyboard } = useIskeyboard();
-  const { pickupMethod, time, date } = useSelector(
-    (state) => state.draft.draftReturn
-  );
+  const { draftSelectedRetun } = useSelector((state) => state.draft);
+  const { pickupMethod, time, date, selectedAddress, note, selectedPayment } =
+    useSelector((state) => state.draft.draftReturn);
   const { address, phone, payment } = useSelector((state) => state.auth.user);
-  const [promocode, setPromoCode] = useState({ visible: false });
 
+  const [promocode, setPromoCode] = useState({ visible: false });
   const data = {
     _id: ["68495eb05e3292f1838947f4"],
     date: "2025-06-18",
     time: "2:00 PM - 6:00 PM",
     pickupMethod: "Doorstep",
     note: "",
+    selectedAddress: {
+      street: "53 park view",
+      suits: "apt 11e",
+      city: "new York",
+      state: "NY",
+      zip: "10001",
+      isDefault: "1",
+    },
+    selectedPayment: {
+      name: "John Doe",
+      cardNumber: "5424 2424 2424 1234",
+      expiryDate: "12/24",
+      cvv: "123",
+      isDefault: "1",
+    },
   };
 
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  const totalItemCount = draftSelectedRetun
+    .map((item) => item.products.length)
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
   const {
     control,
@@ -52,8 +71,8 @@ const ConfirmPickup = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <PickupButton
           source={appImages.location}
-          title={address || "Add address"}
-          onPress={() => navigate("selectNewAddress")}
+          title={selectedAddress || address || "Add address"}
+          onPress={() => navigate("selectNewAddress", { isPickup: true })}
         />
         <PickupButton
           title={pickupMethod}
@@ -76,7 +95,10 @@ const ConfirmPickup = () => {
           title={phone || "Add phone number"}
           onPress={() => navigate("addPhoneNumber")}
         />
-        <ItemPickupButton title={`Items to be pickedup (${2})`} />
+        <ItemPickupButton
+          onPress={() => navigate("itemsToBePickedup")}
+          title={`Items to be pickedup (${totalItemCount})`}
+        />
 
         <Space_Between style={globalStyle.mv10}>
           <Text style={styles.promoCode} title="Pickup" />
@@ -111,9 +133,9 @@ const ConfirmPickup = () => {
         </Space_Between>
         <PickupButton
           noEdit
-          onPress={() => navigate("selectPaymentMethod")}
+          onPress={() => navigate("selectPaymentMethod", { pickup: true })}
           source={appImages.wallet}
-          title={payment || "Add Payment method"}
+          title={selectedPayment || payment || "Add Payment method"}
         />
       </ScrollView>
       {!isKeyboard && (

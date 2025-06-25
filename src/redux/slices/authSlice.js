@@ -6,6 +6,8 @@ const initialState = {
   rememberMe: false,
   otp: null,
   loading: false,
+  getAddress: [],
+  getPayments: [],
 };
 
 export const authSlice = createSlice({
@@ -25,9 +27,16 @@ export const authSlice = createSlice({
     setOTP: (state, action) => {
       state.otp = action.payload;
     },
+    setGetAddress: (state, action) => {
+      state.getAddress = action.payload;
+    },
+    setGetPayments: (state, action) => {
+      state.getPayments = action.payload;
+    },
   },
 });
 
-export const { setLogin, setLogout, setOTP } = authSlice.actions;
+export const { setLogin, setLogout, setOTP, setGetAddress, setGetPayments } =
+  authSlice.actions;
 
 export default authSlice.reducer;
