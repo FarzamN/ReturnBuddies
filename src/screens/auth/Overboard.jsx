@@ -144,8 +144,7 @@ const styles = StyleSheet.create({
     fontSize: hp(2.3),
     lineHeight: hp(4.2),
     textAlign: "center",
-    fontWeight: "500",
-
+    fontFamily:'Poppins-Black',
     color: colors.black,
     marginTop: hp(2),
   },
