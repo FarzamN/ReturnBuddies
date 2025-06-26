@@ -86,7 +86,12 @@ const Setting = () => {
           }}
         />
         <TouchableOpacity onPress={goBack} style={styles.backButton}>
-          <Icon name="chevron-left" type="Entypo" size={24} color="#000" />
+          <Icon
+            size={20}
+            type="Ionicons"
+            name="arrow-back"
+            color={colors.black}
+          />
         </TouchableOpacity>
         <View style={styles.profileCard}>
           <Text style={styles.name}>{name}</Text>
@@ -104,9 +109,9 @@ const Setting = () => {
           contentContainerStyle={{ paddingBottom: wp(10) }}
           ListFooterComponent={
             <MainButton
-              style={{ backgroundColor: "#F31215", marginTop: 10 }}
               title="Delete Account"
               onPress={() => navigate("deleteAccount")}
+              style={{ backgroundColor: "#F31215", marginTop: 10 }}
             />
           }
         />

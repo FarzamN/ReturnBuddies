@@ -1,6 +1,7 @@
 import moment from "moment";
 import { Notifier } from "react-native-notifier";
 import Component from "../components/Helpers/CustomToast";
+import { alert } from "react-native-alert-queue";
 
 export const showNotification = (type, title, message) => {
   Notifier.showNotification({
@@ -60,4 +61,19 @@ export const cardValidator = {
 
     return sum % 10 === 0 || "Invalid card number";
   },
+};
+
+export const handleDelete = (item, type) => {
+  alert.show({
+    title: "Custom Alert",
+    message: "This is a custom alert",
+    buttons: [
+      { text: "Cancel", style: "cancel" },
+      ,
+      {
+        text: "OK!",
+        onPress: () => console.log("OK pressed"),
+      },
+    ],
+  });
 };

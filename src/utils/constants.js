@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-import { EmailRegix } from "./urls";
+import { emailRegex } from "./urls";
 
 export const OS = Platform.OS;
 export const iOS = Platform.OS === "ios";
@@ -16,7 +16,7 @@ export const maxLength = {
 };
 
 export const emailPattern = {
-  value: EmailRegix,
+  value: emailRegex,
   message: "Email is not valid",
 };
 

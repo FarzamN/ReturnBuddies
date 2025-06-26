@@ -4,14 +4,17 @@ import {
   Header,
   MainButton,
   AddressCard,
+  HiddenDelete,
 } from "../../../components";
 import { appImages } from "../../../assets";
-import { wp } from "../../../theme/responsive";
+import { RefreshControl } from "react-native";
 import { colors } from "../../../theme/colors";
+import { wp } from "../../../theme/responsive";
+import { handleDelete } from "../../../function";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FlatList, RefreshControl } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { SwipeListView } from "react-native-swipe-list-view";
 import { getAddressAPI } from "../../../redux/queries/authQueries";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
 
@@ -41,7 +44,7 @@ const SelectNewAddress = ({ route }) => {
         onPress={() => navigate("addNewAddress")}
       />
 
-      <FlatList
+      <SwipeListView
         data={getAddress}
         keyExtractor={(_, i) => i.toString()}
         refreshControl={
@@ -69,6 +72,10 @@ const SelectNewAddress = ({ route }) => {
             onPress={() => navigate("addNewAddress")}
           />
         }
+        renderHiddenItem={({ item }) => (
+          <HiddenDelete onPress={() => handleDelete(item, "address")} />
+        )}
+        rightOpenValue={-75}
       />
       {isPickup && getAddress?.length !== 0 && (
         <MainButton

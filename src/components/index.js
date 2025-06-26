@@ -11,10 +11,12 @@ import PrimeryTab from "../navigaton/PrimeryTab";
 import PhoneInput from "./Inputs/PhoneInput";
 import MainInput from "./Inputs/MainInput";
 
+// Helpers
 import PopupMenu from "./Helpers/PopupMenu";
 import PlusBox from "./Helpers/PlusBox";
 import RequiredText from "./Helpers/RequiredText";
 import Oversize from "./Helpers/Oversize";
+import HiddenDelete from "./Helpers/HiddenDelete";
 
 // Modals
 import Tootlip from "./Modals/Tootlip";
@@ -71,6 +73,7 @@ export {
   // others
   Oversize,
   RequiredText,
+  HiddenDelete,
   PlusBox,
   PopupMenu,
   PrimeryTab,
