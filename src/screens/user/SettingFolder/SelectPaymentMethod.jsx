@@ -3,7 +3,6 @@ import {
   Empty,
   Header,
   MainButton,
-  AddressCard,
   PaymentCard,
 } from "../../../components";
 import { appImages } from "../../../assets";
@@ -14,25 +13,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { FlatList, RefreshControl } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getPaymentAPI } from "../../../redux/queries/authQueries";
+import { setDraftReturn } from "../../../redux/slices/draftSlice";
 
 const SelectPaymentMethod = ({ route }) => {
   const { isPickup } = route.params || {};
-  const disptch = useDispatch();
+  const dispatch = useDispatch();
 
-  const { navigate } = useNavigation();
-  const { getPayments } = useSelector((state) => state.auth);
+  const { navigate, goBack } = useNavigation();
+  const { getPayments } = useSelector((state) => state.auth) ?? [];
+  // const getPayments = useSelector((state) => state.auth.getPayments) ;
 
   const [load, setLoad] = useState(false);
   const [select, setSelect] = useState({ index: "", data: null });
 
   const onRefresh = () => {
-    getPaymentAPI(setLoad)(disptch);
+    getPaymentAPI(setLoad)(dispatch);
   };
 
   useEffect(() => {
-    getPaymentAPI(setLoad)(disptch);
+    getPaymentAPI(setLoad)(dispatch);
   }, []);
-
   return (
     <Body horizontal={wp(5)}>
       <Header
@@ -71,7 +71,16 @@ const SelectPaymentMethod = ({ route }) => {
         }
       />
 
-      {isPickup && getPayments.length !== 0 && <MainButton title="Continue" />}
+      {isPickup && getPayments.length !== 0 && (
+        <MainButton
+          title="Continue"
+          disabled={!select.data}
+          onPress={() => {
+            goBack();
+            dispatch(setDraftReturn({ selectedPayment: select.data }));
+          }}
+        />
+      )}
     </Body>
   );
 };

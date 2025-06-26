@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
-import { FONT_SIZES, SPACING, tab } from "../../theme/responsive";
+import { fonts } from "../../assets";
 import { colors } from "../../theme/colors";
+import { fontScale, SPACING, tab } from "../../theme/responsive";
 
 const inputStyles = StyleSheet.create({
   mainInputCont: {
@@ -8,8 +9,8 @@ const inputStyles = StyleSheet.create({
     marginTop: SPACING.SMALL,
   },
   inputStyles: {
-    fontWeight: "500",
-    fontSize: FONT_SIZES.BODY,
+    fontFamily: fonts[500],
+    fontSize: fontScale(15),
     color: colors.black,
     paddingHorizontal: 20, // inner spacing
     height: 50, // match height
@@ -17,7 +18,7 @@ const inputStyles = StyleSheet.create({
   },
 
   SearchInput: {
-    fontWeight: "400",
+    fontFamily: fonts[500],
     color: colors.black,
     marginHorizontal: 5,
     fontSize: tab ? 16 : 14,

@@ -26,7 +26,9 @@ const ConfirmPickup = () => {
   const { draftSelectedRetun } = useSelector((state) => state.draft);
   const { pickupMethod, time, date, selectedAddress, note, selectedPayment } =
     useSelector((state) => state.draft.draftReturn);
-  const { address, phone, payment } = useSelector((state) => state.auth.user);
+  const { pickupAddress, phone, payment } = useSelector(
+    (state) => state.auth.user
+  );
 
   const [promocode, setPromoCode] = useState({ visible: false });
   const data = {
@@ -71,7 +73,9 @@ const ConfirmPickup = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <PickupButton
           source={appImages.location}
-          title={selectedAddress || address || "Add address"}
+          title={
+            selectedAddress?.state || pickupAddress?.state || "Add address"
+          }
           onPress={() => navigate("selectNewAddress", { isPickup: true })}
         />
         <PickupButton
@@ -132,10 +136,14 @@ const ConfirmPickup = () => {
           <Text title="$ 9.99" style={styles.promoCode} />
         </Space_Between>
         <PickupButton
-          noEdit
-          onPress={() => navigate("selectPaymentMethod", { pickup: true })}
+          // noEdit
           source={appImages.wallet}
-          title={selectedPayment || payment || "Add Payment method"}
+          title={`${
+            selectedPayment?.cardNumber ||
+            payment?.cardNumber ||
+            "Add Payment method"
+          }`}
+          onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
         />
       </ScrollView>
       {!isKeyboard && (

@@ -213,13 +213,13 @@ const AddDraftItem = () => {
             <MainInput
               small
               noTitle
-              name={`items.${index}.detail`}
               control={control}
-              isError={!!errors?.items?.[index]?.detail}
               Container={{ marginTop: 0 }}
-              message={errors?.items?.[index]?.detail?.message}
+              name={`items.${index}.detail`}
               placeholder="e.g. Black Hoodie - Size XL"
+              isError={!!errors?.items?.[index]?.detail}
               rules={{ required: required("Item Details") }}
+              message={errors?.items?.[index]?.detail?.message}
             />
 
             <Height />

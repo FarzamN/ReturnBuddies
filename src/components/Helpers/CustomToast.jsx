@@ -1,10 +1,10 @@
-import helperStyle from "./helperStyle";
 import React from "react";
+import helperStyle from "./helperStyle";
 import { Text, View } from "react-native";
+import { colors } from "../../theme/colors";
+import { FONT_SIZES, fontScale } from "../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../../theme/colors";
-import { FONT_SIZES } from "../../theme/responsive";
 
 const toastColors = {
   success: {
@@ -54,12 +54,21 @@ const CustomToast = ({ title, message, type }) => {
         <Icon size={20} color={colors.white} name={icon} type={iconType} />
       </View>
       <View style={{ width: "90%" }}>
-        <Text style={helperStyle.ToastText1}>{title}</Text>
+        <Text
+          style={[
+            helperStyle.ToastText1,
+            {
+              fontSize: title.length < 30 ? fontScale(14) : fontScale(10),
+            },
+          ]}
+        >
+          {title}
+        </Text>
         <Text
           style={[
             helperStyle.ToastText2,
             {
-              fontSize: message.length > 30 ? 9 : FONT_SIZES.SMALL,
+              fontSize: message.length < 30 ? fontScale(11) : fontScale(10),
             },
           ]}
         >

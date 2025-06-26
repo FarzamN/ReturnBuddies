@@ -16,14 +16,14 @@ const MainInput = forwardRef((props, ref) => {
     isError,
     restyle,
     message,
+    rounded,
+    noTitle,
     password,
     Container,
     multiline,
     placeholder,
-    keyboardType = "default",
     defaultValue,
-    rounded,
-    noTitle,
+    keyboardType = "default",
   } = props;
 
   const [show, setShow] = useState(true);
@@ -44,9 +44,8 @@ const MainInput = forwardRef((props, ref) => {
 
       <TextInput
         ref={ref}
-        mode={"flat"} // changed from "outlined"
-        label={null} // remove label as it's not shown
-        // error={isError}
+        mode={"flat"}
+        label={null}
         textColor={black}
         value={field.value}
         multiline={multiline}

@@ -9,10 +9,11 @@ import {
 } from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import { hp, width, wp } from "../../theme/responsive";
-import { appImages } from "../../assets";
+import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { globalStyle, Height } from "../../theme/globalStyle";
 import { MainButton } from "../../components";
+import {} from "../../assets";
 
 const onboardingArray = [
   {
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize: hp(2.3),
     lineHeight: hp(4.2),
     textAlign: "center",
-    fontFamily:'Poppins-Black',
+    fontFamily: fonts[500],
     color: colors.black,
     marginTop: hp(2),
   },
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     fontSize: hp(1.5),
     lineHeight: hp(2.6),
     textAlign: "center",
-    fontWeight: "400",
+    fontFamily: fonts[400],
     color: colors.description,
     // marginTop: hp(2),
   },

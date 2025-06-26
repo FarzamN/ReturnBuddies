@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import { HEIGHT_SIZES, hp, wp } from "../../theme/responsive";
+import { fontScale, HEIGHT_SIZES, hp, wp } from "../../theme/responsive";
 import { iOS } from "../../utils/constants";
+import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   right: {
@@ -10,14 +11,14 @@ export default StyleSheet.create({
     tintColor: colors.black,
   },
   leftLabel: {
-    fontWeight: "600",
-    fontSize: hp(2),
+    fontFamily: fonts[600],
+    fontSize: fontScale(14),
     textAlign: "center",
     color: colors.black,
   },
   rightLabel: {
-    fontWeight: "600",
-    fontSize: hp(1.8),
+    fontFamily: fonts[600],
+    fontSize: fontScale(14),
     textAlign: "center",
     color: colors.purple,
   },

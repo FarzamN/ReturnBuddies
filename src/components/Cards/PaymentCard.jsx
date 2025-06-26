@@ -81,9 +81,9 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
             <Text style={styles.defaultText}>Default</Text>
           </View>
         )}
-        {/* <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
+        <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
           <Icon name="edit" type="AntDesign" size={20} color={colors.black} />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </Space_Between>
     </TouchableOpacity>
   );

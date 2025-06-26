@@ -33,10 +33,27 @@ export const authSlice = createSlice({
     setGetPayments: (state, action) => {
       state.getPayments = action.payload;
     },
+    updatePaymentCard: (state, action) => {
+      if (state.user) {
+        state.user.payment = action.payload;
+      }
+    },
+    updateAddress: (state, action) => {
+      if (state.user) {
+        state.user.pickupAddress = action.payload;
+      }
+    },
   },
 });
 
-export const { setLogin, setLogout, setOTP, setGetAddress, setGetPayments } =
-  authSlice.actions;
+export const {
+  setLogin,
+  setLogout,
+  setOTP,
+  setGetAddress,
+  setGetPayments,
+  updatePaymentCard,
+  updateAddress,
+} = authSlice.actions;
 
 export default authSlice.reducer;

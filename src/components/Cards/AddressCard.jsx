@@ -26,7 +26,7 @@ const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
           </View>
         </Row>
 
-        {data?.isDefault === 1 && (
+        {data?.isDefault == 1 && (
           <View style={styles.defaultBadge}>
             <Text style={styles.defaultText}>Default</Text>
           </View>

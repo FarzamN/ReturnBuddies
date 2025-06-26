@@ -2,17 +2,19 @@ import { StyleSheet } from "react-native";
 import responsive, {
   BORDER_RADIUS,
   FONT_SIZES,
+  fontScale,
   hp,
   wp,
 } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
+import { fonts } from "../../assets";
 
 const { black } = colors;
 const helperStyle = StyleSheet.create({
   helperText: {
-    fontWeight: "500",
+    fontFamily: fonts[400],
     color: colors.error,
-    fontSize: FONT_SIZES.SMALL,
+    fontSize: fontScale(10),
     marginTop: responsive.space(7),
   },
   text: {
@@ -39,12 +41,11 @@ const helperStyle = StyleSheet.create({
   },
   ToastText1: {
     color: black,
-    fontWeight: "600",
-    fontSize: FONT_SIZES.BODY,
+    fontFamily: fonts[600],
   },
   ToastText2: {
     color: black,
-    fontWeight: "500",
+    fontFamily: fonts[500],
   },
   ToastIconBox: {
     width: 25,
@@ -94,9 +95,9 @@ const helperStyle = StyleSheet.create({
 
   requiredTitle: {
     color: colors.black,
-    fontSize: 14,
-    marginBottom: 10,
-    fontWeight: "500",
+    marginBottom: 8,
+    fontSize: fontScale(13),
+    fontFamily: fonts[500],
   },
 });
 

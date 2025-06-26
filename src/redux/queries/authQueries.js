@@ -4,6 +4,8 @@ import {
   setLogout,
   setGetAddress,
   setGetPayments,
+  updatePaymentCard,
+  updateAddress,
 } from "../slices/authSlice";
 import instance from "../../utils/urls";
 import { getItem, setItem } from "../../utils/storage";
@@ -228,10 +230,12 @@ export const addAddressAPI = (data, goBack, load) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { status, message } = response.data;
+      const { status, message, Address } = response.data;
+      console.log("response.data", response.data);
       load(false);
       if (status === 200) {
         goBack();
+        if (Address.isDefault == 1) dispatch(updateAddress(Address));
         getAddressAPI(load)(dispatch);
       } else {
         showNotification("error", message, `Status Code ${status}`);
@@ -307,10 +311,12 @@ export const addPaymentAPI = (data, goBack, load) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { status, message } = response.data;
+      const { status, message, card } = response.data;
       load(false);
       if (status === 200) {
         goBack();
+        if (card.isDefault == 1) dispatch(updatePaymentCard(card));
+
         getPaymentAPI(load)(dispatch);
       } else {
         showNotification("error", message, `Status Code ${status}`);
@@ -359,10 +365,11 @@ export const editPaymentAPI = (_id, data, goBack, load) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { status, message } = response.data;
+      const { status, message, card } = response.data;
       load(false);
       if (status === 200) {
         goBack();
+        if (card.isDefault == 1) dispatch(updatePaymentCard(card));
         getPaymentAPI(load)(dispatch);
       } else {
         showNotification("error", message, `Status Code ${status}`);

@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
-import responsive, { hp, wp } from "../../theme/responsive";
+import responsive, { fontScale, hp, wp } from "../../theme/responsive";
+import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   draftTitle: {
@@ -29,9 +30,9 @@ export default StyleSheet.create({
     height: responsive.height(40),
   },
   buttonText: {
-    fontSize: 14,
-    fontWeight: "600",
     color: colors.purple,
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
   },
 
   uploadSelectText: {

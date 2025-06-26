@@ -122,9 +122,9 @@ const AddNewAddress = ({ route }) => {
         >
           <Icon
             size={20}
-            type={isDefault ? "Ionicons" : "Entypo"}
-            color={isDefault ? colors.purple : colors.grey}
-            name={isDefault ? "checkmark-circle" : "circle"}
+            type={isDefault === 1 ? "Ionicons" : "Entypo"}
+            color={isDefault === 1 ? colors.purple : colors.grey}
+            name={isDefault === 1 ? "checkmark-circle" : "circle"}
           />
           <Text
             title="Set as your default address."

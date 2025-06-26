@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import { hp, wp } from "../../theme/responsive";
+import { fontScale, hp, wp } from "../../theme/responsive";
+import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   mainTitle: {
-    fontSize: hp(2.5),
-    fontWeight: "600",
+    fontFamily: fonts[600],
+    fontSize: fontScale(20),
     marginTop: wp(5),
     textAlign: "left",
     color: colors.black,
@@ -13,18 +14,18 @@ export default StyleSheet.create({
   orTextStyle: {
     marginBottom: wp(5),
     textAlign: "center",
-    fontSize: hp(1.6),
-    fontWeight: "500",
+    fontFamily: fonts[400],
+    fontSize: fontScale(12),
     color: colors.grey,
   },
   dontAccountTextStyle: {
-    fontSize: hp(1.6),
-    fontWeight: "500",
+    fontSize: fontScale(13),
+    fontFamily: fonts[500],
     color: colors.description,
   },
   dontAccountSignUpTextStyle: {
-    fontSize: hp(1.6),
-    fontWeight: "500",
+    fontSize: fontScale(13),
+    fontFamily: fonts[500],
     color: colors.purple,
   },
 
@@ -42,13 +43,14 @@ export default StyleSheet.create({
     backgroundColor: "white",
   },
   title: {
-    fontSize: 20,
     color: "#000",
-    marginBottom: 10,
-    fontWeight: "bold",
+    marginBottom: 8,
+    fontFamily: fonts[600],
+    fontSize: fontScale(20),
   },
   subText: {
-    fontSize: 14,
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
     color: "#888",
     textAlign: "center",
     marginBottom: 25,
@@ -70,8 +72,8 @@ export default StyleSheet.create({
   },
   cellText: {
     color: colors.black,
-    fontSize: hp(2.4),
-    fontWeight: "600",
+    fontFamily: fonts[500],
+    fontSize: fontScale(14),
     textAlign: "center",
     lineHeight: wp(12),
   },

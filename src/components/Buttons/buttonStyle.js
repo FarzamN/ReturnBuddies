@@ -2,30 +2,31 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 import responsive, {
   BORDER_RADIUS,
-  FONT_SIZES,
   fontScale,
-  HEIGHT_SIZES,
   SPACING,
 } from "../../theme/responsive";
+import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   containerStyle: {
     marginTop: 5,
     width: "100%",
+    marginBottom: 15,
     overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: fontScale(2),
     height: responsive.height(52),
     borderRadius: BORDER_RADIUS.CIRCLE ? 35 : 20,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 15,
-    borderWidth: fontScale(2),
   },
 
   font: {
+    top: fontScale(1),
     color: colors.white,
-    fontWeight: "600",
-    fontSize: FONT_SIZES.BODY,
+    fontFamily: fonts[500],
+    fontSize: fontScale(13),
   },
+
   socialImage: {
     width: responsive.height(20),
     height: responsive.height(20),
@@ -35,18 +36,20 @@ export default StyleSheet.create({
   // Image Btuuon style
 
   ImageButton: {
-    borderStyle: "dashed",
-    borderWidth: 1,
     padding: 15,
+    borderWidth: 1,
     borderRadius: 12,
+    borderStyle: "dashed",
     backgroundColor: colors.white,
   },
   ImageIcon: {
     marginRight: 10,
   },
   ImageText: {
-    color: "#111827", // Tailwind's gray-900
-    fontSize: 14,
+    color: "#111827",
+    top: fontScale(2),
+    fontSize: fontScale(12),
+    fontFamily: fonts[500],
   },
   uploadText: {
     color: colors.black,
@@ -67,12 +70,16 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 20,
   },
-  pickupTitle: { marginLeft: 15, fontWeight: "500", fontSize: 15 },
+  pickupTitle: {
+    top: 2,
+    marginLeft: 15,
+    fontFamily: fonts[500],
+    fontSize: fontScale(14),
+  },
   pickupDetail: {
     marginLeft: 15,
-    fontWeight: "500",
-    fontSize: 13,
-    marginTop: 5,
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
   },
   pickupImage: {
     width: 25,

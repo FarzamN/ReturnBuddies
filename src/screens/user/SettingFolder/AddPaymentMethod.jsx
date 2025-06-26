@@ -40,7 +40,7 @@ const AddPaymentMethod = ({ route }) => {
   });
   const [load, setLoad] = useState(false);
   const [errors, setErrors] = useState({});
-  const [focus, setFocus] = useState(false);
+  const [focus, setFocus] = useState(item?.isDefault);
   const [cardType, setCardType] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);

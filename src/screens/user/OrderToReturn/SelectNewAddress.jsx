@@ -13,30 +13,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { FlatList, RefreshControl } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getAddressAPI } from "../../../redux/queries/authQueries";
+import { setDraftReturn } from "../../../redux/slices/draftSlice";
 
 const SelectNewAddress = ({ route }) => {
   const { isPickup } = route.params || {};
-  const disptch = useDispatch();
+  const dispatch = useDispatch();
 
-  const { navigate } = useNavigation();
-  const { getAddress } = useSelector((state) => state.auth);
+  const { navigate, goBack } = useNavigation();
+  const { getAddress } = useSelector((state) => state.auth) ?? [];
 
   const [load, setLoad] = useState(false);
   const [select, setSelect] = useState({ index: "", data: null });
 
   const onRefresh = () => {
-    getAddressAPI(setLoad)(disptch);
+    getAddressAPI(setLoad)(dispatch);
   };
 
   useEffect(() => {
-    getAddressAPI(setLoad)(disptch);
+    getAddressAPI(setLoad)(dispatch);
   }, []);
 
   return (
     <Body horizontal={wp(5)}>
       <Header
         leftTitle="Address"
-        addBTN={getAddress.length !== 0}
+        addBTN={getAddress?.length !== 0}
         onPress={() => navigate("addNewAddress")}
       />
 
@@ -69,9 +70,18 @@ const SelectNewAddress = ({ route }) => {
           />
         }
       />
-      {isPickup && getAddress.length !== 0 && <MainButton title="Continue" />}
+      {isPickup && getAddress?.length !== 0 && (
+        <MainButton
+          title="Continue"
+          disabled={!select.data}
+          onPress={() => {
+            goBack();
+            dispatch(setDraftReturn({ selectedAddress: select.data }));
+          }}
+        />
+      )}
     </Body>
   );
 };
-// onPress={() => disptch()}
+// onPress={() => dispatch()}
 export default SelectNewAddress;
