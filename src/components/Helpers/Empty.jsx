@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./helperStyle";
 import { View } from "react-native";
 import { appImages } from "../../assets";
-import { wp } from "../../theme/responsive";
+import { fontScale, wp } from "../../theme/responsive";
 import { AddButton, FullImage, Text } from "..";
 
 const Empty = (props) => {
@@ -22,7 +22,7 @@ const Empty = (props) => {
         title={title}
         style={[
           styles.emptyTitle,
-          { marginVertical: wp(5), fontSize: source ? 15 : 20 },
+          { fontSize: source ? fontScale(14) : fontScale(18) },
         ]}
       />
       {!isButton && <Text style={styles.emptyDesc} title={sub} />}

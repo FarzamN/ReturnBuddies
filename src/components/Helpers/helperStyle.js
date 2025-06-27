@@ -4,6 +4,7 @@ import responsive, {
   FONT_SIZES,
   fontScale,
   hp,
+  verticalScale,
   wp,
 } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
@@ -65,13 +66,13 @@ const helperStyle = StyleSheet.create({
     shadowRadius: 3.84,
   },
   emptyTitle: {
-    fontWeight: "600",
+    fontFamily: fonts[500],
     color: colors.black,
+    marginVertical: verticalScale(10),
   },
   emptyDesc: {
-    fontWeight: "500",
-    fontSize: hp(1.6),
-    lineHeight: hp(2.4),
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
     color: colors.description,
     textAlign: "center",
   },

@@ -1,10 +1,11 @@
 import React from "react";
 import { FullImage } from "..";
-import { appImages } from "../../assets";
+import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import Icon from "react-native-dynamic-vector-icons";
+import { fontScale } from "../../theme/responsive";
 
 const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
   const getCardType = (cardNumber) => {
@@ -113,13 +114,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTypeText: {
-    fontWeight: "bold",
-    fontSize: 14,
-    marginBottom: 2,
+    fontFamily: fonts[600],
+    fontSize: fontScale(14),
   },
   expiryText: {
-    fontSize: 11,
     color: "#717171",
+    fontFamily: fonts[400],
+    fontSize: fontScale(11),
   },
   defaultBadge: {
     backgroundColor: "#EAF5EA",
@@ -129,8 +130,10 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   defaultText: {
-    fontSize: 13,
+    top: fontScale(1),
     color: "#67CE67",
+    fontFamily: fonts[400],
+    fontSize: fontScale(11),
   },
 });
 

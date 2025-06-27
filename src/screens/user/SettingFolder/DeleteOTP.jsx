@@ -44,27 +44,23 @@ const DeleteOTP = () => {
           style={styles.contactUStext}
           title="Check your email inbox for the OTP code we sent you. Please enter it below to proceed."
         />
-        <View
-          style={{
-            width: "100%",
-            justifyContent: "center",
-            alignSelf: "center",
+
+        <CodeField
+          cellCount={4}
+          value={otpValue}
+          keyboardType="number-pad"
+          textContentType="oneTimeCode"
+          rootStyle={{
             marginTop: hp(5),
+            justifyContent: "space-evenly",
           }}
-        >
-          <CodeField
-            value={otpValue}
-            onChangeText={(txt) => setOtpValue(txt)}
-            cellCount={4}
-            keyboardType="number-pad"
-            textContentType="oneTimeCode"
-            renderCell={({ index, symbol, isFocused }) => (
-              <T key={index} style={[styles.cell]}>
-                {symbol || (isFocused ? <Cursor /> : null)}
-              </T>
-            )}
-          />
-        </View>
+          onChangeText={(txt) => setOtpValue(txt)}
+          renderCell={({ index, symbol, isFocused }) => (
+            <T key={index} style={[styles.cell]}>
+              {symbol || (isFocused ? <Cursor /> : null)}
+            </T>
+          )}
+        />
         <T style={styles.timerText}>
           You can resend the code in{" "}
           <T style={styles.timerSecondText}>
@@ -73,18 +69,18 @@ const DeleteOTP = () => {
           {seconds !== 0 ? "seconds" : "second"}
         </T>
         <T
-          disabled={seconds != 0 ? true : false}
-          onPress={() => setCountDown(60)}
+          disabled={seconds != 0}
           style={styles.resendText}
+          onPress={() => setCountDown(60)}
         >
           Resend code
         </T>
       </ScrollView>
       <MainButton
-        style={{ backgroundColor: colors.error }}
-        title="Delete Account"
         load={isPending}
         onPress={onSubmit}
+        title="Delete Account"
+        style={{ backgroundColor: colors.error }}
       />
       <Height />
     </Body>

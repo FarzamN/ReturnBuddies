@@ -1,7 +1,10 @@
-import instance from "../../utils/urls";
-import { getItem } from "../../utils/storage";
-import { catchFun, showNotification } from "../../function";
-import { setDraftItem, setDraftSelectedRetun } from "../slices/draftSlice";
+import instance from "../utils/urls";
+import { getItem } from "../utils/storage";
+import { apiRequest, catchFun, showNotification } from "../function";
+import {
+  setDraftItem,
+  setDraftSelectedRetun,
+} from "../redux/slices/draftSlice";
 
 export const uploadReturnItems = (
   submittedItems,
@@ -73,54 +76,95 @@ export const uploadReturnItems = (
   };
 };
 
+// export const addAddressAPI = (data, goBack, load) => {
+//   return async (dispatch) => {
+//     apiRequest({
+//       method: "post",
+//       endpoint: "add-address",
+//       data,
+//       onSuccess: ({ Address }) => {
+//         goBack();
+//         if (Address.isDefault == 1) dispatch(updateAddress(Address));
+//         getAddressAPI(load)(dispatch);
+//       },
+//       onFinally: load,
+//     });
+//   };
+// };
+
+// export const getReturnItem = (load) => {
+//   return async (dispatch) => {
+//     try {
+//       load(true);
+//       const response = await instance.get("", {
+//         headers: {
+//           userid: getItem("userID"),
+//         },
+//       });
+
+//       const { status, message, data } = response.data;
+//       load(false);
+
+//       if (status === 200) {
+//         dispatch(setDraftItem(data.reverse()));
+//       } else {
+//         showNotification("error", message, "Status Code 401");
+//       }
+//     } catch (err) {
+//       const msg = err?.response?.data?.message || err.message;
+//       catchFun(msg);
+//       load(false);
+//     }
+//   };
+// };
 export const getReturnItem = (load) => {
   return async (dispatch) => {
-    try {
-      load(true);
-      const response = await instance.get("getAllReturnBundles", {
-        headers: {
-          userid: getItem("userID"),
-        },
-      });
-
-      const { status, message, data } = response.data;
-      load(false);
-
-      if (status === 200) {
+    apiRequest({
+      method: "get",
+      endpoint: "getAllReturnBundles",
+      onSuccess: ({ data }) => {
         dispatch(setDraftItem(data.reverse()));
-      } else {
-        showNotification("error", message, "Status Code 401");
-      }
-    } catch (err) {
-      const msg = err?.response?.data?.message || err.message;
-      catchFun(msg);
-      load(false);
-    }
+      },
+      onFinally: load,
+    });
   };
 };
 
+// export const getSelectedReturnItem = (labelIDs, load) => {
+//   return async (dispatch) => {
+//     try {
+//       load(true);
+//       const url = `getbundle?bundleId=${labelIDs}`;
+//       const response = await instance.get(url, {
+//         headers: { userid: getItem("userID") },
+//       });
+
+//       const { status, message, data } = response.data;
+//       load(false);
+
+//       if (status === 200) {
+//         dispatch(setDraftSelectedRetun(data.reverse()));
+//       } else {
+//         showNotification("error", message, "Status Code 401");
+//       }
+//     } catch (err) {
+//       const msg = err?.response?.data?.message || err.message;
+//       catchFun(msg);
+//       load(false);
+//     }
+//   };
+// };
+
 export const getSelectedReturnItem = (labelIDs, load) => {
   return async (dispatch) => {
-    try {
-      load(true);
-      const url = `getbundle?bundleId=${labelIDs}`;
-      const response = await instance.get(url, {
-        headers: { userid: getItem("userID") },
-      });
-
-      const { status, message, data } = response.data;
-      load(false);
-
-      if (status === 200) {
+    apiRequest({
+      method: "get",
+      endpoint: `getbundle?bundleId=${labelIDs}`,
+      onSuccess: ({ data }) => {
         dispatch(setDraftSelectedRetun(data.reverse()));
-      } else {
-        showNotification("error", message, "Status Code 401");
-      }
-    } catch (err) {
-      const msg = err?.response?.data?.message || err.message;
-      catchFun(msg);
-      load(false);
-    }
+      },
+      onFinally: load,
+    });
   };
 };
 

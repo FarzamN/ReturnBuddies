@@ -18,6 +18,7 @@ const UserOTP = ({ navigation, route }) => {
 
   console.log("otp", otp);
 
+  const [load, setLoad] = useState(false);
   const [otpValue, setOtpValue] = useState("");
   const [seconds, setCountDown] = useState(60);
   const [error, setErrot] = useState({ visible: false, msg: "" });
@@ -32,7 +33,7 @@ const UserOTP = ({ navigation, route }) => {
       phone: number,
       name: user.name,
     };
-    editProfileVerificationAPI(data, type, navigation)(dispatch);
+    editProfileVerificationAPI(data, type, navigation, setLoad)(dispatch);
     setErrot({ visible: false, msg: "" });
   };
 

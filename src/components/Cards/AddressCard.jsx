@@ -3,6 +3,8 @@ import { colors } from "../../theme/colors";
 import Icon from "react-native-dynamic-vector-icons";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
+import { fontScale } from "../../theme/responsive";
+import { fonts } from "../../assets";
 
 const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
   return (
@@ -65,23 +67,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTypeText: {
-    fontWeight: "bold",
-    fontSize: 14,
-    marginBottom: 2,
+    fontFamily: fonts[600],
+    fontSize: fontScale(14),
   },
   expiryText: {
-    fontSize: 11,
     color: "#717171",
+    fontFamily: fonts[400],
+    fontSize: fontScale(11),
   },
   defaultBadge: {
     backgroundColor: "#EAF5EA",
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 15,
-    marginLeft: 12,
   },
   defaultText: {
-    fontSize: 13,
+    top: fontScale(1),
     color: "#67CE67",
+    fontFamily: fonts[400],
+    fontSize: fontScale(11),
   },
 });

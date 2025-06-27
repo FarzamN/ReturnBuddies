@@ -6,12 +6,12 @@ import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   draftTitle: {
-    fontSize: wp(5),
-    fontWeight: "600",
+    fontFamily: fonts[600],
+    fontSize: fontScale(20),
   },
   draftSub: {
-    marginTop: 5,
-    fontSize: wp(3),
+    fontFamily: fonts[400],
+    fontSize: fontScale(12),
     color: colors.black,
   },
   sectionHeader: {

@@ -15,7 +15,7 @@ const BASE_HEIGHT = 812;
 
 const scaleSize = (size) => (width / BASE_WIDTH) * size;
 
-const verticalScaleSize = (size) => (height / BASE_HEIGHT) * size;
+export const verticalScale = (size) => (height / BASE_HEIGHT) * size;
 
 export const fontScale = (size) => {
   const scaleFactor = tab
@@ -26,7 +26,7 @@ export const fontScale = (size) => {
 
 const responsive = {
   width: (size) => scaleSize(size),
-  height: (size) => verticalScaleSize(size),
+  height: (size) => verticalScale(size),
   fontSize: (size) => fontScale(size),
   space: (size) => scaleSize(size),
   borderRadius: (size) => scaleSize(size),

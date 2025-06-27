@@ -5903,17 +5903,19 @@ react-native-actions-sheet@^0.9.7:
   resolved "https://registry.yarnpkg.com/react-native-actions-sheet/-/react-native-actions-sheet-0.9.7.tgz#43ff2d9252f7af2da6dc051be5a5c375a844cdfb"
   integrity sha512-rjUwxUr5dxbdSLDtLDUFAdSlFxpNSpJsbXLhHkBzEBMxEMPUhRT3zqbvKqsPj0JUkjwuRligxrhbIJZkg/6ZDw==
 
-react-native-alert-queue@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-alert-queue/-/react-native-alert-queue-2.1.0.tgz#e80f85f30fdbdcb5b8ae46aea6063c11661ad2ec"
-  integrity sha512-9NlVXz4hoUzmGz9wxMRS339lGipTSWgSIH3+a9OxtQr3QiVBc1FZiztW+5rRrmw7Tmc5mH8e1yKBAIdAe1CMqQ==
-
 react-native-animatable@1.4.0, react-native-animatable@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.4.0.tgz#05a259e1566081ce7d3f6fba1e92edc65f5c6160"
   integrity sha512-DZwaDVWm2NBvBxf7I0wXKXLKb/TxDnkV53sWhCvei1pRyTX3MVFpkvdYBknNBqPrxYuAIlPxEp7gJOidIauUkw==
   dependencies:
     prop-types "^15.8.1"
+
+react-native-awesome-alerts@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-awesome-alerts/-/react-native-awesome-alerts-2.0.0.tgz#beb981ed50671c51fcd227c5bb6c58d4d493b681"
+  integrity sha512-ZRBNnDfpE+aQCtXXnQcfGLqwzZ53Q45CNkQI4hOiF8/9JPuCyMUQL2aqtiypnLpCIX+CB28Jcx1KVJ6/reaZsg==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-native-background-timer@^2.4.1:
   version "2.4.1"

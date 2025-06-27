@@ -10,13 +10,17 @@ import { appImages } from "../../../assets";
 import { RefreshControl } from "react-native";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
-import { handleDelete } from "../../../function";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { getAddressAPI } from "../../../redux/queries/authQueries";
+import {
+  getAddressAPI,
+  deleteAddressAPI,
+} from "../../../redux/queries/authQueries";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
+import AwesomeAlert from "react-native-awesome-alerts";
+import { globalStyle } from "../../../theme/globalStyle";
 
 const SelectNewAddress = ({ route }) => {
   const { isPickup } = route.params || {};
@@ -27,6 +31,7 @@ const SelectNewAddress = ({ route }) => {
 
   const [load, setLoad] = useState(false);
   const [select, setSelect] = useState({ index: "", data: null });
+  const [alert, setAlert] = useState({ visible: false, _id: "" });
 
   const onRefresh = () => {
     getAddressAPI(setLoad)(dispatch);
@@ -46,7 +51,7 @@ const SelectNewAddress = ({ route }) => {
 
       <SwipeListView
         data={getAddress}
-        keyExtractor={(_, i) => i.toString()}
+        keyExtractor={(item) => item._id}
         refreshControl={
           <RefreshControl
             refreshing={load}
@@ -68,15 +73,21 @@ const SelectNewAddress = ({ route }) => {
           <Empty
             isButton
             source={appImages.location_empty}
-            title="You dont have any saved addresses yet!"
+            title="You don't have any saved addresses yet!"
             onPress={() => navigate("addNewAddress")}
           />
         }
-        renderHiddenItem={({ item }) => (
-          <HiddenDelete onPress={() => handleDelete(item, "address")} />
+        renderHiddenItem={(data, rowMap) => (
+          <HiddenDelete
+            onPress={() => {
+              rowMap[data.item._id]?.closeRow();
+              setAlert({ visible: true, _id: data.item._id });
+            }}
+          />
         )}
         rightOpenValue={-75}
       />
+
       {isPickup && getAddress?.length !== 0 && (
         <MainButton
           title="Continue"
@@ -87,6 +98,28 @@ const SelectNewAddress = ({ route }) => {
           }}
         />
       )}
+      <AwesomeAlert
+        show={alert.visible}
+        showCancelButton={true}
+        showConfirmButton={true}
+        title="Are you sure?"
+        message={`Are you sure you want to delete this Address?\nThis action cannot be undone.`}
+        cancelText="Cancel"
+        showProgress={load}
+        progressColor={colors.purple}
+        progressSize={30}
+        confirmText={load ? "Loading..." : "Delete"}
+        confirmButtonColor={colors.error}
+        cancelButtonColor={colors.success}
+        onCancelPressed={() => setAlert({ visible: false })}
+        onConfirmPressed={() => {
+          deleteAddressAPI(alert._id, setAlert, setLoad)(dispatch);
+        }}
+        titleStyle={globalStyle.alertTitle}
+        messageStyle={globalStyle.alertMessage}
+        cancelButtonTextStyle={globalStyle.alertCancel}
+        confirmButtonTextStyle={globalStyle.alertCancel}
+      />
     </Body>
   );
 };

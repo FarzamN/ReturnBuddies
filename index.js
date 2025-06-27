@@ -5,7 +5,6 @@ import { AppRegistry } from "react-native";
 import { name as appName } from "./app.json";
 import { persistor, store } from "./src/redux/store";
 import { MenuProvider } from "react-native-popup-menu";
-import { AlertContainer } from "react-native-alert-queue";
 import { PersistGate } from "redux-persist/integration/react";
 import { PaperProvider, MD2LightTheme } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -21,7 +20,6 @@ const Root = () => {
           <PaperProvider theme={theme}>
             <MenuProvider>
               <App />
-              <AlertContainer />
             </MenuProvider>
           </PaperProvider>
         </GestureHandlerRootView>

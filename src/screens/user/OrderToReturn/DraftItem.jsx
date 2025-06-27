@@ -9,12 +9,7 @@ import {
   DraftSkeleton,
 } from "../../../components";
 
-import {
-  Height,
-  Divider,
-  globalStyle,
-  Space_Between,
-} from "../../../theme/globalStyle";
+import { Height, globalStyle } from "../../../theme/globalStyle";
 
 import {
   deleteBundle,
@@ -28,7 +23,7 @@ import { useNavigation } from "@react-navigation/native";
 import { BackHandler, FlatList, View } from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
 
-const DraftItem = ({ navigation }) => {
+const DraftItem = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
 

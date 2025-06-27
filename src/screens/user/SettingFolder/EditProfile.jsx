@@ -34,7 +34,7 @@ const EditProfile = ({ navigation }) => {
     <Body horizontal={wp(5)}>
       <Header title="Edit Profile" />
       <Text
-        style={[styles.contactUStext, { marginVertical: wp(5) }]}
+        style={[styles.contactUStext]}
         title={
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         }
@@ -59,8 +59,8 @@ const EditProfile = ({ navigation }) => {
         ))}
       </ScrollView>
       <MainButton
-        title="Save Changes"
         load={isPending}
+        title="Save Changes"
         onPress={handleSubmit(onSubmit)}
       />
       <Height />

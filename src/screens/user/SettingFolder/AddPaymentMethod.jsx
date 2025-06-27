@@ -14,8 +14,8 @@ import {
   RequiredText,
 } from "../../../components";
 import { useDispatch } from "react-redux";
-import { appImages } from "../../../assets";
-import { wp } from "../../../theme/responsive";
+import { appImages, fonts } from "../../../assets";
+import { fontScale, verticalScale, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { cardValidator } from "../../../function";
 import React, { useState, useEffect } from "react";
@@ -266,9 +266,7 @@ const AddPaymentMethod = ({ route }) => {
             color={focus ? colors.purple : colors.grey}
             name={focus ? "checkmark-circle" : "circle"}
           />
-          <Text style={{ marginLeft: 7, width: "90%" }}>
-            Set as your default card.
-          </Text>
+          <Text style={styles.checkBoxText}>Set as your default card.</Text>
         </TouchableOpacity>
       </ScrollView>
 
@@ -282,10 +280,10 @@ const styles = StyleSheet.create({
     marginBottom: wp(4),
   },
   label: {
-    fontSize: wp(3.8),
+    fontSize: fontScale(13),
+    fontFamily: fonts[500],
     color: colors.text,
-    marginBottom: wp(1.5),
-    fontWeight: "500",
+    marginBottom: verticalScale(1),
   },
   input: {
     borderWidth: 1,
@@ -317,6 +315,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(2),
     paddingVertical: wp(1),
     borderRadius: wp(1),
+  },
+  checkBoxText: {
+    top: fontScale(1),
+    marginLeft: 7,
+    width: "90%",
+    fontFamily: fonts[400],
+    fontSize: fontScale(13),
   },
 });
 

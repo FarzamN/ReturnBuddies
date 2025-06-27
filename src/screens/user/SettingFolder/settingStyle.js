@@ -1,17 +1,19 @@
 import { StyleSheet } from "react-native";
-import { hp, wp } from "../../../theme/responsive";
+import { fontScale, hp, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
+import { fonts } from "../../../assets";
 
 export default StyleSheet.create({
   contactUStext: {
-    fontSize: hp(1.6),
+    fontSize: fontScale(12),
+    fontFamily: fonts[500],
     color: colors.description,
     lineHeight: 20,
     textAlign: "left",
   },
   headingTitle: {
-    fontSize: hp(2),
-    fontWeight: "600",
+    fontSize: fontScale(15),
+    fontFamily: fonts[600],
     color: colors.black,
     lineHeight: 24,
     textAlign: "left",
@@ -31,6 +33,7 @@ export default StyleSheet.create({
     borderRadius: 20,
   },
 
+  emailText: { fontFamily: fonts[500], fontSize: fontScale(11) },
   cell: {
     width: wp(17),
     height: wp(13),

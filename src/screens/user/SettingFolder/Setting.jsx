@@ -10,9 +10,9 @@ import {
   Image,
 } from "react-native";
 import React from "react";
-import { appImages } from "../../../assets";
+import { appImages, fonts } from "../../../assets";
 import { colors } from "../../../theme/colors";
-import { wp } from "../../../theme/responsive";
+import { fontScale, verticalScale, wp } from "../../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { globalStyle } from "../../../theme/globalStyle";
@@ -34,7 +34,7 @@ const settingsData = [
     icon: appImages.notification,
     route: "notifications",
   },
-  { title: "Support", icon: appImages.support, route: "support" },
+  { title: "Support", icon: appImages.support, route: "contactUS" },
   { title: "Privacy", icon: appImages.shield, route: "privacy" },
   { title: "Log out", icon: appImages.logout, type: "logout" },
 ];
@@ -141,25 +141,25 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   name: {
-    fontSize: wp(5),
-    fontWeight: "bold",
     color: colors.black,
+    fontFamily: fonts[600],
+    fontSize: fontScale(17),
   },
   email: {
-    fontSize: wp(3.5),
     color: "#888",
-    marginTop: wp(1),
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: colors.background,
-    paddingHorizontal: wp(5),
     paddingTop: wp(5),
+    paddingHorizontal: wp(5),
+    backgroundColor: colors.background,
   },
   sectionTitle: {
-    fontSize: wp(4.5),
-    fontWeight: "bold",
-    marginBottom: wp(5),
+    fontFamily: fonts[600],
+    fontSize: fontScale(16),
+    marginBottom: verticalScale(5),
   },
   item: {
     flexDirection: "row",
@@ -176,10 +176,10 @@ const styles = StyleSheet.create({
     marginRight: wp(4),
   },
   itemText: {
-    fontSize: wp(4),
-    color: colors.black,
     flex: 1,
-    fontWeight: "500",
+    color: colors.black,
+    fontFamily: fonts[600],
+    fontSize: fontScale(13),
   },
   chevron: {
     marginLeft: wp(2),

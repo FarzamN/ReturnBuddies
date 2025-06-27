@@ -1,7 +1,8 @@
 import moment from "moment";
 import { Notifier } from "react-native-notifier";
 import Component from "../components/Helpers/CustomToast";
-import { alert } from "react-native-alert-queue";
+import { getItem } from "../utils/storage";
+import instance from "../utils/urls";
 
 export const showNotification = (type, title, message) => {
   Notifier.showNotification({
@@ -63,17 +64,44 @@ export const cardValidator = {
   },
 };
 
-export const handleDelete = (item, type) => {
-  alert.show({
-    title: "Custom Alert",
-    message: "This is a custom alert",
-    buttons: [
-      { text: "Cancel", style: "cancel" },
-      ,
-      {
-        text: "OK!",
-        onPress: () => console.log("OK pressed"),
-      },
-    ],
-  });
+export const apiRequest = async ({
+  method = "get",
+  endpoint,
+  data = {},
+  onSuccess,
+  onNotFound,
+  onFailure,
+  onFinally,
+}) => {
+  try {
+    onFinally?.(true);
+    const token = getItem("token");
+    const userID = getItem("userID");
+
+    const headers = {
+      userid: userID,
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response =
+      method === "get"
+        ? await instance.get(endpoint, { headers })
+        : await instance.post(endpoint, data, { headers });
+    const { status, message } = response.data;
+
+    if (status === 200) {
+      onSuccess?.(response.data);
+    } else if (status === 201) {
+      onNotFound?.(response.data);
+    } else {
+      showNotification("error", message, `Status Code ${status}`);
+      onFailure?.(response.data);
+    }
+  } catch (err) {
+    const msg = err?.response?.data?.message || err.message;
+    catchFun(msg);
+    onFailure?.(err);
+  } finally {
+    onFinally?.(false);
+  }
 };

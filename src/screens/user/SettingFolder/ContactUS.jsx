@@ -38,7 +38,7 @@ const ContactUS = () => {
     <Body horizontal={wp(4)}>
       <Header title="Contact Us" />
       <Text
-        style={[styles.contactUStext, { marginVertical: wp(5) }]}
+        style={[styles.contactUStext]}
         title={
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         }
@@ -60,9 +60,9 @@ const ContactUS = () => {
               style={styles.ImageStyle}
             />
             <View style={{ marginLeft: wp(3) }}>
-              <Text style={[styles.headingTitle]} title={item.mainTitle} />
-              <Text style={[styles.contactUStext]} title={item.desc} />
-              <Text style={[styles.emailText]} title={item.email} />
+              <Text style={styles.headingTitle} title={item.mainTitle} />
+              <Text style={styles.contactUStext} title={item.desc} />
+              <Text style={styles.emailText} title={item.email} />
             </View>
           </TouchableOpacity>
         )}

@@ -9,17 +9,18 @@ import {
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { wp } from "../../../theme/responsive";
+import { fontScale, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { required } from "../../../utils/constants";
 import Icon from "react-native-dynamic-vector-icons";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import {
   addAddressAPI,
   editAddressAPI,
 } from "../../../redux/queries/authQueries";
 import { globalStyle, Space_Between } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../../assets";
 
 const AddNewAddress = ({ route }) => {
   const { item, editing } = route?.params || {};
@@ -72,19 +73,16 @@ const AddNewAddress = ({ route }) => {
           },
         ].map((item) => (
           <MainInput
-            key={item.name}
             small
             noTitle
+            key={item.name}
             name={item.name}
             control={control}
             isError={!!errors[item.name]}
             placeholder={item.placeholder}
             message={errors[item.name]?.message}
             rules={{ required: required(item.placeholder) }}
-            Container={{
-              marginTop: 0,
-              marginBottom: 10,
-            }}
+            Container={{ marginTop: 0, marginBottom: 10 }}
           />
         ))}
         <Space_Between>
@@ -99,25 +97,24 @@ const AddNewAddress = ({ route }) => {
             },
           ].map((item) => (
             <MainInput
-              key={item.name}
               small
               noTitle
+              key={item.name}
               name={item.name}
               control={control}
               isError={!!errors[item.name]}
               placeholder={item.placeholder}
+              keyboardType={
+                item.name === "postalCode" ? "number-pad" : "default"
+              }
               message={errors[item.name]?.message}
               rules={{ required: required(item.placeholder) }}
-              Container={{
-                marginTop: 0,
-                marginBottom: 10,
-                width: "48%",
-              }}
+              Container={styles.inputCont}
             />
           ))}
         </Space_Between>
         <TouchableOpacity
-          style={globalStyle.row}
+          style={[globalStyle.row, globalStyle.mt10]}
           onPress={() => setValue("isDefault", isDefault ? 0 : 1)}
         >
           <Icon
@@ -128,7 +125,7 @@ const AddNewAddress = ({ route }) => {
           />
           <Text
             title="Set as your default address."
-            style={{ marginLeft: 7, width: "90%" }}
+            style={styles.checkBoxText}
           />
         </TouchableOpacity>
       </ScrollView>
@@ -142,3 +139,18 @@ const AddNewAddress = ({ route }) => {
 };
 
 export default AddNewAddress;
+
+const styles = StyleSheet.create({
+  checkBoxText: {
+    top: fontScale(1),
+    marginLeft: 7,
+    width: "90%",
+    fontFamily: fonts[400],
+    fontSize: fontScale(13),
+  },
+  inputCont: {
+    marginTop: 0,
+    marginBottom: 10,
+    width: "48%",
+  },
+});

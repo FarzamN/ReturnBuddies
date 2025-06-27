@@ -4,15 +4,17 @@ import { useForm } from "react-hook-form";
 import { ScrollView } from "react-native";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
-import { required } from "../../../utils/constants";
+import { iOS, required } from "../../../utils/constants";
 import Icon from "react-native-dynamic-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Height, Row } from "../../../theme/globalStyle";
 import { deleteAccountPasswordAPI } from "../../../redux/queries/authQueries";
 import { Body, Header, MainButton, Text, MainInput } from "../../../components";
+import { useIskeyboard } from "../../../hooks";
 
 const DeleteAccount = () => {
   const { navigate } = useNavigation();
+  const { isKeyboard } = useIskeyboard();
   const [isPending, setIsPending] = useState(false);
 
   const onSubmit = (data) =>
@@ -70,12 +72,16 @@ const DeleteAccount = () => {
           }
         />
       </ScrollView>
-      <MainButton
-        load={isPending}
-        title="Delete Account"
-        onPress={handleSubmit(onSubmit)}
-      />
-      <Height />
+      {!isKeyboard && (
+        <>
+          <MainButton
+            load={isPending}
+            title="Delete Account"
+            onPress={handleSubmit(onSubmit)}
+          />
+          {iOS && <Height />}
+        </>
+      )}
     </Body>
   );
 };
