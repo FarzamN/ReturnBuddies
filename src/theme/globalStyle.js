@@ -1,8 +1,8 @@
 import { colors } from "./colors";
+import { fonts } from "../assets";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import responsive, { fontScale, SPACING } from "./responsive";
-import { fonts } from "../assets";
+import responsive, { fontScale, scaleSize } from "./responsive";
 
 export const Row = styled.View`
   flex-direction: row;
@@ -28,7 +28,7 @@ export const Divider = styled.View`
   height: ${1};
   width: 100%;
   background-color: ${colors.borderColor};
-  margin-top: ${SPACING.DEFAULT};
+  margin-top: ${scaleSize(8)};
 `;
 
 export const globalStyle = StyleSheet.create({
@@ -41,6 +41,8 @@ export const globalStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  iconImage: { width: responsive.width(15), height: responsive.width(15) },
+  deleteIcon: { width: responsive.width(18), height: responsive.width(18) },
   space_Between: {
     flexDirection: "row",
     alignItems: "center",
@@ -66,14 +68,14 @@ export const globalStyle = StyleSheet.create({
     alignItems: "center",
   },
   padding: {
-    paddingHorizontal: SPACING.DEFAULT,
-    paddingVertical: SPACING.SMALL,
+    paddingHorizontal: scaleSize(16),
+    paddingVertical: scaleSize(8),
   },
   height: {
     height: responsive.height(15),
   },
   mtop: {
-    marginTop: SPACING.SMALL,
+    marginTop: scaleSize(8),
   },
   full: {
     width: "100%",

@@ -14,7 +14,7 @@ const ReturnHistory = () => {
             title: "Shoes",
             detail: "Need info",
             createdAt: "23.7.2024",
-            image: appImages.status1,
+            image: appImages.homeShoes,
           },
         ]}
         keyExtractor={(_, ix) => ix.toString()}

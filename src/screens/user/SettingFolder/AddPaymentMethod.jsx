@@ -14,18 +14,15 @@ import {
   RequiredText,
 } from "../../../components";
 import { useDispatch } from "react-redux";
-import { appImages, fonts } from "../../../assets";
-import { fontScale, verticalScale, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { cardValidator } from "../../../function";
 import React, { useState, useEffect } from "react";
+import { appImages, fonts } from "../../../assets";
 import Icon from "react-native-dynamic-vector-icons";
-import {
-  addPaymentAPI,
-  editPaymentAPI,
-} from "../../../redux/queries/authQueries";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
+import { fontScale, verticalScale, wp } from "../../../theme/responsive";
+import { addPaymentAPI, editPaymentAPI } from "../../../apis/authQueries";
+import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 
 const AddPaymentMethod = ({ route }) => {
   const { item, editing } = route?.params || {};
@@ -172,6 +169,7 @@ const AddPaymentMethod = ({ route }) => {
     }
 
     addPaymentAPI(cardInfo, goBack, setLoad)(dispatch);
+    console.log(cardInfo);
   };
 
   useEffect(() => {

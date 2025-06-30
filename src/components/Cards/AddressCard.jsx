@@ -1,10 +1,10 @@
 import React from "react";
+import { FullImage } from "..";
 import { colors } from "../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
+import { appImages, fonts } from "../../assets";
+import { fontScale } from "../../theme/responsive";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
-import { fontScale } from "../../theme/responsive";
-import { fonts } from "../../assets";
 
 const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
   return (
@@ -34,7 +34,7 @@ const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
           </View>
         )}
         <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
-          <Icon name="edit" type="AntDesign" size={20} color={colors.black} />
+          <FullImage source={appImages.edit} style={globalStyle.iconImage} />
         </TouchableOpacity>
       </Space_Between>
     </TouchableOpacity>

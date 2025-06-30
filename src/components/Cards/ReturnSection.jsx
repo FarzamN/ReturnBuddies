@@ -1,20 +1,20 @@
 import React from "react";
-import { ReturnInnerCard, MainButton, Text } from "..";
-import { View, Pressable, FlatList, Text as RNText } from "react-native";
+import styles from "./cardStyle";
 import { colors } from "../../theme/colors";
 import Icon from "react-native-dynamic-vector-icons";
-import { globalStyle, Row } from "../../theme/globalStyle";
 import buttonStyle from "../../screens/user/userStyle";
+import { ReturnInnerCard, MainButton, Text } from "..";
 import { useNavigation } from "@react-navigation/native";
-import styles from "./cardStyle";
+import { globalStyle, Row } from "../../theme/globalStyle";
+import { View, Pressable, FlatList, Text as RNText } from "react-native";
 
 const ReturnSection = (props) => {
   const { navigate } = useNavigation();
   const { section, selected, onSelect, isLabel, isPositive, disabled } = props;
   return (
     <Pressable
-      onPress={() => onSelect(section)}
       disabled={isLabel || disabled}
+      onPress={() => onSelect(section)}
       style={[styles.sectionContainer, selected && styles.selectedSection]}
     >
       <View
@@ -54,10 +54,8 @@ const ReturnSection = (props) => {
             ]}
           >
             <Text
-              style={[
-                styles.labelTitle,
-                { color: isPositive ? "#4CD963" : "#ED6479" },
-              ]}
+              style={styles.labelTitle}
+              color={isPositive ? "#4CD963" : "#ED6479"}
               title={isPositive ? "Label uploaded" : "No return label uploaded"}
             />
           </View>
@@ -67,13 +65,15 @@ const ReturnSection = (props) => {
       <FlatList
         data={section.products}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => (
-          <ReturnInnerCard
-            source={item.thumbnail}
-            title={item.productName}
-            created_at={item.created_at}
-          />
-        )}
+        renderItem={({ item }) => {
+          return (
+            <ReturnInnerCard
+              source={item.thumbnail}
+              title={item.productName}
+              created_at={item.created_at}
+            />
+          );
+        }}
         scrollEnabled={false}
       />
       {isLabel && (

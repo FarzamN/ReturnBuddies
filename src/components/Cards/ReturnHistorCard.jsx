@@ -1,20 +1,20 @@
-import { View } from "react-native";
 import React from "react";
-import { Row, Space_Between } from "../../theme/globalStyle";
-import { FullImage, Text } from "..";
-import styles from "./cardStyle";
-import Icon from "react-native-dynamic-vector-icons";
-import { colors } from "../../theme/colors";
 import moment from "moment";
+import styles from "./cardStyle";
+import { View } from "react-native";
+import { FullImage, Text } from "..";
+import { colors } from "../../theme/colors";
+import Icon from "react-native-dynamic-vector-icons";
+import { Row, Space_Between } from "../../theme/globalStyle";
+import { width } from "../../theme/responsive";
 
 const ReturnHistorCard = ({ data }) => {
-  const { title, image, detail, createdAt } = data;
-
+  const { title, detail } = data;
   return (
     <Space_Between style={styles.returtnHistoryCont}>
       <Row>
         <FullImage source={data.image} style={styles.returtnHistoryImage} />
-        <View style={{ marginLeft: 10 }}>
+        <View style={{ marginLeft: 10, width: width / 3 }}>
           <Text style={styles.returtnHistoryTitle} title={title} />
           <Text style={styles.returtnHistoryStatus} title={detail} />
         </View>

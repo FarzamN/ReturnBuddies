@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
-import { hp, wp } from "../../theme/responsive";
+import responsive, {
+  fontScale,
+  hp,
+  scaleSize,
+  wp,
+} from "../../theme/responsive";
 import { colors } from "../../theme/colors";
+import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   returtnHistoryCont: {
@@ -15,25 +21,25 @@ export default StyleSheet.create({
     elevation: 3,
   },
   returtnHistoryImage: {
-    width: wp(15),
-    height: wp(15),
+    width: scaleSize(40),
+    height: scaleSize(40),
     borderRadius: 8,
     marginRight: wp(3),
   },
   returtnHistoryTitle: {
-    fontSize: hp(2),
-    fontWeight: "600",
+    fontSize: fontScale(13),
+    fontFamily: fonts[600],
     color: colors.black,
   },
   returtnHistoryStatus: {
-    fontSize: hp(1.8),
-    fontWeight: "500",
+    fontSize: fontScale(12),
+    fontFamily: fonts[500],
     color: "#777777",
   },
   returtnHistoryDate: {
     marginLeft: 8,
-    fontSize: hp(1.6),
-    fontWeight: "500",
+    fontSize: fontScale(12),
+    fontFamily: fonts[500],
     color: colors.black,
   },
 
@@ -48,18 +54,6 @@ export default StyleSheet.create({
     borderRadius: 8,
     marginRight: wp(3),
   },
-  DraftTitle: {
-    fontSize: hp(1.8),
-    color: colors.black,
-    fontWeight: "600",
-  },
-  DraftStatus: {
-    marginTop: wp(2),
-    fontSize: hp(1.6),
-    color: "#777777",
-    fontWeight: "500",
-  },
-
   sectionContainer: {
     backgroundColor: colors.white,
     borderRadius: 12,
@@ -76,9 +70,15 @@ export default StyleSheet.create({
     marginBottom: 12,
   },
   sectionTitle: {
-    fontSize: 12,
-    fontWeight: "bold",
     color: colors.black,
+    fontFamily: fonts[600],
+    fontSize: fontScale(14),
+  },
+  sectionDate: {
+    marginTop: 2,
+    color: "#777",
+    fontFamily: fonts[500],
+    fontSize: fontScale(11),
   },
   sectionCard: {
     flexDirection: "row",
@@ -89,44 +89,35 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   sectionImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-    marginRight: 12,
+    width: scaleSize(50),
+    height: scaleSize(50),
+    borderRadius: scaleSize(8),
+    marginRight: scaleSize(12),
   },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: colors.black,
-  },
-  sectionDate: {
-    fontSize: 11,
-    color: "#777",
-    marginTop: 2,
-  },
+
   labelBox: {
     paddingHorizontal: 10,
     borderRadius: 5,
     paddingVertical: 2,
   },
-  labelTitle: { fontSize: 13, fontWeight: "600" },
+  labelTitle: { fontSize: fontScale(11), fontFamily: fonts[500] },
 
   pickupMethodCont: {
+    padding: 20,
     marginTop: 20,
     borderRadius: 20,
     borderColor: colors.purple,
-    padding: 20,
     backgroundColor: colors.white,
   },
   pickupMethodTitle: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontFamily: fonts[600],
+    fontSize: fontScale(16),
   },
   pickupMethodDetail: {
-    marginTop: 10,
-    fontSize: 12,
+    marginTop: 5,
     color: "#5C5A5A",
-    fontWeight: "500",
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
   },
   TimeSelectCont: {
     borderRadius: 10,

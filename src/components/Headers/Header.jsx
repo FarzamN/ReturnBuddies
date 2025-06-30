@@ -1,13 +1,13 @@
-import { AddButton, Text } from "..";
 import React from "react";
 import styles from "./headerStyle";
+import { AddButton, Text } from "..";
 import { appImages } from "../../assets";
 import { wp } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
-import { globalStyle, Row } from "../../theme/globalStyle";
 import Icon from "react-native-dynamic-vector-icons";
-import { Image, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { globalStyle, Row } from "../../theme/globalStyle";
+import { Image, TouchableOpacity, View } from "react-native";
 
 const Header = (props) => {
   const { goBack, navigate } = useNavigation();

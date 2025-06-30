@@ -1,9 +1,10 @@
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Icon from "react-native-dynamic-vector-icons";
-import { Height, globalStyle } from "../../theme/globalStyle";
-import { wp } from "../../theme/responsive";
-import { RequiredText, Text } from "..";
+import { Height, Row, globalStyle } from "../../theme/globalStyle";
+import responsive, { fontScale, wp } from "../../theme/responsive";
+import { FullImage, RequiredText, Text } from "..";
+import { appImages, fonts } from "../../assets";
 
 const AddDraftCard = ({ submittedItems, onEdit }) => {
   return (
@@ -14,7 +15,7 @@ const AddDraftCard = ({ submittedItems, onEdit }) => {
         return (
           item.detail && (
             <View key={index} style={styles.itemCard}>
-              <View style={styles.row}>
+              <Row>
                 <Image
                   source={{ uri: item?.image?.uri }}
                   style={styles.cardImage}
@@ -24,23 +25,19 @@ const AddDraftCard = ({ submittedItems, onEdit }) => {
                 </View>
                 <View style={styles.iconContainer}>
                   <TouchableOpacity onPress={() => onEdit(item, index)}>
-                    <Icon
-                      name="edit"
-                      type="AntDesign"
-                      color="black"
-                      size={wp(5)}
+                    <FullImage
+                      source={appImages.edit}
+                      style={globalStyle.iconImage}
                     />
                   </TouchableOpacity>
                   {/* <TouchableOpacity onPress={() => onDelete(index)}>
-                    <Icon
-                      name="delete"
-                      type="MaterialIcons"
-                      size={18}
-                      color={colors.error}
+                    <FullImage
+                      source={appImages.delete}
+                      style={globalStyle.deleteIcon}
                     />
                   </TouchableOpacity> */}
                 </View>
-              </View>
+              </Row>
             </View>
           )
         );
@@ -55,8 +52,8 @@ export default AddDraftCard;
 const styles = StyleSheet.create({
   itemCard: {
     backgroundColor: "#fff",
-    padding: wp(3),
-    borderRadius: wp(3),
+    padding: responsive.space(15),
+    borderRadius: responsive.borderRadius(12),
     marginBottom: wp(3),
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
@@ -65,16 +62,11 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
   cardImage: {
-    width: wp(15),
-    height: wp(15),
-    borderRadius: wp(2),
     marginRight: wp(3),
+    width: responsive.width(40),
+    height: responsive.width(40),
+    borderRadius: responsive.borderRadius(10),
   },
 
   textContainer: {
@@ -82,8 +74,8 @@ const styles = StyleSheet.create({
   },
 
   itemTitle: {
-    fontSize: wp(3.5),
-    fontWeight: "500",
+    fontFamily: fonts[500],
+    fontSize: fontScale(13),
   },
 
   iconContainer: {

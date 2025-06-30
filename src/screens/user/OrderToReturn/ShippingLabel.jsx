@@ -6,14 +6,13 @@ import {
   ReturnSection,
   DraftSkeleton,
 } from "../../../components";
-
-import React, { useEffect, useState } from "react";
 import styles from "../userStyle";
+import { wp } from "../../../theme/responsive";
+import React, { useEffect, useState } from "react";
 import { FlatList, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
-import { getSelectedReturnItem } from "../../../redux/queries/draftQueries";
+import { getSelectedReturnItem } from "../../../apis/draftQueries";
 import { setDraftReturn, setLabelID } from "../../../redux/slices/draftSlice";
 // import { draftData as draftSelectedRetun } from "../../../utils/data";
 
@@ -21,6 +20,7 @@ const SchedulePickup = ({ navigation, route }) => {
   const { navigate } = navigation;
   const { returnLabel } = route.params;
   const dispatch = useDispatch();
+
   const { draftSelectedRetun } = useSelector((state) => state.draft);
 
   const [isPending, setIsLoading] = useState(false);
@@ -42,11 +42,15 @@ const SchedulePickup = ({ navigation, route }) => {
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Shipping Label" />
-      <Text style={styles.draftTitle} title={"Upload Return Labels"} />
-      <Text
-        style={styles.draftSub}
-        title={"Attach return labels for your items"}
-      />
+      {!getPositive && (
+        <>
+          <Text style={styles.draftTitle} title={"Check your labels"} />
+          <Text
+            style={styles.draftSub}
+            title={"See which items have return labels missing"}
+          />
+        </>
+      )}
 
       <Height />
       {isPending ? (

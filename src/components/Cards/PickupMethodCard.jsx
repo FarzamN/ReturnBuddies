@@ -21,8 +21,8 @@ const PickupMethodCard = ({ data, onPress, focus }) => {
         <Text title={data.title} style={styles.pickupMethodTitle} />
         <Icon
           size={22}
-          color={focus ? colors.purple : colors.grey}
           type={focus ? "Ionicons" : "Entypo"}
+          color={focus ? colors.purple : colors.grey}
           name={focus ? "checkmark-circle" : "circle"}
         />
       </Space_Between>

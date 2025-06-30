@@ -1,9 +1,11 @@
-import { Text, TouchableOpacity } from "react-native";
 import React from "react";
-import Icon from "react-native-dynamic-vector-icons";
-import styles from "./buttonStyle";
-import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 import { FullImage } from "..";
+import styles from "./buttonStyle";
+import { Text, TouchableOpacity } from "react-native";
+import Icon from "react-native-dynamic-vector-icons";
+import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
+import responsive from "../../theme/responsive";
+import { appImages } from "../../assets";
 
 const ImageButton = (props) => {
   const { onPress, source, title, noImage, isError } = props;
@@ -25,8 +27,8 @@ const ImageButton = (props) => {
             style={[
               styles.ImageIcon,
               {
-                width: noImage ? 25 : 40,
-                height: noImage ? 25 : 40,
+                width: noImage ? responsive.width(25) : responsive.width(40),
+                height: noImage ? responsive.width(25) : responsive.width(40),
               },
             ]}
           />
@@ -41,7 +43,9 @@ const ImageButton = (props) => {
             {title}
           </Text>
         </Row>
-        {!noImage && <Icon name="edit" type="AntDesign" size={20} />}
+        {!noImage && (
+          <FullImage source={appImages.edit} style={globalStyle.iconImage} />
+        )}
       </Space_Between>
     </TouchableOpacity>
   );

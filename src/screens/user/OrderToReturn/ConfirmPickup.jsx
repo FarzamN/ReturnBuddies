@@ -74,7 +74,7 @@ const ConfirmPickup = () => {
         <PickupButton
           source={appImages.location}
           title={
-            selectedAddress?.state || pickupAddress?.state || "Add address"
+            selectedAddress?.street || pickupAddress?.street || "Add address"
           }
           onPress={() => navigate("selectNewAddress", { isPickup: true })}
         />

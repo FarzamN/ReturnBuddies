@@ -5,6 +5,7 @@ import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle } from "../../theme/globalStyle";
+import { fonts } from "../../assets";
 
 const SelectDate = (props) => {
   const { title, isError, onPress } = props;
@@ -29,7 +30,11 @@ const SelectDate = (props) => {
         color={isError ? "red" : colors.black}
         style={{ marginRight: 10 }}
       />
-      <Text title={title} color={isError ? "red" : colors.black} />
+      <Text
+        title={title}
+        style={{ fontFamily: fonts[500] }}
+        color={isError ? "red" : colors.black}
+      />
     </TouchableOpacity>
   );
 };

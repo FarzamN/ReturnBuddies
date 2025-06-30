@@ -31,7 +31,7 @@ const MainButton = (props) => {
           backgroundColor: social
             ? colors.white
             : load || disabled
-            ? colors.description
+            ? "#BEBEBE"
             : colors.purple,
         },
         style,

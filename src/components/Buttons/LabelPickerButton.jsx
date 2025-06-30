@@ -1,11 +1,10 @@
-import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import Icon from "react-native-dynamic-vector-icons";
 import styles from "./buttonStyle";
-import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
-import { FullImage } from "..";
+import { FullImage, Text } from "..";
 import { appImages } from "../../assets";
-import { width } from "../../theme/responsive";
+import responsive, { scaleSize, width } from "../../theme/responsive";
+import { TouchableOpacity, View } from "react-native";
+import { globalStyle, Row } from "../../theme/globalStyle";
 
 const LabelPickerButton = (props) => {
   const { onPress, source, title, weight, noImage, isError } = props;
@@ -25,6 +24,7 @@ const LabelPickerButton = (props) => {
         style={{
           width: "100%",
           alignItems: "center",
+          alignItems: "center",
           flexDirection: "row",
           justifyContent: noImage ? "center" : "space-between",
         }}
@@ -32,34 +32,36 @@ const LabelPickerButton = (props) => {
         <Row>
           <FullImage
             source={type == "pdf" ? appImages.pdf : source}
+            resizeMode={noImage ? "cover" : "contain"}
             style={[
               styles.ImageIcon,
               {
-                width: 27,
-                height: 27,
+                borderRadius: scaleSize(type == "pdf" ? 0 : 12),
+
+                width: responsive.width(noImage ? 30 : 40),
+                height: responsive.width(noImage ? 30 : 40),
               },
             ]}
           />
           <View>
             <Text
-              style={[
-                styles.uploadText,
-                {
-                  width: width / 1.7,
-                },
-              ]}
+              title={title}
               numberOfLines={2}
-            >
-              {title}
-            </Text>
+              width={noImage ? "100%" : width / 1.7}
+              style={styles.uploadText}
+            />
+
             {weight && (
-              <Text style={[styles.ImageText, { fontWeight: "500" }]}>
-                {weight} kb •
-              </Text>
+              <Text
+                style={[styles.ImageText, { fontWeight: "500" }]}
+                title={`${weight} kb •`}
+              />
             )}
           </View>
         </Row>
-        {!noImage && <Icon name="edit" type="AntDesign" size={20} />}
+        {!noImage && (
+          <FullImage source={appImages.edit} style={globalStyle.iconImage} />
+        )}
       </View>
     </TouchableOpacity>
   );

@@ -68,6 +68,7 @@ export const apiRequest = async ({
   method = "get",
   endpoint,
   data = {},
+  contentType = "application/json",
   onSuccess,
   onNotFound,
   onFailure,
@@ -81,6 +82,7 @@ export const apiRequest = async ({
     const headers = {
       userid: userID,
       Authorization: `Bearer ${token}`,
+      ...(contentType && { "Content-Type": contentType }),
     };
 
     const response =
@@ -88,7 +90,6 @@ export const apiRequest = async ({
         ? await instance.get(endpoint, { headers })
         : await instance.post(endpoint, data, { headers });
     const { status, message } = response.data;
-
     if (status === 200) {
       onSuccess?.(response.data);
     } else if (status === 201) {

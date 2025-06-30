@@ -1,12 +1,13 @@
-import { View, Text as T } from "react-native";
 import React from "react";
 import styles from "./modalStyle";
-import Modal from "react-native-modal";
 import { FullImage, Text } from "..";
-import { appImages } from "../../assets";
-import { Height } from "../../theme/globalStyle";
-import Icon from "react-native-dynamic-vector-icons";
+import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
+import { View, Text as T } from "react-native";
+import { appImages, fonts } from "../../assets";
+import { Height } from "../../theme/globalStyle";
+import { fontScale } from "../../theme/responsive";
+import Icon from "react-native-dynamic-vector-icons";
 
 const AboutOversize = ({ visible, onClose }) => {
   return (
@@ -17,14 +18,15 @@ const AboutOversize = ({ visible, onClose }) => {
       onBackdropPress={onClose}
       onBackButtonPress={onClose}
       style={styles.modalContainer}
+      statusBarTranslucent
     >
       <View style={[styles.modalBox]}>
         <Height />
         <Icon
-          onPress={onClose}
+          size={25}
           name="close"
           type="AntDesign"
-          size={30}
+          onPress={onClose}
           color={colors.description}
           style={styles.oversizeClose}
         />
@@ -35,18 +37,25 @@ const AboutOversize = ({ visible, onClose }) => {
 
         <Height />
 
-        <Text style={{ fontWeight: "600" }} title="Oversized Items" center />
+        <Text
+          style={{ fontFamily: fonts[700], fontSize: fontScale(15) }}
+          title="Oversized Items"
+          center
+        />
         <Height />
 
-        <T style={{ textAlign: "center", color: colors.description }}>
+        <T style={styles.overSizeText}>
           Any item weighing over 15 lbs or measuring more than 25 inches in any
           dimension is considered oversized and may incur an{" "}
-          <Text center style={{ fontWeight: "600" }} title="additional fee." />
+          <Text
+            center
+            style={{ fontFamily: fonts[600] }}
+            title="additional fee."
+          />
         </T>
         <Height />
         <Text
-          center
-          style={{ color: colors.description }}
+          style={styles.overSizeText}
           title="Oversized fees will only be charged after it’s checked at our warehouse."
         />
         <Height />

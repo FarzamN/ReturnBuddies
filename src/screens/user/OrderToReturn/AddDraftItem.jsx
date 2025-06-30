@@ -1,9 +1,9 @@
-import { View, ScrollView, TouchableOpacity } from "react-native";
 import {
   Body,
   Text,
   Header,
   Oversize,
+  FullImage,
   MainInput,
   Validation,
   MainButton,
@@ -15,19 +15,18 @@ import {
 } from "../../../components";
 import styles from "../userStyle";
 import buttonStyle from "../userStyle";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { appImages } from "../../../assets";
 import { wp } from "../../../theme/responsive";
-import { colors } from "../../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
-import { useGalleryPermission, useIskeyboard } from "../../../hooks";
 import { required } from "../../../utils/constants";
-import { Height, Space_Between } from "../../../theme/globalStyle";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { uploadReturnItems } from "../../../redux/queries/draftQueries";
-import { useNavigation } from "@react-navigation/native";
 import { showNotification } from "../../../function";
+import { useNavigation } from "@react-navigation/native";
+import { uploadReturnItems } from "../../../apis/draftQueries";
+import { View, ScrollView, TouchableOpacity } from "react-native";
+import { useGalleryPermission, useIskeyboard } from "../../../hooks";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 
 const AddDraftItem = () => {
   const dispatch = useDispatch();
@@ -100,14 +99,27 @@ const AddDraftItem = () => {
   };
 
   const onSubmit = (data) => {
-    // data.items,
-    // images,
-    uploadReturnItems(
-      submittedItems,
-      setShowConfirmOrder,
-      setLoad,
-      goBack
-    )(dispatch);
+    const body = new FormData();
+
+    // Filter out items with no detail
+    const validItems = submittedItems.filter((item) => item.detail?.trim());
+
+    // Map only the valid ones
+    const inputs = validItems.map((item) => ({
+      detail: item.detail,
+      oversized: item.oversized,
+    }));
+
+    body.append("items", JSON.stringify(inputs));
+
+    validItems.forEach((item) => {
+      body.append("files", {
+        uri: item.image.uri,
+        type: item.image.type,
+        name: item.image.name,
+      });
+    });
+    uploadReturnItems(body, setShowConfirmOrder, setLoad, goBack)(dispatch);
   };
 
   const isValidItem = (item, image) => {
@@ -199,11 +211,9 @@ const AddDraftItem = () => {
                   style={{ marginTop: -8 }}
                   onPress={() => remove(index)}
                 >
-                  <Icon
-                    size={20}
-                    type="MaterialIcons"
-                    name="delete-forever"
-                    color={colors.error}
+                  <FullImage
+                    source={appImages.delete}
+                    style={globalStyle.deleteIcon}
                   />
                 </TouchableOpacity>
               )}
@@ -264,7 +274,7 @@ const AddDraftItem = () => {
         ))}
 
         <MainButton
-          title="+ Add Another Item"
+          title="+ Add another item"
           onPress={handleSubmit(handleAdd)}
           textStyle={buttonStyle.buttonText}
           style={[buttonStyle.button, { width: "50%" }]}

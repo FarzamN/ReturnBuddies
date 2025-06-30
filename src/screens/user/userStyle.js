@@ -1,26 +1,25 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
-import responsive, { fontScale, hp, wp } from "../../theme/responsive";
+import responsive, {
+  fontScale,
+  hp,
+  scaleSize,
+  wp,
+} from "../../theme/responsive";
 import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   draftTitle: {
     fontFamily: fonts[600],
-    fontSize: fontScale(20),
+    fontSize: fontScale(16),
   },
   draftSub: {
     fontFamily: fonts[400],
-    fontSize: fontScale(12),
+    fontSize: fontScale(11),
     color: colors.black,
   },
-  sectionHeader: {
-    fontSize: 16,
-    marginTop: 16,
-    marginBottom: 8,
-    fontWeight: "bold",
-    color: colors.black,
-  },
+
   button: {
     width: "80%",
     borderRadius: 15,
@@ -36,8 +35,8 @@ export default StyleSheet.create({
   },
 
   uploadSelectText: {
-    fontSize: wp(4),
-    fontWeight: "500",
+    fontSize: fontScale(14),
+    fontFamily: fonts[500],
     color: colors.black,
   },
 
@@ -76,16 +75,11 @@ export default StyleSheet.create({
     flex: 1,
   },
 
-  itemTitle: {
-    fontSize: wp(3.5),
-    fontWeight: "500",
-  },
-
   iconContainer: {
     gap: wp(2),
     flexDirection: "row",
   },
-  promoCode: { fontWeight: "500", fontSize: 13 },
+  promoCode: { fontFamily: fonts[500], fontSize: fontScale(13) },
 
   cell: {
     width: wp(16),
@@ -99,22 +93,21 @@ export default StyleSheet.create({
   },
 
   timerText: {
-    fontSize: hp(1.6),
-    // fontFamily: fontFamily.UrbanistRegular,
-    color: colors.black,
-    marginTop: wp(5),
     textAlign: "center",
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
+    color: colors.black,
   },
   timerSecondText: {
-    fontSize: hp(1.6),
-    // fontFamily: fontFamily.UrbanistSemiBold,
+    fontSize: fontScale(13),
+    fontFamily: fonts[500],
     color: colors.purple,
     marginTop: wp(5),
   },
   resendText: {
-    fontSize: hp(1.6),
-    // fontFamily: fontFamily.UrbanistRegular,
-    marginTop: wp(5),
     textAlign: "center",
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
+    marginTop: scaleSize(15),
   },
 });

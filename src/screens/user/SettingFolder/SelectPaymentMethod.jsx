@@ -2,25 +2,23 @@ import {
   Body,
   Empty,
   Header,
-  HiddenDelete,
   MainButton,
   PaymentCard,
+  HiddenDelete,
 } from "../../../components";
 import { appImages } from "../../../assets";
-import { wp } from "../../../theme/responsive";
 import { RefreshControl } from "react-native";
+import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
-import {
-  getPaymentAPI,
-  deletePaymentAPI,
-} from "../../../redux/queries/authQueries";
-import { setDraftReturn } from "../../../redux/slices/draftSlice";
+
 import AwesomeAlert from "react-native-awesome-alerts";
 import { globalStyle } from "../../../theme/globalStyle";
+import { setDraftReturn } from "../../../redux/slices/draftSlice";
+import { getPaymentAPI, deletePaymentAPI } from "../../../apis/authQueries";
 
 const SelectPaymentMethod = ({ route }) => {
   const { isPickup } = route.params || {};

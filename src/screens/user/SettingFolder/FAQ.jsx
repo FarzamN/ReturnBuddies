@@ -1,16 +1,17 @@
-import styles from "./settingStyle";
-import React, { useState, useEffect } from "react";
-import { wp } from "../../../theme/responsive";
-import Icon from "react-native-dynamic-vector-icons";
-import { Body, Header, Text } from "../../../components";
 import {
   View,
   FlatList,
-  LayoutAnimation,
   UIManager,
   Pressable,
+  LayoutAnimation,
 } from "react-native";
 import { android } from "../../../utils/constants";
+
+import styles from "./settingStyle";
+import { wp } from "../../../theme/responsive";
+import React, { useState, useEffect } from "react";
+import Icon from "react-native-dynamic-vector-icons";
+import { Body, Header, Text } from "../../../components";
 
 const FAQ = () => {
   const [expandedSection, setExpandedSection] = useState(null);

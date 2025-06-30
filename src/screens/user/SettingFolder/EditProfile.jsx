@@ -9,7 +9,7 @@ import { Height } from "../../../theme/globalStyle";
 import { required } from "../../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { editProfileAPI } from "../../../redux/queries/authQueries";
+import { editProfileAPI } from "../../../apis/authQueries";
 
 const EditProfile = ({ navigation }) => {
   const dispatch = useDispatch();

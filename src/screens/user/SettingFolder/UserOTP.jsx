@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Body, Header, Text, Validation } from "../../../components";
 import styles from "../userStyle";
-import { wp } from "../../../theme/responsive";
+import { fontScale, wp } from "../../../theme/responsive";
 import { Height } from "../../../theme/globalStyle";
 import { View, Text as RNText } from "react-native";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
@@ -9,7 +9,8 @@ import { colors } from "../../../theme/colors";
 import authStyle from "../../auth/authStyle";
 import BackgroundTimer from "react-native-background-timer";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfileVerificationAPI } from "../../../redux/queries/authQueries";
+import { editProfileVerificationAPI } from "../../../apis/authQueries";
+import { fonts } from "../../../assets";
 
 const UserOTP = ({ navigation, route }) => {
   const { number, type } = route.params;
@@ -53,7 +54,7 @@ const UserOTP = ({ navigation, route }) => {
     <Body horizontal={wp(5)}>
       <Header />
       <Text
-        style={{ fontSize: wp(7), fontWeight: "800" }}
+        style={{ fontFamily: fonts[700], fontSize: fontScale(22) }}
         center
         title="Enter Code"
       />

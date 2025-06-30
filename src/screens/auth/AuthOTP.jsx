@@ -10,7 +10,7 @@ import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import { colors } from "../../theme/colors";
 import { Height } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
-import { verifyOTPAPI } from "../../redux/queries/authQueries";
+import { verifyOTPAPI } from "../../apis/authQueries";
 
 const AuthOTP = ({ ref, email }) => {
   const dispatch = useDispatch();
@@ -40,11 +40,13 @@ const AuthOTP = ({ ref, email }) => {
           style={{ width: 150, height: 150 }}
         />
         <Height />
-        <Text style={styles.title}>Account Created!</Text>
+        <Text style={styles.title}>
+          {verify ? "Account Created!" : " Verify your email"}
+        </Text>
         <Text style={styles.subText}>
           {verify
-            ? "You’ve successfully create an account, Please login before exploring our app!"
-            : "We have sent you a 5-digit verification code.\nPlease check your email."}
+            ? "Your account has been successfully created. Please log in to start returning!"
+            : "We've sent you a 5-digit verification code. Please check on your email."}
         </Text>
 
         {/* 👉 You will handle this: OTP input fields */}

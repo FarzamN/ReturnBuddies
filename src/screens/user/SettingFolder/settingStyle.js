@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { fontScale, hp, wp } from "../../../theme/responsive";
+import { fontScale, hp, scaleSize, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../assets";
 
@@ -48,36 +48,36 @@ export default StyleSheet.create({
     lineHeight: wp(12),
   },
   timerText: {
-    fontSize: hp(1.6),
-    fontWeight: "500",
-    color: colors.description,
     marginTop: wp(5),
     textAlign: "center",
+    fontFamily: fonts[500],
+    fontSize: fontScale(16),
+    color: colors.description,
   },
   timerSecondText: {
-    fontSize: hp(1.6),
-    fontWeight: "600",
+    fontSize: fontScale(16),
+    fontFamily: fonts[600],
     color: colors.purple,
     marginTop: wp(5),
   },
   resendText: {
-    fontSize: hp(1.6),
-    fontWeight: "500",
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
+    marginTop: scaleSize(15),
     color: colors.description,
-    marginTop: wp(5),
     textAlign: "center",
   },
 
   FAQsectionHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 15,
-    backgroundColor: "#FAFAFA",
-    marginTop: wp(5),
     padding: wp(2),
-    borderTopRightRadius: 10,
+    marginTop: wp(5),
+    paddingVertical: 15,
+    flexDirection: "row",
+    alignItems: "center",
     borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: "#FAFAFA",
+    justifyContent: "space-between",
   },
   FAQcontent: {
     padding: wp(2),
@@ -88,13 +88,16 @@ export default StyleSheet.create({
     borderTopWidth: 1,
   },
   FAQcontentText: {
-    fontSize: hp(1.5),
-    fontWeight: "500",
+    fontSize: fontScale(12),
+    fontFamily: fonts[400],
+
     color: "#777777",
     lineHeight: hp(2.1),
   },
   FAQSectionText: {
+    fontSize: fontScale(13),
+
     width: "90%",
-    fontWeight: "600",
+    fontFamily: fonts[600],
   },
 });

@@ -14,9 +14,9 @@ import { useFreezeScreen } from "../../hooks";
 import React, { useState, useRef } from "react";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
-import { loginAPI } from "../../redux/queries/authQueries";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
+import { loginAPI } from "../../apis/authQueries";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <>
       <Body horizontal={wp(4)}>
-        <Header flag imageLogo />
+        <Header imageLogo />
         <ScrollView
           keyboardShouldPersistTaps={"always"}
           showsVerticalScrollIndicator={false}

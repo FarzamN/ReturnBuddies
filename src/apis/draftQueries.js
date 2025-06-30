@@ -6,109 +6,33 @@ import {
   setDraftSelectedRetun,
 } from "../redux/slices/draftSlice";
 
-export const uploadReturnItems = (
-  submittedItems,
-  confirmOrder,
-  load,
-  goBack
-) => {
-  return async (dispatch) => {
-    load(true);
-    const body = new FormData();
-
-    // Filter out items with no detail
-    const validItems = submittedItems.filter((item) => item.detail?.trim());
-
-    // Map only the valid ones
-    const inputs = validItems.map((item) => ({
-      detail: item.detail,
-      oversized: item.oversized,
-    }));
-
-    body.append("items", JSON.stringify(inputs));
-
-    // Append only the matching image files
-    validItems.forEach((item) => {
-      body.append("files", {
-        uri: item.image.uri,
-        type: item.image.type,
-        name: item.image.name,
-      });
-    });
-    // image.forEach((item, index) => {
-    //   body.append("files", {
-    //     uri: item.uri,
-    //     type: item.type,
-    //     name: item.name,
-    //   });
-    // });
-
-    try {
-      const response = await instance.post("addbundle", body, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          userid: getItem("userID"),
-        },
-      });
-
-      const { status, message } = response.data;
-
-      load(false);
-
-      if (status === 200) {
-        confirmOrder(false);
-        showNotification("success", "Success", message);
-        // Dispatch Redux actions if needed
-        getReturnItem(load)(dispatch);
-        goBack();
-      } else {
-        showNotification(
-          "error",
-          message || "Something went wrong",
-          `Status Code ${status}`
-        );
-      }
-    } catch (err) {
-      const msg = err?.response?.data?.message || err.message;
-      catchFun(msg);
-      load(false);
-    }
-  };
-};
-
-// export const addAddressAPI = (data, goBack, load) => {
+// export const uploadReturnItems = (body, confirmOrder, load, goBack) => {
 //   return async (dispatch) => {
-//     apiRequest({
-//       method: "post",
-//       endpoint: "add-address",
-//       data,
-//       onSuccess: ({ Address }) => {
-//         goBack();
-//         if (Address.isDefault == 1) dispatch(updateAddress(Address));
-//         getAddressAPI(load)(dispatch);
-//       },
-//       onFinally: load,
-//     });
-//   };
-// };
+//     load(true);
 
-// export const getReturnItem = (load) => {
-//   return async (dispatch) => {
 //     try {
-//       load(true);
-//       const response = await instance.get("", {
+//       const response = await instance.post("addbundle", body, {
 //         headers: {
 //           userid: getItem("userID"),
 //         },
 //       });
 
-//       const { status, message, data } = response.data;
+//       const { status, message } = response.data;
+
 //       load(false);
 
 //       if (status === 200) {
-//         dispatch(setDraftItem(data.reverse()));
+//         confirmOrder(false);
+//         showNotification("success", "Success", message);
+//         // Dispatch Redux actions if needed
+//         getReturnItem(load)(dispatch);
+//         goBack();
 //       } else {
-//         showNotification("error", message, "Status Code 401");
+//         showNotification(
+//           "error",
+//           message || "Something went wrong",
+//           `Status Code ${status}`
+//         );
 //       }
 //     } catch (err) {
 //       const msg = err?.response?.data?.message || err.message;
@@ -117,6 +41,25 @@ export const uploadReturnItems = (
 //     }
 //   };
 // };
+
+export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "addbundle",
+      contentType: "multipart/form-data",
+      data,
+      onSuccess: (res) => {
+        confirmOrder(false);
+        showNotification("success", "Success", res.message);
+        getReturnItem(load)(dispatch);
+        goBack();
+      },
+      onFinally: load,
+    });
+  };
+};
+
 export const getReturnItem = (load) => {
   return async (dispatch) => {
     apiRequest({
@@ -129,31 +72,6 @@ export const getReturnItem = (load) => {
     });
   };
 };
-
-// export const getSelectedReturnItem = (labelIDs, load) => {
-//   return async (dispatch) => {
-//     try {
-//       load(true);
-//       const url = `getbundle?bundleId=${labelIDs}`;
-//       const response = await instance.get(url, {
-//         headers: { userid: getItem("userID") },
-//       });
-
-//       const { status, message, data } = response.data;
-//       load(false);
-
-//       if (status === 200) {
-//         dispatch(setDraftSelectedRetun(data.reverse()));
-//       } else {
-//         showNotification("error", message, "Status Code 401");
-//       }
-//     } catch (err) {
-//       const msg = err?.response?.data?.message || err.message;
-//       catchFun(msg);
-//       load(false);
-//     }
-//   };
-// };
 
 export const getSelectedReturnItem = (labelIDs, load) => {
   return async (dispatch) => {

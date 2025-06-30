@@ -8,7 +8,6 @@ import Empty from "./Helpers/Empty";
 import PrimeryTab from "../navigaton/PrimeryTab";
 
 // Inputs
-import PhoneInput from "./Inputs/PhoneInput";
 import MainInput from "./Inputs/MainInput";
 
 // Helpers
@@ -96,6 +95,5 @@ export {
   ScheduleSkeleton,
 
   // Inputs
-  PhoneInput,
   MainInput,
 };

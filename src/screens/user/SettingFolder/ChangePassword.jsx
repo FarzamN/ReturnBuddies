@@ -8,9 +8,9 @@ import { Height } from "../../../theme/globalStyle";
 import { showNotification } from "../../../function";
 import { useNavigation } from "@react-navigation/native";
 import { changePasswordInput } from "../../../utils/data";
-import { changePasswordAPI } from "../../../redux/queries/authQueries";
 import { maxLength, minLength, required } from "../../../utils/constants";
 import { Body, Header, MainButton, Text, MainInput } from "../../../components";
+import { changePasswordAPI } from "../../../apis/authQueries";
 
 const ChangePassword = () => {
   const { goBack } = useNavigation();

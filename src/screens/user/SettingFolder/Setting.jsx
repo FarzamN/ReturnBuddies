@@ -22,7 +22,7 @@ import { setLogout } from "../../../redux/slices/authSlice";
 
 const settingsData = [
   { title: "Profile settings", icon: appImages.user, route: "editProfile" },
-  { title: "Pickups", icon: appImages.box, route: "pickups" },
+  { title: "Pickups", icon: appImages.box, route: "returnHistory" },
   { title: "Addresses", icon: appImages.location, route: "selectNewAddress" },
   {
     title: "Payment methods",
@@ -35,6 +35,7 @@ const settingsData = [
     route: "notifications",
   },
   { title: "Support", icon: appImages.support, route: "contactUS" },
+  { title: "FAQs", icon: appImages.support, route: "faq" },
   { title: "Privacy", icon: appImages.shield, route: "privacy" },
   { title: "Log out", icon: appImages.logout, type: "logout" },
 ];

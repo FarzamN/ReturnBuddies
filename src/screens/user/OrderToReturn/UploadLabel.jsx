@@ -12,7 +12,7 @@ import {
 } from "../../../components";
 import styles from "../userStyle";
 import React, { useState } from "react";
-import { appImages } from "../../../assets";
+import { appImages, fonts } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
 import { useFreezeScreen } from "../../../hooks";
@@ -22,7 +22,7 @@ import { ScrollView, Text as T } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { pick, types } from "@react-native-documents/picker";
-import { uploadLabelAPI } from "../../../redux/queries/draftQueries";
+import { uploadLabelAPI } from "../../../apis/draftQueries";
 // import { uploadLabelData as draftSelectedRetun } from "../../../utils/data";
 
 const UploadLabel = ({ route }) => {
@@ -115,17 +115,9 @@ const UploadLabel = ({ route }) => {
             type={labelDocs?.type}
             noImage={!labelDocs?.type}
             source={
-              labelDocs?.uri
-                ? { uri: labelDocs.uri }
-                : // : selectedProduct?.labelPath?.uri
-                  // ? { uri: selectedProduct.labelPath.uri }
-                  appImages.addLabel
+              labelDocs?.uri ? { uri: labelDocs.uri } : appImages.addLabel
             }
-            title={
-              labelDocs?.name ||
-              // selectedProduct?.labelPath?.name ||
-              "Tap to upload label"
-            }
+            title={labelDocs?.name || "Tap to upload label"}
           />
 
           <Height />
@@ -133,7 +125,7 @@ const UploadLabel = ({ route }) => {
             Select
             <Text
               title=" only "
-              style={{ fontWeight: "600" }}
+              style={{ fontFamily: fonts[600] }}
               color={colors.purple}
             />
             items the label above applies to

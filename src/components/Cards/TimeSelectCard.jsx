@@ -6,6 +6,7 @@ import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import styles from "./cardStyle";
 import { width } from "../../theme/responsive";
+import { fonts } from "../../assets";
 const TimeSelectCard = ({ data, focus, onPress, index }) => {
   return (
     <TouchableOpacity
@@ -24,7 +25,7 @@ const TimeSelectCard = ({ data, focus, onPress, index }) => {
         title={data}
         color={focus ? colors.purple : colors.black}
         width={width / 1.4}
-        style={{ fontWeight: "600" }}
+        style={{ fontFamily: fonts[500] }}
       />
       <Icon
         size={22}

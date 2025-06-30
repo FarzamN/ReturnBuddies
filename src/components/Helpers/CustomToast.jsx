@@ -2,7 +2,7 @@ import React from "react";
 import helperStyle from "./helperStyle";
 import { Text, View } from "react-native";
 import { colors } from "../../theme/colors";
-import { FONT_SIZES, fontScale } from "../../theme/responsive";
+import { fontScale } from "../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

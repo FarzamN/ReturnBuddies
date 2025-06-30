@@ -6,6 +6,7 @@ import { FullImage, Text } from "..";
 import { TouchableOpacity, View } from "react-native";
 import styles from "./buttonStyle";
 import { width } from "../../theme/responsive";
+import { appImages } from "../../assets";
 
 const PickupButton = (props) => {
   const { title, detail, source, onPress, noEdit } = props;
@@ -29,7 +30,7 @@ const PickupButton = (props) => {
         </View>
       </Row>
       {!noEdit && (
-        <Icon type="Feather" name="edit" size={20} color={colors.black} />
+        <FullImage source={appImages.edit} style={globalStyle.iconImage} />
       )}
     </TouchableOpacity>
   );

@@ -1,5 +1,7 @@
+import { fonts } from "../../assets";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
+import { fontScale } from "../../theme/responsive";
 
 export default StyleSheet.create({
   modalContainer: {
@@ -9,12 +11,12 @@ export default StyleSheet.create({
   },
   modalBox: {
     width: "100%",
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
     paddingBottom: 30,
     alignSelf: "center",
     alignItems: "center",
     paddingHorizontal: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     justifyContent: "center",
     backgroundColor: colors.white,
   },
@@ -22,5 +24,11 @@ export default StyleSheet.create({
     top: 20,
     right: 20,
     position: "absolute",
+  },
+  overSizeText: {
+    textAlign: "center",
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
+    color: colors.description,
   },
 });

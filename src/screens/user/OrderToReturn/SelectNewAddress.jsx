@@ -14,13 +14,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
-import {
-  getAddressAPI,
-  deleteAddressAPI,
-} from "../../../redux/queries/authQueries";
+
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
 import AwesomeAlert from "react-native-awesome-alerts";
 import { globalStyle } from "../../../theme/globalStyle";
+import { getAddressAPI, deleteAddressAPI } from "../../../apis/authQueries";
 
 const SelectNewAddress = ({ route }) => {
   const { isPickup } = route.params || {};

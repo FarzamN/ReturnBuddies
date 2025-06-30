@@ -8,9 +8,9 @@ import { iOS, required } from "../../../utils/constants";
 import Icon from "react-native-dynamic-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Height, Row } from "../../../theme/globalStyle";
-import { deleteAccountPasswordAPI } from "../../../redux/queries/authQueries";
 import { Body, Header, MainButton, Text, MainInput } from "../../../components";
 import { useIskeyboard } from "../../../hooks";
+import { deleteAccountPasswordAPI } from "../../../apis/authQueries";
 
 const DeleteAccount = () => {
   const { navigate } = useNavigation();

@@ -1,15 +1,16 @@
-import React from "react";
-import Icon from "react-native-dynamic-vector-icons";
-import { colors } from "../../theme/colors";
-import { Text } from "..";
 import {
   Menu,
   MenuOptions,
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
-import { wp } from "../../theme/responsive";
+
+import React from "react";
 import styles from "./helperStyle";
+import { FullImage, Text } from "..";
+import { appImages } from "../../assets";
+import { colors } from "../../theme/colors";
+import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle } from "../../theme/globalStyle";
 
 const PopupMenu = ({ options }) => {
@@ -35,7 +36,7 @@ const PopupMenu = ({ options }) => {
             style={globalStyle.space_Between}
           >
             <Text style={styles.textStyle} title={item.label} />
-            <Icon name="edit" type="AntDesign" color="black" size={wp(5)} />
+            <FullImage source={appImages.edit} style={globalStyle.iconImage} />
           </MenuOption>
         ))}
       </MenuOptions>

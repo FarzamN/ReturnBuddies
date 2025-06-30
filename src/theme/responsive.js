@@ -13,7 +13,7 @@ export const phone = width <= 400 && height <= 800;
 const BASE_WIDTH = 375;
 const BASE_HEIGHT = 812;
 
-const scaleSize = (size) => (width / BASE_WIDTH) * size;
+export const scaleSize = (size) => (width / BASE_WIDTH) * size;
 
 export const verticalScale = (size) => (height / BASE_HEIGHT) * size;
 
@@ -33,35 +33,3 @@ const responsive = {
 };
 
 export default responsive;
-
-// Font Sizes
-export const FONT_SIZES = {
-  SMALL: fontScale(12),
-  BODY: fontScale(16),
-  SUB_HEADING: fontScale(20),
-  HEADING: fontScale(24),
-  LARGE_TITLE: fontScale(32),
-};
-
-// Spacing (Padding & Margin)
-export const SPACING = {
-  SMALL: responsive.space(8),
-  DEFAULT: responsive.space(16),
-  LARGE: responsive.space(24),
-};
-
-// Heights
-export const HEIGHT_SIZES = {
-  XSMALL: responsive.height(25),
-  SMALL: responsive.height(40),
-  DEFAULT: responsive.height(48),
-  LARGE: responsive.height(56),
-};
-
-// Border Radius
-export const BORDER_RADIUS = {
-  SMALL: responsive.borderRadius(8),
-  MEDIUM: responsive.borderRadius(12),
-  LARGE: responsive.borderRadius(16),
-  CIRCLE: responsive.borderRadius(50),
-};

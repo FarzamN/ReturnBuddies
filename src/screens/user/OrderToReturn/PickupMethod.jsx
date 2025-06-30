@@ -36,9 +36,7 @@ const PickupMethod = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    mode: "all",
-  });
+  } = useForm({ mode: "all" });
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Pickup method" />

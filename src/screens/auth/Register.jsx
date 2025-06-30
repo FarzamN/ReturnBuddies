@@ -7,19 +7,17 @@ import {
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { wp } from "../../theme/responsive";
 import React, { useRef, useState } from "react";
 import { registerInput } from "../../utils/data";
+import { registerAPI } from "../../apis/authQueries";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
-import { registerAPI } from "../../redux/queries/authQueries";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
 
 const Register = () => {
   const showOTP = useRef(false);
-  const dispatch = useDispatch();
   const { goBack } = useNavigation();
 
   const [isLoading, setLoading] = useState(false);
@@ -38,7 +36,7 @@ const Register = () => {
   return (
     <>
       <Body horizontal={wp(4)}>
-        <Header flag title="Sign Up" />
+        <Header title="Sign Up" />
         <ScrollView
           keyboardShouldPersistTaps={"always"}
           showsVerticalScrollIndicator={false}

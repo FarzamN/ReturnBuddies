@@ -1,9 +1,7 @@
 import { StyleSheet } from "react-native";
 import responsive, {
-  BORDER_RADIUS,
-  FONT_SIZES,
   fontScale,
-  hp,
+  scaleSize,
   verticalScale,
   wp,
 } from "../../theme/responsive";
@@ -19,13 +17,14 @@ const helperStyle = StyleSheet.create({
     marginTop: responsive.space(7),
   },
   text: {
-    fontWeight: "400",
-    fontSize: responsive.fontSize(14),
+    top: 1,
+    fontFamily: fonts[400],
+    fontSize: fontScale(12),
   },
   divider: {
     backgroundColor: "#D9D9D9",
     height: responsive.height(1),
-    borderRadius: BORDER_RADIUS.CIRCLE,
+    borderRadius: scaleSize(50),
   },
 
   // Toast styling

@@ -1,11 +1,10 @@
 import React from "react";
 import { FullImage } from "..";
-import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
-import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import Icon from "react-native-dynamic-vector-icons";
+import { appImages, fonts } from "../../assets";
 import { fontScale } from "../../theme/responsive";
+import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
+import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 
 const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
   const getCardType = (cardNumber) => {
@@ -83,7 +82,7 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
           </View>
         )}
         <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
-          <Icon name="edit" type="AntDesign" size={20} color={colors.black} />
+          <FullImage source={appImages.edit} style={globalStyle.iconImage} />
         </TouchableOpacity>
       </Space_Between>
     </TouchableOpacity>

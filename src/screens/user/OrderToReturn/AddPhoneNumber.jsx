@@ -11,7 +11,7 @@ import { useIskeyboard } from "../../../hooks";
 import { Height } from "../../../theme/globalStyle";
 import styles from "../userStyle";
 import { required } from "../../../utils/constants";
-import { editProfileAPI } from "../../../redux/queries/authQueries";
+import { editProfileAPI } from "../../../apis/authQueries";
 
 const AddPhoneNumber = ({ navigation }) => {
   const dispatch = useDispatch();

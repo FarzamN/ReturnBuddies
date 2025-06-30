@@ -14,13 +14,11 @@ import { colors } from "../../../theme/colors";
 import { required } from "../../../utils/constants";
 import Icon from "react-native-dynamic-vector-icons";
 import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-import {
-  addAddressAPI,
-  editAddressAPI,
-} from "../../../redux/queries/authQueries";
+
 import { globalStyle, Space_Between } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../assets";
+import { editAddressAPI, addAddressAPI } from "../../../apis/authQueries";
 
 const AddNewAddress = ({ route }) => {
   const { item, editing } = route?.params || {};

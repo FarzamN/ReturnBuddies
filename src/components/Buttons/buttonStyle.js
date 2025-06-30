@@ -1,11 +1,7 @@
+import { fonts } from "../../assets";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import responsive, {
-  BORDER_RADIUS,
-  fontScale,
-  SPACING,
-} from "../../theme/responsive";
-import { fonts } from "../../assets";
+import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   containerStyle: {
@@ -17,33 +13,34 @@ export default StyleSheet.create({
     justifyContent: "center",
     borderWidth: fontScale(2),
     height: responsive.height(52),
-    borderRadius: BORDER_RADIUS.CIRCLE ? 35 : 20,
+    borderRadius: scaleSize(35),
   },
 
   font: {
     top: fontScale(1),
     color: colors.white,
-    fontFamily: fonts[500],
+    fontFamily: fonts[600],
     fontSize: fontScale(13),
   },
 
   socialImage: {
     width: responsive.height(20),
     height: responsive.height(20),
-    marginRight: SPACING.SMALL,
+    marginRight: scaleSize(8),
   },
 
   // Image Btuuon style
 
   ImageButton: {
-    padding: 15,
     borderWidth: 1,
-    borderRadius: 12,
+    padding: scaleSize(15),
+    borderRadius: scaleSize(12),
     borderStyle: "dashed",
     backgroundColor: colors.white,
   },
   ImageIcon: {
-    marginRight: 10,
+    overflow: "hidden",
+    marginRight: wp(3),
   },
   ImageText: {
     color: "#111827",
@@ -53,8 +50,9 @@ export default StyleSheet.create({
   },
   uploadText: {
     color: colors.black,
-    fontSize: 15,
-    fontWeight: "600",
+    top: 1,
+    fontSize: fontScale(14),
+    fontFamily: fonts[600],
   },
 
   selectDate: {

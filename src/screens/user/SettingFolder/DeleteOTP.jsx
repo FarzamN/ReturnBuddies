@@ -9,7 +9,7 @@ import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import BackgroundTimer from "react-native-background-timer";
 import { Text } from "../../../components";
 import { colors } from "../../../theme/colors";
-import { deleteAccountOTPAPI } from "../../../redux/queries/authQueries";
+import { deleteAccountOTPAPI } from "../../../apis/authQueries";
 
 const DeleteOTP = () => {
   const dispatch = useDispatch();

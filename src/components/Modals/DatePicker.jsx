@@ -7,6 +7,8 @@ import { Calendar } from "react-native-calendars";
 import Icon from "react-native-dynamic-vector-icons";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Height, Space_Between } from "../../theme/globalStyle";
+import { fonts } from "../../assets";
+import { fontScale } from "../../theme/responsive";
 
 const DatePicker = ({ visible, onClose, onPress }) => {
   const [selected, setSelected] = useState();
@@ -56,12 +58,14 @@ const DatePicker = ({ visible, onClose, onPress }) => {
             textDisabledColor: "#cccccc",
             arrowColor: "#A24BF4",
             monthTextColor: "#000",
-            textMonthFontWeight: "600",
-            textDayFontWeight: "500",
-            textDayFontSize: 16,
-            textMonthFontSize: 18,
             borderRadius: 20,
             backgroundColor: "#F9ECFF",
+
+            textDayFontFamily: fonts[500],
+            textDayFontSize: fontScale(15),
+
+            textMonthFontFamily: fonts[500],
+            textMonthFontSize: fontScale(17),
           }}
         />
 

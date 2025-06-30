@@ -34,6 +34,9 @@ export const appImages = {
   wallet_empty: require(`./images/Icons/wallet-empty.png`),
   location_empty: require(`./images/Icons/location-empty.png`),
   card: require(`./images/Icons/card.png`),
+  information: require("./images/Icons/information.png"),
+  edit: require("./images/Icons/edit.png"),
+  delete: require("./images/Icons/trash.png"),
 
   //  ------- Modals Images
   otpImage: require(`./images/Modals/otpImage.png`),

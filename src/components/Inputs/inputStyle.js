@@ -1,32 +1,32 @@
-import { StyleSheet } from "react-native";
 import { fonts } from "../../assets";
+import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import { fontScale, SPACING, tab } from "../../theme/responsive";
+import { fontScale, scaleSize, tab } from "../../theme/responsive";
 
 const inputStyles = StyleSheet.create({
   mainInputCont: {
     width: "100%",
-    marginTop: SPACING.SMALL,
+    marginTop: scaleSize(8),
   },
   inputStyles: {
+    height: 50,
+    borderWidth: 1,
+    color: colors.black,
+    paddingHorizontal: 20,
     fontFamily: fonts[500],
     fontSize: fontScale(15),
-    color: colors.black,
-    paddingHorizontal: 20, // inner spacing
-    height: 50, // match height
-    borderWidth: 1,
   },
 
   SearchInput: {
-    fontFamily: fonts[500],
     color: colors.black,
     marginHorizontal: 5,
+    fontFamily: fonts[500],
     fontSize: tab ? 16 : 14,
     width: tab ? "90%" : "83%",
   },
   SearchBox: {
-    borderWidth: 1,
     marginTop: 15,
+    borderWidth: 1,
     marginBottom: 10,
     height: tab ? 70 : 45,
     paddingHorizontal: 15,

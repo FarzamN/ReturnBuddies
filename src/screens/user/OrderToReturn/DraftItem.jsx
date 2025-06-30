@@ -11,17 +11,13 @@ import {
 
 import { Height, globalStyle } from "../../../theme/globalStyle";
 
-import {
-  deleteBundle,
-  getReturnItem,
-} from "../../../redux/queries/draftQueries";
-
 import styles from "../userStyle";
 import { wp } from "../../../theme/responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { BackHandler, FlatList, View } from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
+import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -92,14 +88,20 @@ const DraftItem = () => {
         onPress={() => deleteBundle(selectedReturns, setIsPending)(dispatch)}
       />
       */}
-      <View style={{ paddingHorizontal: wp(5) }}>
-        <Text style={styles.draftTitle} title="Your Returns" />
-        <Text
-          style={styles.draftSub}
-          title="Select return(s) to schedule pickup"
-        />
-        <Height />
-      </View>
+      <Height />
+
+      {draftData && draftData.length > 0 && (
+        <View style={{ paddingHorizontal: wp(5) }}>
+          <Text style={styles.draftTitle} title="Your Returns" />
+          <Text
+            style={styles.draftSub}
+            title={`Select return${
+              draftData.length > 1 ? "(s)" : ""
+            } to schedule pickup`}
+          />
+          <Height />
+        </View>
+      )}
 
       {isPending ? (
         <FlatList
