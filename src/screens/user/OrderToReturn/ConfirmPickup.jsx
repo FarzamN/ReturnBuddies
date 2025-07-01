@@ -6,10 +6,11 @@ import {
   MainButton,
   PickupButton,
   ItemPickupButton,
+  CircleCheck,
 } from "../../../components";
 import moment from "moment";
 import styles from "../userStyle";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { appImages } from "../../../assets";
@@ -19,6 +20,7 @@ import { useIskeyboard } from "../../../hooks";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
+import { maskCardNumber, showNotification } from "../../../function";
 
 const ConfirmPickup = () => {
   const { navigate } = useNavigation();
@@ -29,6 +31,9 @@ const ConfirmPickup = () => {
   const { pickupAddress, phone, payment } = useSelector(
     (state) => state.auth.user
   );
+
+  const [focus, setFocus] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const [promocode, setPromoCode] = useState({ visible: false });
   const data = {
@@ -55,12 +60,57 @@ const ConfirmPickup = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    if (!phone) {
+      showNotification("error", "Error", "Please set you phone number");
+      return;
+    }
+
+    if (!selectedPayment || !payment) {
+      showNotification("error", "Error", "Please set you Payment method");
+      return;
+    }
+
+    if (!pickupAddress || !selectedAddress) {
+      showNotification("error", "Error", "Please set you Pickup Address");
+      return;
+    }
+
+    navigate("trackPickup");
   };
 
   const totalItemCount = draftSelectedRetun
     .map((item) => item.products.length)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  const hasOversized = draftSelectedRetun.some((bundle) =>
+    bundle.products.some((product) => product.oversized === true)
+  );
+
+  const BASE_PRICE = 99.9;
+  const FREE_ITEMS_THRESHOLD = 10; // Items included in base price
+  const ADDITIONAL_ITEM_PRICE = 1; // Price per item beyond threshold
+
+  // const calculateTotalPrice = () => {
+  //   if (totalItemCount <= FREE_ITEMS_THRESHOLD) {
+  //     return BASE_PRICE * totalItemCount;
+  //   } else {
+  //     let minProcucts = totalItemCount - 10;
+  //     return BASE_PRICE * totalItemCount + minProcucts;
+  //   }
+  // };
+
+  const calculateTotalPrice = () => {
+    if (totalItemCount <= FREE_ITEMS_THRESHOLD) {
+      return BASE_PRICE;
+    } else {
+      const additionalItems = totalItemCount - FREE_ITEMS_THRESHOLD;
+      return BASE_PRICE + additionalItems * ADDITIONAL_ITEM_PRICE;
+    }
+  };
+
+  useEffect(() => {
+    setTotalPrice(calculateTotalPrice());
+  }, [totalItemCount]);
 
   const {
     control,
@@ -106,7 +156,7 @@ const ConfirmPickup = () => {
 
         <Space_Between style={globalStyle.mv10}>
           <Text style={styles.promoCode} title="Pickup" />
-          <Text title="$ 0.00" style={styles.promoCode} />
+          <Text title={`$${BASE_PRICE}`} style={styles.promoCode} />
         </Space_Between>
         <TouchableOpacity
           onPress={() =>
@@ -115,7 +165,7 @@ const ConfirmPickup = () => {
         >
           <Text
             color={colors.purple}
-            title="+ Add Promo Code"
+            title="+ Add a Promo Code"
             style={styles.promoCode}
           />
         </TouchableOpacity>
@@ -133,18 +183,29 @@ const ConfirmPickup = () => {
         <Height />
         <Space_Between>
           <Text style={styles.promoCode} title="Total" />
-          <Text title="$ 9.99" style={styles.promoCode} />
+          <Text title={`$${totalPrice}`} style={styles.promoCode} />
         </Space_Between>
         <PickupButton
-          // noEdit
+          isPayment={selectedPayment?.cardNumber || payment?.cardNumber}
           source={appImages.wallet}
           title={`${
-            selectedPayment?.cardNumber ||
-            payment?.cardNumber ||
-            "Add Payment method"
+            selectedPayment?.cardNumber
+              ? maskCardNumber(selectedPayment?.cardNumber)
+              : payment?.cardNumber
+              ? maskCardNumber(payment?.cardNumber)
+              : "Add Payment method"
           }`}
           onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
         />
+        <Height />
+        {hasOversized && (
+          <CircleCheck
+            focus={focus}
+            title="I acknowledge that a surcharge may apply to items exceeding 15 lbs or measuring 25” in any direction."
+            onPress={() => setFocus((pre) => !pre)}
+          />
+        )}
+        <Height />
       </ScrollView>
       {!isKeyboard && (
         <MainButton title="Confirm pickup" onPress={handleSubmit(onSubmit)} />

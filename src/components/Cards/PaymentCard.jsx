@@ -5,6 +5,7 @@ import { appImages, fonts } from "../../assets";
 import { fontScale } from "../../theme/responsive";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
+import { maskCardNumber } from "../../function";
 
 const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
   const getCardType = (cardNumber) => {
@@ -14,12 +15,6 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
     if (firstDigit === "4") return "visa";
     if (firstDigit === "5") return "mastercard";
     return "unknown";
-  };
-
-  const maskCardNumber = (cardNumber) => {
-    if (!cardNumber) return "•••• •••• •••• ••••";
-    const lastFour = cardNumber.slice(-4);
-    return `•••• ${lastFour}`;
   };
 
   const cardType = getCardType(data?.cardNumber);

@@ -12,7 +12,12 @@ import {
 import React from "react";
 import { appImages, fonts } from "../../../assets";
 import { colors } from "../../../theme/colors";
-import { fontScale, verticalScale, wp } from "../../../theme/responsive";
+import {
+  fontScale,
+  scaleSize,
+  verticalScale,
+  wp,
+} from "../../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { globalStyle } from "../../../theme/globalStyle";
@@ -86,14 +91,14 @@ const Setting = () => {
             transform: [{ rotate: "-10deg" }], // Rotate 45 degrees
           }}
         />
-        <TouchableOpacity onPress={goBack} style={styles.backButton}>
-          <Icon
-            size={20}
-            type="Ionicons"
-            name="arrow-back"
-            color={colors.black}
-          />
-        </TouchableOpacity>
+        <Icon
+          onPress={goBack}
+          style={styles.backButton}
+          size={20}
+          type="Ionicons"
+          name="arrow-back"
+          color={colors.black}
+        />
         <View style={styles.profileCard}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>
@@ -131,6 +136,8 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginBottom: wp(3),
+    top: scaleSize(50),
+    zIndex: 9,
   },
   profileCard: {
     backgroundColor: colors.white,
@@ -140,6 +147,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 6,
     elevation: 3,
+    // position: "absolute",
+    top: scaleSize(50),
+    zIndex: 9,
   },
   name: {
     color: colors.black,
@@ -161,6 +171,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts[600],
     fontSize: fontScale(16),
     marginBottom: verticalScale(5),
+    marginTop: scaleSize(20),
   },
   item: {
     flexDirection: "row",

@@ -3,6 +3,7 @@ import {
   Empty,
   Header,
   MainButton,
+  CustomAlert,
   AddressCard,
   HiddenDelete,
 } from "../../../components";
@@ -16,7 +17,6 @@ import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
-import AwesomeAlert from "react-native-awesome-alerts";
 import { globalStyle } from "../../../theme/globalStyle";
 import { getAddressAPI, deleteAddressAPI } from "../../../apis/authQueries";
 
@@ -49,7 +49,7 @@ const SelectNewAddress = ({ route }) => {
 
       <SwipeListView
         data={getAddress}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(_, i) => i.toString()}
         refreshControl={
           <RefreshControl
             refreshing={load}
@@ -75,11 +75,11 @@ const SelectNewAddress = ({ route }) => {
             onPress={() => navigate("addNewAddress")}
           />
         }
-        renderHiddenItem={(data, rowMap) => (
+        renderHiddenItem={({ item, index }, rowMap) => (
           <HiddenDelete
             onPress={() => {
-              rowMap[data.item._id]?.closeRow();
-              setAlert({ visible: true, _id: data.item._id });
+              rowMap[index]?.closeRow();
+              setAlert({ visible: true, _id: item._id });
             }}
           />
         )}
@@ -96,30 +96,17 @@ const SelectNewAddress = ({ route }) => {
           }}
         />
       )}
-      <AwesomeAlert
+      <CustomAlert
         show={alert.visible}
-        showCancelButton={true}
-        showConfirmButton={true}
-        title="Are you sure?"
         message={`Are you sure you want to delete this Address?\nThis action cannot be undone.`}
-        cancelText="Cancel"
         showProgress={load}
-        progressColor={colors.purple}
-        progressSize={30}
-        confirmText={load ? "Loading..." : "Delete"}
-        confirmButtonColor={colors.error}
-        cancelButtonColor={colors.success}
         onCancelPressed={() => setAlert({ visible: false })}
-        onConfirmPressed={() => {
-          deleteAddressAPI(alert._id, setAlert, setLoad)(dispatch);
-        }}
-        titleStyle={globalStyle.alertTitle}
-        messageStyle={globalStyle.alertMessage}
-        cancelButtonTextStyle={globalStyle.alertCancel}
-        confirmButtonTextStyle={globalStyle.alertCancel}
+        onConfirmPressed={() =>
+          deleteAddressAPI(alert._id, setAlert, setLoad)(dispatch)
+        }
       />
     </Body>
   );
 };
-// onPress={() => dispatch()}
+
 export default SelectNewAddress;

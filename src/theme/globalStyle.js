@@ -410,22 +410,4 @@ export const globalStyle = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
-
-  alertTitle: {
-    color: colors.black,
-    fontSize: fontScale(20),
-    fontFamily: fonts[500],
-  },
-  alertMessage: {
-    color: colors.grey,
-    fontSize: fontScale(12),
-    fontFamily: fonts[400],
-    textAlign: "center",
-  },
-  alertCancel: {
-    top: fontScale(1),
-    color: colors.white,
-    fontFamily: fonts[400],
-    fontSize: fontScale(12),
-  },
 });

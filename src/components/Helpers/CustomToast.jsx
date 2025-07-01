@@ -5,37 +5,7 @@ import { colors } from "../../theme/colors";
 import { fontScale } from "../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const toastColors = {
-  success: {
-    icon: "check",
-    bg: "#f6fff9",
-    border: "#47C1B5",
-    iconBg: "#47C1B5",
-    iconType: "Feather",
-  },
-  error: {
-    bg: "#FFF5F3",
-    icon: "close",
-    border: "#F3CBC4",
-    iconBg: "#DF452F",
-    iconType: "Ionicons",
-  },
-  info: {
-    bg: "#F4F8FE",
-    border: "#9DC0EE",
-    iconBg: "#3391B6",
-    icon: "information",
-    iconType: "Ionicons",
-  },
-  warning: {
-    bg: "#FFF8EC",
-    border: "#F4D9AB",
-    iconBg: "#FD9904",
-    icon: "exclamation",
-    iconType: "AntDesign",
-  },
-};
+import { toastColors } from "../../utils/data";
 
 const CustomToast = ({ title, message, type }) => {
   const { top } = useSafeAreaInsets();

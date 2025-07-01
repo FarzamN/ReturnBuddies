@@ -35,6 +35,12 @@ export const getNextWeekdays = (count) => {
   return days;
 };
 
+export const maskCardNumber = (cardNumber) => {
+  if (!cardNumber) return "•••• •••• •••• ••••";
+  const lastFour = cardNumber.slice(-4);
+  return `•••• ${lastFour}`;
+};
+
 export const cardValidator = {
   getCardType: (number) => {
     const num = number.replace(/\s/g, "");

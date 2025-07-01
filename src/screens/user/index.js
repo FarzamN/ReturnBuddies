@@ -6,6 +6,7 @@ import UploadLabel from "./OrderToReturn/UploadLabel";
 import SchedulePickup from "./OrderToReturn/SchedulePickup";
 import PickupMethod from "./OrderToReturn/PickupMethod";
 import ConfirmPickup from "./OrderToReturn/ConfirmPickup";
+import TrackPickup from "./OrderToReturn/TrackPickup";
 import AddNewAddress from "./OrderToReturn/AddNewAddress";
 import SelectNewAddress from "./OrderToReturn/SelectNewAddress.jsx";
 import AddPhoneNumber from "./OrderToReturn/AddPhoneNumber";
@@ -42,6 +43,7 @@ export {
   SchedulePickup,
   PickupMethod,
   ConfirmPickup,
+  TrackPickup,
   AddNewAddress,
   SelectNewAddress,
   AddPhoneNumber,

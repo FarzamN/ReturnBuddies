@@ -5,19 +5,19 @@ import {
   MainInput,
   MainButton,
   RequiredText,
+  CircleCheck,
 } from "../../../components";
 import React, { useState } from "react";
+import { fonts } from "../../../assets";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { fontScale, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { required } from "../../../utils/constants";
 import Icon from "react-native-dynamic-vector-icons";
-import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-
-import { globalStyle, Space_Between } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
-import { fonts } from "../../../assets";
+import { fontScale, wp } from "../../../theme/responsive";
+import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 import { editAddressAPI, addAddressAPI } from "../../../apis/authQueries";
 
 const AddNewAddress = ({ route }) => {
@@ -111,21 +111,12 @@ const AddNewAddress = ({ route }) => {
             />
           ))}
         </Space_Between>
-        <TouchableOpacity
-          style={[globalStyle.row, globalStyle.mt10]}
+        <Height />
+        <CircleCheck
+          focus={isDefault === 1}
+          title="Set as your default address."
           onPress={() => setValue("isDefault", isDefault ? 0 : 1)}
-        >
-          <Icon
-            size={20}
-            type={isDefault === 1 ? "Ionicons" : "Entypo"}
-            color={isDefault === 1 ? colors.purple : colors.grey}
-            name={isDefault === 1 ? "checkmark-circle" : "circle"}
-          />
-          <Text
-            title="Set as your default address."
-            style={styles.checkBoxText}
-          />
-        </TouchableOpacity>
+        />
       </ScrollView>
       <MainButton
         title="Save"

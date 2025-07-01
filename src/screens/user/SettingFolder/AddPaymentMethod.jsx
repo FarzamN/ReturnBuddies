@@ -12,6 +12,7 @@ import {
   FullImage,
   MainButton,
   RequiredText,
+  CircleCheck,
 } from "../../../components";
 import { useDispatch } from "react-redux";
 import { colors } from "../../../theme/colors";
@@ -254,18 +255,12 @@ const AddPaymentMethod = ({ route }) => {
             {errors.cvv && <Text style={styles.errorText}>{errors.cvv}</Text>}
           </View>
         </Space_Between>
-        <TouchableOpacity
-          style={globalStyle.row}
+
+        <CircleCheck
+          focus={focus}
+          title="Set as your default card."
           onPress={() => setFocus((prev) => !prev)}
-        >
-          <Icon
-            size={20}
-            type={focus ? "Ionicons" : "Entypo"}
-            color={focus ? colors.purple : colors.grey}
-            name={focus ? "checkmark-circle" : "circle"}
-          />
-          <Text style={styles.checkBoxText}>Set as your default card.</Text>
-        </TouchableOpacity>
+        />
       </ScrollView>
 
       <MainButton load={load} title="Save Card" onPress={onSubmit} />

@@ -17,6 +17,8 @@ export const appImages = {
   onboard5: require(`./images/Overboard/onboard5.png`),
   onboard6: require(`./images/Overboard/onboard6.png`),
 
+  trackingBus: require(`./images/tracking-bus.png`),
+
   //  ------- Icons
   apple: require(`./images/Icons/apple.png`),
   instagram: require(`./images/Icons/instagram.png`),

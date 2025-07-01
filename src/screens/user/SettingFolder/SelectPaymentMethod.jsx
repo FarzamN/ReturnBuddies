@@ -3,6 +3,7 @@ import {
   Empty,
   Header,
   MainButton,
+  CustomAlert,
   PaymentCard,
   HiddenDelete,
 } from "../../../components";
@@ -15,8 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
 
-import AwesomeAlert from "react-native-awesome-alerts";
-import { globalStyle } from "../../../theme/globalStyle";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
 import { getPaymentAPI, deletePaymentAPI } from "../../../apis/authQueries";
 
@@ -77,10 +76,10 @@ const SelectPaymentMethod = ({ route }) => {
             onPress={() => navigate("addPaymentMethod")}
           />
         }
-        renderHiddenItem={({ item }, rowMap) => (
+        renderHiddenItem={({ item, index }, rowMap) => (
           <HiddenDelete
             onPress={() => {
-              rowMap[item._id]?.closeRow();
+              rowMap[index]?.closeRow();
               setAlert({ visible: true, _id: item._id });
             }}
           />
@@ -98,27 +97,15 @@ const SelectPaymentMethod = ({ route }) => {
           }}
         />
       )}
-      <AwesomeAlert
+
+      <CustomAlert
         show={alert.visible}
-        showCancelButton
-        showConfirmButton
-        title="Are you sure?"
-        showProgress={load}
-        progressColor={colors.purple}
-        progressSize={20}
         message={`Are you sure you want to delete this Payment card?\nThis action cannot be undone.`}
-        cancelText="Cancel"
-        confirmText="Delete"
-        confirmButtonColor={colors.error}
-        cancelButtonColor={colors.success}
+        showProgress={load}
         onCancelPressed={() => setAlert({ visible: false })}
-        onConfirmPressed={() => {
-          deletePaymentAPI(alert._id, setAlert, setLoad)(dispatch);
-        }}
-        titleStyle={globalStyle.alertTitle}
-        messageStyle={globalStyle.alertMessage}
-        cancelButtonTextStyle={globalStyle.alertCancel}
-        confirmButtonTextStyle={globalStyle.alertCancel}
+        onConfirmPressed={() =>
+          deletePaymentAPI(alert._id, setAlert, setLoad)(dispatch)
+        }
       />
     </Body>
   );

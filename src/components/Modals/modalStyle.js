@@ -9,6 +9,11 @@ export default StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: colors.none,
   },
+  centerModalContainer: {
+    margin: 0,
+    justifyContent: "center",
+    backgroundColor: colors.none,
+  },
   modalBox: {
     width: "100%",
     paddingBottom: 30,

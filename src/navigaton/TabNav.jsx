@@ -19,6 +19,7 @@ import {
   SchedulePickup,
   PickupMethod,
   ConfirmPickup,
+  TrackPickup,
   AddNewAddress,
   AddPhoneNumber,
   UserOTP,
@@ -69,6 +70,7 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="uploadLabel" component={UploadLabel} />
 
     <Stack.Screen name="confirmPickup" component={ConfirmPickup} />
+    <Stack.Screen name="trackPickup" component={TrackPickup} />
     <Stack.Screen name="pickupMethod" component={PickupMethod} />
     <Stack.Screen name="selectNewAddress" component={SelectNewAddress} />
 

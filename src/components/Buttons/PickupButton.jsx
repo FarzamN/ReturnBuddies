@@ -1,24 +1,43 @@
 import React from "react";
-import { Space_Between, Row, globalStyle } from "../../theme/globalStyle";
-import Icon from "react-native-dynamic-vector-icons";
-import { colors } from "../../theme/colors";
+import { Row, globalStyle } from "../../theme/globalStyle";
 import { FullImage, Text } from "..";
 import { TouchableOpacity, View } from "react-native";
 import styles from "./buttonStyle";
 import { width } from "../../theme/responsive";
 import { appImages } from "../../assets";
+import { colors } from "../../theme/colors";
 
 const PickupButton = (props) => {
-  const { title, detail, source, onPress, noEdit } = props;
+  const { title, detail, source, onPress, isPayment } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[globalStyle.space_Between, styles.PickupCont]}
     >
       <Row>
-        <FullImage source={source} style={styles.pickupImage} />
+        {!isPayment && <FullImage source={source} style={styles.pickupImage} />}
+
         <View>
-          <Text style={styles.pickupTitle} width={width / 1.7} title={title} />
+          {isPayment ? (
+            <Row>
+              <Text style={styles.pickupTitle} title={"Pay Via"} />
+
+              <Text
+                style={[
+                  styles.pickupTitle,
+                  { color: colors.purple, marginLeft: 5 },
+                ]}
+                width={width / 1.7}
+                title={title}
+              />
+            </Row>
+          ) : (
+            <Text
+              style={styles.pickupTitle}
+              width={width / 1.7}
+              title={title}
+            />
+          )}
           {detail && (
             <Text
               color="#717171"
@@ -29,9 +48,7 @@ const PickupButton = (props) => {
           )}
         </View>
       </Row>
-      {!noEdit && (
-        <FullImage source={appImages.edit} style={globalStyle.iconImage} />
-      )}
+      <FullImage source={appImages.edit} style={globalStyle.iconImage} />
     </TouchableOpacity>
   );
 };
