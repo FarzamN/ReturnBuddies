@@ -8,7 +8,7 @@ import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
 
 const PickupButton = (props) => {
-  const { title, detail, source, onPress, isPayment } = props;
+  const { title, detail, source, onPress, isPayment, note } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -44,6 +44,14 @@ const PickupButton = (props) => {
               width={width / 1.7}
               style={styles.pickupDetail}
               title={detail}
+            />
+          )}
+          {note && (
+            <Text
+              color="#717171"
+              width={width / 1.7}
+              style={styles.pickupDetail}
+              title={note}
             />
           )}
         </View>

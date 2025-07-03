@@ -64,6 +64,7 @@ const AddNewAddress = ({ route }) => {
           {
             name: "suite",
             placeholder: "Apt, suits, unit, etc",
+            required: false,
           },
           {
             name: "city",
@@ -79,7 +80,9 @@ const AddNewAddress = ({ route }) => {
             isError={!!errors[item.name]}
             placeholder={item.placeholder}
             message={errors[item.name]?.message}
-            rules={{ required: required(item.placeholder) }}
+            rules={
+              item.name !== "suite" && { required: required(item.placeholder) }
+            }
             Container={{ marginTop: 0, marginBottom: 10 }}
           />
         ))}

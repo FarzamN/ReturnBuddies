@@ -73,4 +73,7 @@ export const appImages = {
   logout: require(`./images/settingIcons/logout.png`),
   box: require(`./images/settingIcons/box.png`),
   wallet_setting: require(`./images/settingIcons/wallet.png`),
+
+  // ------ tast images
+  toastDelete: require("./images/notification/delete.png"),
 };

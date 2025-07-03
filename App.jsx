@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NotifierWrapper } from "react-native-notifier";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
+import { getBasePriceAPI } from "./src/apis/draftQueries";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
+    if (user != null) {
+      getBasePriceAPI()(dispatch);
+    }
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, []);
 

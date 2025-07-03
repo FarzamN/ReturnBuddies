@@ -5,6 +5,8 @@ import { colors } from "../../theme/colors";
 import { useController } from "react-hook-form";
 import React, { forwardRef, useState } from "react";
 import { TextInput, DefaultTheme } from "react-native-paper";
+import { fonts } from "../../assets";
+import { fontScale } from "../../theme/responsive";
 
 const MainInput = forwardRef((props, ref) => {
   const {
@@ -24,6 +26,7 @@ const MainInput = forwardRef((props, ref) => {
     placeholder,
     defaultValue,
     keyboardType = "default",
+    disabled,
   } = props;
 
   const [show, setShow] = useState(true);
@@ -43,6 +46,7 @@ const MainInput = forwardRef((props, ref) => {
       {!noTitle && <RequiredText title={title} required />}
 
       <TextInput
+        editable={!disabled}
         ref={ref}
         mode={"flat"}
         label={null}
@@ -54,12 +58,18 @@ const MainInput = forwardRef((props, ref) => {
         keyboardType={keyboardType}
         onChangeText={field.onChange}
         selectionColor={purple}
+        contentStyle={{
+          top: fontScale(1.5),
+          fontSize: fontScale(13),
+          color: disabled ? "#908F8D" : black,
+          fontFamily: disabled ? fonts[500] : fonts[400],
+        }}
         style={[
           style.inputStyles,
           {
             borderRadius: rounded ? 50 : 15,
             borderColor: isError ? error : "#EEEEEE",
-            backgroundColor: isError ? "#fff7f7" : white,
+            backgroundColor: isError ? "#fff7f7" : disabled ? "#F6F6F6" : white,
           },
           restyle,
         ]}
@@ -74,6 +84,7 @@ const MainInput = forwardRef((props, ref) => {
           roundness: rounded ? 50 : 15,
           colors: {
             ...DefaultTheme.colors,
+
             background: "#f5f5f5",
             error: error,
           },

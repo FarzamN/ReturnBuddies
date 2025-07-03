@@ -19,7 +19,6 @@ import EditProfile from "./SettingFolder/EditProfile";
 import ContactUS from "./SettingFolder/ContactUS";
 import ChangePassword from "./SettingFolder/ChangePassword";
 import DeleteAccount from "./SettingFolder/DeleteAccount";
-import DeleteOTP from "./SettingFolder/DeleteOTP";
 import ReturnHistory from "./SettingFolder/ReturnHistory";
 import FAQ from "./SettingFolder/FAQ";
 import Terms from "./SettingFolder/Terms";
@@ -63,5 +62,4 @@ export {
   EditProfile,
   ContactUS,
   DeleteAccount,
-  DeleteOTP,
 };

@@ -1,13 +1,8 @@
+import { fonts } from "../../assets";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
-import responsive, {
-  fontScale,
-  hp,
-  scaleSize,
-  wp,
-} from "../../theme/responsive";
-import { fonts } from "../../assets";
+import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   draftTitle: {
@@ -18,6 +13,11 @@ export default StyleSheet.create({
     fontFamily: fonts[400],
     fontSize: fontScale(11),
     color: colors.black,
+  },
+
+  draftCustomText: {
+    fontFamily: fonts[500],
+    fontSize: fontScale(11),
   },
 
   button: {

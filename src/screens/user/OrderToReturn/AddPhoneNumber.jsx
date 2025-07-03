@@ -11,7 +11,7 @@ import { useIskeyboard } from "../../../hooks";
 import { Height } from "../../../theme/globalStyle";
 import styles from "../userStyle";
 import { required } from "../../../utils/constants";
-import { editProfileAPI } from "../../../apis/authQueries";
+import { addPhoneNumberAPI } from "../../../apis/authQueries";
 
 const AddPhoneNumber = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const AddPhoneNumber = ({ navigation }) => {
       phone: e.phone,
       name: user.name,
     };
-    editProfileAPI(data, "addPhone", navigation, setLoad)(dispatch);
+    addPhoneNumberAPI(data, "addPhone", navigation, setLoad)(dispatch);
   };
 
   const {
@@ -33,7 +33,7 @@ const AddPhoneNumber = ({ navigation }) => {
   } = useForm({ mode: "all" });
   return (
     <Body horizontal={wp(5)}>
-      <Header leftTitle="Add New phone number" />
+      <Header leftTitle="Phone number" />
 
       <Text style={styles.draftTitle} title="Verify your phone number" />
       <Text
@@ -56,7 +56,11 @@ const AddPhoneNumber = ({ navigation }) => {
         />
       </ScrollView>
       {!isKeyboard && (
-        <MainButton title="Verify" onPress={handleSubmit(onSubmit)} />
+        <MainButton
+          load={load}
+          title="Verify"
+          onPress={handleSubmit(onSubmit)}
+        />
       )}
     </Body>
   );

@@ -1,10 +1,15 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Modal from "react-native-modal";
-import { Text } from "..";
+import { FullImage, Text } from "..";
 import { Height, Space_evenly } from "../../theme/globalStyle";
-import { fontScale, scaleSize } from "../../theme/responsive";
-import { fonts } from "../../assets";
+import {
+  fontScale,
+  height,
+  scaleSize,
+  verticalScale,
+} from "../../theme/responsive";
+import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { toastColors } from "../../utils/data";
 
@@ -34,35 +39,27 @@ const CustomAlert = (props) => {
       backdropOpacity={0.5}
       style={styles.modalContainer}
     >
-      <View style={[styles.modalContent, { borderColor: border }]}>
+      <View style={styles.modalContent}>
+        <FullImage source={appImages.toastDelete} style={styles.image} />
         <Text style={styles.title} title={title} />
         <Height height={10} />
         <Text style={styles.message} center title={message} />
         <Height />
         <Space_evenly>
           <TouchableOpacity
-            style={[
-              styles.ButtonBox,
-              {
-                backgroundColor: colors.success,
-              },
-            ]}
             onPress={onCancelPressed}
+            style={[styles.modalButton, styles.cancelButton]}
           >
-            <Text style={styles.ButtonText} title={cancelText} />
+            <Text style={styles.cancelText} title={cancelText} />
           </TouchableOpacity>
+
           <TouchableOpacity
             disabled={showProgress}
-            style={[
-              styles.ButtonBox,
-              {
-                backgroundColor: iconBg,
-              },
-            ]}
             onPress={onConfirmPressed}
+            style={[styles.modalButton, styles.deleteButton]}
           >
             <Text
-              style={styles.ButtonText}
+              style={styles.deleteText}
               title={showProgress ? "Loading..." : confirmText}
             />
           </TouchableOpacity>
@@ -83,8 +80,7 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: colors.white,
     borderRadius: scaleSize(15),
-    width: "80%",
-    borderWidth: scaleSize(2),
+    width: "85%",
     padding: scaleSize(20),
   },
   title: {
@@ -98,14 +94,39 @@ const styles = StyleSheet.create({
     fontSize: fontScale(13),
     fontFamily: fonts[400],
   },
-  ButtonBox: {
-    paddingVertical: scaleSize(5),
-    paddingHorizontal: scaleSize(20),
-    borderRadius: scaleSize(10),
+
+  modalButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 999, // full rounded
+    alignItems: "center",
+    marginHorizontal: scaleSize(10),
   },
-  ButtonText: {
-    color: colors.white,
-    fontSize: fontScale(13),
+
+  cancelButton: {
+    backgroundColor: "#F5F5F5",
+  },
+
+  deleteButton: {
+    backgroundColor: "#FEE5E9",
+  },
+
+  cancelText: {
+    color: "#000",
+    fontSize: scaleSize(13),
     fontFamily: fonts[500],
+  },
+
+  deleteText: {
+    color: "#E53945",
+    fontSize: scaleSize(13),
+    fontFamily: fonts[500],
+  },
+
+  image: {
+    width: scaleSize(50),
+    aspectRatio: 1 / 1,
+    alignSelf: "center",
+    marginBottom: verticalScale(10),
   },
 });

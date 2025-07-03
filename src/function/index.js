@@ -1,8 +1,8 @@
 import moment from "moment";
+import instance from "../utils/urls";
+import { getItem } from "../utils/storage";
 import { Notifier } from "react-native-notifier";
 import Component from "../components/Helpers/CustomToast";
-import { getItem } from "../utils/storage";
-import instance from "../utils/urls";
 
 export const showNotification = (type, title, message) => {
   Notifier.showNotification({

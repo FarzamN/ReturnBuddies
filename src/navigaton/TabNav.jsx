@@ -8,7 +8,6 @@ import {
   ContactUS,
   ChangePassword,
   DeleteAccount,
-  DeleteOTP,
   ReturnHistory,
   FAQ,
   Terms,
@@ -103,7 +102,6 @@ const AllSettings = () => (
     <Stack.Screen name="contactUS" component={ContactUS} />
     <Stack.Screen name="changePassword" component={ChangePassword} />
     <Stack.Screen name="deleteAccount" component={DeleteAccount} />
-    <Stack.Screen name="deleteOTP" component={DeleteOTP} />
     <Stack.Screen name="returnHistory" component={ReturnHistory} />
     <Stack.Screen name="faq" component={FAQ} />
     <Stack.Screen name="terms" component={Terms} />

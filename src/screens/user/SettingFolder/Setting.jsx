@@ -113,13 +113,6 @@ const Setting = () => {
           keyExtractor={(_, i) => i.toString()}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           contentContainerStyle={{ paddingBottom: wp(10) }}
-          ListFooterComponent={
-            <MainButton
-              title="Delete Account"
-              onPress={() => navigate("deleteAccount")}
-              style={{ backgroundColor: "#F31215", marginTop: 10 }}
-            />
-          }
         />
       </View>
     </View>

@@ -15,9 +15,10 @@ import styles from "../userStyle";
 import { wp } from "../../../theme/responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { BackHandler, FlatList, View } from "react-native";
+import { BackHandler, FlatList, View, Text as RNText } from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
+import { colors } from "../../../theme/colors";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -95,8 +96,8 @@ const DraftItem = () => {
           <Text style={styles.draftTitle} title="Your Returns" />
           <Text
             style={styles.draftSub}
-            title={`Select return${
-              draftData.length > 1 ? "(s)" : ""
+            title={`Select item${
+              draftData.length > 1 ? "s" : ""
             } to schedule pickup`}
           />
           <Height />
@@ -124,8 +125,25 @@ const DraftItem = () => {
           keyExtractor={(_, index) => index.toString()}
           ListEmptyComponent={
             <Empty
-              title="No Drafts Items"
-              sub="Please Add items by pressing (Plus +) button"
+              title="You have no items to return"
+              customText={() => (
+                <RNText
+                  style={[
+                    styles.draftCustomText,
+                    {
+                      color: colors.grey,
+                    },
+                  ]}
+                >
+                  Tap the{" "}
+                  <Text
+                    title="+"
+                    color={colors.purple}
+                    style={styles.draftCustomText}
+                  />{" "}
+                  button to start returning!
+                </RNText>
+              )}
             />
           }
           renderItem={({ item }) => (

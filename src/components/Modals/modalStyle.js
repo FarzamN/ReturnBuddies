@@ -36,4 +36,11 @@ export default StyleSheet.create({
     fontSize: fontScale(12),
     color: colors.description,
   },
+
+  confirmationText: {
+    flex: 1,
+    marginLeft: 10,
+    fontFamily: fonts[400],
+    fontSize: fontScale(13),
+  },
 });

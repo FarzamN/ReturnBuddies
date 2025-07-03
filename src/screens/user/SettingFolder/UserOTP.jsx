@@ -3,39 +3,57 @@ import { Body, Header, Text, Validation } from "../../../components";
 import styles from "../userStyle";
 import { fontScale, wp } from "../../../theme/responsive";
 import { Height } from "../../../theme/globalStyle";
-import { View, Text as RNText } from "react-native";
+import { View, Text as RNText, TouchableOpacity } from "react-native";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import { colors } from "../../../theme/colors";
 import authStyle from "../../auth/authStyle";
 import BackgroundTimer from "react-native-background-timer";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfileVerificationAPI } from "../../../apis/authQueries";
+import {
+  editProfileVerificationAPI,
+  phoneVerficationCompleteAPI,
+  resendPhoneOTPAPI,
+  resendPhoneVerficationAPI,
+} from "../../../apis/authQueries";
 import { fonts } from "../../../assets";
 
 const UserOTP = ({ navigation, route }) => {
-  const { number, type } = route.params;
+  const { goBack } = navigation;
   const dispatch = useDispatch();
-  const { otp, user } = useSelector((state) => state.auth);
+  const { number, type } = route.params;
 
-  console.log("otp", otp);
+  const { otp, user } = useSelector((state) => state.auth);
 
   const [load, setLoad] = useState(false);
   const [otpValue, setOtpValue] = useState("");
   const [seconds, setCountDown] = useState(60);
   const [error, setErrot] = useState({ visible: false, msg: "" });
 
+  const data = {
+    phone: number,
+    name: user.name,
+  };
   const onSubmit = () => {
     if (otpValue !== otp) {
       setErrot({ visible: true, msg: "Wrong OTP code, please try again" });
       return;
     }
-
-    const data = {
-      phone: number,
-      name: user.name,
-    };
+    if (type == "verifyPhoneNumber") {
+      const phoneData = { otp: Number(otp) };
+      phoneVerficationCompleteAPI(phoneData, goBack, setLoad)(dispatch);
+      return;
+    }
     editProfileVerificationAPI(data, type, navigation, setLoad)(dispatch);
     setErrot({ visible: false, msg: "" });
+  };
+
+  const handleReset = () => {
+    if (type == "verifyPhoneNumber") {
+      const phoneData = { phone: number };
+      resendPhoneVerficationAPI(phoneData, setLoad)(dispatch);
+      return;
+    }
+    resendPhoneOTPAPI(data, setCountDown, setLoad)(dispatch);
   };
 
   // *********************** Timer Start ***********************
@@ -61,7 +79,7 @@ const UserOTP = ({ navigation, route }) => {
       <Text
         center
         style={styles.draftSub}
-        title={`Enter the OTP code we sent to ${number}.`}
+        title={`Enter the OTP code we sent to ${number}. ${otp}`}
       />
       <Height />
       <Height />
@@ -99,6 +117,7 @@ const UserOTP = ({ navigation, route }) => {
         />
       </View>
       <Validation center isError={error.visible} message={error.msg} />
+      <Validation center isError={load} message={"Please wait..."} />
       <RNText style={styles.timerText}>
         You can resend the OTP code in{" "}
         <Text
@@ -107,18 +126,13 @@ const UserOTP = ({ navigation, route }) => {
         />{" "}
         seconds
       </RNText>
-      <RNText
-        disabled={seconds != 0}
-        onPress={() => setCountDown(60)}
-        style={[
-          styles.resendText,
-          {
-            color: seconds == 0 ? colors.purple : colors.black,
-          },
-        ]}
-      >
-        Resend code
-      </RNText>
+      <TouchableOpacity disabled={seconds != 0} onPress={handleReset}>
+        <Text
+          style={styles.resendText}
+          color={seconds == 0 ? colors.purple : colors.black}
+          title="Resend code"
+        />
+      </TouchableOpacity>
     </Body>
   );
 };

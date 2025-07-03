@@ -6,8 +6,16 @@ import { fontScale, wp } from "../../theme/responsive";
 import { AddButton, FullImage, Text } from "..";
 
 const Empty = (props) => {
-  const { sub, title, source, isButton, onPress, imageStyle, titleStyle } =
-    props;
+  const {
+    sub,
+    title,
+    source,
+    isButton,
+    onPress,
+    imageStyle,
+    titleStyle,
+    customText,
+  } = props;
   return (
     <View
       style={[
@@ -29,10 +37,11 @@ const Empty = (props) => {
         title={title}
         style={[
           styles.emptyTitle,
-          { fontSize: source ? fontScale(14) : fontScale(18) },
+          { fontSize: fontScale(source ? 14 : 18) },
           titleStyle,
         ]}
       />
+      {customText && customText()}
       {!isButton && <Text style={styles.emptyDesc} title={sub} />}
 
       {isButton && <AddButton onPress={onPress} />}

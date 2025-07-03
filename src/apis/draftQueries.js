@@ -3,44 +3,11 @@ import { getItem } from "../utils/storage";
 import { apiRequest, catchFun, showNotification } from "../function";
 import {
   setDraftItem,
+  setGetBaseData,
   setDraftSelectedRetun,
+  setDraftReturn,
+  setDraftCompleteData,
 } from "../redux/slices/draftSlice";
-
-// export const uploadReturnItems = (body, confirmOrder, load, goBack) => {
-//   return async (dispatch) => {
-//     load(true);
-
-//     try {
-//       const response = await instance.post("addbundle", body, {
-//         headers: {
-//           userid: getItem("userID"),
-//         },
-//       });
-
-//       const { status, message } = response.data;
-
-//       load(false);
-
-//       if (status === 200) {
-//         confirmOrder(false);
-//         showNotification("success", "Success", message);
-//         // Dispatch Redux actions if needed
-//         getReturnItem(load)(dispatch);
-//         goBack();
-//       } else {
-//         showNotification(
-//           "error",
-//           message || "Something went wrong",
-//           `Status Code ${status}`
-//         );
-//       }
-//     } catch (err) {
-//       const msg = err?.response?.data?.message || err.message;
-//       catchFun(msg);
-//       load(false);
-//     }
-//   };
-// };
 
 export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
   return async (dispatch) => {
@@ -139,7 +106,6 @@ export const uploadLabelAPI = (
     }
   };
 };
-
 export const deleteBundle = (IDs, load) => {
   return async (dispatch) => {
     try {
@@ -174,5 +140,44 @@ export const deleteBundle = (IDs, load) => {
       catchFun(msg);
       load(false);
     }
+  };
+};
+
+export const getBasePriceAPI = () => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "get",
+      endpoint: `get-baseprice`,
+      onSuccess: ({ data }) => {
+        dispatch(setGetBaseData(data));
+      },
+    });
+  };
+};
+
+export const confirmPickupAPI = (data, nav, load) => {
+  return async (dispatch) => {
+    console.log("data", data);
+    apiRequest({
+      method: "post",
+      endpoint: "add-pickup",
+      data,
+      onSuccess: ({ data }) => {
+        nav("trackPickup");
+        dispatch(setDraftCompleteData(data));
+        dispatch(
+          setDraftReturn({
+            _id: "",
+            date: null,
+            time: null,
+            pickupMethod: "Doorstep",
+            note: "",
+            selectedAddress: null,
+            selectedPayment: null,
+          })
+        );
+      },
+      onFinally: load,
+    });
   };
 };

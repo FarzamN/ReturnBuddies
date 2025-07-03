@@ -3,35 +3,13 @@ import {
   setLogin,
   setLogout,
   setGetAddress,
+  updateAddress,
   setGetPayments,
   updatePaymentCard,
-  updateAddress,
 } from "../redux/slices/authSlice";
 import instance from "../utils/urls";
 import { getItem, setItem } from "../utils/storage";
 import { apiRequest, catchFun, showNotification } from "../function";
-
-// export const  = (data, showOTP, saveEmail, load) => {
-//   return async (dispatch) => {
-//     try {
-//       load(true);
-//       const response = await instance.post("user/", data);
-//       const { status, message, user, token } = response.data;
-//       load(false);
-//       if (status === 200) {
-
-//       } else if (status === 201) {
-
-//       } else {
-//         showNotification("error", message, "Status Code 401");
-//       }
-//     } catch (err) {
-//       const msg = err?.response?.data?.message || err.message;
-//       catchFun(msg);
-//       load(false);
-//     }
-//   };
-// };
 
 export const loginAPI = (data, showOTP, saveEmail, load) => {
   return async (dispatch) => {
@@ -62,9 +40,6 @@ export const registerAPI = async (data, showOTP, saveEmail, load) => {
       showOTP();
       saveEmail(data.email);
     },
-    onFailure: (response) => {
-      console.log("response", response);
-    },
     onFinally: load,
   });
 };
@@ -83,16 +58,18 @@ export const verifyOTPAPI = (data, load, verify) => {
   };
 };
 
-export const deleteAccountPasswordAPI = async (data, load, nav) => {
-  apiRequest({
-    method: "post",
-    endpoint: "user/delete-account",
-    data,
-    onSuccess: () => {
-      nav("deleteOTP");
-    },
-    onFinally: load,
-  });
+export const deleteAccountAPI = (load) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "user/delete-account",
+      data: {},
+      onSuccess: () => {
+        dispatch(setLogout());
+      },
+      onFinally: load,
+    });
+  };
 };
 
 export const deleteAccountOTPAPI = (data, load) => {
@@ -135,16 +112,46 @@ export const changePasswordAPI = async (data, load, goBack) => {
   }
 };
 
-export const editProfileAPI = (data, type, navigation, load) => {
+export const addPhoneNumberAPI = (data, type, navigation, load) => {
   return async (dispatch) => {
     apiRequest({
       method: "post",
-      endpoint: "/user/updateNameandPhone",
+      endpoint: "user/updatePhone",
       data,
       onSuccess: ({ OTP, message }) => {
         dispatch(setOTP(OTP));
         navigation.navigate("userOTP", { number: data.phone, type });
         showNotification("success", "Hurry", message);
+      },
+      onFinally: load,
+    });
+  };
+};
+
+export const editProfileAPI = (data, load) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "user/editProfile",
+      data,
+      onSuccess: ({ message }) => {
+        showNotification("success", "Hurry", message);
+      },
+      onFinally: load,
+    });
+  };
+};
+
+export const resendPhoneOTPAPI = (data, coundDown, load) => {
+  return async (dispatch) => {
+    console.log("data", data);
+    apiRequest({
+      method: "post",
+      endpoint: "/user/updateNameandPhone",
+      data,
+      onSuccess: ({ OTP }) => {
+        dispatch(setOTP(OTP));
+        coundDown(60);
       },
       onFinally: load,
     });
@@ -176,6 +183,7 @@ export const addAddressAPI = (data, goBack, load) => {
       data,
       onSuccess: ({ Address }) => {
         goBack();
+        console.log("Address", Address);
         if (Address.isDefault == 1) dispatch(updateAddress(Address));
         getAddressAPI(load)(dispatch);
       },
@@ -234,7 +242,6 @@ export const getPaymentAPI = (load) => {
       method: "get",
       endpoint: "get-payment-card",
       onSuccess: ({ cards }) => {
-        console.log("cards", cards);
         dispatch(setGetPayments(cards.reverse()));
       },
       onFinally: load,
@@ -282,6 +289,50 @@ export const deleteAddressAPI = (_id, setAlert, load) => {
       onSuccess: () => {
         setAlert({ visible: false, _id: "" });
         getAddressAPI(load)(dispatch);
+      },
+      onFinally: load,
+    });
+  };
+};
+
+export const phoneVerficationAPI = (data, nav, load) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "user/phoneVerfication",
+      data,
+      onSuccess: ({ otp }) => {
+        dispatch(setOTP(otp));
+        nav("userOTP", { number: data.phone, type: "verifyPhoneNumber" });
+      },
+      onFinally: load,
+    });
+  };
+};
+
+export const resendPhoneVerficationAPI = (data, load) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "user/phoneVerfication",
+      data,
+      onSuccess: ({ otp }) => {
+        dispatch(setOTP(otp));
+      },
+      onFinally: load,
+    });
+  };
+};
+
+export const phoneVerficationCompleteAPI = (data, goBack, load) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "user/verifyPhone",
+      data,
+      onSuccess: ({ user }) => {
+        goBack();
+        dispatch(setLogin({ user }));
       },
       onFinally: load,
     });

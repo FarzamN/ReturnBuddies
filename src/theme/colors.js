@@ -4,7 +4,7 @@ export const colors = {
   background: "#F9F9F9",
   transparent: "transparent",
   success: "#198754",
-  error: "#F31215",
+  error: "#ED6479",
   none: "transparent",
   grey: "#838383",
   lightGrey: "#EDEDED",

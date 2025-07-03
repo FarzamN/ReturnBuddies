@@ -6,6 +6,8 @@ import { globalStyle, Height } from "../../theme/globalStyle";
 import { MainButton } from "..";
 import Icon from "react-native-dynamic-vector-icons";
 import { colors } from "../../theme/colors";
+import { fonts } from "../../assets";
+import { fontScale } from "../../theme/responsive";
 
 const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
   const agreements = [
@@ -29,6 +31,7 @@ const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
   return (
     <Modal
       isVisible={visible}
+      statusBarTranslucent
       animationIn="fadeInUp"
       animationOut="fadeOut"
       onBackdropPress={onClose}
@@ -51,7 +54,7 @@ const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
               size={22}
               color={colors.purple}
             />
-            <Text style={{ marginLeft: 10, flex: 1 }}>{text}</Text>
+            <Text style={styles.confirmationText}>{text}</Text>
           </TouchableOpacity>
         ))}
         <Height />

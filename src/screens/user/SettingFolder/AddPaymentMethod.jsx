@@ -160,7 +160,7 @@ const AddPaymentMethod = ({ route }) => {
       cardNumber: cardData.number,
       expirationDate: cardData.date,
       cvv: cardData.cvv,
-      type: cardType,
+      cardType: cardType,
       isDefault: focus ? 1 : 0,
     };
 
@@ -170,7 +170,6 @@ const AddPaymentMethod = ({ route }) => {
     }
 
     addPaymentAPI(cardInfo, goBack, setLoad)(dispatch);
-    console.log(cardInfo);
   };
 
   useEffect(() => {

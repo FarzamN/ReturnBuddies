@@ -22,7 +22,10 @@ const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
         <Row style={styles.cardInfo}>
           <View style={styles.cardDetails}>
             <Text style={styles.cardTypeText}>{data?.street}</Text>
-            <Text style={styles.expiryText}>
+            {data?.suite && (
+              <Text style={styles.cardTypeText}>{data?.suite}</Text>
+            )}
+            <Text style={styles.cardTypeText}>
               {data?.city + ", " + data?.state + ", " + data?.postalCode}
             </Text>
           </View>
@@ -67,14 +70,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTypeText: {
-    fontFamily: fonts[600],
-    fontSize: fontScale(14),
-  },
-  expiryText: {
-    color: "#717171",
     fontFamily: fonts[400],
-    fontSize: fontScale(11),
+    fontSize: fontScale(13),
   },
+
   defaultBadge: {
     backgroundColor: "#EAF5EA",
     paddingHorizontal: 10,

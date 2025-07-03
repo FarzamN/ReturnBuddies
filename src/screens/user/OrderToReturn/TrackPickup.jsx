@@ -6,8 +6,15 @@ import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 import Icon from "react-native-dynamic-vector-icons";
 import { colors } from "../../../theme/colors";
 import { appImages, fonts } from "../../../assets";
+import { useSelector } from "react-redux";
+import moment from "moment";
 
-const TrackPickup = () => {
+const TrackPickup = ({ navigation }) => {
+  const { replace } = navigation;
+  const { draftCompleteData } = useSelector((state) => state.draft);
+
+  const { pickupTime, pickupDate } = draftCompleteData;
+
   return (
     <Body horizontal={wp(5)}>
       <Height />
@@ -15,7 +22,13 @@ const TrackPickup = () => {
       <View style={[globalStyle.flex, { justifyContent: "space-between" }]}>
         <Space_Between>
           <View />
-          <Icon name="close" size={20} color={colors.black} type="AntDesign" />
+          <Icon
+            onPress={() => replace("draftItem")}
+            name="close"
+            size={20}
+            color={colors.black}
+            type="AntDesign"
+          />
         </Space_Between>
         <Empty
           source={appImages.trackingBus}
@@ -24,8 +37,10 @@ const TrackPickup = () => {
             aspectRatio: 1 / 1,
           }}
           titleStyle={{ fontSize: fontScale(20), fontFamily: fonts[600] }}
-          title="Your pickup is confirmed for May 29, 2025"
-          sub={"We’ll arrive between 10:00 AM-2:00 PM."}
+          title={`Your pickup is confirmed for \n ${moment(pickupDate).format(
+            "MMM DD, yyyy"
+          )}`}
+          sub={`We’ll arrive between ${pickupTime}`}
         />
         <MainButton title="Track my pickup " />
       </View>
