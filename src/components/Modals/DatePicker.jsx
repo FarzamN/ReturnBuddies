@@ -1,14 +1,14 @@
 import moment from "moment";
 import styles from "./modalStyle";
+import { fonts } from "../../assets";
 import Modal from "react-native-modal";
 import React, { useState } from "react";
 import { colors } from "../../theme/colors";
 import { Calendar } from "react-native-calendars";
+import { fontScale } from "../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Height, Space_Between } from "../../theme/globalStyle";
-import { fonts } from "../../assets";
-import { fontScale } from "../../theme/responsive";
 
 const DatePicker = ({ visible, onClose, onPress }) => {
   const [selected, setSelected] = useState();

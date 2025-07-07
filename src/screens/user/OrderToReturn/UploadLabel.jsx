@@ -12,30 +12,36 @@ import {
 } from "../../../components";
 import styles from "../userStyle";
 import React, { useState } from "react";
-import { appImages, fonts } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
 import { useFreezeScreen } from "../../../hooks";
+import { appImages, fonts } from "../../../assets";
 import { Height } from "../../../theme/globalStyle";
 import { showNotification } from "../../../function";
 import { ScrollView, Text as T } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { editLabelAPI, uploadLabelAPI } from "../../../apis/draftQueries";
 import { pick, types } from "@react-native-documents/picker";
-import { uploadLabelAPI } from "../../../apis/draftQueries";
+import { imageURl } from "../../../utils/urls";
+import moment from "moment";
 // import { uploadLabelData as draftSelectedRetun } from "../../../utils/data";
 
 const UploadLabel = ({ route }) => {
-  const { labels } = route.params;
+  const { labels, isEdit } = route.params;
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
 
   const { draftSelectedRetun, labelID } = useSelector((state) => state.draft);
-  const [selectedReturns, setSelectedReturns] = useState([]);
+
   const [load, setLoad] = useState(false);
   const { Overlay } = useFreezeScreen(load);
   const [labelDocs, setLabelDocs] = useState();
-  const [showDate, setShowDate] = useState({ open: false, date: null });
+  const [selectedReturns, setSelectedReturns] = useState([]);
+  const [showDate, setShowDate] = useState({
+    open: false,
+    date: isEdit ? labels?.date : null,
+  });
 
   const handleItemSelect = (productId) => {
     setSelectedReturns((prev) => {
@@ -62,28 +68,41 @@ const UploadLabel = ({ route }) => {
   };
 
   const handleUpload = () => {
-    if (!selectedReturns) {
+    if (selectedReturns.length === 0) {
       showNotification("error", "Please select any Item first", "Error");
       return;
     }
-    if (!labelDocs) {
+    if (!isEdit && !labelDocs) {
       showNotification("error", "Please upload label", "Error");
       return;
     }
-    if (!showDate.date) {
+    if (!isEdit && !showDate.date) {
       showNotification("error", "Please select date", "Error");
       return;
     }
-    uploadLabelAPI(
-      labels._id,
-      showDate.date,
-      selectedReturns,
-      labelDocs,
-      setLoad,
-      goBack,
-      labelID
-    )(dispatch);
+
+    const productID = selectedReturns.map((item) => {
+      return { productId: item };
+    });
+    const body = new FormData();
+    body.append("bundleId", labels._id);
+    body.append("date", showDate.date);
+    body.append("productIDs", JSON.stringify(productID));
+    labelDocs
+      ? body.append("label", {
+          uri: labelDocs.uri,
+          type: labelDocs.type,
+          name: labelDocs.name,
+        })
+      : labels?.labelReceipt;
+    if (isEdit) {
+      editLabelAPI(body, setLoad, goBack, labelID)(dispatch);
+      return;
+    }
+
+    uploadLabelAPI(body, setLoad, goBack, labelID)(dispatch);
   };
+
   // const getSelectedProduct = () => {
   //   for (const bundle of draftSelectedRetun) {
   //     const match = bundle.products.find((p) => p._id === selectedReturns);
@@ -111,13 +130,24 @@ const UploadLabel = ({ route }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <>
           <LabelPickerButton
-            onPress={handleDocumentPick}
+            // isUrl={labelDocs?.uri || isEdit}
             type={labelDocs?.type}
-            noImage={!labelDocs?.type}
+            onPress={handleDocumentPick}
+            noImage={!labelDocs?.type ?? !labels?.labelReceipt !== "pending"}
             source={
-              labelDocs?.uri ? { uri: labelDocs.uri } : appImages.addLabel
+              labelDocs?.uri
+                ? { uri: labelDocs.uri }
+                : isEdit
+                ? { uri: imageURl + labels?.labelReceipt }
+                : appImages.addLabel
             }
-            title={labelDocs?.name || "Tap to upload label"}
+            title={
+              labelDocs?.name
+                ? labelDocs?.name
+                : isEdit
+                ? labels.labelReceipt
+                : labelDocs?.name || "Tap to upload label"
+            }
           />
 
           <Height />
@@ -142,14 +172,18 @@ const UploadLabel = ({ route }) => {
         <>
           <RequiredText title={"Return item by"} required />
           <SelectDate
-            title={showDate.date || "Select Date"}
+            title={
+              isEdit
+                ? moment(showDate.date).format("YYYY-MM-DD")
+                : showDate.date || "Select Date"
+            }
             onPress={() => setShowDate({ open: true, date: null })}
           />
           <Height />
         </>
       </ScrollView>
       <Height />
-      <MainButton load={load} title="Upload" onPress={handleUpload} />
+      <MainButton load={load} title="Confirm" onPress={handleUpload} />
       <Height />
       <DatePicker
         visible={showDate.open}

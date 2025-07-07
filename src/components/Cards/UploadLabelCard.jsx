@@ -50,7 +50,7 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
                 <View>
                   <Text style={styles.sectionTitle} title={item.productName} />
                   <Text
-                    style={styles.date}
+                    style={styles.sectionDate}
                     title={`Added on ${moment(item.created_at).format(
                       "MMMM DD"
                     )}`}

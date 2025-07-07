@@ -1,30 +1,30 @@
 import {
   View,
   Text,
+  Image,
   FlatList,
   StatusBar,
   StyleSheet,
   SafeAreaView,
-  ImageBackground,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import React from "react";
-import { appImages, fonts } from "../../../assets";
-import { colors } from "../../../theme/colors";
 import {
+  wp,
   fontScale,
   scaleSize,
   verticalScale,
-  wp,
 } from "../../../theme/responsive";
+import { colors } from "../../../theme/colors";
+import { FullImage } from "../../../components";
+import { appImages, fonts } from "../../../assets";
 import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { globalStyle } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
-import { FullImage } from "../../../components";
 import { setLogout } from "../../../redux/slices/authSlice";
 import { setPathType } from "../../../redux/slices/pickupSlice";
+import settingStyle from "./settingStyle";
 
 const settingsData = [
   { title: "Profile settings", icon: appImages.user, route: "editProfile" },
@@ -38,10 +38,9 @@ const settingsData = [
   {
     title: "Notifications",
     icon: appImages.notification,
-    route: "notifications",
+    route: "notification",
   },
   { title: "Support", icon: appImages.support, route: "contactUS" },
-  { title: "FAQs", icon: appImages.support, route: "faq" },
   { title: "Privacy", icon: appImages.shield, route: "privacy" },
   { title: "Log out", icon: appImages.logout, type: "logout" },
 ];
@@ -63,31 +62,6 @@ const Setting = () => {
     }
   };
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.item}
-      // onPress={() =>
-      //   item.type === "logout" ? dispatch(setLogout()) : item.type === "" ? {
-      //     dispatch(setPathType("setting"));
-      //     navigate(item.route)
-      //   } : navigate(item.route)
-      // }
-      onPress={() => handlePress(item)}
-    >
-      <View style={styles.iconCircle}>
-        <FullImage source={item.icon} style={{ width: 22, height: 22 }} />
-      </View>
-      <Text style={styles.itemText}>{item.title}</Text>
-      <Icon
-        name="chevron-right"
-        type="Entypo"
-        size={18}
-        color="#666"
-        style={styles.chevron}
-      />
-    </TouchableOpacity>
-  );
-
   return (
     <View style={globalStyle.flex}>
       <SafeAreaView style={styles.safeArea} />
@@ -95,7 +69,7 @@ const Setting = () => {
       <View style={styles.topSection}>
         {/* <ImageBackground
           resizeMode="contain"
-          
+
           source={appImages.profileBackground}
         > */}
         <Image
@@ -123,13 +97,35 @@ const Setting = () => {
         {/* </ImageBackground> */}
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.sectionTitle}>Settings</Text>
+        <Text style={[settingStyle.settingTitle, { marginTop: scaleSize(20) }]}>
+          Settings
+        </Text>
         <FlatList
           data={settingsData}
-          renderItem={renderItem}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => handlePress(item)}
+            >
+              <View style={styles.iconCircle}>
+                <FullImage
+                  source={item.icon}
+                  style={{ width: 22, height: 22 }}
+                />
+              </View>
+              <Text style={styles.itemText}>{item.title}</Text>
+              <Icon
+                size={18}
+                color="#666"
+                type="Entypo"
+                name="chevron-right"
+                style={styles.chevron}
+              />
+            </TouchableOpacity>
+          )}
           keyExtractor={(_, i) => i.toString()}
           contentContainerStyle={{ paddingBottom: wp(10) }}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
         />
       </View>
     </View>
@@ -177,12 +173,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
     backgroundColor: colors.background,
   },
-  sectionTitle: {
-    fontFamily: fonts[600],
-    fontSize: fontScale(16),
-    marginBottom: verticalScale(5),
-    marginTop: scaleSize(20),
-  },
+
   item: {
     flexDirection: "row",
     alignItems: "center",
@@ -205,10 +196,6 @@ const styles = StyleSheet.create({
   },
   chevron: {
     marginLeft: wp(2),
-  },
-  separator: {
-    height: 1,
-    backgroundColor: "#EAEAEA",
   },
 });
 

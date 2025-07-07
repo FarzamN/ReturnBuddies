@@ -77,18 +77,17 @@ export default StyleSheet.create({
     fontSize: fontScale(14),
   },
   sectionDate: {
-    marginTop: 2,
-    color: "#777",
+    color: "#717171",
     fontFamily: fonts[500],
     fontSize: fontScale(11),
   },
   sectionCard: {
-    flexDirection: "row",
-    backgroundColor: colors.background,
-    borderRadius: 12,
     padding: 12,
+    borderRadius: 12,
     marginBottom: 10,
+    flexDirection: "row",
     alignItems: "center",
+    backgroundColor: colors.background,
   },
   sectionImage: {
     width: scaleSize(52),
@@ -98,9 +97,9 @@ export default StyleSheet.create({
   },
 
   labelBox: {
-    paddingHorizontal: 10,
     borderRadius: 5,
     paddingVertical: 2,
+    paddingHorizontal: 10,
   },
   labelTitle: { fontSize: fontScale(11), fontFamily: fonts[500] },
 
@@ -122,9 +121,9 @@ export default StyleSheet.create({
     fontSize: fontScale(12),
   },
   TimeSelectCont: {
-    borderRadius: 10,
     padding: 12,
     borderWidth: 1,
+    borderRadius: 10,
     marginHorizontal: 10,
   },
 
@@ -135,10 +134,10 @@ export default StyleSheet.create({
   itemLengthBox: {
     // flex: 1,
     width: 60,
-    marginTop: verticalScale(5),
     borderRadius: 50,
     paddingVertical: 3,
     backgroundColor: "#F4E5FC",
+    marginTop: verticalScale(5),
     // marginHorizontal: scaleSize(10),
   },
 
@@ -150,5 +149,30 @@ export default StyleSheet.create({
     color: colors.black,
     fontFamily: fonts[500],
     fontSize: fontScale(14),
+  },
+
+  // pickup section card style\
+
+  pickup1stImage: {
+    position: "absolute",
+    left: scaleSize(30),
+    width: scaleSize(40),
+    height: scaleSize(40),
+  },
+
+  pickupSectionLenght: {
+    top: 0,
+    fontSize: scaleSize(10),
+    fontFamily: fonts[500],
+  },
+  pickupSectionLenghtBox: {
+    borderWidth: 1,
+    borderRadius: 50,
+    aspectRatio: 1 / 1,
+    top: scaleSize(20),
+    right: scaleSize(5),
+    padding: scaleSize(2),
+    borderColor: colors.purple,
+    backgroundColor: colors.white,
   },
 });

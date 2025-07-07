@@ -1,11 +1,11 @@
 import React from "react";
 import { Text } from "..";
 import styles from "./buttonStyle";
+import { fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle } from "../../theme/globalStyle";
-import { fonts } from "../../assets";
 
 const SelectDate = (props) => {
   const { title, isError, onPress } = props;

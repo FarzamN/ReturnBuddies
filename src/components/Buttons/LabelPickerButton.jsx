@@ -7,7 +7,7 @@ import { TouchableOpacity, View } from "react-native";
 import { globalStyle, Row } from "../../theme/globalStyle";
 
 const LabelPickerButton = (props) => {
-  const { onPress, source, title, weight, noImage, isError } = props;
+  const { onPress, source, title, weight, noImage, isError, isUrl } = props;
   const type = title.slice(title.lastIndexOf(".") + 1);
   return (
     <TouchableOpacity
@@ -31,6 +31,7 @@ const LabelPickerButton = (props) => {
       >
         <Row>
           <FullImage
+            isUrl={isUrl}
             source={type == "pdf" ? appImages.pdf : source}
             resizeMode={noImage ? "cover" : "contain"}
             style={[

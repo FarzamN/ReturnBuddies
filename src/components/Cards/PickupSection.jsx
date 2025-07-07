@@ -1,18 +1,19 @@
-import React from "react";
-import styles from "./cardStyle";
-import { Text as RNText, View } from "react-native";
 import {
+  Row,
   Divider,
   globalStyle,
-  Row,
   Space_Between,
 } from "../../theme/globalStyle";
-import { FullImage, Text } from "..";
-import { colors } from "../../theme/colors";
+
+import React from "react";
 import moment from "moment";
-import { height, scaleSize, width } from "../../theme/responsive";
-import Icon from "react-native-dynamic-vector-icons";
+import styles from "./cardStyle";
+import { FullImage, Text } from "..";
 import { appImages } from "../../assets";
+import { colors } from "../../theme/colors";
+import { Text as RNText, View } from "react-native";
+import { scaleSize } from "../../theme/responsive";
+import Icon from "react-native-dynamic-vector-icons";
 
 const PickupSection = (props) => {
   const { data } = props;
@@ -26,15 +27,15 @@ const PickupSection = (props) => {
           ]}
         >
           <RNText
-            style={styles.sectionTitle}
             allowFontScaling
             numberOfLines={1}
+            style={styles.sectionTitle}
           >
             {data.BundleName}
           </RNText>
           <Text
-            style={styles.labelTitle}
             color={colors.grey}
+            style={styles.labelTitle}
             title={moment(data.createdAt).format("dddd, MMM do yyyy")}
           />
         </View>
@@ -51,25 +52,23 @@ const PickupSection = (props) => {
               <FullImage
                 isUrl
                 radius={10}
-                style={[
-                  globalStyle.shadow,
-                  {
-                    //  right: scaleSize(-30),
-                    width: scaleSize(40),
-                    height: scaleSize(40),
-                  },
-                ]}
+                style={[globalStyle.shadow, styles.pickup1stImage]}
                 source={data?.products[1]?.thumbnail}
               />
             )}
             {data?.products.length > 2 && (
-              <View style={{ backgroundColor: "red" }}>
-                <Text title={`+${data?.products.length - 2}`} />
+              <View style={[styles.pickupSectionLenghtBox]}>
+                <Text
+                  style={styles.pickupSectionLenght}
+                  title={`+${data?.products.length - 2}`}
+                />
               </View>
             )}
           </Row>
 
-          <View>
+          <View
+            style={{ marginLeft: data?.products.length === 2 && scaleSize(15) }}
+          >
             <Text
               style={styles.labelName}
               color={colors.grey}

@@ -20,10 +20,14 @@ export const appImages = {
   trackingBus: require(`./images/tracking-bus.png`),
 
   //  ------- Icons
+  x: require("./images/support/x.png"),
+  instagram: require("./images/support/instagram.png"),
+  website: require("./images/support/website.png"),
+  supportEmail: require("./images/support/supportEmail.png"),
+  supportPhone: require("./images/support/supportPhone.png"),
+
+  //  ------- Icons
   apple: require(`./images/Icons/apple.png`),
-  instagram: require(`./images/Icons/instagram.png`),
-  x: require(`./images/Icons/x.png`),
-  website: require(`./images/Icons/website.png`),
   google: require(`./images/Icons/google.png`),
   camera: require(`./images/Icons/camera.png`),
   addLabel: require(`./images/Icons/add-label.png`),

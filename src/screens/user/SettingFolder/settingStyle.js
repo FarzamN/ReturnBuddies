@@ -1,22 +1,24 @@
 import { StyleSheet } from "react-native";
-import { fontScale, hp, scaleSize, wp } from "../../../theme/responsive";
+import {
+  fontScale,
+  hp,
+  scaleSize,
+  verticalScale,
+  wp,
+} from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../assets";
 
 export default StyleSheet.create({
   contactUStext: {
     fontSize: fontScale(12),
-    fontFamily: fonts[500],
-    color: colors.description,
-    lineHeight: 20,
-    textAlign: "left",
+    fontFamily: fonts[400],
+    color: "#949595",
   },
   headingTitle: {
-    fontSize: fontScale(15),
-    fontFamily: fonts[600],
+    fontSize: fontScale(14),
+    fontFamily: fonts[500],
     color: colors.black,
-    lineHeight: 24,
-    textAlign: "left",
   },
   ImageStyle: {
     borderWidth: 1,
@@ -33,7 +35,11 @@ export default StyleSheet.create({
     borderRadius: 20,
   },
 
-  emailText: { fontFamily: fonts[500], fontSize: fontScale(11) },
+  emailText: {
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
+    color: colors.purple,
+  },
   cell: {
     width: wp(17),
     height: wp(13),
@@ -69,35 +75,53 @@ export default StyleSheet.create({
   },
 
   FAQsectionHeader: {
-    padding: wp(2),
-    marginTop: wp(5),
-    paddingVertical: 15,
     flexDirection: "row",
     alignItems: "center",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    backgroundColor: "#FAFAFA",
     justifyContent: "space-between",
+    marginTop: verticalScale(20),
   },
   FAQcontent: {
     padding: wp(2),
-    backgroundColor: "#FAFAFA",
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    borderTopColor: colors.borderColor,
-    borderTopWidth: 1,
   },
   FAQcontentText: {
-    fontSize: fontScale(12),
-    fontFamily: fonts[400],
-
     color: "#777777",
-    lineHeight: hp(2.1),
+    fontFamily: fonts[400],
+    fontSize: fontScale(12),
   },
   FAQSectionText: {
-    fontSize: fontScale(13),
-
     width: "90%",
+    fontFamily: fonts[500],
+    fontSize: fontScale(13),
+  },
+
+  separator: {
+    height: 1,
+    backgroundColor: "#EAEAEA",
+  },
+  settingTitle: {
     fontFamily: fonts[600],
+    fontSize: fontScale(16),
+    marginBottom: verticalScale(5),
+  },
+
+  whiteFlatlistBox: {
+    backgroundColor: "#fff",
+    borderRadius: scaleSize(20),
+    paddingHorizontal: 10,
+  },
+  toggleItemContainer: {
+    paddingVertical: verticalScale(15),
+  },
+  itemTitle: {
+    fontSize: fontScale(15),
+    fontFamily: fonts[500],
+  },
+  itemDetail: {
+    marginTop: 4,
+    color: "#949595",
+    fontSize: fontScale(12),
+    fontFamily: fonts[400],
   },
 });

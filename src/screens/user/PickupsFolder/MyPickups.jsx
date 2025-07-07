@@ -77,6 +77,7 @@ const MyPickups = () => {
           ListEmptyComponent={
             <Text title="You don't have any return history at the moment." />
           }
+          renderItem={({ item }) => <PickupSection data={item} />}
         />
       </ScrollView>
       {pathType !== "setting" && <PrimeryTab currentTab="myPickups" />}

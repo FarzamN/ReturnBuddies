@@ -6,6 +6,7 @@ import {
   updateAddress,
   setGetPayments,
   updatePaymentCard,
+  setFaqs,
 } from "../redux/slices/authSlice";
 import instance from "../utils/urls";
 import { getItem, setItem } from "../utils/storage";
@@ -144,7 +145,6 @@ export const editProfileAPI = (data, load) => {
 
 export const resendPhoneOTPAPI = (data, coundDown, load) => {
   return async (dispatch) => {
-    console.log("data", data);
     apiRequest({
       method: "post",
       endpoint: "/user/updateNameandPhone",
@@ -183,7 +183,6 @@ export const addAddressAPI = (data, goBack, load) => {
       data,
       onSuccess: ({ Address }) => {
         goBack();
-        console.log("Address", Address);
         if (Address.isDefault == 1) dispatch(updateAddress(Address));
         getAddressAPI(load)(dispatch);
       },
@@ -335,6 +334,18 @@ export const phoneVerficationCompleteAPI = (data, goBack, load) => {
         dispatch(setLogin({ user }));
       },
       onFinally: load,
+    });
+  };
+};
+
+export const getFAQsAPI = () => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "get",
+      endpoint: "get-all-faq",
+      onSuccess: ({ data }) => {
+        dispatch(setFaqs(data));
+      },
     });
   };
 };

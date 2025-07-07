@@ -8,6 +8,7 @@ import { NotifierWrapper } from "react-native-notifier";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
 import { getBasePriceAPI } from "./src/apis/draftQueries";
+import { getFAQsAPI } from "./src/apis/authQueries";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const App = () => {
   useEffect(() => {
     if (user != null) {
       getBasePriceAPI()(dispatch);
+      getFAQsAPI()(dispatch);
     }
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, []);

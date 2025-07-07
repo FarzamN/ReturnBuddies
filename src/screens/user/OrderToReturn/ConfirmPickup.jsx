@@ -10,18 +10,18 @@ import {
 } from "../../../components";
 import moment from "moment";
 import styles from "../userStyle";
-import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { appImages } from "../../../assets";
 import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
-import { useFreezeScreen, useIskeyboard } from "../../../hooks";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
+import { confirmPickupAPI } from "../../../apis/draftQueries";
+import { useFreezeScreen, useIskeyboard } from "../../../hooks";
 import { maskCardNumber, showNotification } from "../../../function";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
-import { confirmPickupAPI } from "../../../apis/draftQueries";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();

@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./settingStyle";
 import Icon from "react-native-dynamic-vector-icons";
 import { Body, FullImage, Header, Text } from "../../../components";
-import { FlatList, TouchableOpacity, View, Linking } from "react-native";
-import { wp } from "../../../theme/responsive";
+import {
+  FlatList,
+  TouchableOpacity,
+  View,
+  Linking,
+  Pressable,
+  ScrollView,
+} from "react-native";
+import responsive, { scaleSize, wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
-import { colors } from "../../../theme/colors";
 import { appImages } from "../../../assets";
+import settingStyle from "./settingStyle";
+import { useSelector } from "react-redux";
 
 const ContactUS = () => {
+  const { getFaqs } = useSelector((state) => state.auth);
+  const [expandedSection, setExpandedSection] = useState(null);
+
   const contactUsList = [
     {
       id: 1,
-      icon: "email",
+      icon: appImages.supportEmail,
       mainTitle: "Email",
-      link: "mailto: support@expo.io",
-      email: "Support@returnbuddies.com",
-      desc: "Our friendly team is here to help.",
+      link: "mailto: support@returnbuddies.com",
+      email: "support@returnbuddies.com",
+      desc: "Our team is here to help you.",
     },
     {
       id: 2,
-      link: "tel:+123456789",
-      email: "(646) 450-7960",
+      link: "tel:+1 (646) 450-7960",
+      email: "+1 (646) 450-7960",
       mainTitle: "Give us a Call",
-      icon: "phone-in-talk-outline",
-      desc: "Lorem ipsum dolor it amet.",
+      icon: appImages.supportPhone,
+      desc: "Speak directly with out support team.",
     },
   ];
 
@@ -36,37 +47,93 @@ const ContactUS = () => {
 
   return (
     <Body horizontal={wp(4)}>
-      <Header title="Contact Us" />
-      <Text
-        style={[styles.contactUStext]}
-        title={
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        }
-      />
-      <FlatList
-        data={contactUsList}
-        keyExtractor={(_) => _.id}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => Linking.openURL(item.link)}
-            style={[globalStyle.row, globalStyle.mt20]}
-          >
-            <Icon
-              type="MaterialCommunityIcons"
-              name={item.icon}
-              size={30}
-              color={colors.purple}
-              style={styles.ImageStyle}
-            />
-            <View style={{ marginLeft: wp(3) }}>
-              <Text style={styles.headingTitle} title={item.mainTitle} />
-              <Text style={styles.contactUStext} title={item.desc} />
-              <Text style={styles.emailText} title={item.email} />
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+      <Header leftTitle="Support" />
+      <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled>
+        <Text
+          style={settingStyle.settingTitle}
+          title="Frequently Asked Questions"
+        />
+        <FlatList
+          nestedScrollEnabled
+          scrollEnabled={false}
+          data={getFaqs}
+          keyExtractor={(_, index) => index.toString()}
+          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
+          contentContainerStyle={settingStyle.whiteFlatlistBox}
+          renderItem={({ item, index }) => {
+            const { question, answer } = item;
+            return (
+              <View>
+                <Pressable
+                  style={[
+                    styles.FAQsectionHeader,
+                    {
+                      marginBottom: expandedSection !== index && 20,
+                    },
+                  ]}
+                  onPress={() =>
+                    setExpandedSection(expandedSection === index ? null : index)
+                  }
+                >
+                  <Text style={styles.FAQSectionText} title={question} />
+                  <Icon
+                    type={"Entypo"}
+                    size={20}
+                    color="black"
+                    name={`chevron-${
+                      expandedSection === index ? "up" : "down"
+                    }`}
+                  />
+                </Pressable>
+                {expandedSection === index && (
+                  <View style={styles.FAQcontent}>
+                    <Text style={styles.FAQcontentText} title={answer} />
+                  </View>
+                )}
+              </View>
+            );
+          }}
+        />
+
+        <>
+          <Height />
+          <Text
+            style={settingStyle.settingTitle}
+            title="Need help or have any questions?"
+          />
+
+          <FlatList
+            nestedScrollEnabled
+            scrollEnabled={false}
+            data={contactUsList}
+            keyExtractor={(_, index) => index.toString()}
+            ItemSeparatorComponent={() => (
+              <View style={settingStyle.separator} />
+            )}
+            contentContainerStyle={settingStyle.whiteFlatlistBox}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => Linking.openURL(item.link)}
+                style={[{ flexDirection: "row" }, globalStyle.mv20]}
+              >
+                <FullImage
+                  source={item.icon}
+                  style={{
+                    width: responsive.width(40),
+                    height: responsive.width(40),
+                  }}
+                />
+                <View style={{ marginLeft: wp(3) }}>
+                  <Text style={styles.headingTitle} title={item.mainTitle} />
+                  <Text style={styles.contactUStext} title={item.desc} />
+                  <Text style={styles.emailText} title={item.email} />
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </>
+      </ScrollView>
       <View style={globalStyle.row_justify_center}>
         {socialButton.map(({ img, link }) => (
           <TouchableOpacity

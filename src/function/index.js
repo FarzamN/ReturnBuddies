@@ -18,7 +18,8 @@ export const showNotification = (type, title, message) => {
   });
 };
 
-export const catchFun = (msg) => showNotification("error", msg, "Error");
+export const catchFun = (msg, url) =>
+  showNotification("error", msg, `Internal server error at ${url}`);
 
 export const getNextWeekdays = (count) => {
   const days = [];
@@ -101,12 +102,12 @@ export const apiRequest = async ({
     } else if (status === 201) {
       onNotFound?.(response.data);
     } else {
-      showNotification("error", message, `Status Code ${status}`);
+      showNotification("error", message, `Status Code ${status + endpoint}`);
       onFailure?.(response.data);
     }
   } catch (err) {
     const msg = err?.response?.data?.message || err.message;
-    catchFun(msg);
+    catchFun(msg, endpoint);
     onFailure?.(err);
   } finally {
     onFinally?.(false);

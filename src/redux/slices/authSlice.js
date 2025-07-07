@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   getAddress: [],
   getPayments: [],
+  getFaqs: [],
 };
 
 export const authSlice = createSlice({
@@ -29,6 +30,9 @@ export const authSlice = createSlice({
     },
     setGetAddress: (state, action) => {
       state.getAddress = action.payload;
+    },
+    setFaqs: (state, action) => {
+      state.getFaqs = action.payload;
     },
     setGetPayments: (state, action) => {
       state.getPayments = action.payload;
@@ -54,6 +58,7 @@ export const {
   setGetPayments,
   updatePaymentCard,
   updateAddress,
+  setFaqs,
 } = authSlice.actions;
 
 export default authSlice.reducer;

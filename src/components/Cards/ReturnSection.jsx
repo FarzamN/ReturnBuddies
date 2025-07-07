@@ -83,7 +83,9 @@ const ReturnSection = (props) => {
           title={isPositive ? "Edit label" : "Upload label"}
           // title={"Upload Label"}
           // onPress={onEditLabel}
-          onPress={() => navigate("uploadLabel", { labels: section })}
+          onPress={() =>
+            navigate("uploadLabel", { labels: section, isEdit: isPositive })
+          }
         />
       )}
     </Pressable>

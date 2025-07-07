@@ -40,11 +40,11 @@ export const getReturnItem = (load) => {
   };
 };
 
-export const getSelectedReturnItem = (labelIDs, load) => {
+export const getSelectedReturnItem = (bundleIDs, load) => {
   return async (dispatch) => {
     apiRequest({
       method: "get",
-      endpoint: `getbundle?bundleId=${labelIDs}`,
+      endpoint: `getbundle?bundleId=${bundleIDs}`,
       onSuccess: ({ data }) => {
         dispatch(setDraftSelectedRetun(data.reverse()));
       },
@@ -53,11 +53,49 @@ export const getSelectedReturnItem = (labelIDs, load) => {
   };
 };
 
-export const uploadLabelAPI = (
-  bundleId,
-  date,
-  productIDs,
-  docx,
+export const editLabelAPI = (data, load, goBack, _id) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "editLabe",
+      contentType: "multipart/form-data",
+      data,
+      onSuccess: ({ data }) => {
+        const newID = data.bundle._id ?? "";
+        const updatedIDs = newID ? [..._id, newID] : [..._id];
+        getSelectedReturnItem(updatedIDs, load)(dispatch);
+        getReturnItem(load)(dispatch);
+        goBack();
+      },
+      onFinally: load,
+    });
+  };
+};
+
+export const uploadLabelAPI = (data, load, goBack, _id) => {
+  return async (dispatch) => {
+    apiRequest({
+      method: "post",
+      endpoint: "/uploadLabel",
+      contentType: "multipart/form-data",
+      data,
+      onSuccess: ({ data, message }) => {
+        const newID = data.bundle._id ?? "";
+        const updatedIDs = newID ? [..._id, newID] : [..._id];
+        getSelectedReturnItem(updatedIDs, load)(dispatch);
+        getReturnItem(load)(dispatch);
+
+        showNotification("success", message, "hurry");
+        goBack();
+      },
+      onFinally: load,
+    });
+  };
+};
+
+/*
+export const  = (
+ 
   load,
   goBack,
   _id
@@ -77,7 +115,7 @@ export const uploadLabelAPI = (
       name: docx.name,
     });
     try {
-      const response = await instance.post("uploadLabel", body, {
+      const response = await instance.post("", body, {
         headers: {
           "Content-Type": "multipart/form-data",
           userid: getItem("userID"),
@@ -87,12 +125,7 @@ export const uploadLabelAPI = (
       const { status, message, data } = await response.data;
       if (status === 200) {
         load(false);
-        const newID = data.bundle._id ?? "";
-        const updatedIDs = newID ? [..._id, newID] : [..._id];
-        getSelectedReturnItem(updatedIDs, load)(dispatch);
-        getReturnItem(load)(dispatch);
-
-        showNotification("success", message, "hurry");
+        
         goBack();
       } else {
         load(false);
@@ -106,6 +139,7 @@ export const uploadLabelAPI = (
     }
   };
 };
+ */
 export const deleteBundle = (IDs, load) => {
   return async (dispatch) => {
     try {

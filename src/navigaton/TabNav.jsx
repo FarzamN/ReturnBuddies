@@ -3,13 +3,10 @@ import {
   DraftItem,
   AddDraftItem,
   Setting,
-  Notification,
   EditProfile,
   ContactUS,
   ChangePassword,
-  DeleteAccount,
-  ReturnHistory,
-  FAQ,
+  Notification,
   Terms,
   Privacy,
   ShippingLabel,
@@ -97,15 +94,14 @@ const AllSettings = () => (
     screenOptions={{ headerShown: false, orientation: "portrait_up" }}
     initialRouteName="setting"
   >
-    <Stack.Screen name="setting" component={Setting} />
-    <Stack.Screen name="myPickupsRoute" component={AllMyPickups} />
-    <Stack.Screen name="editProfile" component={EditProfile} />
-    <Stack.Screen name="contactUS" component={ContactUS} />
-    <Stack.Screen name="changePassword" component={ChangePassword} />
-    <Stack.Screen name="deleteAccount" component={DeleteAccount} />
-    <Stack.Screen name="faq" component={FAQ} />
     <Stack.Screen name="terms" component={Terms} />
     <Stack.Screen name="privacy" component={Privacy} />
+    <Stack.Screen name="setting" component={Setting} />
+    <Stack.Screen name="contactUS" component={ContactUS} />
+    <Stack.Screen name="editProfile" component={EditProfile} />
+    <Stack.Screen name="myPickupsRoute" component={AllMyPickups} />
+    <Stack.Screen name="notification" component={Notification} />
+    <Stack.Screen name="changePassword" component={ChangePassword} />
   </Stack.Navigator>
 );
 

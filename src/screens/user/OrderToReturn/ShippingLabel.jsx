@@ -22,7 +22,6 @@ const SchedulePickup = ({ navigation, route }) => {
   const dispatch = useDispatch();
 
   const { draftSelectedRetun } = useSelector((state) => state.draft);
-
   const [isPending, setIsLoading] = useState(false);
 
   const getPositive = draftSelectedRetun

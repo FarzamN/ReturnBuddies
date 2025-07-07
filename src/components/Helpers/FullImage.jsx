@@ -29,7 +29,6 @@ const FullImage = (props) => {
 
     return cleanedSource;
   };
-
   return (
     <View style={style}>
       {isUrl ? (

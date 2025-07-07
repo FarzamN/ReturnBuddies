@@ -18,7 +18,6 @@ import Setting from "./SettingFolder/Setting";
 import EditProfile from "./SettingFolder/EditProfile";
 import ContactUS from "./SettingFolder/ContactUS";
 import ChangePassword from "./SettingFolder/ChangePassword";
-import FAQ from "./SettingFolder/FAQ";
 import Terms from "./SettingFolder/Terms";
 import Privacy from "./SettingFolder/Privacy";
 import MyPickups from "./PickupsFolder/MyPickups";
@@ -52,7 +51,6 @@ export {
   // setting Screens
   Terms,
   Privacy,
-  FAQ,
   ChangePassword,
   Notification,
   Setting,
