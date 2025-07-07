@@ -18,8 +18,6 @@ import Setting from "./SettingFolder/Setting";
 import EditProfile from "./SettingFolder/EditProfile";
 import ContactUS from "./SettingFolder/ContactUS";
 import ChangePassword from "./SettingFolder/ChangePassword";
-import DeleteAccount from "./SettingFolder/DeleteAccount";
-import ReturnHistory from "./SettingFolder/ReturnHistory";
 import FAQ from "./SettingFolder/FAQ";
 import Terms from "./SettingFolder/Terms";
 import Privacy from "./SettingFolder/Privacy";
@@ -55,11 +53,9 @@ export {
   Terms,
   Privacy,
   FAQ,
-  ReturnHistory,
   ChangePassword,
   Notification,
   Setting,
   EditProfile,
   ContactUS,
-  DeleteAccount,
 };

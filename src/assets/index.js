@@ -39,6 +39,9 @@ export const appImages = {
   information: require("./images/Icons/information.png"),
   edit: require("./images/Icons/edit.png"),
   delete: require("./images/Icons/trash.png"),
+  complete: require("./images/Icons/complete.png"),
+  cancelled: require("./images/Icons/cancelled.png"),
+  pickup: require("./images/Icons/pickup.png"),
 
   //  ------- Modals Images
   otpImage: require(`./images/Modals/otpImage.png`),
@@ -46,19 +49,11 @@ export const appImages = {
   oversize: require(`./images/Modals/oversize.png`),
 
   logoFullName: require(`./images/logoFullName.png`),
-  tick: require(`./images/tick.png`),
-  homeShoes: require(`./images/homeShoes.png`),
   emptyDraft: require(`./images/emptyDraft.png`),
 
-  user: require(`./images/user.png`),
-  driver: require(`./images/driver.png`),
-  checkZipCode: require(`./images/checkZipCode.png`),
-
   //  ------- Bottom bar
-  draft: require(`./images/BottomBar/draft.png`),
-  pickup: require(`./images/BottomBar/pickup.png`),
   homeActive: require(`./images/BottomBar/home.png`),
-  pickups: require(`./images/BottomBar/pickups.png`),
+  pickupActive: require(`./images/BottomBar/pickups.png`),
 
   //  ------- Card Images
   visa: require(`./images/cards/visa.png`),

@@ -10,7 +10,8 @@ import { android } from "../../utils/constants";
 import { Text } from "..";
 import { useSelector } from "react-redux";
 
-const DraftHeader = () => {
+const DraftHeader = (props) => {
+  const { pickup } = props;
   const { navigate } = useNavigation();
   const { name } = useSelector((state) => state.auth.user);
 
@@ -18,7 +19,10 @@ const DraftHeader = () => {
     <Space_Between
       style={{ paddingHorizontal: wp(5), marginTop: android ? 20 : 0 }}
     >
-      <Text style={styles.nameHeader} title={`Welcome, ${name}!`} />
+      <Text
+        style={styles.nameHeader}
+        title={pickup ? "My Pickups" : `Welcome, ${name}!`}
+      />
       <Row>
         <TouchableOpacity onPress={() => navigate("settingRoute")}>
           <Icon

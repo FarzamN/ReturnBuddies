@@ -80,7 +80,7 @@ const ReturnSection = (props) => {
         <MainButton
           style={buttonStyle.button}
           textStyle={buttonStyle.buttonText}
-          title={isPositive ? "Edit Label" : "Upload Label"}
+          title={isPositive ? "Edit label" : "Upload label"}
           // title={"Upload Label"}
           // onPress={onEditLabel}
           onPress={() => navigate("uploadLabel", { labels: section })}

@@ -22,12 +22,13 @@ import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { globalStyle } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
-import { FullImage, MainButton } from "../../../components";
+import { FullImage } from "../../../components";
 import { setLogout } from "../../../redux/slices/authSlice";
+import { setPathType } from "../../../redux/slices/pickupSlice";
 
 const settingsData = [
   { title: "Profile settings", icon: appImages.user, route: "editProfile" },
-  { title: "Pickups", icon: appImages.box, route: "returnHistory" },
+  { title: "Pickups", icon: appImages.box, route: "myPickupsRoute" },
   { title: "Addresses", icon: appImages.location, route: "selectNewAddress" },
   {
     title: "Payment methods",
@@ -50,12 +51,28 @@ const Setting = () => {
   const { navigate, goBack } = useNavigation();
   const { name, email } = useSelector((state) => state.auth.user);
 
+  const handlePress = (item) => {
+    if (item.type === "logout") {
+      dispatch(setLogout());
+    } else {
+      if (item.title === "Pickups") {
+        dispatch(setPathType("setting"));
+        navigate("myPickupsRoute");
+      }
+      navigate(item.route);
+    }
+  };
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.item}
-      onPress={() =>
-        item.type === "logout" ? dispatch(setLogout()) : navigate(item.route)
-      }
+      // onPress={() =>
+      //   item.type === "logout" ? dispatch(setLogout()) : item.type === "" ? {
+      //     dispatch(setPathType("setting"));
+      //     navigate(item.route)
+      //   } : navigate(item.route)
+      // }
+      onPress={() => handlePress(item)}
     >
       <View style={styles.iconCircle}>
         <FullImage source={item.icon} style={{ width: 22, height: 22 }} />
@@ -111,8 +128,8 @@ const Setting = () => {
           data={settingsData}
           renderItem={renderItem}
           keyExtractor={(_, i) => i.toString()}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
           contentContainerStyle={{ paddingBottom: wp(10) }}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
       </View>
     </View>

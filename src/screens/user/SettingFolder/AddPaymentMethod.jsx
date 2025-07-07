@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
 import {
   Body,
   Header,
@@ -14,12 +7,11 @@ import {
   RequiredText,
   CircleCheck,
 } from "../../../components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { colors } from "../../../theme/colors";
 import { cardValidator } from "../../../function";
 import React, { useState, useEffect } from "react";
 import { appImages, fonts } from "../../../assets";
-import Icon from "react-native-dynamic-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { fontScale, verticalScale, wp } from "../../../theme/responsive";
 import { addPaymentAPI, editPaymentAPI } from "../../../apis/authQueries";
@@ -30,6 +22,9 @@ const AddPaymentMethod = ({ route }) => {
 
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
+
+  const { getPayments } = useSelector((state) => state.auth) ?? [];
+
   const [cardData, setCardData] = useState({
     name: item?.cardHolderName ?? "",
     number: item?.cardNumber ?? "",
@@ -40,7 +35,6 @@ const AddPaymentMethod = ({ route }) => {
   const [errors, setErrors] = useState({});
   const [focus, setFocus] = useState(item?.isDefault);
   const [cardType, setCardType] = useState(null);
-  const [isFormValid, setIsFormValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validateForm = () => {
@@ -90,7 +84,7 @@ const AddPaymentMethod = ({ route }) => {
     }
 
     setErrors(newErrors);
-    setIsFormValid(isValid);
+    return isValid;
   };
 
   const handleChange = (name, value) => {
@@ -150,18 +144,17 @@ const AddPaymentMethod = ({ route }) => {
 
   const onSubmit = () => {
     setIsSubmitted(true);
-    validateForm();
+    const valid = validateForm();
 
-    if (!isFormValid) return;
+    if (!valid) return;
 
     const cardInfo = {
       cardHolderName: cardData.name,
-      // cardNumber: cardData.number.replace(/\s/g, ""),
       cardNumber: cardData.number,
       expirationDate: cardData.date,
       cvv: cardData.cvv,
       cardType: cardType,
-      isDefault: focus ? 1 : 0,
+      isDefault: getPayments.length === 0 ? 1 : focus ? 1 : 0,
     };
 
     if (editing) {

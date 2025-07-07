@@ -10,7 +10,7 @@ const ItemsToBePickedup = () => {
 
   return (
     <Body horizontal={wp(5)}>
-      <Header leftTitle="Items To Be Pickedup" />
+      <Header leftTitle="Items to be picked up" />
       <Height />
       <FlatList
         data={draftSelectedRetun}

@@ -33,6 +33,7 @@ import {
   editProfileAPI,
   phoneVerficationAPI,
 } from "../../../apis/authQueries";
+import { showNotification } from "../../../function";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const EditProfile = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const isVerified = user?.phoneVerified;
+  const [isVerified, setIsVerified] = useState(user?.phoneVerified);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteLoad, setDeleteLoad] = useState(false);
 
@@ -62,6 +63,10 @@ const EditProfile = () => {
     }
   };
   const onSubmit = (data) => {
+    if (!isVerified) {
+      showNotification("error", "please Verify Phone number", "Error");
+      return;
+    }
     editProfileAPI(data, setIsPending)(dispatch);
   };
 
@@ -96,9 +101,10 @@ const EditProfile = () => {
           <View style={editStyle.phoneWrapper}>
             <TextInput
               value={phoneValue.value}
-              onChangeText={(text) =>
-                setPhoneValue({ error: false, value: text, message: "" })
-              }
+              onChangeText={(text) => {
+                setPhoneValue({ error: false, value: text, message: "" });
+                setIsVerified(false);
+              }}
               placeholder="+12 345678967"
               keyboardType="phone-pad"
               placeholderTextColor="#B0B0B0"
@@ -107,7 +113,7 @@ const EditProfile = () => {
 
             <TouchableOpacity
               onPress={onVerify}
-              disabled={verifyLoad}
+              disabled={verifyLoad || isVerified}
               style={[
                 editStyle.verifyButton,
                 { backgroundColor: isVerified ? "#E8F8E8" : "#F4E8FF" },

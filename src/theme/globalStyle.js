@@ -27,7 +27,7 @@ export const Height = styled.View`
 export const Divider = styled.View`
   height: ${1};
   width: 100%;
-  background-color: ${colors.borderColor};
+  background-color: #e9e9e9;
   margin-top: ${scaleSize(8)};
 `;
 

@@ -74,7 +74,7 @@ const SchedulePickup = ({ route }) => {
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Schedule Pickup" />
-      <Text style={styles.draftTitle} title={"Choose Pickup date and time"} />
+      <Text style={styles.draftTitle} title={"Choose Pickup date\nand time"} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView horizontal style={styles.dateContainer}>

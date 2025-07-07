@@ -11,12 +11,20 @@ import { Image, TouchableOpacity, View } from "react-native";
 
 const Header = (props) => {
   const { goBack, navigate } = useNavigation();
-  const { title, flag, imageLogo, leftTitle, isSetting, addBTN, onPress } =
-    props;
+  const {
+    title,
+    flag,
+    imageLogo,
+    leftTitle,
+    isSetting,
+    addBTN,
+    onPress,
+    onBackPress,
+  } = props;
   return (
     <View style={[globalStyle.space_Between, styles.headerCont]}>
       <Row>
-        <TouchableOpacity onPress={goBack}>
+        <TouchableOpacity onPress={onBackPress ? onBackPress : goBack}>
           <Icon
             type="Ionicons"
             name="arrow-back"

@@ -1,6 +1,5 @@
 import {
   Body,
-  Text,
   Header,
   MainInput,
   MainButton,
@@ -10,28 +9,22 @@ import {
 import React, { useState } from "react";
 import { fonts } from "../../../assets";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { colors } from "../../../theme/colors";
+import { useDispatch, useSelector } from "react-redux";
 import { required } from "../../../utils/constants";
-import Icon from "react-native-dynamic-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { fontScale, wp } from "../../../theme/responsive";
-import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
+import { ScrollView, StyleSheet } from "react-native";
+import { Height, Space_Between } from "../../../theme/globalStyle";
 import { editAddressAPI, addAddressAPI } from "../../../apis/authQueries";
 
 const AddNewAddress = ({ route }) => {
   const { item, editing } = route?.params || {};
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
+
+  const { getAddress } = useSelector((state) => state.auth) ?? [];
+
   const [isPending, setIsPending] = useState(false);
-  const onSubmit = (data) => {
-    if (editing) {
-      editAddressAPI(item._id, data, goBack, setIsPending)(dispatch);
-      return;
-    }
-    addAddressAPI(data, goBack, setIsPending)(dispatch);
-  };
 
   const {
     control,
@@ -51,6 +44,18 @@ const AddNewAddress = ({ route }) => {
     },
   });
   const isDefault = watch("isDefault");
+
+  const onSubmit = (data) => {
+    if (editing) {
+      editAddressAPI(item._id, data, goBack, setIsPending)(dispatch);
+      return;
+    }
+    const updatedData = {
+      ...data,
+      isDefault: getAddress.length == 0 ? 1 : isDefault,
+    };
+    addAddressAPI(updatedData, goBack, setIsPending)(dispatch);
+  };
   return (
     <Body horizontal={wp(5)}>
       <Header leftTitle={`${editing ? "Edit" : "Add New"} Address`} />

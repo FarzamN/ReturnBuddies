@@ -8,12 +8,11 @@ import {
   StatusBar,
 } from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
-import { hp, width, wp } from "../../theme/responsive";
+import { height, hp, scaleSize, width, wp } from "../../theme/responsive";
 import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { globalStyle, Height } from "../../theme/globalStyle";
 import { MainButton } from "../../components";
-import {} from "../../assets";
 
 const onboardingArray = [
   {
@@ -61,21 +60,11 @@ const Onboarding = ({ navigation }) => {
   return (
     <SafeAreaView style={[globalStyle.Container]}>
       <StatusBar backgroundColor={colors.background} barStyle="dark-content" />
-      <Height />
-      <View
-        style={[
-          {
-            paddingHorizontal: wp(5),
-          },
-        ]}
-      >
-        <Image
-          resizeMode="contain"
-          style={styles.imageLogo}
-          source={appImages.logoFullName}
-        />
-      </View>
-
+      <Image
+        resizeMode="contain"
+        style={styles.imageLogo}
+        source={appImages.logoFullName}
+      />
       <View style={styles.swiperContainer}>
         <SwiperFlatList
           ref={swiperRef}
@@ -96,19 +85,19 @@ const Onboarding = ({ navigation }) => {
             </View>
           )}
         />
-      </View>
-      <View style={styles.rowButtonWrapper}>
-        <MainButton
-          style={styles.loginButton}
-          textStyle={{ color: colors.purple }}
-          onPress={() => navigate("login")}
-          title={"Login"}
-        />
-        <MainButton
-          style={{ width: wp(44) }}
-          onPress={() => navigate("register")}
-          title={"Create account"}
-        />
+        <View style={styles.rowButtonWrapper}>
+          <MainButton
+            style={styles.loginButton}
+            textStyle={{ color: colors.purple }}
+            onPress={() => navigate("login")}
+            title={"Login"}
+          />
+          <MainButton
+            style={{ width: wp(44) }}
+            onPress={() => navigate("register")}
+            title={"Create account"}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -124,6 +113,9 @@ const styles = StyleSheet.create({
   imageLogo: {
     width: wp(43),
     height: wp(4.6),
+    marginHorizontal: wp(5),
+    marginTop: scaleSize(20),
+    marginBottom: scaleSize(40),
   },
   swiperContainer: {
     flex: 1,
@@ -133,13 +125,12 @@ const styles = StyleSheet.create({
   slide: {
     width,
     alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: wp(4),
+    // justifyContent: "center",
+    paddingHorizontal: wp(5),
   },
   dynamicImage: {
-    width: wp(90),
-    height: wp(110),
-    marginTop: -40,
+    width: width,
+    height: height / 2,
   },
   title: {
     fontSize: hp(2.3),

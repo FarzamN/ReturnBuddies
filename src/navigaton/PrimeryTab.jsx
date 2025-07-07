@@ -1,25 +1,36 @@
 import React from "react";
 import { appImages } from "../assets";
-import { Image, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../theme/colors";
-import { Space_Between } from "../theme/globalStyle";
+import { useDispatch } from "react-redux";
 import { android } from "../utils/constants";
+import { Space_Between } from "../theme/globalStyle";
+import { useNavigation } from "@react-navigation/native";
+import { setPathType } from "../redux/slices/pickupSlice";
+import { Image, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PrimeryTab = (props) => {
   const { currentTab } = props;
+  const dispatch = useDispatch();
   const { navigate } = useNavigation();
   const { bottom } = useSafeAreaInsets();
 
   const bar = {
-    position: "absolute",
-    bottom: bottom,
     left: 0,
     right: 0,
     height: 50,
-    paddingHorizontal: 20,
     zIndex: 99,
+    bottom: bottom,
+    position: "absolute",
+    paddingHorizontal: 20,
+  };
+
+  const handlePress = (path) => {
+    if (path === "myPickupsRoute") {
+      dispatch(setPathType("notSetting"));
+      navigate("myPickupsRoute");
+    }
+    navigate(path);
   };
   return (
     <View>
@@ -27,7 +38,7 @@ const PrimeryTab = (props) => {
         {["orderRoute", "addDraftRoute", "myPickupsRoute"].map((path) => (
           <TouchableOpacity
             key={path}
-            onPress={() => navigate(path)}
+            onPress={() => handlePress(path)}
             style={{
               width: "33%",
               height: 50,
@@ -41,7 +52,7 @@ const PrimeryTab = (props) => {
 
       <Image
         source={
-          currentTab === "Home" ? appImages.homeActive : appImages.pickups
+          currentTab === "Home" ? appImages.homeActive : appImages.pickupActive
         }
         resizeMode="cover"
         style={{ width: "100%", height: 100 }}

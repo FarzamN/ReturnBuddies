@@ -46,7 +46,7 @@ const TabNav = () => {
     >
       <Screen name="orderRoute" component={AllOrderToReturn} />
       <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
-      <Screen name="myPickupsRoute" component={MyPickups} />
+      <Screen name="myPickupsRoute" component={AllMyPickups} />
     </Navigator>
   );
 };
@@ -98,11 +98,11 @@ const AllSettings = () => (
     initialRouteName="setting"
   >
     <Stack.Screen name="setting" component={Setting} />
+    <Stack.Screen name="myPickupsRoute" component={AllMyPickups} />
     <Stack.Screen name="editProfile" component={EditProfile} />
     <Stack.Screen name="contactUS" component={ContactUS} />
     <Stack.Screen name="changePassword" component={ChangePassword} />
     <Stack.Screen name="deleteAccount" component={DeleteAccount} />
-    <Stack.Screen name="returnHistory" component={ReturnHistory} />
     <Stack.Screen name="faq" component={FAQ} />
     <Stack.Screen name="terms" component={Terms} />
     <Stack.Screen name="privacy" component={Privacy} />
@@ -115,5 +115,6 @@ const AllMyPickups = () => (
     initialRouteName="myPickups"
   >
     <Stack.Screen name="myPickups" component={MyPickups} />
+    <Stack.Screen name="settingRoute" component={AllSettings} />
   </Stack.Navigator>
 );

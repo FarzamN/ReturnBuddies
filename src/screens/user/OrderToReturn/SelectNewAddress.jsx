@@ -15,9 +15,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
-
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
-import { globalStyle } from "../../../theme/globalStyle";
 import { getAddressAPI, deleteAddressAPI } from "../../../apis/authQueries";
 
 const SelectNewAddress = ({ route }) => {

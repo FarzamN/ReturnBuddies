@@ -157,7 +157,6 @@ export const getBasePriceAPI = () => {
 
 export const confirmPickupAPI = (data, nav, load) => {
   return async (dispatch) => {
-    console.log("data", data);
     apiRequest({
       method: "post",
       endpoint: "add-pickup",

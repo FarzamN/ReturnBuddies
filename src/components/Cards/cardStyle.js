@@ -3,6 +3,7 @@ import responsive, {
   fontScale,
   hp,
   scaleSize,
+  verticalScale,
   wp,
 } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
@@ -57,7 +58,8 @@ export default StyleSheet.create({
   sectionContainer: {
     backgroundColor: colors.white,
     borderRadius: 12,
-    padding: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: colors.white,
@@ -89,8 +91,8 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   sectionImage: {
-    width: scaleSize(50),
-    height: scaleSize(50),
+    width: scaleSize(52),
+    height: scaleSize(52),
     borderRadius: scaleSize(8),
     marginRight: scaleSize(12),
   },
@@ -124,5 +126,29 @@ export default StyleSheet.create({
     padding: 12,
     borderWidth: 1,
     marginHorizontal: 10,
+  },
+
+  pickupDetailText: {
+    fontFamily: fonts[500],
+    marginLeft: scaleSize(7),
+  },
+  itemLengthBox: {
+    // flex: 1,
+    width: 60,
+    marginTop: verticalScale(5),
+    borderRadius: 50,
+    paddingVertical: 3,
+    backgroundColor: "#F4E5FC",
+    // marginHorizontal: scaleSize(10),
+  },
+
+  itemLengthText: {
+    fontSize: scaleSize(10),
+    fontFamily: fonts[400],
+  },
+  labelName: {
+    color: colors.black,
+    fontFamily: fonts[500],
+    fontSize: fontScale(14),
   },
 });

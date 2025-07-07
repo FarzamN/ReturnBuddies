@@ -80,7 +80,7 @@ const PickupMethod = () => {
         />
       </ScrollView>
       {!isKeyboard && (
-        <MainButton title="continue" onPress={handleSubmit(onSubmit)} />
+        <MainButton title="Continue" onPress={handleSubmit(onSubmit)} />
       )}
     </Body>
   );

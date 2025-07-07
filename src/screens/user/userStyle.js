@@ -40,8 +40,14 @@ export default StyleSheet.create({
     color: colors.black,
   },
 
+  pickupTitle: {
+    fontSize: fontScale(14),
+    fontFamily: fonts[600],
+    marginBottom: scaleSize(8),
+  },
+
   dateContainer: {
-    marginTop: 20,
+    marginTop: scaleSize(10),
     borderRadius: 12,
     flexDirection: "row",
     paddingVertical: 15,

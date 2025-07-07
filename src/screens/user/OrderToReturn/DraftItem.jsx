@@ -25,7 +25,6 @@ const DraftItem = () => {
   const { navigate } = useNavigation();
 
   const { draftData } = useSelector((state) => state.draft);
-
   const [hasUnselected, setHasUnselected] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [refresh, setRefresh] = useState(false);
