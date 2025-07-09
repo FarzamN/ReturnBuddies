@@ -1,7 +1,18 @@
 import Login from "./Login";
-import Overboard from "./Overboard";
-import Register from "./Register";
 import AuthOTP from "./AuthOTP";
-import { ContactUS } from "../user";
+import Register from "./Register";
+import Overboard from "./Overboard";
+import CheckEmail from "./CheckEmail";
+import { ContactUS, UserOTP } from "../user";
+import ForgetPassword from "./ForgetPassword";
 
-export { Login, Overboard, Register, AuthOTP, ContactUS };
+export {
+  Login,
+  AuthOTP,
+  UserOTP,
+  Register,
+  Overboard,
+  ContactUS,
+  CheckEmail,
+  ForgetPassword,
+};

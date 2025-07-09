@@ -2,14 +2,12 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   Login,
-  Overboard,
+  UserOTP,
   Register,
   ContactUS,
-  // CheckEmail,
-  // OtpScreen,
-  // ChangePassword,
-  // PersonalInfo,
-  // Country,
+  Overboard,
+  CheckEmail,
+  ForgetPassword,
 } from "../screens/auth";
 
 const AuthNavigation = () => {
@@ -26,16 +24,13 @@ const AuthNavigation = () => {
       }}
     >
       {[
-        { n: "overboard", c: Overboard },
         { n: "login", c: Login },
+        { n: "otp", c: UserOTP },
         { n: "register", c: Register },
+        { n: "overboard", c: Overboard },
         { n: "contactUS", c: ContactUS },
-        // { n: "checkEmail", c: CheckEmail },
-        // { n: "otpScreen", c: OtpScreen },
-        // { n: "changePassword", c: ChangePassword },
-        // { n: "personalInfo", c: PersonalInfo },
-        // { n: "country", c: Country },
-        // { n: "forgetPassword", c: ForgetPassword },
+        { n: "checkEmail", c: CheckEmail },
+        { n: "forgetPassword", c: ForgetPassword },
       ].map(({ n, c }) => (
         <Screen
           name={n}

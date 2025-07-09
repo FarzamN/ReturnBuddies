@@ -87,7 +87,6 @@ export default StyleSheet.create({
     marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.background,
   },
   sectionImage: {
     width: scaleSize(52),

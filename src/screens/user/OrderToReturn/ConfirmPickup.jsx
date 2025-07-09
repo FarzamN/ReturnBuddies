@@ -133,10 +133,11 @@ const ConfirmPickup = () => {
           title={
             selectedAddress?.street || pickupAddress?.street || "Add address"
           }
+          twoTitle={selectedAddress?.suite}
           onPress={() => navigate("selectNewAddress", { isPickup: true })}
         />
         <PickupButton
-          note={note}
+          detail={note}
           title={pickupMethod}
           source={appImages.truck}
           onPress={() => navigate("pickupMethod")}

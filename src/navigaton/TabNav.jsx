@@ -12,6 +12,7 @@ import {
   ShippingLabel,
   UploadLabel,
   MyPickups,
+  PickupDetail,
   SchedulePickup,
   PickupMethod,
   ConfirmPickup,
@@ -77,6 +78,7 @@ const AllOrderToReturn = () => (
     <Stack.Screen name="addNewAddress" component={AddNewAddress} />
 
     <Stack.Screen name="itemsToBePickedup" component={ItemsToBePickedup} />
+    <Stack.Screen name="myPickupsRoute" component={AllMyPickups} />
   </Stack.Navigator>
 );
 
@@ -111,6 +113,7 @@ const AllMyPickups = () => (
     initialRouteName="myPickups"
   >
     <Stack.Screen name="myPickups" component={MyPickups} />
+    <Stack.Screen name="pickupDetail" component={PickupDetail} />
     <Stack.Screen name="settingRoute" component={AllSettings} />
   </Stack.Navigator>
 );

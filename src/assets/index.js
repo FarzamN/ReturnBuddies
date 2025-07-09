@@ -10,7 +10,7 @@ export const fonts = {
 
 export const appImages = {
   logo: require(`./images/logo.png`),
-  profileBackground: require(`./images/profileBackground.png`),
+  profileBackground: require(`./images/profileBackground.jpeg`),
 
   //  ------- Onboard
   onboard4: require(`./images/Overboard/onboard4.png`),
@@ -19,41 +19,42 @@ export const appImages = {
 
   trackingBus: require(`./images/tracking-bus.png`),
 
-  //  ------- Icons
+  //  ------- social media
   x: require("./images/support/x.png"),
-  instagram: require("./images/support/instagram.png"),
   website: require("./images/support/website.png"),
+  instagram: require("./images/support/instagram.png"),
   supportEmail: require("./images/support/supportEmail.png"),
   supportPhone: require("./images/support/supportPhone.png"),
 
   //  ------- Icons
-  apple: require(`./images/Icons/apple.png`),
-  google: require(`./images/Icons/google.png`),
-  camera: require(`./images/Icons/camera.png`),
-  addLabel: require(`./images/Icons/add-label.png`),
   pdf: require(`./images/Icons/pdf.png`),
+  edit: require("./images/Icons/edit.png"),
   call: require(`./images/Icons/call.png`),
+  shareCircle: require("./images/Icons/share-circle.png"),
+  card: require(`./images/Icons/card.png`),
   clock: require(`./images/Icons/clock.png`),
-  location: require(`./images/Icons/location.png`),
+  apple: require(`./images/Icons/apple.png`),
   truck: require(`./images/Icons/truck.png`),
+  delete: require("./images/Icons/trash.png"),
+  pickup: require("./images/Icons/pickup.png"),
+  google: require(`./images/Icons/google.png`),
   wallet: require(`./images/Icons/wallet.png`),
+  camera: require(`./images/Icons/camera.png`),
+  complete: require("./images/Icons/complete.png"),
+  location: require(`./images/Icons/location.png`),
+  addLabel: require(`./images/Icons/add-label.png`),
+  cancelled: require("./images/Icons/cancelled.png"),
+  information: require("./images/Icons/information.png"),
   wallet_empty: require(`./images/Icons/wallet-empty.png`),
   location_empty: require(`./images/Icons/location-empty.png`),
-  card: require(`./images/Icons/card.png`),
-  information: require("./images/Icons/information.png"),
-  edit: require("./images/Icons/edit.png"),
-  delete: require("./images/Icons/trash.png"),
-  complete: require("./images/Icons/complete.png"),
-  cancelled: require("./images/Icons/cancelled.png"),
-  pickup: require("./images/Icons/pickup.png"),
 
   //  ------- Modals Images
   otpImage: require(`./images/Modals/otpImage.png`),
-  otpSuccess: require(`./images/Modals/otpSuccess.png`),
   oversize: require(`./images/Modals/oversize.png`),
+  otpSuccess: require(`./images/Modals/otpSuccess.png`),
 
-  logoFullName: require(`./images/logoFullName.png`),
   emptyDraft: require(`./images/emptyDraft.png`),
+  logoFullName: require(`./images/logoFullName.png`),
 
   //  ------- Bottom bar
   homeActive: require(`./images/BottomBar/home.png`),
@@ -61,17 +62,17 @@ export const appImages = {
 
   //  ------- Card Images
   visa: require(`./images/cards/visa.png`),
-  master: require(`./images/cards/master.png`),
   amex: require(`./images/cards/amex.png`),
+  master: require(`./images/cards/master.png`),
 
   //  ------- Setting Icons
-  user: require(`./images/settingIcons/user.png`),
-  shield: require(`./images/settingIcons/shield-tick.png`),
-  notification: require(`./images/settingIcons/notification-bing.png`),
-  support: require(`./images/settingIcons/support.png`),
-  logout: require(`./images/settingIcons/logout.png`),
   box: require(`./images/settingIcons/box.png`),
+  user: require(`./images/settingIcons/user.png`),
+  logout: require(`./images/settingIcons/logout.png`),
+  support: require(`./images/settingIcons/support.png`),
+  shield: require(`./images/settingIcons/shield-tick.png`),
   wallet_setting: require(`./images/settingIcons/wallet.png`),
+  notification: require(`./images/settingIcons/notification-bing.png`),
 
   // ------ tast images
   toastDelete: require("./images/notification/delete.png"),

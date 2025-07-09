@@ -65,15 +65,7 @@ const ReturnSection = (props) => {
       <FlatList
         data={section.products}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => {
-          return (
-            <ReturnInnerCard
-              source={item.thumbnail}
-              title={item.productName}
-              created_at={item.created_at}
-            />
-          );
-        }}
+        renderItem={({ item }) => <ReturnInnerCard data={item} />}
         scrollEnabled={false}
       />
       {isLabel && (
@@ -81,8 +73,6 @@ const ReturnSection = (props) => {
           style={buttonStyle.button}
           textStyle={buttonStyle.buttonText}
           title={isPositive ? "Edit label" : "Upload label"}
-          // title={"Upload Label"}
-          // onPress={onEditLabel}
           onPress={() =>
             navigate("uploadLabel", { labels: section, isEdit: isPositive })
           }

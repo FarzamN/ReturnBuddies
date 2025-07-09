@@ -95,7 +95,7 @@ const MainInput = forwardRef((props, ref) => {
               rippleColor={purple}
               icon={show ? "eye" : "eye-off"}
               onPress={() => setShow((prev) => !prev)}
-              color={password ? grey : errorColor}
+              color={password ? "#E1E1E1" : errorColor}
             />
           )
         }

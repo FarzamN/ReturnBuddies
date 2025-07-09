@@ -21,6 +21,7 @@ import ChangePassword from "./SettingFolder/ChangePassword";
 import Terms from "./SettingFolder/Terms";
 import Privacy from "./SettingFolder/Privacy";
 import MyPickups from "./PickupsFolder/MyPickups";
+import PickupDetail from "./PickupsFolder/PickupDetail";
 import UserOTP from "./SettingFolder/UserOTP.jsx";
 import SelectPaymentMethod from "./SettingFolder/SelectPaymentMethod.jsx";
 import AddPaymentMethod from "./SettingFolder/AddPaymentMethod.jsx";
@@ -30,6 +31,7 @@ import AddPaymentMethod from "./SettingFolder/AddPaymentMethod.jsx";
 export {
   // Pickups Screens
   MyPickups,
+  PickupDetail,
 
   // Draft screens
   UploadLabel,

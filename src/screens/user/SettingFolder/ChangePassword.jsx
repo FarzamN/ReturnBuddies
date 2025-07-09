@@ -43,29 +43,26 @@ const ChangePassword = () => {
         }
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {changePasswordInput.map(({ name, p, label }) => {
-          const isError = errors[name];
-          return (
-            <MainInput
-              small
-              rounded
-              password
-              key={name}
-              name={name}
-              title={label}
-              rules={{
-                minLength,
-                maxLength,
-                required: required(label),
-              }}
-              placeholder={p}
-              control={control}
-              isError={!!isError}
-              message={isError?.message}
-              Container={{ marginTop: wp(5) }}
-            />
-          );
-        })}
+        {changePasswordInput.map(({ name, p, label }) => (
+          <MainInput
+            small
+            // rounded
+            password
+            key={name}
+            name={name}
+            title={label}
+            rules={{
+              minLength,
+              maxLength,
+              required: required(label),
+            }}
+            placeholder={p}
+            control={control}
+            isError={errors[name]}
+            message={errors[name]?.message}
+            Container={{ marginTop: wp(5) }}
+          />
+        ))}
       </ScrollView>
       <MainButton
         load={isPending}

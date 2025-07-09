@@ -1,20 +1,29 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Body, Empty, MainButton } from "../../../components";
 import { fontScale, width, wp } from "../../../theme/responsive";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 import Icon from "react-native-dynamic-vector-icons";
 import { colors } from "../../../theme/colors";
 import { appImages, fonts } from "../../../assets";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { getPickupAPI } from "../../../apis/pickupQueries";
+import { getReturnItem } from "../../../apis/draftQueries";
 
 const TrackPickup = ({ navigation }) => {
   const { replace } = navigation;
+  const dispatch = useDispatch();
+  const [load, setLoad] = useState(false);
   const { draftCompleteData } = useSelector((state) => state.draft);
 
   const { pickupTime, pickupDate } = draftCompleteData;
 
+  const onPress = () => {
+    getReturnItem(setLoad)(dispatch);
+    getPickupAPI(setLoad)(dispatch);
+    replace("myPickupsRoute");
+  };
   return (
     <Body horizontal={wp(5)}>
       <Height />
@@ -42,7 +51,7 @@ const TrackPickup = ({ navigation }) => {
           )}`}
           sub={`We’ll arrive between ${pickupTime}`}
         />
-        <MainButton title="Track my pickup " />
+        <MainButton title="Track my pickup" onPress={onPress} load={load} />
       </View>
     </Body>
   );

@@ -35,7 +35,7 @@ const PrimeryTab = (props) => {
   return (
     <View>
       <Space_Between style={bar}>
-        {["orderRoute", "addDraftRoute", "myPickupsRoute"].map((path) => (
+        {["draftItem", "addDraftRoute", "myPickupsRoute"].map((path) => (
           <TouchableOpacity
             key={path}
             onPress={() => handlePress(path)}

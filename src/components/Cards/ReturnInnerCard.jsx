@@ -1,35 +1,36 @@
 import React from "react";
 import moment from "moment";
-import { Text, FullImage } from "..";
-import { View } from "react-native";
 import styles from "./cardStyle";
+import { View } from "react-native";
+import { Text, FullImage } from "..";
 import { width } from "../../theme/responsive";
+import { colors } from "../../theme/colors";
 
-const ItemsToBePickedupCard = ({ source, title, created_at }) => {
+const ItemsToBePickedupCard = ({ data, background }) => {
   return (
-    <View style={styles.sectionCard}>
+    <View
+      style={[
+        styles.sectionCard,
+        { backgroundColor: background || colors.background },
+      ]}
+    >
       <FullImage
         isUrl
         radius={10}
+        source={data.thumbnail}
         style={styles.sectionImage}
-        source={source}
-        //
       />
       <View style={{ flex: 1 }}>
         <Text
           width={width / 1.7}
+          title={data.productName}
           style={styles.sectionTitle}
-          title={title}
-          //
         />
 
         <Text
-          style={[styles.sectionDate]}
           width={width / 1.7}
-          title={`Added on ${moment(created_at).format("MMMM DD")}`}
-          //   title={`Added on ${moment(item.created_at).format(
-          //     "MMMM DD"
-          //   )}`}
+          style={[styles.sectionDate]}
+          title={`Added on ${moment(data.created_at).format("MMMM DD")}`}
         />
       </View>
     </View>

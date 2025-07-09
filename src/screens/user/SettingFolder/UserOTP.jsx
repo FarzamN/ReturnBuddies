@@ -11,14 +11,16 @@ import BackgroundTimer from "react-native-background-timer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   editProfileVerificationAPI,
+  forgotEmailVerficationCompleteAPI,
   phoneVerficationCompleteAPI,
+  resendForgotEmailVerficationAPI,
   resendPhoneOTPAPI,
   resendPhoneVerficationAPI,
 } from "../../../apis/authQueries";
 import { fonts } from "../../../assets";
 
 const UserOTP = ({ navigation, route }) => {
-  const { goBack } = navigation;
+  const { goBack, navigate } = navigation;
   const dispatch = useDispatch();
   const { number, type } = route.params;
 
@@ -31,18 +33,25 @@ const UserOTP = ({ navigation, route }) => {
 
   const data = {
     phone: number,
-    name: user.name,
+    name: user?.name || "",
   };
   const onSubmit = () => {
+    if (type == "forgetPasswrod") {
+      const emailData = { email: number, otp: otpValue };
+      forgotEmailVerficationCompleteAPI(emailData, navigate, setLoad);
+      return;
+    }
+
     if (otpValue !== otp) {
       setErrot({ visible: true, msg: "Wrong OTP code, please try again" });
       return;
     }
     if (type == "verifyPhoneNumber") {
-      const phoneData = { otp: Number(otp) };
+      const phoneData = { otp: Number(otpValue) };
       phoneVerficationCompleteAPI(phoneData, goBack, setLoad)(dispatch);
       return;
     }
+
     editProfileVerificationAPI(data, type, navigation, setLoad)(dispatch);
     setErrot({ visible: false, msg: "" });
   };
@@ -53,6 +62,12 @@ const UserOTP = ({ navigation, route }) => {
       resendPhoneVerficationAPI(phoneData, setLoad)(dispatch);
       return;
     }
+    if (type == "forgetPasswrod") {
+      const emailData = { email: number };
+      resendForgotEmailVerficationAPI(emailData, setLoad);
+      return;
+    }
+
     resendPhoneOTPAPI(data, setCountDown, setLoad)(dispatch);
   };
 

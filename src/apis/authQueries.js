@@ -1,12 +1,12 @@
 import {
   setOTP,
+  setFaqs,
   setLogin,
   setLogout,
   setGetAddress,
   updateAddress,
   setGetPayments,
   updatePaymentCard,
-  setFaqs,
 } from "../redux/slices/authSlice";
 import instance from "../utils/urls";
 import { getItem, setItem } from "../utils/storage";
@@ -336,6 +336,53 @@ export const phoneVerficationCompleteAPI = (data, goBack, load) => {
       onFinally: load,
     });
   };
+};
+
+export const checkEmailToForgetPasswordAPI = async (data, navigate, load) => {
+  apiRequest({
+    method: "post",
+    endpoint: "user/forgot-password",
+    data,
+    onSuccess: () => {
+      navigate("otp", { number: data.email, type: "forgetPasswrod" });
+    },
+    onFinally: load,
+  });
+};
+
+export const forgotEmailVerficationCompleteAPI = async (data, nav, load) => {
+  console.log("data", data);
+  apiRequest({
+    method: "post",
+    endpoint: "user/forgot-verfication",
+    data,
+    onSuccess: () => {
+      nav("forgetPassword", { email: data.email });
+    },
+    onFinally: load,
+  });
+};
+
+export const resendForgotEmailVerficationAPI = async (data, load) => {
+  apiRequest({
+    method: "post",
+    endpoint: "user/forgot-password",
+    data,
+    onSuccess: () => {},
+    onFinally: load,
+  });
+};
+
+export const changepasswordForgetAPI = async (data, load, nav) => {
+  apiRequest({
+    method: "post",
+    endpoint: "user/reset-password",
+    data,
+    onSuccess: () => {
+      nav("login");
+    },
+    onFinally: load,
+  });
 };
 
 export const getFAQsAPI = () => {

@@ -4,6 +4,7 @@ import { wp } from "../../../theme/responsive";
 import { Body, Header, Text } from "../../../components";
 import settingStyle from "./settingStyle";
 import { Height, Space_Between } from "../../../theme/globalStyle";
+import { colors } from "../../../theme/colors";
 
 const Notification = () => {
   const [textData, setTextData] = useState([
@@ -35,7 +36,7 @@ const Notification = () => {
       id: "account_security",
       title: "Account & Security",
       detail: "Important account, support and security related messages.",
-      value: false,
+      value: true,
     },
     {
       id: "draft_reminders",
@@ -59,7 +60,6 @@ const Notification = () => {
     if (section === "text") setTextData(newData);
     else setEmailData(newData);
 
-    // API Call
     // updateNotificationSetting(newData[index].id, newData[index].value);
     console.log(newData[index].id, newData[index].value);
   };
@@ -71,9 +71,9 @@ const Notification = () => {
           <Text style={settingStyle.itemTitle} title={item.title} />
           <Switch
             value={item.value}
+            thumbColor={colors.white}
+            trackColor={{ false: colors.description, true: colors.purple }}
             onValueChange={() => handleToggle(section, index)}
-            trackColor={{ false: "#ccc", true: "#A259FF" }}
-            thumbColor="#fff"
           />
         </Space_Between>
         <Text style={settingStyle.itemDetail} title={item.detail} />
@@ -88,25 +88,25 @@ const Notification = () => {
         <Text style={settingStyle.settingTitle} title="Text Message" />
         <Height />
         <FlatList
-          scrollEnabled={false}
-          nestedScrollEnabled
           data={textData}
+          nestedScrollEnabled
+          scrollEnabled={false}
           keyExtractor={(item) => item.id}
           contentContainerStyle={settingStyle.whiteFlatlistBox}
-          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
           renderItem={({ item, index }) => renderItem(item, index, "text")}
+          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
         />
         <Height />
 
         <Text style={settingStyle.settingTitle} title="Email Notification" />
         <FlatList
-          scrollEnabled={false}
-          nestedScrollEnabled
           data={emailData}
+          nestedScrollEnabled
+          scrollEnabled={false}
           keyExtractor={(item) => item.id}
           contentContainerStyle={settingStyle.whiteFlatlistBox}
-          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
           renderItem={({ item, index }) => renderItem(item, index, "email")}
+          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
         />
       </ScrollView>
     </Body>

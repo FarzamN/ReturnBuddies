@@ -1,5 +1,3 @@
-import { ScrollView, FlatList, BackHandler } from "react-native";
-import React, { useEffect } from "react";
 import {
   Body,
   Text,
@@ -7,22 +5,40 @@ import {
   PrimeryTab,
   DraftHeader,
   PickupSection,
+  DraftSkeleton,
 } from "../../../components";
 import styles from "../userStyle";
 import { wp } from "../../../theme/responsive";
-import { Height } from "../../../theme/globalStyle";
+import React, { useEffect, useState } from "react";
+import { globalStyle, Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { getPickupAPI } from "../../../apis/pickupQueries";
+import {
+  ScrollView,
+  FlatList,
+  BackHandler,
+  RefreshControl,
+} from "react-native";
 import { setPathType } from "../../../redux/slices/pickupSlice";
-import { pickupData } from "../../../utils/data";
+import { colors } from "react-native-swiper-flatlist/src/themes";
+
+// import { pickupData } from "../../../utils/data";
 
 const MyPickups = () => {
   const dispatch = useDispatch();
   const { goBack, navigate } = useNavigation();
-  const { pathType } = useSelector((state) => state.pickup);
+  const { pathType, pickupData } = useSelector((state) => state.pickup);
   const isPickup = pathType === "setting";
 
+  const [load, setLoad] = useState(false);
+
+  const onRefresh = () => {
+    getPickupAPI(setLoad)(dispatch);
+  };
   useEffect(() => {
+    getPickupAPI(setLoad)(dispatch);
+
     const backAction = () => {
       dispatch(setPathType("notSetting"));
       return false;
@@ -48,38 +64,69 @@ const MyPickups = () => {
       ) : (
         <DraftHeader pickup />
       )}
-      <ScrollView
-        nestedScrollEnabled
-        style={{ paddingHorizontal: wp(isPickup ? 0 : 5) }}
-        showsVerticalScrollIndicator={false}
-      >
-        <Height />
-        <FlatList
-          data={pickupData}
+
+      {load ? (
+        <>
+          <FlatList
+            data={[1, 1, 1]}
+            contentContainerStyle={globalStyle.ph15}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={() => <DraftSkeleton height={70} />}
+          />
+        </>
+      ) : (
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={load}
+              onRefresh={onRefresh}
+              tintColor={colors.purple}
+            />
+          }
           nestedScrollEnabled
-          scrollEnabled={false}
-          ListHeaderComponent={
-            <Text style={styles.pickupTitle} title="Active Pickups" />
-          }
-          ListEmptyComponent={
-            <Text title="You don't have any pickups scheduled yet." />
-          }
-          renderItem={({ item }) => <PickupSection data={item} />}
-        />
-        <Height />
-        <FlatList
-          data={[]}
-          nestedScrollEnabled
-          scrollEnabled={false}
-          ListHeaderComponent={
-            <Text style={styles.pickupTitle} title="Past Pickups" />
-          }
-          ListEmptyComponent={
-            <Text title="You don't have any return history at the moment." />
-          }
-          renderItem={({ item }) => <PickupSection data={item} />}
-        />
-      </ScrollView>
+          showsVerticalScrollIndicator={false}
+          style={{ paddingHorizontal: wp(isPickup ? 0 : 5) }}
+        >
+          <Height />
+
+          <FlatList
+            nestedScrollEnabled
+            scrollEnabled={false}
+            data={pickupData.active}
+            ListHeaderComponent={
+              <Text style={styles.pickupTitle} title="Active Pickups" />
+            }
+            ListEmptyComponent={
+              <Text title="You don't have any pickups scheduled yet." />
+            }
+            renderItem={({ item }) => (
+              <PickupSection
+                data={item}
+                onPress={() => navigate("pickupDetail", { item })}
+              />
+            )}
+          />
+          <Height />
+          <FlatList
+            data={pickupData.post}
+            nestedScrollEnabled
+            scrollEnabled={false}
+            ListHeaderComponent={
+              <Text style={styles.pickupTitle} title="Past Pickups" />
+            }
+            ListEmptyComponent={
+              <Text title="You don't have any return history at the moment." />
+            }
+            renderItem={({ item }) => (
+              <PickupSection
+                data={item}
+                onPress={() => navigate("pickupDetail", { item })}
+              />
+            )}
+          />
+        </ScrollView>
+      )}
+
       {pathType !== "setting" && <PrimeryTab currentTab="myPickups" />}
     </Body>
   );

@@ -15,8 +15,8 @@ import { Text as RNText, View } from "react-native";
 import { scaleSize } from "../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 
-const PickupSection = (props) => {
-  const { data } = props;
+const PickupSection = ({ data, onPress }) => {
+  console.log("data", data);
   return (
     <View style={[styles.sectionContainer, globalStyle.ph0]}>
       <View style={globalStyle.ph10}>
@@ -31,7 +31,7 @@ const PickupSection = (props) => {
             numberOfLines={1}
             style={styles.sectionTitle}
           >
-            {data.BundleName}
+            {data.bundleId[0].BundleName}
           </RNText>
           <Text
             color={colors.grey}
@@ -46,39 +46,42 @@ const PickupSection = (props) => {
               isUrl
               radius={10}
               style={styles.sectionImage}
-              source={data?.products[0].thumbnail}
+              source={data?.bundleId[0].products[0].thumbnail}
             />
-            {data?.products[1]?.thumbnail && (
+            {data?.bundleId[0].products[1]?.thumbnail && (
               <FullImage
                 isUrl
                 radius={10}
                 style={[globalStyle.shadow, styles.pickup1stImage]}
-                source={data?.products[1]?.thumbnail}
+                source={data?.bundleId[0].products[1]?.thumbnail}
               />
             )}
-            {data?.products.length > 2 && (
+            {data?.bundleId[0].products.length > 2 && (
               <View style={[styles.pickupSectionLenghtBox]}>
                 <Text
                   style={styles.pickupSectionLenght}
-                  title={`+${data?.products.length - 2}`}
+                  title={`+${data?.bundleId[0].products.length - 2}`}
                 />
               </View>
             )}
           </Row>
 
           <View
-            style={{ marginLeft: data?.products.length === 2 && scaleSize(15) }}
+            style={{
+              marginLeft:
+                data?.bundleId[0].products.length === 2 && scaleSize(15),
+            }}
           >
             <Text
               style={styles.labelName}
               color={colors.grey}
-              title={data?.products[0].productName}
+              title={data?.bundleId[0].products[0].productName}
             />
             <View style={[styles.itemLengthBox, globalStyle.center]}>
               <Text
                 color={colors.purple}
                 style={styles.itemLengthText}
-                title={`${data?.products.length} items`}
+                title={`${data?.bundleId[0].products.length} items`}
               />
             </View>
           </View>
@@ -98,9 +101,10 @@ const PickupSection = (props) => {
           />
         </Row>
         <Icon
-          name="chevron-right"
-          type="Feather"
           size={20}
+          type="Feather"
+          onPress={onPress}
+          name="chevron-right"
           color={colors.black}
         />
       </Space_Between>

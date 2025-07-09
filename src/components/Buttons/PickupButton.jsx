@@ -8,7 +8,7 @@ import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
 
 const PickupButton = (props) => {
-  const { title, detail, source, onPress, isPayment, note } = props;
+  const { title, detail, source, onPress, isPayment, twoTitle } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -23,35 +23,34 @@ const PickupButton = (props) => {
               <Text style={styles.pickupTitle} title={"Pay Via"} />
 
               <Text
-                style={[
-                  styles.pickupTitle,
-                  { color: colors.purple, marginLeft: 5 },
-                ]}
-                width={width / 1.7}
                 title={title}
+                width={width / 1.7}
+                color={colors.purple}
+                style={[styles.pickupTitle, { marginLeft: 5 }]}
               />
             </Row>
           ) : (
-            <Text
-              style={styles.pickupTitle}
-              width={width / 1.7}
-              title={title}
-            />
+            <>
+              <Text
+                title={title}
+                width={width / 1.7}
+                style={styles.pickupTitle}
+              />
+              {twoTitle && (
+                <Text
+                  title={twoTitle}
+                  width={width / 1.7}
+                  style={styles.pickupTitle}
+                />
+              )}
+            </>
           )}
           {detail && (
             <Text
-              color="#717171"
-              width={width / 1.7}
-              style={styles.pickupDetail}
               title={detail}
-            />
-          )}
-          {note && (
-            <Text
               color="#717171"
               width={width / 1.7}
               style={styles.pickupDetail}
-              title={note}
             />
           )}
         </View>
@@ -62,5 +61,3 @@ const PickupButton = (props) => {
 };
 
 export default PickupButton;
-
-//

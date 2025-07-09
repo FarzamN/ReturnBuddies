@@ -18,6 +18,12 @@ export default StyleSheet.create({
     fontSize: fontScale(12),
     color: colors.grey,
   },
+  forgotTextStyle: {
+    marginBottom: wp(5),
+    textAlign: "right",
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
+  },
   dontAccountTextStyle: {
     fontSize: fontScale(13),
     fontFamily: fonts[500],

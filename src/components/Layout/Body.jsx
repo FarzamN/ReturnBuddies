@@ -11,7 +11,11 @@ const Body = ({ children, style, horizontal, purple }) => {
       <SafeAreaView
         style={{ backgroundColor: purple ? colors.purple : colors.background }}
       />
-      <StatusBar backgroundColor={colors.background} barStyle="dark-content" />
+      <StatusBar
+        translucent={false}
+        barStyle="dark-content"
+        backgroundColor={colors.background}
+      />
       {children}
     </View>
   );

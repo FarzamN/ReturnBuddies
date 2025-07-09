@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 const DraftHeader = (props) => {
   const { pickup } = props;
   const { navigate } = useNavigation();
-  const { name } = useSelector((state) => state.auth.user);
+  const { name, FirstLogin } = useSelector((state) => state.auth.user);
 
   return (
     <Space_Between
@@ -21,7 +21,11 @@ const DraftHeader = (props) => {
     >
       <Text
         style={styles.nameHeader}
-        title={pickup ? "My Pickups" : `Welcome, ${name}!`}
+        title={
+          pickup
+            ? "My Pickups"
+            : `Welcome ${FirstLogin ? "" : "back" + ", " + name}!`
+        }
       />
       <Row>
         <TouchableOpacity onPress={() => navigate("settingRoute")}>

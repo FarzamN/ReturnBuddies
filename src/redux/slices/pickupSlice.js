@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   pathType: "",
+  pickupData: {
+    active: [],
+    post: [],
+  },
 };
 
 export const pickupSlice = createSlice({
@@ -11,9 +15,15 @@ export const pickupSlice = createSlice({
     setPathType: (state, action) => {
       state.pathType = action.payload;
     },
+    setPickupData: (state, action) => {
+      state.pickupData = {
+        ...state.pickupData,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const { setPathType } = pickupSlice.actions;
+export const { setPathType, setPickupData } = pickupSlice.actions;
 
 export default pickupSlice.reducer;

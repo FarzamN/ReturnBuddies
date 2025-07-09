@@ -1,13 +1,12 @@
-import instance from "../utils/urls";
-import { getItem } from "../utils/storage";
-import { apiRequest, catchFun, showNotification } from "../function";
 import {
   setDraftItem,
   setGetBaseData,
-  setDraftSelectedRetun,
   setDraftReturn,
   setDraftCompleteData,
+  setDraftSelectedRetun,
 } from "../redux/slices/draftSlice";
+import { getItem } from "../utils/storage";
+import { apiRequest, catchFun, showNotification } from "../function";
 
 export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
   return async (dispatch) => {
@@ -93,53 +92,6 @@ export const uploadLabelAPI = (data, load, goBack, _id) => {
   };
 };
 
-/*
-export const  = (
- 
-  load,
-  goBack,
-  _id
-) => {
-  return async (dispatch) => {
-    load(true);
-    const productID = productIDs.map((item) => {
-      return { productId: item };
-    });
-    const body = new FormData();
-    body.append("bundleId", bundleId);
-    body.append("date", date);
-    body.append("productIDs", JSON.stringify(productID));
-    body.append("label", {
-      uri: docx.uri,
-      type: docx.type,
-      name: docx.name,
-    });
-    try {
-      const response = await instance.post("", body, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          userid: getItem("userID"),
-          Authorization: "Bearer " + getItem("token"),
-        },
-      });
-      const { status, message, data } = await response.data;
-      if (status === 200) {
-        load(false);
-        
-        goBack();
-      } else {
-        load(false);
-        showNotification("error", message, "Status Code 401");
-      }
-      load(false);
-    } catch (err) {
-      const msg = err?.response?.data?.message || err.message;
-      catchFun(msg);
-      load(false);
-    }
-  };
-};
- */
 export const deleteBundle = (IDs, load) => {
   return async (dispatch) => {
     try {

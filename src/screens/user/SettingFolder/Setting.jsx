@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import {
@@ -65,39 +66,51 @@ const Setting = () => {
   return (
     <View style={globalStyle.flex}>
       <SafeAreaView style={styles.safeArea} />
-      <StatusBar barStyle="dark-content" backgroundColor={colors.lightPurple} />
-      <View style={styles.topSection}>
-        {/* <ImageBackground
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={colors.none}
+        translucent
+      />
+      {/* <ImageBackground
           resizeMode="contain"
-
+          
           source={appImages.profileBackground}
-        > */}
-        <Image
+          > */}
+      {/* <ImageBackground
+          source={appImages.profileBackground}
           resizeMode="cover"
-          source={appImages.profileBackground}
-          style={{
-            height: 100,
-            width: "100%",
-            position: "absolute",
-            transform: [{ rotate: "-10deg" }], // Rotate 45 degrees
-          }}
-        />
-        <Icon
-          onPress={goBack}
-          style={styles.backButton}
-          size={20}
-          type="Ionicons"
-          name="arrow-back"
-          color={colors.black}
-        />
-        <View style={styles.profileCard}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.email}>{email}</Text>
-        </View>
+          //  style={{
+            //   height: 100,
+            //   width: "100%",
+            //   position: "absolute",
+            //   transform: [{ rotate: "-10deg" }], // Rotate 45 degrees
+            //   }}
+            > */}
+      <Image
+        resizeMode="cover"
+        source={appImages.profileBackground}
+        style={{
+          height: 230,
+          width: "100%",
+          position: "absolute",
+        }}
+      />
+
+      <Icon
+        onPress={goBack}
+        style={styles.backButton}
+        size={20}
+        type="Ionicons"
+        name="arrow-back"
+        color={colors.black}
+      />
+      <View style={styles.profileCard}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.email}>{email}</Text>
         {/* </ImageBackground> */}
       </View>
       <View style={styles.contentContainer}>
-        <Text style={[settingStyle.settingTitle, { marginTop: scaleSize(20) }]}>
+        <Text style={[settingStyle.settingTitle, { marginTop: scaleSize(35) }]}>
           Settings
         </Text>
         <FlatList
@@ -136,26 +149,24 @@ const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: colors.lightPurple,
   },
-  topSection: {
-    padding: wp(5),
-    backgroundColor: colors.lightPurple,
-  },
   backButton: {
-    marginBottom: wp(3),
-    top: scaleSize(50),
     zIndex: 9,
+    top: scaleSize(80),
+    marginBottom: wp(5),
+    marginHorizontal: wp(5),
   },
   profileCard: {
-    backgroundColor: colors.white,
+    zIndex: 9,
+    elevation: 3,
     padding: wp(4),
+    shadowRadius: 6,
+    top: scaleSize(60),
+    shadowOpacity: 0.05,
     borderRadius: wp(4),
     shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    elevation: 3,
-    // position: "absolute",
-    top: scaleSize(50),
-    zIndex: 9,
+    marginVertical: wp(6),
+    marginHorizontal: wp(5),
+    backgroundColor: colors.white,
   },
   name: {
     color: colors.black,
@@ -183,10 +194,10 @@ const styles = StyleSheet.create({
     width: wp(10),
     height: wp(10),
     borderRadius: wp(5),
-    backgroundColor: "#F4E7FF",
+    marginRight: wp(4),
     alignItems: "center",
     justifyContent: "center",
-    marginRight: wp(4),
+    backgroundColor: colors.lightPurple,
   },
   itemText: {
     flex: 1,
