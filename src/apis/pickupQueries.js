@@ -1,125 +1,128 @@
-import { apiRequest } from "../function";
-import { setPickupData } from "../redux/slices/pickupSlice";
+import {apiRequest} from '../function';
+import {setPickupData, setPickupDetailData} from '../redux/slices/pickupSlice';
 
-export const getPickupAPI = (load) => {
-  return async (dispatch) => {
+export const getPickupAPI = load => {
+  return async dispatch => {
     apiRequest({
-      endpoint: "get-pickup-status",
-      onSuccess: ({ data }) => {
-        dispatch(setPickupData(data));
+      endpoint: 'get-pickup-status',
+      onSuccess: ({data}) => {
+        dispatch(setPickupData({active: data.active, past: data.past}));
+        console.log('data', {
+          active: [
+            {
+              Payment: '686fd559f22a2d4274095606',
+              __v: 0,
+              _id: '686fd7eff22a2d4274095655',
+              bundleId: [Array],
+              createdAt: '2025-07-10T15:10:39.228Z',
+              isOversize: false,
+              note: '',
+              phone: '03110367927',
+              pickupAddress: '686fd571f22a2d4274095612',
+              pickupDate: '2025-07-16T00:00:00.000Z',
+              pickupTime: '9:00 AM - 6:00 PM',
+              pickupType: 'Doorstep',
+              status: 'awaiting pickup',
+              totalPrice: 10,
+              updatedAt: '2025-07-10T15:10:39.228Z',
+              userId: [Object],
+            },
+          ],
+          past: [
+            {
+              Payment: '686fd559f22a2d4274095606',
+              __v: 0,
+              _id: '686fd67cf22a2d4274095626',
+              bundleId: [Array],
+              createdAt: '2025-07-10T15:04:28.903Z',
+              isOversize: false,
+              note: '',
+              phone: '03110367927',
+              pickupAddress: '686fd571f22a2d4274095612',
+              pickupDate: '2025-07-14T00:00:00.000Z',
+              pickupTime: '9:00AM - 1:00PM',
+              pickupType: 'Doorstep',
+              status: 'Pickup Canceled',
+              totalPrice: 10,
+              updatedAt: '2025-07-11T12:38:11.417Z',
+              userId: [Object],
+            },
+          ],
+        });
+      },
+      onFinally: load,
+    });
+  };
+};
+export const pickupDetailAPI = (id, load) => {
+  return async dispatch => {
+    apiRequest({
+      endpoint: `/get-pickup-by-id/${id}`,
+      onSuccess: ({data, trackingNumber}) => {
+        dispatch(setPickupDetailData({data, trackingNumber}));
       },
       onFinally: load,
     });
   };
 };
 
-const data = {
-  active: [
-    {
-      _id: "6866a054cb6649f4dcb4f00b",
-      userId: {
-        _id: "68669dcecb6649f4dcb4efcd",
-        name: "farzam",
-        email: "farzamnoor5@gmail.com",
-        profile:
-          "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?ga=GA1.1.756143352.1747218968&semt=ais_hybrid&w=740",
-        password:
-          "$2b$10$2qBTeKa.AFxBdOdfnTgfO.OX0TcLS7ZxZeWPiar2XUzGHxG3aMCYW",
-        verified: true,
-        googleId: null,
-        otp: null,
-        phoneOtp: 76511,
-        phoneVerified: true,
-        phone: "0312312312",
-        role: "user",
-        createdAt: "2025-07-03T15:12:14.052Z",
-        updatedAt: "2025-07-04T12:53:23.947Z",
-        __v: 0,
-        pickupAddress: "6867cd92cb6649f4dcb4f13b",
-        payment: "6867cec3cb6649f4dcb4f14f",
+export const deletePickupAPI = (id, load, showDelete) => {
+  return async dispatch => {
+    console.log('id', id);
+    apiRequest({
+      method: 'post',
+      endpoint: `/canceled-pickup/${id}`,
+      onSuccess: () => {
+        showDelete(false);
+        getPickupAPI(load)(dispatch);
+        pickupDetailAPI(id, load)(dispatch);
       },
-      bundleId: [
-        {
-          _id: "68669fbccb6649f4dcb4efe7",
-          userId: "68669dcecb6649f4dcb4efcd",
-          BundleName: "Return #6",
-          products: ["68669fbccb6649f4dcb4efe5"],
-          history: [],
-          pickupAddress: null,
-          payment: null,
-          pickupTime: null,
-          status: "processed",
-          createdAt: "2025-07-03T15:20:28.541Z",
-          __v: 0,
-        },
-      ],
-      status: "awaiting pickup",
-      pickupAddress: "6866a038cb6649f4dcb4effb",
-      note: "",
-      pickupDate: "2025-07-04T00:00:00.000Z",
-      pickupTime: "9:00 AM - 6:00 PM",
-      pickupType: "Direct Handoff",
-      Payment: "6866a04fcb6649f4dcb4f005",
-      isOversize: false,
-      totalPrice: 10,
-      phone: "0312312312",
-      createdAt: "2025-07-03T15:23:00.980Z",
-      updatedAt: "2025-07-03T15:23:00.980Z",
+      onFinally: load,
+    });
+  };
+};
+
+const dd = {
+  data: {
+    Payment: '686fd559f22a2d4274095606',
+    __v: 0,
+    _id: '686fd67cf22a2d4274095626',
+    bundleId: [[Object]],
+    createdAt: '2025-07-10T15:04:28.903Z',
+    isOversize: false,
+    note: '',
+    phone: '03110367927',
+    pickupAddress: '686fd571f22a2d4274095612',
+    pickupDate: '2025-07-14T00:00:00.000Z',
+    pickupTime: '9:00AM - 1:00PM',
+    pickupType: 'Doorstep',
+    status: 'awaiting pickup',
+    totalPrice: 10,
+    updatedAt: '2025-07-10T15:04:28.903Z',
+    userId: {
+      FirstLogin: false,
       __v: 0,
+      _id: '686f64b1f22a2d42740955a0',
+      createdAt: '2025-07-10T06:58:57.373Z',
+      email: 'frzamn64ml@gmail.com',
+      googleId: null,
+      name: 'Farzam Noor',
+      otp: null,
+      password: '$2b$10$U9DvhysOG9MHIkXL71Vja.ad8miqZMODn15GFGAOOv6F5Xf9GdkBm',
+      payment: '686fd559f22a2d4274095606',
+      phone: '03110367927',
+      phoneOtp: null,
+      phoneVerified: false,
+      pickupAddress: '686fd571f22a2d4274095612',
+      profile:
+        'https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?ga=GA1.1.756143352.1747218968&semt=ais_hybrid&w=740',
+      role: 'user',
+      updatedAt: '2025-07-10T15:00:01.148Z',
+      verified: true,
     },
-  ],
-  post: [
-    {
-      _id: "6866a0a8cb6649f4dcb4f014",
-      userId: {
-        _id: "68669dcecb6649f4dcb4efcd",
-        name: "farzam",
-        email: "farzamnoor5@gmail.com",
-        profile:
-          "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?ga=GA1.1.756143352.1747218968&semt=ais_hybrid&w=740",
-        password:
-          "$2b$10$2qBTeKa.AFxBdOdfnTgfO.OX0TcLS7ZxZeWPiar2XUzGHxG3aMCYW",
-        verified: true,
-        googleId: null,
-        otp: null,
-        phoneOtp: 76511,
-        phoneVerified: true,
-        phone: "0312312312",
-        role: "user",
-        createdAt: "2025-07-03T15:12:14.052Z",
-        updatedAt: "2025-07-04T12:53:23.947Z",
-        __v: 0,
-        pickupAddress: "6867cd92cb6649f4dcb4f13b",
-        payment: "6867cec3cb6649f4dcb4f14f",
-      },
-      bundleId: [
-        {
-          _id: "68669fbccb6649f4dcb4efe7",
-          userId: "68669dcecb6649f4dcb4efcd",
-          BundleName: "Return #6",
-          products: ["68669fbccb6649f4dcb4efe5"],
-          history: [],
-          pickupAddress: null,
-          payment: null,
-          pickupTime: null,
-          status: "processed",
-          createdAt: "2025-07-03T15:20:28.541Z",
-          __v: 0,
-        },
-      ],
-      status: "canceled",
-      pickupAddress: "6866a038cb6649f4dcb4effb",
-      note: "",
-      pickupDate: "2025-07-04T00:00:00.000Z",
-      pickupTime: "9:00 AM - 6:00 PM",
-      pickupType: "Doorstep",
-      Payment: "6866a04fcb6649f4dcb4f005",
-      isOversize: false,
-      totalPrice: 10,
-      phone: "0312312312",
-      createdAt: "2025-07-03T15:24:24.157Z",
-      updatedAt: "2025-07-03T15:24:24.157Z",
-      __v: 0,
-    },
-  ],
+  },
+  message: 'Pickup fetched successfully',
+  status: 200,
+  success: true,
+  trackingNumber: '123456789',
 };

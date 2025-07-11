@@ -1,52 +1,74 @@
-import React from "react";
 import {
   Body,
-  Header,
-  ReturnInnerCard,
   Text,
+  Header,
+  CustomAlert,
   TrackingCard,
-} from "../../../components";
-import { scaleSize, wp } from "../../../theme/responsive";
-import styles from "../userStyle";
-import { FlatList, ScrollView, View } from "react-native";
-import { colors } from "../../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
-import { fonts } from "../../../assets";
-import { Height } from "../../../theme/globalStyle";
+  PickupButton,
+  ReturnInnerCard,
+} from '../../../components';
 
-const PickupDetail = ({ route }) => {
-  const { item } = route.params;
+import moment from 'moment';
+import styles from '../userStyle';
+import {colors} from '../../../theme/colors';
+import React, {useEffect, useState} from 'react';
+import {appImages, fonts} from '../../../assets';
+import Icon from 'react-native-dynamic-vector-icons';
+import {useDispatch, useSelector} from 'react-redux';
+import {scaleSize, wp} from '../../../theme/responsive';
+import settingStyle from '../SettingFolder/settingStyle';
+import {globalStyle, Height} from '../../../theme/globalStyle';
+import {FlatList, ScrollView, TouchableOpacity, View} from 'react-native';
+import {deletePickupAPI, pickupDetailAPI} from '../../../apis/pickupQueries';
+import {useNavigation} from '@react-navigation/native';
+
+const PickupDetail = ({route}) => {
+  const {item} = route.params;
+  const dispatch = useDispatch();
+  const {navigate} = useNavigation();
+
+  const {data, trackingNumber} = useSelector(
+    state => state.pickup.pickupDetailData,
+  );
+  const [load, setLoad] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+
+  const cancelled = data?.status === 'Pickup Canceled';
 
   const steps = [
     {
-      label: "Pickup Requested",
-      icon: "truck",
-      date: "17 June, 2025",
-      completed: true,
-      iconType: "Feather",
+      label: 'Pickup Requested',
+      icon: 'truck',
+      date: '17 June, 2025',
+      completed: data?.status === 'Pickup Requeste ',
+      iconType: 'Feather',
     },
     {
-      label: "Picked up by RB",
-      icon: "shopping-cart",
-      date: "17 June, 2025",
-      completed: false,
-      iconType: "MaterialIcons",
+      label: 'Picked up by RB',
+      icon: 'shopping-cart',
+      date: '17 June, 2025',
+      completed: data?.status === 'in transit',
+      iconType: 'MaterialIcons',
     },
     {
-      label: "Dropped off at UPS",
-      icon: "cube",
-      date: "17 June, 2025",
-      completed: true,
-      iconType: "Ionicons",
+      label: 'Dropped off at UPS',
+      icon: 'cube',
+      date: '17 June, 2025',
+      completed: data?.status === 'completed',
+      iconType: 'Ionicons',
     },
   ];
+
+  useEffect(() => {
+    pickupDetailAPI(item._id, setLoad)(dispatch);
+  }, []);
 
   return (
     <Body horizontal={wp(5)}>
       <Header leftTitle="Return Details" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.pickupTitle} title={"Return #122"} />
+        <Text style={styles.pickupTitle} title={'Return #122'} />
 
         <View style={setpStyle.timeline}>
           {steps.map((step, index) => (
@@ -57,44 +79,113 @@ const PickupDetail = ({ route }) => {
                     setpStyle.iconWrapper,
                     {
                       borderWidth: 2,
-                      borderColor: "#A259FF",
-                      backgroundColor: step.completed ? "#A259FF" : "#fff",
+                      borderColor: cancelled ? '#9E2424' : '#A259FF',
+                      backgroundColor: cancelled
+                        ? '#9E2424'
+                        : step.completed
+                        ? '#A259FF'
+                        : '#fff',
                     },
-                  ]}
-                >
+                  ]}>
                   <Icon
                     type={step.iconType}
                     name={step.icon}
                     size={20}
-                    color={step.completed ? "#fff" : "#A259FF"}
+                    color={
+                      cancelled ? '#fff' : step.completed ? '#fff' : '#A259FF'
+                    }
                   />
                 </View>
                 <Text style={setpStyle.label} title={step.label} />
                 <Text style={setpStyle.date} title={step.date} />
               </View>
 
-              {/* Line between steps */}
               {/* {index < steps.length - 1 &&} */}
-              <View style={setpStyle.line} />
+              <View
+                style={[
+                  setpStyle.line,
+                  {backgroundColor: cancelled ? '#9E2424' : colors.purple},
+                ]}
+              />
             </React.Fragment>
           ))}
         </View>
         <Height />
-        <TrackingCard tracking={"2793 7264 9389"} />
+        {!cancelled && <TrackingCard tracking={trackingNumber} />}
         <FlatList
-          data={item.products}
+          data={item.bundleId[0].products}
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           ListHeaderComponent={
             <Text style={styles.pickupTitle} title="Pickup Items" />
           }
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <ReturnInnerCard data={item} background={colors.white} />
           )}
           scrollEnabled={false}
         />
         <Text style={styles.pickupTitle} title="Pickup Details" />
+        <PickupButton
+          disable
+          isTwoDetail={data?.note}
+          detail={data?.pickupType}
+          source={appImages.location}
+          twoDetail={`Notes: ${data?.note}`}
+          title={data?.pickupAddress?.street}
+        />
+        <PickupButton
+          disable
+          detail={data?.pickupTime}
+          source={appImages.clock}
+          title={moment(data?.pickupDate).format('dddd, MMM DD, yy')}
+        />
+        <PickupButton disable source={appImages.call} title={data?.phone} />
+        <PickupButton
+          disable
+          title={'Total'}
+          source={appImages.priceTag}
+          detail={`$${data?.totalPrice}`}
+        />
+        {!cancelled && (
+          <TouchableOpacity
+            onPress={() => setShowDelete(true)}
+            style={[globalStyle.row, settingStyle.deleteButton]}>
+            <Text
+              style={settingStyle.deleteText}
+              color={colors.error}
+              title="Cancel pickup"
+            />
+          </TouchableOpacity>
+        )}
+
+        <Height />
+        <TouchableOpacity onPress={() => navigate('support')}>
+          <Text
+            center
+            color={colors.purple}
+            title="Contact us for help"
+            style={styles.promoCode}
+          />
+        </TouchableOpacity>
+        <Height />
       </ScrollView>
+
+      <CustomAlert
+        title="Are you sure you want to cancel this pickup?"
+        show={showDelete}
+        isNote="No fees"
+        message={
+          ' will apply if cancelled before 9:00 AM on the day of pickup.'
+        }
+        cancelText="Keep pickup"
+        confirmText="Cancel pickup"
+        secMessage="If you wish to reschedule, please contact us."
+        showProgress={load}
+        onCancelPressed={() => setShowDelete(false)}
+        onConfirmPressed={() =>
+          deletePickupAPI(item._id, setLoad, setShowDelete)(dispatch)
+        }
+      />
     </Body>
   );
 };
@@ -103,40 +194,39 @@ export default PickupDetail;
 
 const setpStyle = {
   timeline: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    flexWrap: "nowrap",
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
   },
   stepContainer: {
-    alignItems: "center",
-    width: "30%",
+    width: '30%',
+    alignItems: 'center',
   },
   iconWrapper: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   label: {
+    color: '#333',
     marginTop: 10,
-    textAlign: "center",
-    color: "#333",
+    textAlign: 'center',
     fontFamily: fonts[500],
   },
   date: {
-    fontSize: scaleSize(11),
-    color: "#888",
+    color: '#888',
     fontFamily: fonts[400],
+    fontSize: scaleSize(11),
   },
   line: {
-    position: "absolute",
     top: 20,
-    left: "20%",
-    width: `${100 - 30}%`,
     height: 2,
-    backgroundColor: "#A259FF",
     zIndex: -1,
+    left: '20%',
+    position: 'absolute',
+    width: `${100 - 30}%`,
   },
 };

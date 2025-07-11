@@ -1,32 +1,30 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
-import Modal from "react-native-modal";
-import { FullImage, Text } from "..";
-import { Height, Space_evenly } from "../../theme/globalStyle";
-import {
-  fontScale,
-  height,
-  scaleSize,
-  verticalScale,
-} from "../../theme/responsive";
-import { appImages, fonts } from "../../assets";
-import { colors } from "../../theme/colors";
-import { toastColors } from "../../utils/data";
+import React from 'react';
+import {FullImage, Text} from '..';
+import Modal from 'react-native-modal';
+import {colors} from '../../theme/colors';
+import {toastColors} from '../../utils/data';
+import {appImages, fonts} from '../../assets';
+import {Height, Space_evenly} from '../../theme/globalStyle';
+import {fontScale, scaleSize, verticalScale} from '../../theme/responsive';
+import {View, StyleSheet, TouchableOpacity, Text as RNText} from 'react-native';
 
-const CustomAlert = (props) => {
+const CustomAlert = props => {
   const {
     show,
-    title = "Are you sure?",
+    isNote,
     message,
-    cancelText = "Cancel",
-    confirmText = "Delete",
+    isImage,
+    secMessage,
+    showProgress,
+    type = 'error',
     onCancelPressed,
     onConfirmPressed,
-    type = "error",
-    showProgress,
+    cancelText = 'Cancel',
+    confirmText = 'Delete',
+    title = 'Are you sure?',
   } = props;
 
-  const { bg, border, iconBg, icon, iconType } =
+  const {bg, border, iconBg, icon, iconType} =
     toastColors[type] || toastColors.info;
 
   return (
@@ -37,30 +35,42 @@ const CustomAlert = (props) => {
       onBackdropPress={onCancelPressed}
       onBackButtonPress={onCancelPressed}
       backdropOpacity={0.5}
-      style={styles.modalContainer}
-    >
+      style={styles.modalContainer}>
       <View style={styles.modalContent}>
-        <FullImage source={appImages.toastDelete} style={styles.image} />
+        {isImage && (
+          <FullImage source={appImages.toastDelete} style={styles.image} />
+        )}
+
         <Text style={styles.title} title={title} />
         <Height height={10} />
-        <Text style={styles.message} center title={message} />
+
+        <RNText style={styles.message} center>
+          {isNote && (
+            <Text
+              center
+              title={isNote}
+              color={colors.black}
+              style={styles.message}
+            />
+          )}{' '}
+          {message}
+        </RNText>
+        {secMessage && <Text style={styles.message} center title={message} />}
         <Height />
         <Space_evenly>
           <TouchableOpacity
             onPress={onCancelPressed}
-            style={[styles.modalButton, styles.cancelButton]}
-          >
+            style={[styles.modalButton, styles.cancelButton]}>
             <Text style={styles.cancelText} title={cancelText} />
           </TouchableOpacity>
 
           <TouchableOpacity
             disabled={showProgress}
             onPress={onConfirmPressed}
-            style={[styles.modalButton, styles.deleteButton]}
-          >
+            style={[styles.modalButton, styles.deleteButton]}>
             <Text
               style={styles.deleteText}
-              title={showProgress ? "Loading..." : confirmText}
+              title={showProgress ? 'Loading...' : confirmText}
             />
           </TouchableOpacity>
         </Space_evenly>
@@ -73,52 +83,52 @@ export default CustomAlert;
 
 const styles = StyleSheet.create({
   modalContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 0,
   },
   modalContent: {
     backgroundColor: colors.white,
     borderRadius: scaleSize(15),
-    width: "85%",
+    width: '85%',
     padding: scaleSize(20),
   },
   title: {
+    textAlign: 'center',
     color: colors.black,
     fontSize: fontScale(18),
     fontFamily: fonts[600],
-    textAlign: "center",
   },
   message: {
     color: colors.grey,
-    fontSize: fontScale(13),
     fontFamily: fonts[400],
+    fontSize: fontScale(13),
   },
 
   modalButton: {
     flex: 1,
+    borderRadius: 999,
     paddingVertical: 12,
-    borderRadius: 999, // full rounded
-    alignItems: "center",
+    alignItems: 'center',
     marginHorizontal: scaleSize(10),
   },
 
   cancelButton: {
-    backgroundColor: "#F5F5F5",
+    backgroundColor: '#D1D1D1',
   },
 
   deleteButton: {
-    backgroundColor: "#FEE5E9",
+    backgroundColor: '#FEE5E9',
   },
 
   cancelText: {
-    color: "#000",
+    color: '#454545',
     fontSize: scaleSize(13),
     fontFamily: fonts[500],
   },
 
   deleteText: {
-    color: "#E53945",
+    color: '#ED6479',
     fontSize: scaleSize(13),
     fontFamily: fonts[500],
   },
@@ -126,7 +136,7 @@ const styles = StyleSheet.create({
   image: {
     width: scaleSize(50),
     aspectRatio: 1 / 1,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: verticalScale(10),
   },
 });

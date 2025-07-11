@@ -1,22 +1,22 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 import responsive, {
   fontScale,
   hp,
   scaleSize,
   verticalScale,
   wp,
-} from "../../theme/responsive";
-import { colors } from "../../theme/colors";
-import { fonts } from "../../assets";
+} from '../../theme/responsive';
+import {colors} from '../../theme/colors';
+import {fonts} from '../../assets';
 
 export default StyleSheet.create({
   returtnHistoryCont: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
@@ -35,7 +35,7 @@ export default StyleSheet.create({
   returtnHistoryStatus: {
     fontSize: fontScale(12),
     fontFamily: fonts[500],
-    color: "#777777",
+    color: '#777777',
   },
   returtnHistoryDate: {
     marginLeft: 8,
@@ -77,7 +77,7 @@ export default StyleSheet.create({
     fontSize: fontScale(14),
   },
   sectionDate: {
-    color: "#717171",
+    color: '#717171',
     fontFamily: fonts[500],
     fontSize: fontScale(11),
   },
@@ -85,8 +85,8 @@ export default StyleSheet.create({
     padding: 12,
     borderRadius: 12,
     marginBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sectionImage: {
     width: scaleSize(52),
@@ -100,7 +100,7 @@ export default StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 10,
   },
-  labelTitle: { fontSize: fontScale(11), fontFamily: fonts[500] },
+  labelTitle: {fontSize: fontScale(11), fontFamily: fonts[500]},
 
   pickupMethodCont: {
     padding: 20,
@@ -115,7 +115,7 @@ export default StyleSheet.create({
   },
   pickupMethodDetail: {
     marginTop: 5,
-    color: "#5C5A5A",
+    color: '#5C5A5A',
     fontFamily: fonts[500],
     fontSize: fontScale(12),
   },
@@ -129,13 +129,14 @@ export default StyleSheet.create({
   pickupDetailText: {
     fontFamily: fonts[500],
     marginLeft: scaleSize(7),
+    textTransform: 'capitalize',
   },
   itemLengthBox: {
     // flex: 1,
     width: 60,
     borderRadius: 50,
     paddingVertical: 3,
-    backgroundColor: "#F4E5FC",
+    backgroundColor: '#F4E5FC',
     marginTop: verticalScale(5),
     // marginHorizontal: scaleSize(10),
   },
@@ -153,7 +154,7 @@ export default StyleSheet.create({
   // pickup section card style\
 
   pickup1stImage: {
-    position: "absolute",
+    position: 'absolute',
     left: scaleSize(30),
     width: scaleSize(40),
     height: scaleSize(40),

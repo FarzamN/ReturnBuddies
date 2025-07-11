@@ -1,19 +1,19 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 import {
   fontScale,
   hp,
   scaleSize,
   verticalScale,
   wp,
-} from "../../../theme/responsive";
-import { colors } from "../../../theme/colors";
-import { fonts } from "../../../assets";
+} from '../../../theme/responsive';
+import {colors} from '../../../theme/colors';
+import {fonts} from '../../../assets';
 
 export default StyleSheet.create({
   contactUStext: {
     fontSize: fontScale(12),
     fontFamily: fonts[400],
-    color: "#949595",
+    color: '#949595',
   },
   headingTitle: {
     fontSize: fontScale(14),
@@ -46,16 +46,16 @@ export default StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: colors.borderColor,
-    backgroundColor: "#FAFAFA",
+    backgroundColor: '#FAFAFA',
     color: colors.black,
     fontSize: hp(2.4),
-    fontWeight: "600",
-    textAlign: "center",
+    fontWeight: '600',
+    textAlign: 'center',
     lineHeight: wp(12),
   },
   timerText: {
     marginTop: wp(5),
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: fonts[500],
     fontSize: fontScale(16),
     color: colors.description,
@@ -71,34 +71,34 @@ export default StyleSheet.create({
     fontSize: fontScale(12),
     marginTop: scaleSize(15),
     color: colors.description,
-    textAlign: "center",
+    textAlign: 'center',
   },
 
   FAQsectionHeader: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     marginTop: verticalScale(20),
   },
   FAQcontent: {
     padding: wp(2),
   },
   FAQcontentText: {
-    color: "#777777",
+    color: '#2C2F32',
     fontFamily: fonts[400],
     fontSize: fontScale(12),
   },
   FAQSectionText: {
-    width: "90%",
+    width: '90%',
     fontFamily: fonts[500],
     fontSize: fontScale(13),
   },
 
   separator: {
     height: 1,
-    backgroundColor: "#EAEAEA",
+    backgroundColor: '#EAEAEA',
   },
   settingTitle: {
     fontFamily: fonts[600],
@@ -107,7 +107,7 @@ export default StyleSheet.create({
   },
 
   whiteFlatlistBox: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: scaleSize(20),
     paddingHorizontal: 10,
   },
@@ -120,8 +120,24 @@ export default StyleSheet.create({
   },
   itemDetail: {
     marginTop: 4,
-    color: "#949595",
+    color: '#949595',
     fontSize: fontScale(12),
     fontFamily: fonts[400],
+  },
+
+  deleteButton: {
+    alignSelf: 'center',
+    backgroundColor: '#FDEFF2',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 999, // pill shape
+    marginTop: 20,
+  },
+
+  deleteText: {
+    top: 1,
+    fontFamily: fonts[500],
+    fontSize: fontScale(12),
+    marginHorizontal: scaleSize(5),
   },
 });

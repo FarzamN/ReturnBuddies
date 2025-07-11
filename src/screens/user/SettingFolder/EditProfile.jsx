@@ -8,39 +8,40 @@ import {
   Validation,
   RequiredText,
   CustomAlert,
-} from "../../../components";
+} from '../../../components';
 import {
   View,
   TextInput,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useIskeyboard } from "../../../hooks";
-import { colors } from "../../../theme/colors";
-import { appImages, fonts } from "../../../assets";
-import { required } from "../../../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import inputStyles from "../../../components/Inputs/inputStyle";
-import { globalStyle, Height } from "../../../theme/globalStyle";
-import { fontScale, scaleSize, wp } from "../../../theme/responsive";
+} from 'react-native';
+import React, {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {useIskeyboard} from '../../../hooks';
+import {colors} from '../../../theme/colors';
+import {appImages, fonts} from '../../../assets';
+import {required} from '../../../utils/constants';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import inputStyles from '../../../components/Inputs/inputStyle';
+import {globalStyle, Height} from '../../../theme/globalStyle';
+import {fontScale, scaleSize, wp} from '../../../theme/responsive';
 import {
   deleteAccountAPI,
   deleteAccountPasswordAPI,
   editProfileAPI,
   phoneVerficationAPI,
-} from "../../../apis/authQueries";
-import { showNotification } from "../../../function";
+} from '../../../apis/authQueries';
+import {showNotification} from '../../../function';
+import settingStyle from './settingStyle';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
-  const { navigate } = useNavigation();
-  const { isKeyboard } = useIskeyboard();
+  const {navigate} = useNavigation();
+  const {isKeyboard} = useIskeyboard();
 
-  const { user } = useSelector((state) => state.auth);
+  const {user} = useSelector(state => state.auth);
 
   const [isVerified, setIsVerified] = useState(user?.phoneVerified);
   const [showDelete, setShowDelete] = useState(false);
@@ -51,20 +52,20 @@ const EditProfile = () => {
   const [phoneValue, setPhoneValue] = useState({
     error: false,
     value: user?.phone,
-    message: "",
+    message: '',
   });
 
   const onVerify = () => {
     if (phoneValue.value) {
-      const data = { phone: phoneValue.value };
+      const data = {phone: phoneValue.value};
       phoneVerficationAPI(data, navigate, setVerifyLoad)(dispatch);
     } else {
-      setPhoneValue({ error: true, message: "Phone number is required" });
+      setPhoneValue({error: true, message: 'Phone number is required'});
     }
   };
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     if (!isVerified) {
-      showNotification("error", "please Verify Phone number", "Error");
+      showNotification('error', 'please Verify Phone number', 'Error');
       return;
     }
     editProfileAPI(data, setIsPending)(dispatch);
@@ -73,9 +74,9 @@ const EditProfile = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
-    mode: "all",
+    mode: 'all',
     defaultValues: {
       name: user?.name,
       email: user?.email,
@@ -86,13 +87,13 @@ const EditProfile = () => {
       <Header leftTitle="Profile Settings" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <MainInput
-          name={"name"}
+          name={'name'}
           control={control}
-          title={"Full Name"}
-          isError={errors?.["name"]}
-          placeholder={"Full Name"}
-          message={errors?.["name"]?.message}
-          rules={{ required: required("Name") }}
+          title={'Full Name'}
+          isError={errors?.['name']}
+          placeholder={'Full Name'}
+          message={errors?.['name']?.message}
+          rules={{required: required('Name')}}
         />
         <Height />
         <View style={inputStyles.mainInputCont}>
@@ -101,8 +102,8 @@ const EditProfile = () => {
           <View style={editStyle.phoneWrapper}>
             <TextInput
               value={phoneValue.value}
-              onChangeText={(text) => {
-                setPhoneValue({ error: false, value: text, message: "" });
+              onChangeText={text => {
+                setPhoneValue({error: false, value: text, message: ''});
                 setIsVerified(false);
               }}
               placeholder="+12 345678967"
@@ -116,14 +117,13 @@ const EditProfile = () => {
               disabled={verifyLoad || isVerified}
               style={[
                 editStyle.verifyButton,
-                { backgroundColor: isVerified ? "#E8F8E8" : "#F4E8FF" },
-              ]}
-            >
+                {backgroundColor: isVerified ? '#E8F8E8' : '#F4E8FF'},
+              ]}>
               <Text
-                color={isVerified ? "#66CE67" : colors.purple}
+                color={isVerified ? '#66CE67' : colors.purple}
                 style={editStyle.verifyText}
                 title={
-                  verifyLoad ? "loading..." : isVerified ? "Verified" : "Verify"
+                  verifyLoad ? 'loading...' : isVerified ? 'Verified' : 'Verify'
                 }
               />
             </TouchableOpacity>
@@ -136,27 +136,26 @@ const EditProfile = () => {
         <RequiredText title="Email" />
         <MainInput
           disabled
-          name={"email"}
+          name={'email'}
           control={control}
           noTitle
-          Container={{ marginTop: 0 }}
+          Container={{marginTop: 0}}
         />
         <Height />
 
         <Text
-          style={{ fontFamily: fonts[500] }}
+          style={{fontFamily: fonts[500]}}
           title="This is the email associated with your account and cannot be changed."
         />
 
         <TouchableOpacity
           // onPress={() => navigate("deleteAccount")}
           onPress={() => setShowDelete(true)}
-          style={[globalStyle.row, editStyle.deleteButton]}
-        >
+          style={[globalStyle.row, settingStyle.deleteButton]}>
           <FullImage source={appImages.delete} style={globalStyle.iconImage} />
 
           <Text
-            style={editStyle.deleteText}
+            style={settingStyle.deleteText}
             color={colors.error}
             title="Delete Account"
           />
@@ -172,10 +171,11 @@ const EditProfile = () => {
 
       <Height />
       <CustomAlert
+        isImage
         title="Delete account?"
         show={showDelete}
         message={
-          "Deleting your account will permanently remove all your information, including return history, any scheduled pickups, and personal details. This action cannot be undone."
+          'Deleting your account will permanently remove all your information, including return history, any scheduled pickups, and personal details. This action cannot be undone.'
         }
         showProgress={deleteLoad}
         onCancelPressed={() => setShowDelete(false)}
@@ -189,10 +189,10 @@ export default EditProfile;
 
 const editStyle = StyleSheet.create({
   phoneWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: "#EEEEEE",
+    borderColor: '#EEEEEE',
     borderRadius: scaleSize(15),
     paddingHorizontal: scaleSize(10),
     paddingVertical: wp(2),
@@ -216,27 +216,5 @@ const editStyle = StyleSheet.create({
   verifyText: {
     fontSize: fontScale(12),
     fontFamily: fonts[400],
-  },
-
-  deleteButton: {
-    alignSelf: "center",
-    backgroundColor: "#FDEFF2",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 999, // pill shape
-    marginTop: 20,
-  },
-
-  deleteInner: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  deleteText: {
-    top: 1,
-    fontFamily: fonts[500],
-    fontSize: fontScale(12),
-    marginHorizontal: scaleSize(5),
   },
 });

@@ -1,30 +1,30 @@
 // Draft screens
-import DraftItem from "./OrderToReturn/DraftItem";
-import AddDraftItem from "./OrderToReturn/AddDraftItem";
-import ShippingLabel from "./OrderToReturn/ShippingLabel";
-import UploadLabel from "./OrderToReturn/UploadLabel";
-import SchedulePickup from "./OrderToReturn/SchedulePickup";
-import PickupMethod from "./OrderToReturn/PickupMethod";
-import ConfirmPickup from "./OrderToReturn/ConfirmPickup";
-import TrackPickup from "./OrderToReturn/TrackPickup";
-import AddNewAddress from "./OrderToReturn/AddNewAddress";
-import SelectNewAddress from "./OrderToReturn/SelectNewAddress.jsx";
-import AddPhoneNumber from "./OrderToReturn/AddPhoneNumber";
-import ItemsToBePickedup from "./OrderToReturn/ItemsToBePickedup";
+import DraftItem from './OrderToReturn/DraftItem';
+import UploadLabel from './OrderToReturn/UploadLabel';
+import TrackPickup from './OrderToReturn/TrackPickup';
+import PickupMethod from './OrderToReturn/PickupMethod';
+import AddDraftItem from './OrderToReturn/AddDraftItem';
+import ShippingLabel from './OrderToReturn/ShippingLabel';
+import ConfirmPickup from './OrderToReturn/ConfirmPickup';
+import AddNewAddress from './OrderToReturn/AddNewAddress';
+import SchedulePickup from './OrderToReturn/SchedulePickup';
+import AddPhoneNumber from './OrderToReturn/AddPhoneNumber';
+import SelectNewAddress from './OrderToReturn/SelectNewAddress';
+import ItemsToBePickedup from './OrderToReturn/ItemsToBePickedup';
 
 // setting Screens
-import Notification from "./SettingFolder/Notification";
-import Setting from "./SettingFolder/Setting";
-import EditProfile from "./SettingFolder/EditProfile";
-import ContactUS from "./SettingFolder/ContactUS";
-import ChangePassword from "./SettingFolder/ChangePassword";
-import Terms from "./SettingFolder/Terms";
-import Privacy from "./SettingFolder/Privacy";
-import MyPickups from "./PickupsFolder/MyPickups";
-import PickupDetail from "./PickupsFolder/PickupDetail";
-import UserOTP from "./SettingFolder/UserOTP.jsx";
-import SelectPaymentMethod from "./SettingFolder/SelectPaymentMethod.jsx";
-import AddPaymentMethod from "./SettingFolder/AddPaymentMethod.jsx";
+import Terms from './SettingFolder/Terms';
+import Support from './SettingFolder/Support';
+import Setting from './SettingFolder/Setting';
+import Privacy from './SettingFolder/Privacy';
+import UserOTP from './SettingFolder/UserOTP';
+import MyPickups from './PickupsFolder/MyPickups';
+import EditProfile from './SettingFolder/EditProfile';
+import Notification from './SettingFolder/Notification';
+import PickupDetail from './PickupsFolder/PickupDetail';
+import ChangePassword from './SettingFolder/ChangePassword';
+import AddPaymentMethod from './SettingFolder/AddPaymentMethod';
+import SelectPaymentMethod from './SettingFolder/SelectPaymentMethod';
 
 // Pickups Screens
 
@@ -34,28 +34,28 @@ export {
   PickupDetail,
 
   // Draft screens
-  UploadLabel,
-  ShippingLabel,
-  DraftItem,
-  AddDraftItem,
-  SchedulePickup,
-  PickupMethod,
-  ConfirmPickup,
-  TrackPickup,
-  AddNewAddress,
-  SelectNewAddress,
-  AddPhoneNumber,
   UserOTP,
-  SelectPaymentMethod,
+  DraftItem,
+  UploadLabel,
+  TrackPickup,
+  AddDraftItem,
+  PickupMethod,
+  ShippingLabel,
+  ConfirmPickup,
+  AddNewAddress,
+  SchedulePickup,
+  AddPhoneNumber,
+  SelectNewAddress,
   AddPaymentMethod,
   ItemsToBePickedup,
+  SelectPaymentMethod,
 
   // setting Screens
   Terms,
   Privacy,
-  ChangePassword,
-  Notification,
   Setting,
+  Support,
   EditProfile,
-  ContactUS,
+  Notification,
+  ChangePassword,
 };

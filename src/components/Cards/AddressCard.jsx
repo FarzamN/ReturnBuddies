@@ -1,12 +1,12 @@
-import React from "react";
-import { FullImage } from "..";
-import { colors } from "../../theme/colors";
-import { appImages, fonts } from "../../assets";
-import { fontScale } from "../../theme/responsive";
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
+import React from 'react';
+import {FullImage} from '..';
+import {colors} from '../../theme/colors';
+import {appImages, fonts} from '../../assets';
+import {fontScale} from '../../theme/responsive';
+import {TouchableOpacity, View, StyleSheet, Text} from 'react-native';
+import {globalStyle, Row, Space_Between} from '../../theme/globalStyle';
 
-const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
+const AddressCard = ({data, onPress, focus, disabled, onEdit}) => {
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -16,8 +16,7 @@ const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
           borderColor: focus ? colors.purple : colors.borderColor,
         },
       ]}
-      onPress={onPress}
-    >
+      onPress={onPress}>
       <Space_Between style={styles.cardContent}>
         <Row style={styles.cardInfo}>
           <View style={styles.cardDetails}>
@@ -26,7 +25,7 @@ const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
               <Text style={styles.cardTypeText}>{data?.suite}</Text>
             )}
             <Text style={styles.cardTypeText}>
-              {data?.city + ", " + data?.state + ", " + data?.postalCode}
+              {data?.city + ', ' + data?.state + ', ' + data?.postalCode}
             </Text>
           </View>
         </Row>
@@ -48,7 +47,7 @@ export default AddressCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 16,
     marginBottom: 12,
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
   },
 
   cardContent: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   cardInfo: {
     flex: 1,
@@ -70,19 +69,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTypeText: {
+    color: colors.black,
     fontFamily: fonts[400],
     fontSize: fontScale(13),
   },
 
   defaultBadge: {
-    backgroundColor: "#EAF5EA",
+    backgroundColor: '#EAF5EA',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 15,
   },
   defaultText: {
     top: fontScale(1),
-    color: "#67CE67",
+    color: '#67CE67',
     fontFamily: fonts[400],
     fontSize: fontScale(11),
   },
