@@ -1,18 +1,18 @@
-import { fonts } from "../../assets";
-import { StyleSheet } from "react-native";
-import { colors } from "../../theme/colors";
-import { iOS } from "../../utils/constants";
-import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
+import {fonts} from '../../assets';
+import {StyleSheet} from 'react-native';
+import {colors} from '../../theme/colors';
+import {iOS} from '../../utils/constants';
+import responsive, {fontScale, scaleSize, wp} from '../../theme/responsive';
 
 export default StyleSheet.create({
   draftTitle: {
     fontFamily: fonts[600],
-    fontSize: fontScale(16),
+    fontSize: fontScale(20),
   },
   draftSub: {
-    fontFamily: fonts[400],
-    fontSize: fontScale(11),
     color: colors.black,
+    fontFamily: fonts[300],
+    fontSize: fontScale(11),
   },
 
   draftCustomText: {
@@ -21,36 +21,36 @@ export default StyleSheet.create({
   },
 
   button: {
-    width: "80%",
+    width: '80%',
     borderRadius: 15,
-    alignSelf: "center",
-    backgroundColor: "#F3E8F9",
+    alignSelf: 'center',
+    backgroundColor: '#F3E8F9',
     marginBottom: iOS ? 25 : 0,
     height: responsive.height(40),
   },
   buttonText: {
     color: colors.purple,
-    fontFamily: fonts[500],
-    fontSize: fontScale(12),
+    fontFamily: fonts[400],
+    fontSize: fontScale(14),
   },
 
   uploadSelectText: {
-    fontSize: fontScale(14),
-    fontFamily: fonts[500],
     color: colors.black,
+    fontFamily: fonts[500],
+    fontSize: fontScale(14),
   },
 
   pickupTitle: {
-    fontSize: fontScale(14),
     fontFamily: fonts[600],
+    fontSize: fontScale(14),
     marginBottom: scaleSize(8),
   },
 
   dateContainer: {
-    marginTop: scaleSize(10),
     borderRadius: 12,
-    flexDirection: "row",
     paddingVertical: 15,
+    flexDirection: 'row',
+    marginTop: scaleSize(10),
     backgroundColor: colors.white,
   },
   itemCard: {
@@ -60,14 +60,14 @@ export default StyleSheet.create({
     shadowOpacity: 0.1,
     borderRadius: wp(3),
     marginBottom: wp(3),
-    shadowColor: "#000",
+    shadowColor: '#000',
     backgroundColor: colors.white,
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: {width: 0, height: 1},
   },
 
   row: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   cardImage: {
@@ -83,9 +83,9 @@ export default StyleSheet.create({
 
   iconContainer: {
     gap: wp(2),
-    flexDirection: "row",
+    flexDirection: 'row',
   },
-  promoCode: { fontFamily: fonts[500], fontSize: fontScale(13) },
+  promoCode: {fontFamily: fonts[500], fontSize: fontScale(13)},
 
   cell: {
     width: wp(16),
@@ -93,25 +93,25 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginRight: 5,
     borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.white,
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   timerText: {
-    textAlign: "center",
+    textAlign: 'center',
+    color: colors.black,
     fontFamily: fonts[500],
     fontSize: fontScale(12),
-    color: colors.black,
   },
   timerSecondText: {
-    fontSize: fontScale(13),
-    fontFamily: fonts[500],
-    color: colors.purple,
     marginTop: wp(5),
+    color: colors.purple,
+    fontFamily: fonts[500],
+    fontSize: fontScale(13),
   },
   resendText: {
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: fonts[500],
     fontSize: fontScale(12),
     marginTop: scaleSize(15),

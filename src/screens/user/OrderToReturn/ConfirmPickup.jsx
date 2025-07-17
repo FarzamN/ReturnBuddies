@@ -7,55 +7,50 @@ import {
   CircleCheck,
   PickupButton,
   ItemPickupButton,
-} from "../../../components";
-import moment from "moment";
-import styles from "../userStyle";
-import { useForm } from "react-hook-form";
-import { appImages } from "../../../assets";
-import { wp } from "../../../theme/responsive";
-import { colors } from "../../../theme/colors";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { ScrollView, TouchableOpacity } from "react-native";
-import { confirmPickupAPI } from "../../../apis/draftQueries";
-import { useFreezeScreen, useIskeyboard } from "../../../hooks";
-import { maskCardNumber, showNotification } from "../../../function";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
+} from '../../../components';
+import moment from 'moment';
+import styles from '../userStyle';
+import {useForm} from 'react-hook-form';
+import {appImages} from '../../../assets';
+import {wp} from '../../../theme/responsive';
+import {colors} from '../../../theme/colors';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {ScrollView, TouchableOpacity} from 'react-native';
+import {confirmPickupAPI} from '../../../apis/draftQueries';
+import {useFreezeScreen, useIskeyboard} from '../../../hooks';
+import {maskCardNumber, showNotification} from '../../../function';
+import {globalStyle, Height, Space_Between} from '../../../theme/globalStyle';
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
-  const { navigate } = useNavigation();
-  const { isKeyboard } = useIskeyboard();
+  const {navigate} = useNavigation();
+  const {isKeyboard} = useIskeyboard();
 
-  const { draftSelectedRetun, getBaseData } = useSelector(
-    (state) => state.draft
-  );
-  const { pickupMethod, time, date, selectedAddress, note, selectedPayment } =
-    useSelector((state) => state.draft.draftReturn);
+  const {draftSelectedRetun, getBaseData} = useSelector(state => state.draft);
+  const {pickupMethod, time, date, selectedAddress, note, selectedPayment} =
+    useSelector(state => state.draft.draftReturn);
 
-  const { pickupAddress, phone, payment } = useSelector(
-    (state) => state.auth.user
-  );
+  const {pickupAddress, phone, payment} = useSelector(state => state.auth.user);
 
   const [focus, setFocus] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [load, setLoad] = useState(false);
 
-  const { Overlay } = useFreezeScreen(load); // Pass isPending to hook
+  const {Overlay} = useFreezeScreen(load); // Pass isPending to hook
 
-  const [promocode, setPromoCode] = useState({ visible: false });
+  const [promocode, setPromoCode] = useState({visible: false});
 
   const totalItemCount = draftSelectedRetun
-    .map((item) => item.products.length)
+    .map(item => item.products.length)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-  const hasOversized = draftSelectedRetun.some((bundle) =>
-    bundle.products.some((product) => product.oversized === true)
+  const hasOversized = draftSelectedRetun.some(bundle =>
+    bundle.products.some(product => product.oversized === true),
   );
 
-  const { BASE_PRICE, FREE_ITEMS_THRESHOLD, ADDITIONAL_ITEM_PRICE } =
-    getBaseData;
+  const {BASE_PRICE, FREE_ITEMS_THRESHOLD, ADDITIONAL_ITEM_PRICE} = getBaseData;
 
   /*
   const calculateTotalPrice = () => {
@@ -81,9 +76,9 @@ const ConfirmPickup = () => {
     setTotalPrice(calculateTotalPrice());
   }, [totalItemCount]);
 
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     if (!phone) {
-      showNotification("error", "Error", "Please set your phone number");
+      showNotification('error', 'Error', 'Please set your phone number');
       return;
     }
 
@@ -95,26 +90,26 @@ const ConfirmPickup = () => {
       : pickupAddress;
 
     if (!finalPayment?.cardNumber) {
-      showNotification("error", "Error", "Please set your Payment method");
+      showNotification('error', 'Error', 'Please set your Payment method');
       return;
     }
 
     if (!finalAddress?.street) {
-      showNotification("error", "Error", "Please set your Pickup Address");
+      showNotification('error', 'Error', 'Please set your Pickup Address');
       return;
     }
 
     const value = {
-      pickupAddress: finalAddress._id,
-      pickupType: pickupMethod,
+      note,
+      phone,
       pickupDate: date,
       pickupTime: time,
-      bundleId: draftSelectedRetun.map((item) => item._id),
-      note,
-      Payment: finalPayment._id,
-      phone,
       total: totalPrice,
+      pickupType: pickupMethod,
+      Payment: finalPayment._id,
       isOversize: focus ? 1 : 0,
+      pickupAddress: finalAddress._id,
+      bundleId: draftSelectedRetun.map(item => item._id),
     };
     confirmPickupAPI(value, navigate, setLoad)(dispatch);
   };
@@ -122,8 +117,8 @@ const ConfirmPickup = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: "all" });
+    formState: {errors},
+  } = useForm({mode: 'all'});
   return (
     <Body horizontal={wp(5)}>
       <Header leftTitle="Confirm Pickup" />
@@ -131,30 +126,30 @@ const ConfirmPickup = () => {
         <PickupButton
           source={appImages.location}
           title={
-            selectedAddress?.street || pickupAddress?.street || "Add address"
+            selectedAddress?.street || pickupAddress?.street || 'Add address'
           }
           twoTitle={selectedAddress?.suite}
-          onPress={() => navigate("selectNewAddress", { isPickup: true })}
+          onPress={() => navigate('selectNewAddress', {isPickup: true})}
         />
         <PickupButton
           detail={note}
           title={pickupMethod}
           source={appImages.truck}
-          onPress={() => navigate("pickupMethod")}
+          onPress={() => navigate('pickupMethod')}
         />
         <PickupButton
           detail={time}
           source={appImages.clock}
-          title={moment(date).format("dddd, MMM DD, yy")}
-          onPress={() => navigate("schedulePickup", { isEdit: true })}
+          title={moment(date).format('dddd, MMM DD, yy')}
+          onPress={() => navigate('schedulePickup', {isEdit: true})}
         />
         <PickupButton
           source={appImages.call}
-          title={phone || "Add phone number"}
-          onPress={() => navigate("addPhoneNumber")}
+          title={phone || 'Add phone number'}
+          onPress={() => navigate('addPhoneNumber')}
         />
         <ItemPickupButton
-          onPress={() => navigate("itemsToBePickedup")}
+          onPress={() => navigate('itemsToBePickedup')}
           title={`Items to be picked up (${totalItemCount})`}
         />
 
@@ -164,9 +159,8 @@ const ConfirmPickup = () => {
         </Space_Between>
         <TouchableOpacity
           onPress={() =>
-            setPromoCode((pre) => ({ ...pre, visible: !pre.visible }))
-          }
-        >
+            setPromoCode(pre => ({...pre, visible: !pre.visible}))
+          }>
           <Text
             color={colors.purple}
             title="+ Add a Promo Code"
@@ -197,16 +191,16 @@ const ConfirmPickup = () => {
               ? maskCardNumber(selectedPayment?.cardNumber)
               : payment?.cardNumber
               ? maskCardNumber(payment?.cardNumber)
-              : "Add payment method"
+              : 'Add payment method'
           }`}
-          onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
+          onPress={() => navigate('selectPaymentMethod', {isPickup: true})}
         />
         <Height />
         {hasOversized && (
           <CircleCheck
             focus={focus}
-            title="I acknowledge that a surcharge may apply to items exceeding 15 lbs or measuring 25” in any direction."
-            onPress={() => setFocus((pre) => !pre)}
+            title="I acknowledge that a surcharge may apply to items exceeding 35 lbs or measuring 30” in any direction."
+            onPress={() => setFocus(pre => !pre)}
           />
         )}
         <Height />

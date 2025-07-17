@@ -1,16 +1,16 @@
-import { fonts } from "../../assets";
-import { StyleSheet } from "react-native";
-import { colors } from "../../theme/colors";
-import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
+import {fonts} from '../../assets';
+import {StyleSheet} from 'react-native';
+import {colors} from '../../theme/colors';
+import responsive, {fontScale, scaleSize, wp} from '../../theme/responsive';
 
 export default StyleSheet.create({
   containerStyle: {
     marginTop: 5,
-    width: "100%",
+    width: '100%',
     marginBottom: 15,
-    overflow: "hidden",
-    alignItems: "center",
-    justifyContent: "center",
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: fontScale(2),
     height: responsive.height(52),
     borderRadius: scaleSize(35),
@@ -35,18 +35,18 @@ export default StyleSheet.create({
     borderWidth: 1,
     padding: scaleSize(15),
     borderRadius: scaleSize(12),
-    borderStyle: "dashed",
+    borderStyle: 'dashed',
     backgroundColor: colors.white,
   },
   ImageIcon: {
-    overflow: "hidden",
+    overflow: 'hidden',
     marginRight: wp(3),
   },
   ImageText: {
-    color: "#111827",
+    color: '#111827',
     top: fontScale(2),
     fontSize: fontScale(12),
-    fontFamily: fonts[500],
+    fontFamily: fonts[400],
   },
   uploadText: {
     color: colors.black,

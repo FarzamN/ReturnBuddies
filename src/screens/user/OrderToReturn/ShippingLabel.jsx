@@ -5,32 +5,32 @@ import {
   MainButton,
   ReturnSection,
   DraftSkeleton,
-} from "../../../components";
-import styles from "../userStyle";
-import { wp } from "../../../theme/responsive";
-import React, { useEffect, useState } from "react";
-import { FlatList, ScrollView } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { globalStyle, Height } from "../../../theme/globalStyle";
-import { getSelectedReturnItem } from "../../../apis/draftQueries";
-import { setDraftReturn, setLabelID } from "../../../redux/slices/draftSlice";
-// import { draftData as draftSelectedRetun } from "../../../utils/data";
+} from '../../../components';
+import styles from '../userStyle';
+import {wp} from '../../../theme/responsive';
+import React, {useEffect, useState} from 'react';
+import {FlatList, ScrollView} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {globalStyle, Height} from '../../../theme/globalStyle';
+import {getSelectedReturnItem} from '../../../apis/draftQueries';
+import {setDraftReturn, setLabelID} from '../../../redux/slices/draftSlice';
+import {iOS} from '../../../utils/constants';
 
-const SchedulePickup = ({ navigation, route }) => {
-  const { navigate } = navigation;
-  const { returnLabel } = route.params;
+const SchedulePickup = ({navigation, route}) => {
   const dispatch = useDispatch();
+  const {navigate} = navigation;
+  const {returnLabel} = route.params;
 
-  const { draftSelectedRetun } = useSelector((state) => state.draft);
+  const {draftSelectedRetun} = useSelector(state => state.draft);
   const [isPending, setIsLoading] = useState(false);
 
   const getPositive = draftSelectedRetun
-    .map((item) => item.status !== "pending")
+    .map(item => item.status !== 'pending')
     .includes(false);
 
   const onSubmit = () => {
-    dispatch(setDraftReturn({ _id: returnLabel }));
-    navigate("schedulePickup", { isEdit: false });
+    dispatch(setDraftReturn({_id: returnLabel}));
+    navigate('schedulePickup', {isEdit: false});
   };
 
   useEffect(() => {
@@ -43,10 +43,10 @@ const SchedulePickup = ({ navigation, route }) => {
       <Header leftTitle="Shipping Label" />
       {!getPositive && (
         <>
-          <Text style={styles.draftTitle} title={"Check your labels"} />
+          <Text style={styles.draftTitle} title={'Check your labels'} />
           <Text
             style={styles.draftSub}
-            title={"See which items have return labels missing"}
+            title={'See which items have return labels missing'}
           />
         </>
       )}
@@ -61,19 +61,22 @@ const SchedulePickup = ({ navigation, route }) => {
         />
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
-          {draftSelectedRetun.map((section) => (
+          {draftSelectedRetun.map(section => (
             <ReturnSection
               isLabel
               section={section}
               key={section._id}
-              isPositive={section.status !== "pending"}
+              isPositive={section.status !== 'pending'}
             />
           ))}
         </ScrollView>
       )}
 
       {!getPositive && !isPending && (
-        <MainButton title="Continue" onPress={onSubmit} />
+        <>
+          <MainButton title="Continue" onPress={onSubmit} />
+          {iOS && <Height />}
+        </>
       )}
     </Body>
   );

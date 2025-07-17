@@ -23,7 +23,7 @@ const App = () => {
       getFAQsAPI()(dispatch);
     }
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");
-  }, []);
+  }, [user]);
 
   setTimeout(() => {
     setShowSplash(false);

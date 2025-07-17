@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
+import {View, Text, TextInput, ScrollView, StyleSheet} from 'react-native';
 import {
   Body,
   Header,
@@ -6,30 +6,40 @@ import {
   MainButton,
   RequiredText,
   CircleCheck,
-} from "../../../components";
-import { useDispatch, useSelector } from "react-redux";
-import { colors } from "../../../theme/colors";
-import { cardValidator } from "../../../function";
-import React, { useState, useEffect } from "react";
-import { appImages, fonts } from "../../../assets";
-import { useNavigation } from "@react-navigation/native";
-import { fontScale, verticalScale, wp } from "../../../theme/responsive";
-import { addPaymentAPI, editPaymentAPI } from "../../../apis/authQueries";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
+} from '../../../components';
+import {useDispatch, useSelector} from 'react-redux';
+import {colors} from '../../../theme/colors';
+import {cardValidator} from '../../../function';
+import React, {useState, useEffect} from 'react';
+import {appImages, fonts} from '../../../assets';
+import {useNavigation} from '@react-navigation/native';
+import {
+  fontScale,
+  scaleSize,
+  verticalScale,
+  wp,
+} from '../../../theme/responsive';
+import {addPaymentAPI, editPaymentAPI} from '../../../apis/authQueries';
+import {
+  globalStyle,
+  Height,
+  Row,
+  Space_Between,
+} from '../../../theme/globalStyle';
 
-const AddPaymentMethod = ({ route }) => {
-  const { item, editing } = route?.params || {};
+const AddPaymentMethod = ({route}) => {
+  const {item, editing} = route?.params || {};
 
   const dispatch = useDispatch();
-  const { goBack } = useNavigation();
+  const {goBack} = useNavigation();
 
-  const { getPayments } = useSelector((state) => state.auth) ?? [];
+  const {getPayments} = useSelector(state => state.auth) ?? [];
 
   const [cardData, setCardData] = useState({
-    name: item?.cardHolderName ?? "",
-    number: item?.cardNumber ?? "",
-    date: item?.expirationDate ?? "",
-    cvv: item?.cvv ?? "",
+    name: item?.cardHolderName ?? '',
+    number: item?.cardNumber ?? '',
+    date: item?.expirationDate ?? '',
+    cvv: item?.cvv ?? '',
   });
   const [load, setLoad] = useState(false);
   const [errors, setErrors] = useState({});
@@ -43,24 +53,24 @@ const AddPaymentMethod = ({ route }) => {
 
     // Name validation
     if (!cardData.name.trim()) {
-      newErrors.name = "Cardholder name is required";
+      newErrors.name = 'Cardholder name is required';
       isValid = false;
     }
 
     // Card number validation
     if (!cardData.number.trim()) {
-      newErrors.number = "Card number is required";
+      newErrors.number = 'Card number is required';
       isValid = false;
     } else if (
-      !cardValidator.isValidCardNumber(cardData.number.replace(/\s/g, ""))
+      !cardValidator.isValidCardNumber(cardData.number.replace(/\s/g, ''))
     ) {
-      newErrors.number = "Invalid card number";
+      newErrors.number = 'Invalid card number';
       isValid = false;
     }
 
     // Expiry date validation
     if (!cardData.date.trim()) {
-      newErrors.date = "Expiry date is required";
+      newErrors.date = 'Expiry date is required';
       isValid = false;
     } else {
       const expiryError = validateExpiry(cardData.date);
@@ -72,14 +82,14 @@ const AddPaymentMethod = ({ route }) => {
 
     // CVV validation
     if (!cardData.cvv.trim()) {
-      newErrors.cvv = "CVV is required";
+      newErrors.cvv = 'CVV is required';
       isValid = false;
     } else if (
-      (cardType === "amex" && cardData.cvv.length !== 4) ||
-      (cardType !== "amex" && cardData.cvv.length !== 3)
+      (cardType === 'amex' && cardData.cvv.length !== 4) ||
+      (cardType !== 'amex' && cardData.cvv.length !== 3)
     ) {
       newErrors.cvv =
-        cardType === "amex" ? "4 digits required" : "3 digits required";
+        cardType === 'amex' ? '4 digits required' : '3 digits required';
       isValid = false;
     }
 
@@ -90,43 +100,43 @@ const AddPaymentMethod = ({ route }) => {
   const handleChange = (name, value) => {
     let formattedValue = value;
 
-    if (name === "number") {
+    if (name === 'number') {
       formattedValue = formatCardNumber(value);
       const type = cardValidator.getCardType(formattedValue);
       setCardType(type);
-    } else if (name === "date") {
+    } else if (name === 'date') {
       formattedValue = formatExpiryDate(value);
-    } else if (name === "cvv") {
-      formattedValue = value.replace(/\D/g, "");
+    } else if (name === 'cvv') {
+      formattedValue = value.replace(/\D/g, '');
     }
 
-    setCardData((prev) => ({ ...prev, [name]: formattedValue }));
+    setCardData(prev => ({...prev, [name]: formattedValue}));
   };
 
-  const formatCardNumber = (text) => {
-    const cleaned = text.replace(/\D/g, "");
+  const formatCardNumber = text => {
+    const cleaned = text.replace(/\D/g, '');
     const matches = cleaned.match(/\d{4,16}/g);
-    const match = (matches && matches[0]) || "";
+    const match = (matches && matches[0]) || '';
     const parts = [];
 
     for (let i = 0; i < match.length; i += 4) {
       parts.push(match.substring(i, i + 4));
     }
 
-    return parts.length ? parts.join(" ") : cleaned;
+    return parts.length ? parts.join(' ') : cleaned;
   };
 
-  const formatExpiryDate = (text) => {
-    const cleaned = text.replace(/\D/g, "");
+  const formatExpiryDate = text => {
+    const cleaned = text.replace(/\D/g, '');
     if (cleaned.length >= 3) {
       return `${cleaned.slice(0, 2)}/${cleaned.slice(2, 4)}`;
     }
     return cleaned;
   };
 
-  const validateExpiry = (date) => {
-    if (!date || date.length < 5) return "Invalid date";
-    const [month, year] = date.split("/");
+  const validateExpiry = date => {
+    if (!date || date.length < 5) return 'Invalid date';
+    const [month, year] = date.split('/');
     const now = new Date();
     const currentYear = now.getFullYear() % 100;
     const currentMonth = now.getMonth() + 1;
@@ -137,7 +147,7 @@ const AddPaymentMethod = ({ route }) => {
       parseInt(year) < currentYear ||
       (parseInt(year) === currentYear && parseInt(month) < currentMonth)
     ) {
-      return "Card expired";
+      return 'Card expired';
     }
     return true;
   };
@@ -170,7 +180,7 @@ const AddPaymentMethod = ({ route }) => {
   }, [cardData]);
   return (
     <Body horizontal={wp(5)}>
-      <Header leftTitle={`${editing ? "Edit" : "Add"} Payment Method`} />
+      <Header leftTitle={`${editing ? 'Edit' : 'Add'} Payment Method`} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <Height />
@@ -181,77 +191,73 @@ const AddPaymentMethod = ({ route }) => {
             placeholder="Card Name"
             value={cardData.name}
             placeholderTextColor={colors.grey}
-            onChangeText={(text) => handleChange("name", text)}
-            style={[styles.input, errors.name && styles.errorInput]}
+            onChangeText={text => handleChange('name', text)}
+            style={[styles.input, styles.border]}
           />
           {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
         </View>
 
         {/* Card Number Input */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Card Number</Text>
-          <View
-            style={[
-              styles.input,
-              globalStyle.row,
-              errors.number && styles.errorInput,
-            ]}
-          >
-            <FullImage
-              style={{ width: 30, height: 20 }}
-              source={appImages.card}
-            />
-            <TextInput
-              value={cardData.number}
-              keyboardType="numeric"
-              placeholder="4242 4242 4242 4242"
-              placeholderTextColor={colors.grey}
-              maxLength={cardType === "amex" ? 17 : 19}
-              onChangeText={(text) => handleChange("number", text)}
-              style={[styles.CardNameInput]}
-            />
+        <Height />
+        <Row style={styles.border}>
+          <View style={styles.inputContainer}>
+            <View
+              style={[
+                styles.input,
+                globalStyle.row,
+                errors.number && styles.errorInput,
+              ]}>
+              <FullImage
+                style={{width: 30, height: 20}}
+                source={appImages.card}
+              />
+              <TextInput
+                keyboardType="numeric"
+                value={cardData.number}
+                style={[styles.CardNameInput]}
+                placeholder="4242 4242 4242 4242"
+                placeholderTextColor={colors.grey}
+                maxLength={cardType === 'amex' ? 17 : 19}
+                onChangeText={text => handleChange('number', text)}
+              />
+            </View>
           </View>
-          {errors.number && (
-            <Text style={styles.errorText}>{errors.number}</Text>
-          )}
-        </View>
 
-        {/* Expiry and CVV */}
-        <Space_Between>
-          <View style={[styles.inputContainer, { width: "48%" }]}>
-            <Text style={styles.label}>Expiry Date</Text>
+          {/* Expiry and CVV */}
+          <View style={[styles.inputContainer, {}]}>
             <TextInput
               maxLength={5}
               placeholder="MM/YY"
               value={cardData.date}
               keyboardType="numeric"
               placeholderTextColor={colors.grey}
-              onChangeText={(text) => handleChange("date", text)}
-              style={[styles.input, errors.date && styles.errorInput]}
+              onChangeText={text => handleChange('date', text)}
+              style={[styles.input]}
             />
-            {errors.date && <Text style={styles.errorText}>{errors.date}</Text>}
           </View>
 
-          <View style={[styles.inputContainer, { width: "48%" }]}>
-            <Text style={styles.label}>CVV</Text>
+          <View style={[styles.inputContainer, {}]}>
             <TextInput
               secureTextEntry
               value={cardData.cvv}
               keyboardType="numeric"
               placeholderTextColor={colors.grey}
-              maxLength={cardType === "amex" ? 4 : 3}
-              placeholder={cardType === "amex" ? "1234" : "123"}
-              onChangeText={(text) => handleChange("cvv", text)}
-              style={[styles.input, errors.cvv && styles.errorInput]}
+              maxLength={cardType === 'amex' ? 4 : 3}
+              placeholder={cardType === 'amex' ? '1234' : '123'}
+              onChangeText={text => handleChange('cvv', text)}
+              style={[styles.input]}
             />
-            {errors.cvv && <Text style={styles.errorText}>{errors.cvv}</Text>}
           </View>
-        </Space_Between>
+        </Row>
+        {errors.number && <Text style={styles.errorText}>{errors.number}</Text>}
+        {errors.date && <Text style={styles.errorText}>{errors.date}</Text>}
+        {errors.cvv && <Text style={styles.errorText}>{errors.cvv}</Text>}
 
+        <Height />
         <CircleCheck
           focus={focus}
           title="Set as your default card."
-          onPress={() => setFocus((prev) => !prev)}
+          onPress={() => setFocus(prev => !prev)}
         />
       </ScrollView>
 
@@ -261,50 +267,53 @@ const AddPaymentMethod = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    marginBottom: wp(4),
+  border: {
+    overflow: 'hidden',
+    borderWidth: scaleSize(1),
+    borderRadius: scaleSize(20),
+    borderColor: colors.lightGrey,
   },
   label: {
-    fontSize: fontScale(13),
-    fontFamily: fonts[500],
     color: colors.text,
+    fontFamily: fonts[500],
+    fontSize: fontScale(13),
     marginBottom: verticalScale(1),
   },
   input: {
-    borderWidth: 1,
-    borderColor: colors.borderColor,
-    borderRadius: wp(4),
-    padding: wp(3.5),
-    fontSize: wp(4),
     color: colors.black,
+    fontFamily: fonts[500],
+    fontSize: fontScale(15),
+    height: verticalScale(56),
     backgroundColor: colors.white,
+    paddingHorizontal: scaleSize(10),
   },
   CardNameInput: {
-    fontSize: wp(4),
-    color: colors.black,
     marginLeft: 10,
+    color: colors.black,
+    fontFamily: fonts[500],
+    fontSize: fontScale(15),
   },
   errorInput: {
     borderColor: colors.error,
   },
   errorText: {
-    color: colors.error,
-    fontSize: wp(3.2),
     marginTop: wp(1),
+    color: colors.error,
+    fontSize: fontScale(15),
   },
 
   cardTypeBadge: {
-    position: "absolute",
     right: wp(3),
-    backgroundColor: colors.grey,
-    paddingHorizontal: wp(2),
-    paddingVertical: wp(1),
     borderRadius: wp(1),
+    position: 'absolute',
+    paddingVertical: wp(1),
+    paddingHorizontal: wp(2),
+    backgroundColor: colors.grey,
   },
   checkBoxText: {
-    top: fontScale(1),
+    width: '90%',
     marginLeft: 7,
-    width: "90%",
+    top: fontScale(1),
     fontFamily: fonts[400],
     fontSize: fontScale(13),
   },

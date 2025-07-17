@@ -101,15 +101,16 @@ export default StyleSheet.create({
     backgroundColor: '#EAEAEA',
   },
   settingTitle: {
+    color: colors.black,
     fontFamily: fonts[600],
     fontSize: fontScale(16),
-    marginBottom: verticalScale(5),
+    marginBottom: verticalScale(10),
   },
 
   whiteFlatlistBox: {
-    backgroundColor: '#fff',
     borderRadius: scaleSize(20),
-    paddingHorizontal: 10,
+    backgroundColor: colors.white,
+    paddingHorizontal: scaleSize(10),
   },
   toggleItemContainer: {
     paddingVertical: verticalScale(15),
@@ -121,7 +122,7 @@ export default StyleSheet.create({
   itemDetail: {
     marginTop: 4,
     color: '#949595',
-    fontSize: fontScale(12),
+    fontSize: fontScale(11),
     fontFamily: fonts[400],
   },
 

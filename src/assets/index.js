@@ -26,6 +26,14 @@ export const appImages = {
   supportEmail: require('./images/support/supportEmail.png'),
   supportPhone: require('./images/support/supportPhone.png'),
 
+  //  ------- Pickup step icons
+
+  pickup_truck: require('../assets/images/pickup-steps/pickup-truck.png'),
+  pickup_user_cart: require('../assets/images/pickup-steps/user-cart.png'),
+  pickup_cube: require('../assets/images/pickup-steps/cube.png'),
+  pickup_cross: require('../assets/images/pickup-steps/bag-cross.png'),
+  pickup_warehouse: require('../assets/images/pickup-steps/warehouse.png'),
+
   //  ------- Icons
   pdf: require(`./images/Icons/pdf.png`),
   edit: require('./images/Icons/edit.png'),

@@ -97,12 +97,12 @@ const Setting = () => {
       />
 
       <Icon
-        onPress={goBack}
-        style={styles.backButton}
         size={20}
         type="Ionicons"
+        onPress={goBack}
         name="arrow-back"
         color={colors.black}
+        style={styles.backButton}
       />
       <View style={styles.profileCard}>
         <Text style={styles.name}>{name}</Text>

@@ -9,33 +9,33 @@ import {
   ReturnSection,
   UploadLabelCard,
   LabelPickerButton,
-} from "../../../components";
-import styles from "../userStyle";
-import React, { useState } from "react";
-import { colors } from "../../../theme/colors";
-import { wp } from "../../../theme/responsive";
-import { useFreezeScreen } from "../../../hooks";
-import { appImages, fonts } from "../../../assets";
-import { Height } from "../../../theme/globalStyle";
-import { showNotification } from "../../../function";
-import { ScrollView, Text as T } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { editLabelAPI, uploadLabelAPI } from "../../../apis/draftQueries";
-import { pick, types } from "@react-native-documents/picker";
-import { imageURl } from "../../../utils/urls";
-import moment from "moment";
+} from '../../../components';
+import styles from '../userStyle';
+import React, {useState} from 'react';
+import {colors} from '../../../theme/colors';
+import {wp} from '../../../theme/responsive';
+import {useFreezeScreen} from '../../../hooks';
+import {appImages, fonts} from '../../../assets';
+import {Height} from '../../../theme/globalStyle';
+import {showNotification} from '../../../function';
+import {ScrollView, Text as T} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {editLabelAPI, uploadLabelAPI} from '../../../apis/draftQueries';
+import {pick, types} from '@react-native-documents/picker';
+import {imageURl} from '../../../utils/urls';
+import moment from 'moment';
 // import { uploadLabelData as draftSelectedRetun } from "../../../utils/data";
 
-const UploadLabel = ({ route }) => {
-  const { labels, isEdit } = route.params;
+const UploadLabel = ({route}) => {
+  const {labels, isEdit} = route.params;
   const dispatch = useDispatch();
-  const { goBack } = useNavigation();
+  const {goBack} = useNavigation();
 
-  const { draftSelectedRetun, labelID } = useSelector((state) => state.draft);
+  const {draftSelectedRetun, labelID} = useSelector(state => state.draft);
 
   const [load, setLoad] = useState(false);
-  const { Overlay } = useFreezeScreen(load);
+  const {Overlay} = useFreezeScreen(load);
   const [labelDocs, setLabelDocs] = useState();
   const [selectedReturns, setSelectedReturns] = useState([]);
   const [showDate, setShowDate] = useState({
@@ -43,10 +43,10 @@ const UploadLabel = ({ route }) => {
     date: isEdit ? labels?.date : null,
   });
 
-  const handleItemSelect = (productId) => {
-    setSelectedReturns((prev) => {
+  const handleItemSelect = productId => {
+    setSelectedReturns(prev => {
       if (prev.includes(productId)) {
-        return prev.filter((id) => id !== productId);
+        return prev.filter(id => id !== productId);
       } else {
         return [...prev, productId];
       }
@@ -56,11 +56,11 @@ const UploadLabel = ({ route }) => {
   const handleDocumentPick = async () => {
     try {
       const [result] = await pick({
-        mode: "open",
+        mode: 'open',
         type: [types.pdf, types.images],
       });
       if (result) {
-        setLabelDocs({ uri: result.uri, type: result.type, name: result.name });
+        setLabelDocs({uri: result.uri, type: result.type, name: result.name});
       }
     } catch (err) {
       console.error(err);
@@ -69,27 +69,27 @@ const UploadLabel = ({ route }) => {
 
   const handleUpload = () => {
     if (selectedReturns.length === 0) {
-      showNotification("error", "Please select any Item first", "Error");
+      showNotification('error', 'Please select any Item first', 'Error');
       return;
     }
     if (!isEdit && !labelDocs) {
-      showNotification("error", "Please upload label", "Error");
+      showNotification('error', 'Please upload label', 'Error');
       return;
     }
     if (!isEdit && !showDate.date) {
-      showNotification("error", "Please select date", "Error");
+      showNotification('error', 'Please select date', 'Error');
       return;
     }
 
-    const productID = selectedReturns.map((item) => {
-      return { productId: item };
+    const productID = selectedReturns.map(item => {
+      return {productId: item};
     });
     const body = new FormData();
-    body.append("bundleId", labels._id);
-    body.append("date", showDate.date);
-    body.append("productIDs", JSON.stringify(productID));
+    body.append('bundleId', labels._id);
+    body.append('date', showDate.date);
+    body.append('productIDs', JSON.stringify(productID));
     labelDocs
-      ? body.append("label", {
+      ? body.append('label', {
           uri: labelDocs.uri,
           type: labelDocs.type,
           name: labelDocs.name,
@@ -115,14 +115,16 @@ const UploadLabel = ({ route }) => {
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Upload Label" />
+      <Height />
+
       <Text
         style={styles.draftTitle}
-        title={"Upload Return Label or QR Code"}
+        title={'Upload Return Label or QR Code'}
       />
       <Text
         style={styles.draftSub}
         title={
-          "Upload a file or screenshot of your shipping label from the retailer"
+          'Upload a file or screenshot of your shipping label from the retailer'
         }
       />
       <Height />
@@ -133,12 +135,12 @@ const UploadLabel = ({ route }) => {
             // isUrl={labelDocs?.uri || isEdit}
             type={labelDocs?.type}
             onPress={handleDocumentPick}
-            noImage={!labelDocs?.type ?? !labels?.labelReceipt !== "pending"}
+            noImage={!labelDocs?.type ?? !labels?.labelReceipt !== 'pending'}
             source={
               labelDocs?.uri
-                ? { uri: labelDocs.uri }
+                ? {uri: labelDocs.uri}
                 : isEdit
-                ? { uri: imageURl + labels?.labelReceipt }
+                ? {uri: imageURl + labels?.labelReceipt}
                 : appImages.addLabel
             }
             title={
@@ -146,7 +148,7 @@ const UploadLabel = ({ route }) => {
                 ? labelDocs?.name
                 : isEdit
                 ? labels.labelReceipt
-                : labelDocs?.name || "Tap to upload label"
+                : labelDocs?.name || 'Tap to upload label'
             }
           />
 
@@ -155,7 +157,7 @@ const UploadLabel = ({ route }) => {
             Select
             <Text
               title=" only "
-              style={{ fontFamily: fonts[600] }}
+              style={{fontFamily: fonts[500]}}
               color={colors.purple}
             />
             items the label above applies to
@@ -170,14 +172,14 @@ const UploadLabel = ({ route }) => {
         />
 
         <>
-          <RequiredText title={"Return item by"} required />
+          <RequiredText title={'Return item by'} required />
           <SelectDate
             title={
               isEdit
-                ? moment(showDate.date).format("YYYY-MM-DD")
-                : showDate.date || "Select Date"
+                ? moment(showDate.date).format('YYYY-MM-DD')
+                : showDate.date || 'Select Date'
             }
-            onPress={() => setShowDate({ open: true, date: null })}
+            onPress={() => setShowDate({open: true, date: null})}
           />
           <Height />
         </>
@@ -187,9 +189,9 @@ const UploadLabel = ({ route }) => {
       <Height />
       <DatePicker
         visible={showDate.open}
-        onClose={() => setShowDate({ open: false, date: null })}
-        onPress={(date) => {
-          setShowDate({ open: false, date });
+        onClose={() => setShowDate({open: false, date: null})}
+        onPress={date => {
+          setShowDate({open: false, date});
         }}
       />
 

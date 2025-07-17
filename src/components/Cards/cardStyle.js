@@ -69,7 +69,7 @@ export default StyleSheet.create({
     borderColor: colors.purple,
   },
   headerRow: {
-    marginBottom: 12,
+    marginBottom: scaleSize(10),
   },
   sectionTitle: {
     color: colors.black,
@@ -116,8 +116,8 @@ export default StyleSheet.create({
   pickupMethodDetail: {
     marginTop: 5,
     color: '#5C5A5A',
-    fontFamily: fonts[500],
-    fontSize: fontScale(12),
+    fontFamily: fonts[400],
+    fontSize: fontScale(14),
   },
   TimeSelectCont: {
     padding: 12,

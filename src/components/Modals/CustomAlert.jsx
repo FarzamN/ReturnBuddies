@@ -44,13 +44,18 @@ const CustomAlert = props => {
         <Text style={styles.title} title={title} />
         <Height height={10} />
 
-        <RNText style={styles.message} center>
+        <RNText style={styles.message}>
           {isNote && (
             <Text
               center
               title={isNote}
-              color={colors.black}
-              style={styles.message}
+              style={[
+                styles.message,
+                {
+                  color: colors.black,
+                  fontFamily: fonts[600],
+                },
+              ]}
             />
           )}{' '}
           {message}
@@ -96,13 +101,14 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     color: colors.black,
-    fontSize: fontScale(18),
+    fontSize: fontScale(13),
     fontFamily: fonts[600],
   },
   message: {
     color: colors.grey,
+    textAlign: 'center',
     fontFamily: fonts[400],
-    fontSize: fontScale(13),
+    fontSize: fontScale(12),
   },
 
   modalButton: {
@@ -123,14 +129,14 @@ const styles = StyleSheet.create({
 
   cancelText: {
     color: '#454545',
-    fontSize: scaleSize(13),
-    fontFamily: fonts[500],
+    fontSize: scaleSize(11),
+    fontFamily: fonts[400],
   },
 
   deleteText: {
     color: '#ED6479',
-    fontSize: scaleSize(13),
-    fontFamily: fonts[500],
+    fontSize: scaleSize(11),
+    fontFamily: fonts[400],
   },
 
   image: {

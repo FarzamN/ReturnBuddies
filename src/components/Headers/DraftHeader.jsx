@@ -1,11 +1,10 @@
-import React from 'react';
 import {Text} from '..';
+import React from 'react';
 import styles from './headerStyle';
 import {useSelector} from 'react-redux';
 import {colors} from '../../theme/colors';
-import {wp} from '../../theme/responsive';
 import {TouchableOpacity} from 'react-native';
-import {android} from '../../utils/constants';
+import {scaleSize, wp} from '../../theme/responsive';
 import Icon from 'react-native-dynamic-vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import {Row, Space_Between} from '../../theme/globalStyle';
@@ -16,8 +15,7 @@ const DraftHeader = props => {
   const {name, FirstLogin} = useSelector(state => state.auth.user);
 
   return (
-    <Space_Between
-      style={{paddingHorizontal: wp(5), marginTop: android ? 20 : 0}}>
+    <Space_Between style={{paddingHorizontal: wp(5), marginTop: scaleSize(20)}}>
       <Text
         style={styles.nameHeader}
         title={

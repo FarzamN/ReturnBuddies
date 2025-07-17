@@ -6,6 +6,7 @@ import {
   TrackingCard,
   PickupButton,
   ReturnInnerCard,
+  FullImage,
 } from '../../../components';
 
 import moment from 'moment';
@@ -15,7 +16,7 @@ import React, {useEffect, useState} from 'react';
 import {appImages, fonts} from '../../../assets';
 import Icon from 'react-native-dynamic-vector-icons';
 import {useDispatch, useSelector} from 'react-redux';
-import {scaleSize, wp} from '../../../theme/responsive';
+import {height, scaleSize, width, wp} from '../../../theme/responsive';
 import settingStyle from '../SettingFolder/settingStyle';
 import {globalStyle, Height} from '../../../theme/globalStyle';
 import {FlatList, ScrollView, TouchableOpacity, View} from 'react-native';
@@ -38,24 +39,27 @@ const PickupDetail = ({route}) => {
   const steps = [
     {
       label: 'Pickup Requested',
-      icon: 'truck',
+      icon: appImages.pickup_truck,
       date: '17 June, 2025',
       completed: data?.status === 'Pickup Requeste ',
-      iconType: 'Feather',
     },
     {
       label: 'Picked up by RB',
-      icon: 'shopping-cart',
+      icon: appImages.pickup_user_cart,
       date: '17 June, 2025',
       completed: data?.status === 'in transit',
-      iconType: 'MaterialIcons',
+    },
+    {
+      label: 'At RB Warehouse',
+      icon: appImages.pickup_warehouse,
+      date: '17 June, 2025',
+      completed: data?.status === 'completed',
     },
     {
       label: 'Dropped off at UPS',
-      icon: 'cube',
+      icon: appImages.pickup_cube,
       date: '17 June, 2025',
       completed: data?.status === 'completed',
-      iconType: 'Ionicons',
     },
   ];
 
@@ -70,7 +74,7 @@ const PickupDetail = ({route}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.pickupTitle} title={'Return #122'} />
 
-        <View style={setpStyle.timeline}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {steps.map((step, index) => (
             <React.Fragment key={index}>
               <View style={setpStyle.stepContainer}>
@@ -87,10 +91,15 @@ const PickupDetail = ({route}) => {
                         : '#fff',
                     },
                   ]}>
-                  <Icon
+                  {/* <Icon
                     type={step.iconType}
                     name={step.icon}
                     size={20}
+                    
+                  /> */}
+                  <FullImage
+                    style={{width: 20, height: 20}}
+                    source={step.icon}
                     color={
                       cancelled ? '#fff' : step.completed ? '#fff' : '#A259FF'
                     }
@@ -100,7 +109,6 @@ const PickupDetail = ({route}) => {
                 <Text style={setpStyle.date} title={step.date} />
               </View>
 
-              {/* {index < steps.length - 1 &&} */}
               <View
                 style={[
                   setpStyle.line,
@@ -109,7 +117,8 @@ const PickupDetail = ({route}) => {
               />
             </React.Fragment>
           ))}
-        </View>
+        </ScrollView>
+
         <Height />
         {!cancelled && <TrackingCard tracking={trackingNumber} />}
         <FlatList
@@ -193,14 +202,8 @@ const PickupDetail = ({route}) => {
 export default PickupDetail;
 
 const setpStyle = {
-  timeline: {
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
   stepContainer: {
-    width: '30%',
+    width: scaleSize(150),
     alignItems: 'center',
   },
   iconWrapper: {
@@ -225,8 +228,8 @@ const setpStyle = {
     top: 20,
     height: 2,
     zIndex: -1,
-    left: '20%',
+    left: '15%',
     position: 'absolute',
-    width: `${100 - 30}%`,
+    width: `${70}%`,
   },
 };
