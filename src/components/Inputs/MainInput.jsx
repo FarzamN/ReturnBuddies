@@ -27,6 +27,7 @@ const MainInput = forwardRef((props, ref) => {
     defaultValue,
     keyboardType = 'default',
     disabled,
+    onSubmit,
   } = props;
 
   const [show, setShow] = useState(true);
@@ -56,6 +57,7 @@ const MainInput = forwardRef((props, ref) => {
         multiline={multiline}
         selectionColor={purple}
         placeholder={placeholder}
+        onSubmitEditing={onSubmit}
         keyboardType={keyboardType}
         onChangeText={field.onChange}
         contentStyle={{

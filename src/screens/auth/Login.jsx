@@ -22,12 +22,13 @@ import {Body, MainButton, Header, Text, MainInput} from '../../components';
 const Login = () => {
   const dispatch = useDispatch();
   const showOTP = useRef(false);
+  const openOTP = () => showOTP.current?.show();
+
   const {goBack, navigate} = useNavigation();
 
   const [isPending, setIsPending] = useState(false);
   const {Overlay} = useFreezeScreen(isPending);
 
-  const openOTP = () => showOTP.current?.show();
   const [saveEmail, setSaveEmail] = useState('');
 
   const onSubmit = data =>

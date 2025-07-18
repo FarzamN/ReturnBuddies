@@ -22,6 +22,7 @@ import {confirmPickupAPI} from '../../../apis/draftQueries';
 import {useFreezeScreen, useIskeyboard} from '../../../hooks';
 import {maskCardNumber, showNotification} from '../../../function';
 import {globalStyle, Height, Space_Between} from '../../../theme/globalStyle';
+import {checkPromocode} from '../../../apis/pickupQueries';
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
@@ -37,10 +38,15 @@ const ConfirmPickup = () => {
   const [focus, setFocus] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [load, setLoad] = useState(false);
+  const [promoCodeLoad, setPromoCodeLoad] = useState(false);
 
-  const {Overlay} = useFreezeScreen(load); // Pass isPending to hook
+  const {Overlay} = useFreezeScreen(load || promoCodeLoad); // Pass isPending to hook
 
-  const [promocode, setPromoCode] = useState({visible: false});
+  const [promocode, setPromoCode] = useState({
+    visible: false,
+    discount: 0,
+    load: false,
+  });
 
   const totalItemCount = draftSelectedRetun
     .map(item => item.products.length)
@@ -52,31 +58,24 @@ const ConfirmPickup = () => {
 
   const {BASE_PRICE, FREE_ITEMS_THRESHOLD, ADDITIONAL_ITEM_PRICE} = getBaseData;
 
-  /*
   const calculateTotalPrice = () => {
     if (totalItemCount <= FREE_ITEMS_THRESHOLD) {
-      return BASE_PRICE * totalItemCount;
-    } else {
-      let minProcucts = totalItemCount - 10;
-      return BASE_PRICE * totalItemCount + minProcucts;
-    }
-  };
-*/
-
-  const calculateTotalPrice = () => {
-    if (totalItemCount <= FREE_ITEMS_THRESHOLD) {
-      return BASE_PRICE;
+      return BASE_PRICE - promocode.discount / 100;
     } else {
       const additionalItems = totalItemCount - FREE_ITEMS_THRESHOLD;
-      return BASE_PRICE + additionalItems * ADDITIONAL_ITEM_PRICE;
+      return (
+        BASE_PRICE +
+        additionalItems * ADDITIONAL_ITEM_PRICE -
+        promocode.discount / 100
+      );
     }
   };
 
   useEffect(() => {
     setTotalPrice(calculateTotalPrice());
-  }, [totalItemCount]);
+  }, [totalItemCount, promocode.discount]);
 
-  const onSubmit = data => {
+  const onSubmit = () => {
     if (!phone) {
       showNotification('error', 'Error', 'Please set your phone number');
       return;
@@ -176,11 +175,17 @@ const ConfirmPickup = () => {
             isError={errors?.code}
             placeholder="Enter Promo code"
             message={errors?.code?.message}
+            onSubmit={handleSubmit(data =>
+              checkPromocode(data.code, setPromoCode, setPromoCodeLoad),
+            )}
           />
         )}
         <Height />
         <Space_Between>
-          <Text style={styles.promoCode} title="Total" />
+          <Text
+            style={styles.promoCode}
+            title={promocode.load ? 'Wait...' : 'Total'}
+          />
           <Text title={`$${totalPrice}`} style={styles.promoCode} />
         </Space_Between>
         <PickupButton
@@ -207,11 +212,7 @@ const ConfirmPickup = () => {
         <Overlay />
       </ScrollView>
       {!isKeyboard && (
-        <MainButton
-          title="Confirm pickup"
-          onPress={handleSubmit(onSubmit)}
-          load={load}
-        />
+        <MainButton title="Confirm pickup" onPress={onSubmit} load={load} />
       )}
     </Body>
   );

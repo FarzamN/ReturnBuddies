@@ -1,16 +1,15 @@
+import styles from "./authStyle";
+import React, { useState } from "react";
+import { appImages } from "../../assets";
 import { useDispatch } from "react-redux";
 import { View, Text } from "react-native";
-import React, { useState } from "react";
-import ActionSheet from "react-native-actions-sheet";
-
-import { FullImage, MainButton } from "../../components";
-import { appImages } from "../../assets";
-import styles from "./authStyle";
-import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import { colors } from "../../theme/colors";
 import { Height } from "../../theme/globalStyle";
-import { useNavigation } from "@react-navigation/native";
 import { verifyOTPAPI } from "../../apis/authQueries";
+import ActionSheet from "react-native-actions-sheet";
+import { FullImage, MainButton } from "../../components";
+import { useNavigation } from "@react-navigation/native";
+import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
 const AuthOTP = ({ ref, email }) => {
   const dispatch = useDispatch();
@@ -36,8 +35,8 @@ const AuthOTP = ({ ref, email }) => {
     >
       <View style={styles.card}>
         <FullImage
-          source={verify ? appImages.otpSuccess : appImages.otpImage}
           style={{ width: 150, height: 150 }}
+          source={verify ? appImages.otpSuccess : appImages.otpImage}
         />
         <Height />
         <Text style={styles.title}>
@@ -53,8 +52,8 @@ const AuthOTP = ({ ref, email }) => {
         {!verify && (
           <View style={styles.otpContainer}>
             <CodeField
+              autoFocus
               cellCount={5}
-              autoFucus
               value={otpValue}
               keyboardType="number-pad"
               textContentType="oneTimeCode"
@@ -80,7 +79,11 @@ const AuthOTP = ({ ref, email }) => {
           </View>
         )}
 
-        <MainButton onPress={onSubmit} title={verify ? "Login" : "Verify"} />
+        <MainButton
+          load={isPending}
+          onPress={onSubmit}
+          title={verify ? "Login" : "Verify"}
+        />
       </View>
     </ActionSheet>
   );

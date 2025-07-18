@@ -22,11 +22,12 @@ const DraftItem = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
 
-  // const {draftData} = useSelector(state => state.draft);
-  const draftData = [];
-  const [hasUnselected, setHasUnselected] = useState(false);
-  const [isPending, setIsPending] = useState(false);
+  // const draftData = [];
+  const {draftData} = useSelector(state => state.draft);
+
   const [refresh, setRefresh] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [hasUnselected, setHasUnselected] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
   // const [returnItemCount, setReturnItemCount] = useState(0);
 
