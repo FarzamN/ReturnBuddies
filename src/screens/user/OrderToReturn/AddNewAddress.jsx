@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { fonts } from "../../../assets";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { required } from "../../../utils/constants";
+import { iOS, required } from "../../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 import { fontScale, wp } from "../../../theme/responsive";
 import { ScrollView, StyleSheet } from "react-native";
@@ -139,15 +139,15 @@ export default AddNewAddress;
 
 const styles = StyleSheet.create({
   checkBoxText: {
-    top: fontScale(1),
-    marginLeft: 7,
     width: "90%",
+    marginLeft: 7,
     fontFamily: fonts[400],
     fontSize: fontScale(13),
+    top: fontScale(iOS ? 0 : 1),
   },
   inputCont: {
     marginTop: 0,
-    marginBottom: 10,
     width: "48%",
+    marginBottom: 10,
   },
 });

@@ -28,7 +28,7 @@ const CustomToast = ({ title, message, type }) => {
           style={[
             helperStyle.ToastText1,
             {
-              fontSize: title.length < 30 ? fontScale(14) : fontScale(10),
+              fontSize: title.length < 30 ? fontScale(12) : fontScale(8),
             },
           ]}
         >
@@ -38,7 +38,7 @@ const CustomToast = ({ title, message, type }) => {
           style={[
             helperStyle.ToastText2,
             {
-              fontSize: message.length < 30 ? fontScale(11) : fontScale(10),
+              fontSize: message.length < 30 ? fontScale(10) : fontScale(8),
             },
           ]}
         >

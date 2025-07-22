@@ -6,6 +6,7 @@ import { globalStyle } from "../../theme/globalStyle";
 import { Text } from "..";
 import { fontScale } from "../../theme/responsive";
 import { fonts } from "../../assets";
+import { iOS } from "../../utils/constants";
 
 const CircleCheck = ({ focus, onPress, title }) => {
   return (
@@ -25,10 +26,10 @@ export default CircleCheck;
 
 const styles = StyleSheet.create({
   checkBoxText: {
-    top: fontScale(1),
-    marginLeft: 7,
     width: "90%",
+    fontSize: 14,
+    marginLeft: 7,
     fontFamily: fonts[400],
-    fontSize: fontScale(13),
+    top: fontScale(iOS ? 0 : 1),
   },
 });

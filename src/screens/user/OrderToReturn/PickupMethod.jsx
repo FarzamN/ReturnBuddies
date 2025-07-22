@@ -17,6 +17,7 @@ import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
+import { iOS } from "../../../utils/constants";
 
 const PickupMethod = () => {
   const dispatch = useDispatch();
@@ -40,8 +41,9 @@ const PickupMethod = () => {
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Pickup method" />
+      {iOS && <Height />}
       <Text
-        style={styles.draftTitle}
+        style={[styles.draftTitle, { fontSize: 14 }]}
         title={"How should we collect your items?"}
       />
 
@@ -82,6 +84,7 @@ const PickupMethod = () => {
       {!isKeyboard && (
         <MainButton title="Continue" onPress={handleSubmit(onSubmit)} />
       )}
+      {iOS && <Height />}
     </Body>
   );
 };

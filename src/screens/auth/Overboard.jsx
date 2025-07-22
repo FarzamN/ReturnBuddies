@@ -8,7 +8,14 @@ import {
   StatusBar,
 } from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
-import { height, hp, scaleSize, width, wp } from "../../theme/responsive";
+import {
+  fontScale,
+  height,
+  hp,
+  scaleSize,
+  width,
+  wp,
+} from "../../theme/responsive";
 import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { globalStyle, Height } from "../../theme/globalStyle";
@@ -133,40 +140,38 @@ const styles = StyleSheet.create({
     height: height / 2,
   },
   title: {
-    fontSize: hp(2.3),
-    lineHeight: hp(4.2),
-    textAlign: "center",
-    fontFamily: fonts[500],
-    color: colors.black,
     marginTop: hp(2),
+    textAlign: "center",
+    color: colors.black,
+    fontSize: fontScale(22),
+    fontFamily: fonts[600],
   },
   subtitle: {
-    fontSize: hp(1.5),
-    lineHeight: hp(2.6),
     textAlign: "center",
     fontFamily: fonts[400],
+    marginTop: scaleSize(5),
+    fontSize: fontScale(15),
     color: colors.description,
-    // marginTop: hp(2),
   },
   dotWrapper: {
     borderRadius: 10,
-    backgroundColor: colors.white,
-    justifyContent: "center",
-    alignItems: "center",
     marginHorizontal: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
   },
 
   rowButtonWrapper: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     alignItems: "center",
     paddingBottom: hp(2),
+    justifyContent: "space-evenly",
   },
   loginButton: {
     width: wp(44),
-    backgroundColor: colors.none,
     borderWidth: 1,
     borderColor: colors.purple,
+    backgroundColor: colors.none,
   },
   createAccountButton: {
     width: wp(44),

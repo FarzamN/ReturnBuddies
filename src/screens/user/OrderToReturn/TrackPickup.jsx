@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getPickupAPI } from "../../../apis/pickupQueries";
 import { getReturnItem } from "../../../apis/draftQueries";
+import { iOS } from "../../../utils/constants";
 
 const TrackPickup = ({ navigation }) => {
   const { replace } = navigation;
@@ -45,13 +46,16 @@ const TrackPickup = ({ navigation }) => {
             width: width / 2,
             aspectRatio: 1 / 1,
           }}
-          titleStyle={{ fontSize: fontScale(20), fontFamily: fonts[600] }}
+          titleStyle={{ fontSize: fontScale(20), fontFamily: fonts[700] }}
           title={`Your pickup is confirmed for \n ${moment(pickupDate).format(
             "MMM DD, yyyy"
           )}`}
           sub={`We’ll arrive between ${pickupTime}`}
         />
-        <MainButton title="Track my pickup" onPress={onPress} load={load} />
+        <View>
+          <MainButton title="Track my pickup" onPress={onPress} load={load} />
+          {iOS && <Height />}
+        </View>
       </View>
     </Body>
   );

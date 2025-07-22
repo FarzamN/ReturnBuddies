@@ -1,7 +1,7 @@
 import React from "react";
 import { FullImage } from "..";
 import styles from "./buttonStyle";
-import { appImages } from "../../assets";
+import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
@@ -44,7 +44,12 @@ const MainButton = (props) => {
               source={apple ? appImages.apple : appImages.google}
               style={styles.socialImage}
             />
-            <Text style={[styles.font, { color: colors.black }]}>
+            <Text
+              style={[
+                styles.font,
+                { color: colors.black, fontFamily: fonts[500] },
+              ]}
+            >
               Login with {apple ? "Apple" : "Google"}
             </Text>
           </Row>

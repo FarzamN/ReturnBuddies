@@ -25,7 +25,7 @@ const TimeSelectCard = ({ data, focus, onPress, index }) => {
         title={data}
         color={focus ? colors.purple : colors.black}
         width={width / 1.4}
-        style={{ fontFamily: fonts[500] }}
+        style={{ fontFamily: fonts[500], fontSize: 12 }}
       />
       <Icon
         size={22}

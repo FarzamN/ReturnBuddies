@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   },
 
   itemTitle: {
+    fontSize: 15,
     fontFamily: fonts[500],
-    fontSize: fontScale(13),
   },
 
   iconContainer: {

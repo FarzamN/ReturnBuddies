@@ -2,64 +2,66 @@ import {
   Body,
   Text,
   Header,
+  FullImage,
   CustomAlert,
   TrackingCard,
   PickupButton,
   ReturnInnerCard,
-  FullImage,
-} from '../../../components';
+} from "../../../components";
 
-import moment from 'moment';
-import styles from '../userStyle';
-import {colors} from '../../../theme/colors';
-import React, {useEffect, useState} from 'react';
-import {appImages, fonts} from '../../../assets';
-import Icon from 'react-native-dynamic-vector-icons';
-import {useDispatch, useSelector} from 'react-redux';
-import {height, scaleSize, width, wp} from '../../../theme/responsive';
-import settingStyle from '../SettingFolder/settingStyle';
-import {globalStyle, Height} from '../../../theme/globalStyle';
-import {FlatList, ScrollView, TouchableOpacity, View} from 'react-native';
-import {deletePickupAPI, pickupDetailAPI} from '../../../apis/pickupQueries';
-import {useNavigation} from '@react-navigation/native';
+import moment from "moment";
+import styles from "../userStyle";
+import { colors } from "../../../theme/colors";
+import React, { useEffect, useState } from "react";
+import { appImages, fonts } from "../../../assets";
+import { useDispatch, useSelector } from "react-redux";
+import settingStyle from "../SettingFolder/settingStyle";
+import { useNavigation } from "@react-navigation/native";
+import { scaleSize, wp } from "../../../theme/responsive";
+import { globalStyle, Height } from "../../../theme/globalStyle";
+import { FlatList, ScrollView, TouchableOpacity, View } from "react-native";
+import { deletePickupAPI, pickupDetailAPI } from "../../../apis/pickupQueries";
+import { iOS } from "../../../utils/constants";
 
-const PickupDetail = ({route}) => {
-  const {item} = route.params;
+const PickupDetail = ({ route }) => {
+  const { item } = route.params;
   const dispatch = useDispatch();
-  const {navigate} = useNavigation();
+  const { navigate } = useNavigation();
 
-  const {data, trackingNumber} = useSelector(
-    state => state.pickup.pickupDetailData,
+  const { data, trackingNumber } = useSelector(
+    (state) => state.pickup.pickupDetailData
   );
+  const all_products = item?.bundleId.flatMap((item) => item.products);
+
   const [load, setLoad] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const cancelled = data?.status === 'Pickup Canceled';
+  const cancelled = data?.status === "Pickup Canceled";
 
   const steps = [
     {
-      label: 'Pickup Requested',
+      label: "Pickup Requested",
       icon: appImages.pickup_truck,
-      date: '17 June, 2025',
-      completed: data?.status === 'Pickup Requeste ',
+      date: "17 June, 2025",
+      completed: data?.status === "Pickup Requested",
     },
     {
-      label: 'Picked up by RB',
+      label: "Picked up by RB",
       icon: appImages.pickup_user_cart,
-      date: '17 June, 2025',
-      completed: data?.status === 'in transit',
+      date: "17 June, 2025",
+      completed: data?.status === "in transit",
     },
     {
-      label: 'At RB Warehouse',
+      label: "At RB Warehouse",
       icon: appImages.pickup_warehouse,
-      date: '17 June, 2025',
-      completed: data?.status === 'completed',
+      date: "17 June, 2025",
+      completed: data?.status === "completed",
     },
     {
-      label: 'Dropped off at UPS',
+      label: "Dropped off at UPS",
       icon: appImages.pickup_cube,
-      date: '17 June, 2025',
-      completed: data?.status === 'completed',
+      date: "17 June, 2025",
+      completed: data?.status === "completed",
     },
   ];
 
@@ -72,7 +74,7 @@ const PickupDetail = ({route}) => {
       <Header leftTitle="Return Details" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.pickupTitle} title={'Return #122'} />
+        <Text style={styles.pickupTitle} title={"Return #122"} />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {steps.map((step, index) => (
@@ -83,25 +85,20 @@ const PickupDetail = ({route}) => {
                     setpStyle.iconWrapper,
                     {
                       borderWidth: 2,
-                      borderColor: cancelled ? '#9E2424' : '#A259FF',
+                      borderColor: cancelled ? "#9E2424" : "#A259FF",
                       backgroundColor: cancelled
-                        ? '#9E2424'
+                        ? "#9E2424"
                         : step.completed
-                        ? '#A259FF'
-                        : '#fff',
+                        ? "#A259FF"
+                        : "#fff",
                     },
-                  ]}>
-                  {/* <Icon
-                    type={step.iconType}
-                    name={step.icon}
-                    size={20}
-                    
-                  /> */}
+                  ]}
+                >
                   <FullImage
-                    style={{width: 20, height: 20}}
+                    style={{ width: 20, height: 20 }}
                     source={step.icon}
                     color={
-                      cancelled ? '#fff' : step.completed ? '#fff' : '#A259FF'
+                      cancelled ? "#fff" : step.completed ? "#fff" : "#A259FF"
                     }
                   />
                 </View>
@@ -112,7 +109,7 @@ const PickupDetail = ({route}) => {
               <View
                 style={[
                   setpStyle.line,
-                  {backgroundColor: cancelled ? '#9E2424' : colors.purple},
+                  { backgroundColor: cancelled ? "#9E2424" : colors.purple },
                 ]}
               />
             </React.Fragment>
@@ -122,16 +119,16 @@ const PickupDetail = ({route}) => {
         <Height />
         {!cancelled && <TrackingCard tracking={trackingNumber} />}
         <FlatList
-          data={item.bundleId[0].products}
+          scrollEnabled={false}
+          data={all_products}
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           ListHeaderComponent={
             <Text style={styles.pickupTitle} title="Pickup Items" />
           }
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <ReturnInnerCard data={item} background={colors.white} />
           )}
-          scrollEnabled={false}
         />
         <Text style={styles.pickupTitle} title="Pickup Details" />
         <PickupButton
@@ -146,19 +143,20 @@ const PickupDetail = ({route}) => {
           disable
           detail={data?.pickupTime}
           source={appImages.clock}
-          title={moment(data?.pickupDate).format('dddd, MMM DD, yy')}
+          title={moment(data?.pickupDate).format("dddd, MMM DD, yy")}
         />
         <PickupButton disable source={appImages.call} title={data?.phone} />
         <PickupButton
           disable
-          title={'Total'}
+          title={"Total"}
           source={appImages.priceTag}
           detail={`$${data?.totalPrice}`}
         />
         {!cancelled && (
           <TouchableOpacity
             onPress={() => setShowDelete(true)}
-            style={[globalStyle.row, settingStyle.deleteButton]}>
+            style={[globalStyle.row, settingStyle.deleteButton]}
+          >
             <Text
               style={settingStyle.deleteText}
               color={colors.error}
@@ -168,7 +166,7 @@ const PickupDetail = ({route}) => {
         )}
 
         <Height />
-        <TouchableOpacity onPress={() => navigate('support')}>
+        <TouchableOpacity onPress={() => navigate("support")}>
           <Text
             center
             color={colors.purple}
@@ -177,6 +175,12 @@ const PickupDetail = ({route}) => {
           />
         </TouchableOpacity>
         <Height />
+        {iOS && (
+          <>
+            <Height />
+            <Height />
+          </>
+        )}
       </ScrollView>
 
       <CustomAlert
@@ -184,7 +188,7 @@ const PickupDetail = ({route}) => {
         show={showDelete}
         isNote="No fees"
         message={
-          ' will apply if cancelled before 9:00 AM on the day of pickup.'
+          " will apply if cancelled before 9:00 AM on the day of pickup."
         }
         cancelText="Keep pickup"
         confirmText="Cancel pickup"
@@ -204,23 +208,23 @@ export default PickupDetail;
 const setpStyle = {
   stepContainer: {
     width: scaleSize(150),
-    alignItems: 'center',
+    alignItems: "center",
   },
   iconWrapper: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   label: {
-    color: '#333',
+    color: "#333",
     marginTop: 10,
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: fonts[500],
   },
   date: {
-    color: '#888',
+    color: "#888",
     fontFamily: fonts[400],
     fontSize: scaleSize(11),
   },
@@ -228,8 +232,8 @@ const setpStyle = {
     top: 20,
     height: 2,
     zIndex: -1,
-    left: '15%',
-    position: 'absolute',
+    left: "15%",
+    position: "absolute",
     width: `${70}%`,
   },
 };

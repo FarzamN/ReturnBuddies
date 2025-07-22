@@ -11,16 +11,16 @@ export default StyleSheet.create({
     tintColor: colors.black,
   },
   leftLabel: {
+    fontSize: 18,
     textAlign: "center",
     color: colors.black,
     fontFamily: fonts[600],
-    fontSize: fontScale(18),
   },
   rightLabel: {
     textAlign: "center",
     color: colors.purple,
     fontFamily: fonts[600],
-    fontSize: fontScale(14),
+    fontSize: 14,
   },
 
   headerCont: {
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     borderColor: colors.borderColor,
   },
   nameHeader: {
+    fontSize: 20,
     fontFamily: fonts[600],
-    fontSize: fontScale(18),
   },
 });

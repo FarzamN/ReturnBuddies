@@ -12,27 +12,27 @@ import {
   AddDraftCard,
   ConfirmOrderModal,
   AboutOversizeModal,
-} from '../../../components';
-import styles from '../userStyle';
-import buttonStyle from '../userStyle';
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {appImages} from '../../../assets';
-import {scaleSize, wp} from '../../../theme/responsive';
-import {required} from '../../../utils/constants';
-import {showNotification} from '../../../function';
-import {useNavigation} from '@react-navigation/native';
-import {uploadReturnItems} from '../../../apis/draftQueries';
-import {View, ScrollView, TouchableOpacity} from 'react-native';
-import {useGalleryPermission, useIskeyboard} from '../../../hooks';
-import {useForm, useFieldArray, Controller} from 'react-hook-form';
-import {globalStyle, Height, Space_Between} from '../../../theme/globalStyle';
+} from "../../../components";
+import styles from "../userStyle";
+import buttonStyle from "../userStyle";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { appImages } from "../../../assets";
+import { required } from "../../../utils/constants";
+import { showNotification } from "../../../function";
+import { useNavigation } from "@react-navigation/native";
+import { scaleSize, wp } from "../../../theme/responsive";
+import { uploadReturnItems } from "../../../apis/draftQueries";
+import { View, ScrollView, TouchableOpacity } from "react-native";
+import { useGalleryPermission, useIskeyboard } from "../../../hooks";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 
 const AddDraftItem = () => {
   const dispatch = useDispatch();
-  const {goBack} = useNavigation();
-  const {isKeyboard} = useIskeyboard();
-  const {openGallery} = useGalleryPermission();
+  const { goBack } = useNavigation();
+  const { isKeyboard } = useIskeyboard();
+  const { openGallery } = useGalleryPermission();
 
   const [images, setImages] = useState([]);
   const [imageErrors, setImageErrors] = useState([]);
@@ -46,31 +46,31 @@ const AddDraftItem = () => {
     control,
     handleSubmit,
     getValues,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
-    mode: 'all',
+    mode: "all",
     defaultValues: {
-      items: [{detail: '', oversized: false}],
+      items: [{ detail: "", oversized: false }],
     },
   });
 
-  const {fields, append, remove} = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
-    name: 'items',
+    name: "items",
   });
 
-  const handleImagePick = async index => {
+  const handleImagePick = async (index) => {
     const img = await openGallery();
     const updated = [...images];
     updated[index] = img;
     setImages(updated);
   };
 
-  const handleConfirmation = data => {
+  const handleConfirmation = (data) => {
     const errors = data.items.map((_, index) => !images[index]?.uri);
     setImageErrors(errors);
 
-    const hasImageError = errors.some(e => e);
+    const hasImageError = errors.some((e) => e);
     if (hasImageError) return;
 
     // const itemsWithImages = data.items.map((item, index) => ({
@@ -80,7 +80,7 @@ const AddDraftItem = () => {
     const index = fields.length - 1;
     const currentItem = getValues(`items.${index}`);
     const currentImage = images[index];
-    setSubmittedItems(prev => [
+    setSubmittedItems((prev) => [
       ...prev,
       {
         ...currentItem,
@@ -90,7 +90,7 @@ const AddDraftItem = () => {
 
     // Remove the current field and image
     remove(index);
-    setImages(prev => {
+    setImages((prev) => {
       const updated = [...prev];
       updated.splice(index, 1); // remove image at index
       return updated;
@@ -98,22 +98,22 @@ const AddDraftItem = () => {
     setShowConfirmOrder(true);
   };
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     const body = new FormData();
 
     // Filter out items with no detail
-    const validItems = submittedItems.filter(item => item.detail?.trim());
+    const validItems = submittedItems.filter((item) => item.detail?.trim());
 
     // Map only the valid ones
-    const inputs = validItems.map(item => ({
+    const inputs = validItems.map((item) => ({
       detail: item.detail,
       oversized: item.oversized,
     }));
 
-    body.append('items', JSON.stringify(inputs));
+    body.append("items", JSON.stringify(inputs));
 
-    validItems.forEach(item => {
-      body.append('files', {
+    validItems.forEach((item) => {
+      body.append("files", {
         uri: item.image.uri,
         type: item.image.type,
         name: item.image.name,
@@ -126,7 +126,7 @@ const AddDraftItem = () => {
     return item?.detail?.trim() && image?.uri;
   };
 
-  const handleAdd = async data => {
+  const handleAdd = async (data) => {
     setEditMode(false);
     const errors = data.items.map((_, index) => {
       const item = getValues(`items.${index}`);
@@ -134,14 +134,14 @@ const AddDraftItem = () => {
     });
     setImageErrors(errors);
 
-    const hasImageError = errors.some(e => e);
+    const hasImageError = errors.some((e) => e);
     if (hasImageError) return;
 
     const index = fields.length - 1;
     const currentItem = getValues(`items.${index}`);
     const currentImage = images[index];
 
-    setSubmittedItems(prev => [
+    setSubmittedItems((prev) => [
       ...prev,
       {
         ...currentItem,
@@ -151,20 +151,20 @@ const AddDraftItem = () => {
 
     // Remove the current field and image
     remove(index);
-    setImages(prev => {
+    setImages((prev) => {
       const updated = [...prev];
       updated.splice(index, 1); // remove image at index
       return updated;
     });
 
     // Add a fresh item
-    append({detail: '', oversized: false});
-    setImages(prev => [...prev, null]);
+    append({ detail: "", oversized: false });
+    setImages((prev) => [...prev, null]);
   };
 
   const handleEdit = (_, index) => {
     if (editMode) {
-      showNotification('error', 'Please Edit the current item first', 'Error');
+      showNotification("error", "Please Edit the current item first", "Error");
       return;
     }
     const item = submittedItems[index];
@@ -174,12 +174,12 @@ const AddDraftItem = () => {
 
     // Replace current field with the item
     remove(fields.length - 1); // remove empty field
-    append({detail: item.detail, oversized: item.oversized});
+    append({ detail: item.detail, oversized: item.oversized });
     setImages([item.image]); // override image with editing one
     setEditMode(true);
   };
 
-  const handleDelete = index => {
+  const handleDelete = (index) => {
     const newList = [...submittedItems];
     newList.splice(index, 1);
     setSubmittedItems(newList);
@@ -187,9 +187,9 @@ const AddDraftItem = () => {
 
   return (
     <Body horizontal={wp(5)}>
-      <Header leftTitle={''} />
+      <Header leftTitle={""} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.draftTitle} title={'What are you returning?'} />
+        <Text style={styles.draftTitle} title={"What are you returning?"} />
         <Height />
 
         {submittedItems.length > 0 && (
@@ -201,13 +201,14 @@ const AddDraftItem = () => {
         )}
 
         {fields.map((item, index) => (
-          <View key={item.id} style={{marginBottom: wp(5)}}>
+          <View key={item.id} style={{ marginBottom: wp(5) }}>
             <Space_Between>
-              <RequiredText title={'Item details'} required />
+              <RequiredText title={"Item details"} required />
               {submittedItems.length >= 1 && (
                 <TouchableOpacity
-                  style={{marginTop: -8}}
-                  onPress={() => remove(index)}>
+                  style={{ marginTop: -8 }}
+                  onPress={() => remove(index)}
+                >
                   <FullImage
                     source={appImages.delete}
                     style={globalStyle.deleteIcon}
@@ -219,12 +220,13 @@ const AddDraftItem = () => {
             <MainInput
               small
               noTitle
+              required
               control={control}
-              Container={{marginTop: 0}}
+              Container={{ marginTop: 0 }}
               name={`items.${index}.detail`}
               placeholder="e.g. Black Hoodie - Size XL"
               isError={!!errors?.items?.[index]?.detail}
-              rules={{required: required('Item Details')}}
+              rules={{ required: required("Item Details") }}
               message={errors?.items?.[index]?.detail?.message}
             />
 
@@ -237,13 +239,13 @@ const AddDraftItem = () => {
                 noImage={!images[index]?.uri}
                 source={
                   images[index]?.uri
-                    ? {uri: images[index].uri}
+                    ? { uri: images[index].uri }
                     : appImages.camera
                 }
                 onPress={() => handleImagePick(index)}
                 title={
                   images[index]?.name ||
-                  'Take a photo of the item you want to return'
+                  "Take a photo of the item you want to return"
                 }
               />
               <Validation
@@ -256,7 +258,7 @@ const AddDraftItem = () => {
             <Controller
               control={control}
               name={`items.${index}.oversized`}
-              render={({field: {value, onChange}}) => (
+              render={({ field: { value, onChange } }) => (
                 <Oversize
                   focus={value}
                   onPress={() => onChange(!value)}
@@ -275,7 +277,11 @@ const AddDraftItem = () => {
           textStyle={buttonStyle.buttonText}
           style={[
             buttonStyle.button,
-            {width: undefined, paddingHorizontal: scaleSize(20)},
+            {
+              width: undefined,
+              borderRadius: 50,
+              paddingHorizontal: scaleSize(20),
+            },
           ]}
         />
         <Height />

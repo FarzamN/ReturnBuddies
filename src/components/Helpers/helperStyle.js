@@ -1,28 +1,17 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 import responsive, {
   fontScale,
   scaleSize,
   verticalScale,
   wp,
-} from '../../theme/responsive';
-import {colors} from '../../theme/colors';
-import {fonts} from '../../assets';
+} from "../../theme/responsive";
+import { colors } from "../../theme/colors";
+import { fonts } from "../../assets";
 
-const {black} = colors;
+const { black } = colors;
 const helperStyle = StyleSheet.create({
-  helperText: {
-    fontFamily: fonts[400],
-    color: colors.error,
-    fontSize: fontScale(10),
-    marginTop: responsive.space(7),
-  },
-  text: {
-    top: 1,
-    fontFamily: fonts[400],
-    fontSize: fontScale(14),
-  },
   divider: {
-    backgroundColor: '#D9D9D9',
+    backgroundColor: "#D9D9D9",
     height: responsive.height(1),
     borderRadius: scaleSize(50),
   },
@@ -31,12 +20,12 @@ const helperStyle = StyleSheet.create({
 
   toastCont: {
     height: 70,
-    width: '85%',
+    width: "85%",
     borderWidth: 1,
     borderRadius: 10,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
   ToastText1: {
@@ -52,8 +41,8 @@ const helperStyle = StyleSheet.create({
     borderRadius: 5,
     marginRight: 12,
     aspectRatio: 1 / 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
 
     elevation: 5,
     shadowColor: black,
@@ -70,20 +59,20 @@ const helperStyle = StyleSheet.create({
     marginVertical: verticalScale(10),
   },
   emptyDesc: {
+    fontSize: 13,
     fontFamily: fonts[500],
-    fontSize: fontScale(12),
+    textAlign: "center",
     color: colors.description,
-    textAlign: 'center',
   },
   PlusCont: {
-    position: 'absolute',
+    position: "absolute",
 
     zIndex: 9,
     width: 50,
     aspectRatio: 1 / 1,
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.purple,
   },
   optionsContainerStyle: {
@@ -91,13 +80,6 @@ const helperStyle = StyleSheet.create({
     padding: 2,
     marginTop: wp(6),
     borderBottomWidth: 3,
-  },
-
-  requiredTitle: {
-    marginBottom: 8,
-    color: colors.black,
-    fontSize: fontScale(14),
-    fontFamily: fonts[500],
   },
 });
 

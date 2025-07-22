@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import userStyle from "../user/userStyle";
-import { wp } from "../../theme/responsive";
+import { fontScale, wp } from "../../theme/responsive";
 import { Height } from "../../theme/globalStyle";
 import { required } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 import { checkEmailToForgetPasswordAPI } from "../../apis/authQueries";
 import { Body, Header, MainButton, MainInput, Text } from "../../components";
+import authStyle from "./authStyle";
 
 const CheckEmail = () => {
   const { navigate } = useNavigation();
@@ -21,9 +22,18 @@ const CheckEmail = () => {
   return (
     <Body horizontal={wp(5)}>
       <Header leftTitle="Forgot password" />
-      <Text style={userStyle.draftTitle} title="Let’s get you back in" />
+      <Height />
       <Text
-        style={userStyle.draftSub}
+        style={[
+          userStyle.draftTitle,
+          {
+            fontSize: fontScale(16),
+          },
+        ]}
+        title="Let’s get you back in"
+      />
+      <Text
+        style={styles.draftSub}
         title="Enter your email address and we’ll send you a one-time verification code to reset your password."
       />
       <Height />

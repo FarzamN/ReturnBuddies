@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "..";
-import style from "./helperStyle";
+import style from "./textStyle";
 import { View } from "react-native";
 
 const Validation = (props) => {

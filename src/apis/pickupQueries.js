@@ -1,23 +1,26 @@
-import {apiRequest, showNotification} from '../function';
-import {setPickupData, setPickupDetailData} from '../redux/slices/pickupSlice';
+import { apiRequest, showNotification } from "../function";
+import {
+  setPickupData,
+  setPickupDetailData,
+} from "../redux/slices/pickupSlice";
 
-export const getPickupAPI = load => {
-  return async dispatch => {
+export const getPickupAPI = (load) => {
+  return async (dispatch) => {
     apiRequest({
-      endpoint: 'get-pickup-status',
-      onSuccess: ({data}) => {
-        dispatch(setPickupData({active: data.active, past: data.past}));
+      endpoint: "get-pickup-status",
+      onSuccess: ({ data }) => {
+        dispatch(setPickupData({ active: data.active, past: data.past }));
       },
       onFinally: load,
     });
   };
 };
 export const pickupDetailAPI = (id, load) => {
-  return async dispatch => {
+  return async (dispatch) => {
     apiRequest({
       endpoint: `/get-pickup-by-id/${id}`,
-      onSuccess: ({data, trackingNumber}) => {
-        dispatch(setPickupDetailData({data, trackingNumber}));
+      onSuccess: ({ data, trackingNumber }) => {
+        dispatch(setPickupDetailData({ data, trackingNumber }));
       },
       onFinally: load,
     });
@@ -25,10 +28,10 @@ export const pickupDetailAPI = (id, load) => {
 };
 
 export const deletePickupAPI = (id, load, showDelete) => {
-  return async dispatch => {
-    console.log('id', id);
+  return async (dispatch) => {
+    console.log("id", id);
     apiRequest({
-      method: 'post',
+      method: "post",
       endpoint: `/canceled-pickup/${id}`,
       onSuccess: () => {
         showDelete(false);
@@ -40,16 +43,27 @@ export const deletePickupAPI = (id, load, showDelete) => {
   };
 };
 
-export const checkPromocode = (id, setPromoCode, load) => {
+export const checkPromocode = (code, setPromoCode) => {
+  setPromoCode((prev) => ({ ...prev, load: true, invalid: false }));
   apiRequest({
-    endpoint: `/get-Promo?code=${id}`,
-    onSuccess: ({promo, message}) => {
-      showNotification('success', 'Success', message);
-      setPromoCode({discount: promo.Discount, visible: true});
+    endpoint: `/get-Promo?code=${code}`,
+    onSuccess: ({ promo, message }) => {
+      showNotification("success", "Success", message);
+      setPromoCode((prev) => ({
+        ...prev,
+        discount: promo.Discount,
+        visible: true,
+        applied: true,
+        load: false,
+        invalid: false,
+      }));
     },
-    onNotFound: () => {
-      showNotification('error', 'error', 'Promo code not found');
-    },
-    onFinally: setPromoCode({load: true}),
+    onNotFound: () =>
+      setPromoCode((prev) => ({
+        ...prev,
+        invalid: true,
+        applied: false,
+        load: false,
+      })),
   });
 };

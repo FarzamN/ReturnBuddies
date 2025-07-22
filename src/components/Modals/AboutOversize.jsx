@@ -38,7 +38,7 @@ const AboutOversize = ({ visible, onClose }) => {
         <Height />
 
         <Text
-          style={{ fontFamily: fonts[700], fontSize: fontScale(15) }}
+          style={{ fontFamily: fonts[600], fontSize: 16 }}
           title="Oversized Items"
           center
         />
@@ -49,7 +49,7 @@ const AboutOversize = ({ visible, onClose }) => {
           dimension is considered oversized and may incur an{" "}
           <Text
             center
-            style={{ fontFamily: fonts[600] }}
+            style={{ fontFamily: fonts[600], color: " #717171" }}
             title="additional fee."
           />
         </T>

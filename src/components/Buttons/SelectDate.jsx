@@ -32,7 +32,7 @@ const SelectDate = (props) => {
       />
       <Text
         title={title}
-        style={{ fontFamily: fonts[500] }}
+        style={{ fontSize: 12 }}
         color={isError ? "red" : colors.black}
       />
     </TouchableOpacity>

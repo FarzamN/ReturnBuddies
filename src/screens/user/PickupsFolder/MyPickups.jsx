@@ -1,4 +1,10 @@
 import {
+  FlatList,
+  ScrollView,
+  BackHandler,
+  RefreshControl,
+} from "react-native";
+import {
   Body,
   Text,
   Header,
@@ -6,25 +12,23 @@ import {
   DraftHeader,
   PickupSection,
   DraftSkeleton,
-} from '../../../components';
-import styles from '../userStyle';
-import {wp} from '../../../theme/responsive';
-import React, {useEffect, useState} from 'react';
-import {globalStyle, Height} from '../../../theme/globalStyle';
-import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {getPickupAPI} from '../../../apis/pickupQueries';
-import {ScrollView, FlatList, BackHandler, RefreshControl} from 'react-native';
-import {setPathType} from '../../../redux/slices/pickupSlice';
-import {colors} from 'react-native-swiper-flatlist/src/themes';
+} from "../../../components";
 
-// import { pickupData } from "../../../utils/data";
+import styles from "../userStyle";
+import { wp } from "../../../theme/responsive";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { getPickupAPI } from "../../../apis/pickupQueries";
+import { setPathType } from "../../../redux/slices/pickupSlice";
+import { globalStyle, Height } from "../../../theme/globalStyle";
+import { colors } from "react-native-swiper-flatlist/src/themes";
 
 const MyPickups = () => {
   const dispatch = useDispatch();
-  const {goBack, navigate} = useNavigation();
-  const {pathType, pickupData} = useSelector(state => state.pickup);
-  const isPickup = pathType === 'setting';
+  const { goBack, navigate } = useNavigation();
+  const { pathType, pickupData } = useSelector((state) => state.pickup);
+  const isPickup = pathType === "setting";
 
   const [load, setLoad] = useState(false);
 
@@ -35,13 +39,13 @@ const MyPickups = () => {
     getPickupAPI(setLoad)(dispatch);
 
     const backAction = () => {
-      dispatch(setPathType('notSetting'));
+      dispatch(setPathType("notSetting"));
       return false;
     };
 
     const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
+      "hardwareBackPress",
+      backAction
     );
     return () => backHandler.remove();
   }, []);
@@ -53,7 +57,7 @@ const MyPickups = () => {
           leftTitle="Pickups"
           onBackPress={() => {
             goBack();
-            dispatch(setPathType('notSetting'));
+            dispatch(setPathType("notSetting"));
           }}
         />
       ) : (
@@ -80,7 +84,8 @@ const MyPickups = () => {
           }
           nestedScrollEnabled
           showsVerticalScrollIndicator={false}
-          style={{paddingHorizontal: wp(isPickup ? 0 : 5)}}>
+          style={{ paddingHorizontal: wp(isPickup ? 0 : 5) }}
+        >
           <Height />
 
           <FlatList
@@ -91,12 +96,15 @@ const MyPickups = () => {
               <Text style={styles.pickupTitle} title="Active Pickups" />
             }
             ListEmptyComponent={
-              <Text title="You don't have any pickups scheduled yet." />
+              <Text
+                style={{ fontSize: 12 }}
+                title="You don't have any pickups scheduled yet."
+              />
             }
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <PickupSection
                 data={item}
-                onPress={() => navigate('pickupDetail', {item})}
+                onPress={() => navigate("pickupDetail", { item })}
               />
             )}
           />
@@ -109,19 +117,22 @@ const MyPickups = () => {
               <Text style={styles.pickupTitle} title="Past Pickups" />
             }
             ListEmptyComponent={
-              <Text title="You don't have any return history at the moment." />
+              <Text
+                style={{ fontSize: 12 }}
+                title="You don't have any return history at the moment."
+              />
             }
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <PickupSection
                 data={item}
-                onPress={() => navigate('pickupDetail', {item})}
+                onPress={() => navigate("pickupDetail", { item })}
               />
             )}
           />
         </ScrollView>
       )}
 
-      {pathType !== 'setting' && <PrimeryTab currentTab="myPickups" />}
+      {pathType !== "setting" && <PrimeryTab currentTab="myPickups" />}
     </Body>
   );
 };

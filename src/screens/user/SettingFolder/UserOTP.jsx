@@ -87,14 +87,14 @@ const UserOTP = ({ navigation, route }) => {
     <Body horizontal={wp(5)}>
       <Header />
       <Text
-        style={{ fontFamily: fonts[700], fontSize: fontScale(22) }}
+        style={{ fontFamily: fonts[700], fontSize: fontScale(24) }}
         center
         title="Enter Code"
       />
       <Text
         center
-        style={styles.draftSub}
-        title={`Enter the OTP code we sent to ${number}. ${otp}`}
+        style={authStyle.otpSub}
+        title={`Enter the OTP code we sent to\n${number}. ${otp}`}
       />
       <Height />
       <Height />
@@ -141,6 +141,11 @@ const UserOTP = ({ navigation, route }) => {
         />{" "}
         seconds
       </RNText>
+      <Text
+        center
+        style={[styles.timerSecondText, { color: "#525252", marginTop: wp(3) }]}
+        title="Having trouble?"
+      />
       <TouchableOpacity disabled={seconds != 0} onPress={handleReset}>
         <Text
           style={styles.resendText}

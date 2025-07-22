@@ -62,10 +62,10 @@ const DatePicker = ({ visible, onClose, onPress }) => {
             backgroundColor: "#F9ECFF",
 
             textDayFontFamily: fonts[500],
-            textDayFontSize: fontScale(15),
+            textDayFontSize: 15,
 
             textMonthFontFamily: fonts[500],
-            textMonthFontSize: fontScale(17),
+            textMonthFontSize: 17,
           }}
         />
 
@@ -84,7 +84,11 @@ const DatePicker = ({ visible, onClose, onPress }) => {
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "#A24BF4", fontWeight: "600" }}>Cancel</Text>
+            <Text
+              style={{ color: "#A24BF4", fontFamily: fonts[400], fontSize: 16 }}
+            >
+              Cancel
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -98,7 +102,11 @@ const DatePicker = ({ visible, onClose, onPress }) => {
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "#fff", fontWeight: "600" }}>Apply</Text>
+            <Text
+              style={{ color: "#fff", fontFamily: fonts[400], fontSize: 16 }}
+            >
+              Apply
+            </Text>
           </TouchableOpacity>
         </Space_Between>
       </View>

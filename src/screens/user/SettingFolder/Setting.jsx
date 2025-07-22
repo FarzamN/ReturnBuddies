@@ -8,56 +8,56 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ImageBackground,
-} from 'react-native';
-import React from 'react';
+} from "react-native";
+import React from "react";
 import {
   wp,
   fontScale,
   scaleSize,
   verticalScale,
-} from '../../../theme/responsive';
-import {colors} from '../../../theme/colors';
-import {FullImage} from '../../../components';
-import {appImages, fonts} from '../../../assets';
-import Icon from 'react-native-dynamic-vector-icons';
-import {useDispatch, useSelector} from 'react-redux';
-import {globalStyle} from '../../../theme/globalStyle';
-import {useNavigation} from '@react-navigation/native';
-import {setLogout} from '../../../redux/slices/authSlice';
-import {setPathType} from '../../../redux/slices/pickupSlice';
-import settingStyle from './settingStyle';
+} from "../../../theme/responsive";
+import { colors } from "../../../theme/colors";
+import { FullImage } from "../../../components";
+import { appImages, fonts } from "../../../assets";
+import Icon from "react-native-dynamic-vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { globalStyle } from "../../../theme/globalStyle";
+import { useNavigation } from "@react-navigation/native";
+import { setLogout } from "../../../redux/slices/authSlice";
+import { setPathType } from "../../../redux/slices/pickupSlice";
+import settingStyle from "./settingStyle";
 
 const settingsData = [
-  {title: 'Profile settings', icon: appImages.user, route: 'editProfile'},
-  {title: 'Pickups', icon: appImages.box, route: 'myPickupsRoute'},
-  {title: 'Addresses', icon: appImages.location, route: 'selectNewAddress'},
+  { title: "Profile settings", icon: appImages.user, route: "editProfile" },
+  { title: "Pickups", icon: appImages.box, route: "myPickupsRoute" },
+  { title: "Addresses", icon: appImages.location, route: "selectNewAddress" },
   {
-    title: 'Payment methods',
+    title: "Payment methods",
     icon: appImages.wallet_setting,
-    route: 'selectPaymentMethod',
+    route: "selectPaymentMethod",
   },
   {
-    title: 'Notifications',
+    title: "Notifications",
     icon: appImages.notification,
-    route: 'notification',
+    route: "notification",
   },
-  {title: 'Support', icon: appImages.support, route: 'support'},
-  {title: 'Privacy', icon: appImages.shield, route: 'privacy'},
-  {title: 'Log out', icon: appImages.logout, type: 'logout'},
+  { title: "Support", icon: appImages.support, route: "support" },
+  { title: "Privacy", icon: appImages.shield, route: "privacy" },
+  { title: "Log out", icon: appImages.logout, type: "logout" },
 ];
 
 const Setting = () => {
   const dispatch = useDispatch();
-  const {navigate, goBack} = useNavigation();
-  const {name, email} = useSelector(state => state.auth.user);
+  const { navigate, goBack } = useNavigation();
+  const { name, email } = useSelector((state) => state.auth.user);
 
-  const handlePress = item => {
-    if (item.type === 'logout') {
+  const handlePress = (item) => {
+    if (item.type === "logout") {
       dispatch(setLogout());
     } else {
-      if (item.title === 'Pickups') {
-        dispatch(setPathType('setting'));
-        navigate('myPickupsRoute');
+      if (item.title === "Pickups") {
+        dispatch(setPathType("setting"));
+        navigate("myPickupsRoute");
       }
       navigate(item.route);
     }
@@ -91,8 +91,8 @@ const Setting = () => {
         source={appImages.profileBackground}
         style={{
           height: 230,
-          width: '100%',
-          position: 'absolute',
+          width: "100%",
+          position: "absolute",
         }}
       />
 
@@ -110,17 +110,21 @@ const Setting = () => {
         {/* </ImageBackground> */}
       </View>
       <View style={styles.contentContainer}>
-        <Text style={[settingStyle.settingTitle, {marginTop: scaleSize(35)}]}>
+        <Text style={[settingStyle.settingTitle, { marginTop: scaleSize(35) }]}>
           Settings
         </Text>
         <FlatList
           data={settingsData}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.item}
-              onPress={() => handlePress(item)}>
+              onPress={() => handlePress(item)}
+            >
               <View style={styles.iconCircle}>
-                <FullImage source={item.icon} style={{width: 22, height: 22}} />
+                <FullImage
+                  source={item.icon}
+                  style={{ width: 22, height: 22 }}
+                />
               </View>
               <Text style={styles.itemText}>{item.title}</Text>
               <Icon
@@ -133,7 +137,7 @@ const Setting = () => {
             </TouchableOpacity>
           )}
           keyExtractor={(_, i) => i.toString()}
-          contentContainerStyle={{paddingBottom: wp(10)}}
+          contentContainerStyle={{ paddingBottom: wp(10) }}
           ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
         />
       </View>
@@ -159,20 +163,20 @@ const styles = StyleSheet.create({
     top: scaleSize(60),
     shadowOpacity: 0.05,
     borderRadius: wp(4),
-    shadowColor: '#000',
+    shadowColor: "#000",
     marginVertical: wp(6),
     marginHorizontal: wp(5),
     backgroundColor: colors.white,
   },
   name: {
+    fontSize: 17,
     color: colors.black,
     fontFamily: fonts[600],
-    fontSize: fontScale(17),
   },
   email: {
-    color: '#888',
+    fontSize: 12,
+    color: "#888",
     fontFamily: fonts[500],
-    fontSize: fontScale(12),
   },
   contentContainer: {
     flex: 1,
@@ -182,8 +186,8 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: wp(4),
   },
   iconCircle: {
@@ -191,15 +195,15 @@ const styles = StyleSheet.create({
     height: wp(10),
     borderRadius: wp(5),
     marginRight: wp(4),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.lightPurple,
   },
   itemText: {
     flex: 1,
+    fontSize: 13,
     color: colors.black,
-    fontFamily: fonts[600],
-    fontSize: fontScale(13),
+    fontFamily: fonts[500],
   },
   chevron: {
     marginLeft: wp(2),

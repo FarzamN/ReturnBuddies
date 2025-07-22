@@ -1,26 +1,26 @@
-import React, {useState} from 'react';
-import styles from './settingStyle';
-import Icon from 'react-native-dynamic-vector-icons';
-import {Body, FullImage, Header, Text} from '../../../components';
 import {
   FlatList,
-  TouchableOpacity,
   View,
   Linking,
   Pressable,
   ScrollView,
-} from 'react-native';
-import responsive, {scaleSize, wp} from '../../../theme/responsive';
-import {globalStyle, Height} from '../../../theme/globalStyle';
-import {appImages, fonts} from '../../../assets';
-import settingStyle from './settingStyle';
-import {useSelector} from 'react-redux';
+  TouchableOpacity,
+} from "react-native";
+import styles from "./settingStyle";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import settingStyle from "./settingStyle";
+import { appImages, fonts } from "../../../assets";
+import Icon from "react-native-dynamic-vector-icons";
+import responsive, { wp } from "../../../theme/responsive";
+import { globalStyle, Height } from "../../../theme/globalStyle";
+import { Body, FullImage, Header, Text } from "../../../components";
 
 const Support = () => {
-  const {getFaqs} = useSelector(state => state.auth);
+  const { getFaqs } = useSelector((state) => state.auth);
   const [expandedSection, setExpandedSection] = useState(null);
 
-  const renderAnswerWithBoldEmail = text => {
+  const renderAnswerWithBoldEmail = (text) => {
     const emailRegex = /[\w.-]+@[\w.-]+\.\w+/g;
     const parts = text.split(emailRegex);
     const emails = text.match(emailRegex);
@@ -33,15 +33,15 @@ const Support = () => {
           key={`text-${i}`}
           style={styles.FAQcontentText}
           title={parts[i]}
-        />,
+        />
       );
       if (emails && emails[i]) {
         output.push(
           <Text
             key={`email-${i}`}
-            style={[styles.FAQcontentText, {fontFamily: fonts[600]}]}
+            style={[styles.FAQcontentText, { fontFamily: fonts[600] }]}
             title={emails[i]}
-          />,
+          />
         );
       }
     }
@@ -53,25 +53,25 @@ const Support = () => {
     {
       id: 1,
       icon: appImages.supportEmail,
-      mainTitle: 'Email',
-      link: 'mailto: support@returnbuddies.com',
-      email: 'support@returnbuddies.com',
-      desc: 'Our team is here to help you.',
+      mainTitle: "Email",
+      link: "mailto: support@returnbuddies.com",
+      email: "support@returnbuddies.com",
+      desc: "Our team is here to help you.",
     },
     {
       id: 2,
-      link: 'tel:+1 (646) 450-7960',
-      email: '+1 (646) 450-7960',
-      mainTitle: 'Give us a Call',
+      link: "tel:+1 (646) 450-7960",
+      email: "+1 (646) 450-7960",
+      mainTitle: "Give us a Call",
       icon: appImages.supportPhone,
-      desc: 'Speak directly with out support team.',
+      desc: "Speak directly with out support team.",
     },
   ];
 
   const socialButton = [
-    {img: appImages.instagram, link: 'https://instagram.com'},
-    {img: appImages.x, link: 'https://x.com'},
-    {img: appImages.website, link: 'https://google.com'},
+    { img: appImages.instagram, link: "https://instagram.com" },
+    { img: appImages.x, link: "https://x.com" },
+    { img: appImages.website, link: "https://google.com" },
   ];
 
   return (
@@ -89,8 +89,8 @@ const Support = () => {
           keyExtractor={(_, index) => index.toString()}
           ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
           contentContainerStyle={settingStyle.whiteFlatlistBox}
-          renderItem={({item, index}) => {
-            const {question, answer} = item;
+          renderItem={({ item, index }) => {
+            const { question, answer } = item;
             return (
               <View>
                 <Pressable
@@ -102,14 +102,15 @@ const Support = () => {
                   ]}
                   onPress={() =>
                     setExpandedSection(expandedSection === index ? null : index)
-                  }>
+                  }
+                >
                   <Text style={styles.FAQSectionText} title={question} />
                   <Icon
-                    type={'Entypo'}
+                    type={"Entypo"}
                     size={20}
                     color="black"
                     name={`chevron-${
-                      expandedSection === index ? 'up' : 'down'
+                      expandedSection === index ? "up" : "down"
                     }`}
                   />
                 </Pressable>
@@ -135,18 +136,19 @@ const Support = () => {
 
           <FlatList
             nestedScrollEnabled
-            scrollEnabled={false}
             data={contactUsList}
+            scrollEnabled={false}
             keyExtractor={(_, index) => index.toString()}
             ItemSeparatorComponent={() => (
               <View style={settingStyle.separator} />
             )}
             contentContainerStyle={settingStyle.whiteFlatlistBox}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <TouchableOpacity
                 key={item.id}
                 onPress={() => Linking.openURL(item.link)}
-                style={[{flexDirection: 'row'}, globalStyle.mv20]}>
+                style={[{ flexDirection: "row" }, globalStyle.mv20]}
+              >
                 <FullImage
                   source={item.icon}
                   style={{
@@ -154,7 +156,7 @@ const Support = () => {
                     height: responsive.width(40),
                   }}
                 />
-                <View style={{marginLeft: wp(3)}}>
+                <View style={{ marginLeft: wp(3) }}>
                   <Text style={styles.headingTitle} title={item.mainTitle} />
                   <Text style={styles.contactUStext} title={item.desc} />
                   <Text style={styles.emailText} title={item.email} />
@@ -165,11 +167,12 @@ const Support = () => {
         </>
       </ScrollView>
       <View style={globalStyle.row_justify_center}>
-        {socialButton.map(({img, link}) => (
+        {socialButton.map(({ img, link }) => (
           <TouchableOpacity
             key={link}
             onPress={() => Linking.openURL(link)}
-            style={{margin: wp(2)}}>
+            style={{ margin: wp(2) }}
+          >
             <FullImage source={img} style={styles.ContactImageStyle} />
           </TouchableOpacity>
         ))}

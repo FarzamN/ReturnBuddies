@@ -2,27 +2,30 @@ import {
   Body,
   Text,
   Header,
-  MainInput,
   MainButton,
   CircleCheck,
   PickupButton,
   ItemPickupButton,
+  SpaceText,
 } from "../../../components";
+
 import moment from "moment";
 import styles from "../userStyle";
-import { useForm } from "react-hook-form";
 import { appImages } from "../../../assets";
 import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
 import { useFreezeScreen, useIskeyboard } from "../../../hooks";
 import { maskCardNumber, showNotification } from "../../../function";
+import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
-import { checkPromocode } from "../../../apis/pickupQueries";
+import textStyle from "../../../components/Texts/textStyle";
+import { iOS } from "../../../utils/constants";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
@@ -32,6 +35,8 @@ const ConfirmPickup = () => {
   const { draftSelectedRetun, getBaseData } = useSelector(
     (state) => state.draft
   );
+  const { BASE_PRICE, FREE_ITEMS_THRESHOLD, ADDITIONAL_ITEM_PRICE } =
+    getBaseData;
   const { pickupMethod, time, date, selectedAddress, note, selectedPayment } =
     useSelector((state) => state.draft.draftReturn);
 
@@ -39,17 +44,19 @@ const ConfirmPickup = () => {
     (state) => state.auth.user
   );
 
-  const [focus, setFocus] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [load, setLoad] = useState(false);
-  const [promoCodeLoad, setPromoCodeLoad] = useState(false);
+  const { Overlay } = useFreezeScreen(load); // Pass isPending to hook
+  const [focus, setFocus] = useState(false);
 
-  const { Overlay } = useFreezeScreen(load || promoCodeLoad); // Pass isPending to hook
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const [promocode, setPromoCode] = useState({
+    value: "",
     visible: false,
     discount: 0,
     load: false,
+    applied: false,
+    invalid: false,
   });
 
   const totalItemCount = draftSelectedRetun
@@ -59,9 +66,6 @@ const ConfirmPickup = () => {
   const hasOversized = draftSelectedRetun.some((bundle) =>
     bundle.products.some((product) => product.oversized === true)
   );
-
-  const { BASE_PRICE, FREE_ITEMS_THRESHOLD, ADDITIONAL_ITEM_PRICE } =
-    getBaseData;
 
   const calculateTotalPrice = () => {
     if (totalItemCount <= FREE_ITEMS_THRESHOLD) {
@@ -117,12 +121,6 @@ const ConfirmPickup = () => {
     };
     confirmPickupAPI(value, navigate, setLoad)(dispatch);
   };
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: "all" });
   return (
     <Body horizontal={wp(5)}>
       <Header leftTitle="Confirm Pickup" />
@@ -157,10 +155,18 @@ const ConfirmPickup = () => {
           title={`Items to be picked up (${totalItemCount})`}
         />
 
-        <Space_Between style={globalStyle.mv10}>
-          <Text style={styles.promoCode} title="Pickup" />
-          <Text title={`$${BASE_PRICE}`} style={styles.promoCode} />
-        </Space_Between>
+        <Height />
+
+        <SpaceText
+          title="Pickup"
+          value={`$${
+            totalItemCount <= FREE_ITEMS_THRESHOLD
+              ? BASE_PRICE
+              : totalItemCount * ADDITIONAL_ITEM_PRICE
+          }`}
+        />
+        <Height />
+
         <TouchableOpacity
           onPress={() =>
             setPromoCode((pre) => ({ ...pre, visible: !pre.visible }))
@@ -169,42 +175,87 @@ const ConfirmPickup = () => {
           <Text
             color={colors.purple}
             title="+ Add a Promo Code"
-            style={styles.promoCode}
+            style={textStyle.promoCode}
           />
         </TouchableOpacity>
 
         {promocode.visible && (
-          <MainInput
-            noTitle
-            name="code"
-            control={control}
-            isError={errors?.code}
-            placeholder="Enter Promo code"
-            message={errors?.code?.message}
-            onSubmit={handleSubmit((data) =>
-              checkPromocode(data.code, setPromoCode, setPromoCodeLoad)
-            )}
-          />
+          <View style={settingStyle.phoneWrapper}>
+            <TextInput
+              value={promocode.value}
+              onChangeText={(value) =>
+                setPromoCode((prev) => ({ ...prev, value, invalid: false }))
+              }
+              placeholder="Enter Promo code"
+              placeholderTextColor="#B0B0B0"
+              style={settingStyle.phoneInput}
+              autoCapitalize="characters"
+            />
+
+            <TouchableOpacity
+              onPress={() =>
+                checkPromocode(promocode.value.trim(), setPromoCode)
+              }
+              disabled={
+                promocode.load || promocode.applied || !promocode.value.trim()
+              }
+              style={[
+                settingStyle.verifyButton,
+                {
+                  backgroundColor: promocode.applied
+                    ? "#E8F8E8"
+                    : promocode.invalid
+                    ? "#ED64791A"
+                    : "#F4E8FF",
+                },
+              ]}
+            >
+              <Text
+                color={
+                  promocode.applied
+                    ? "#66CE67"
+                    : promocode.invalid
+                    ? "#ED6479"
+                    : colors.purple
+                }
+                style={settingStyle.verifyText}
+                title={
+                  promocode.load
+                    ? "Loading..."
+                    : promocode.applied
+                    ? "Applied"
+                    : promocode.invalid
+                    ? "Invalid"
+                    : "Apply"
+                }
+              />
+            </TouchableOpacity>
+          </View>
         )}
+
         <Height />
-        <Space_Between>
-          <Text
-            style={styles.promoCode}
-            title={promocode.load ? "Wait..." : "Total"}
-          />
-          <Text
-            title={promocode.load ? "Wait..." : `$${totalPrice}`}
-            style={styles.promoCode}
-          />
-        </Space_Between>
+        <SpaceText
+          title="Discount"
+          load={promocode.load}
+          value={`$${(promocode.discount / 100) * BASE_PRICE}`}
+        />
+        <Height />
+        <SpaceText
+          title="Total"
+          load={promocode.load}
+          value={`$${totalPrice}`}
+        />
+
         <PickupButton
           isPayment={selectedPayment?.cardNumber || payment?.cardNumber}
           source={appImages.wallet}
           title={`${
             selectedPayment?.cardNumber
-              ? maskCardNumber(selectedPayment?.cardNumber)
+              ? selectedPayment?.cardType +
+                " " +
+                maskCardNumber(selectedPayment?.cardNumber)
               : payment?.cardNumber
-              ? maskCardNumber(payment?.cardNumber)
+              ? payment?.cardType + " " + maskCardNumber(payment?.cardNumber)
               : "Add payment method"
           }`}
           onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
@@ -223,6 +274,7 @@ const ConfirmPickup = () => {
       {!isKeyboard && (
         <MainButton title="Confirm pickup" onPress={onSubmit} load={load} />
       )}
+      {iOS && <Height />}
     </Body>
   );
 };

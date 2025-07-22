@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { FullImage, Text } from "..";
-import { appImages } from "../../assets";
+import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { scaleSize } from "../../theme/responsive";
 import userStyle from "../../screens/user/userStyle";
@@ -20,11 +20,14 @@ const TrackingCard = (props) => {
       <Text style={userStyle.pickupTitle} title="Track your return" />
       <Space_Between>
         <Row style={{ top: 5 }}>
-          <Text style={userStyle.pickupTitle} title="UPS Tracking #: " />
+          <Text
+            style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
+            title="UPS Tracking #: "
+          />
           <Text
             title={props.tracking}
             color={colors.purple}
-            style={userStyle.pickupTitle}
+            style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
           />
         </Row>
         <FullImage

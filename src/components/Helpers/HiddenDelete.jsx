@@ -17,7 +17,7 @@ export default HiddenDelete;
 
 const deleteButton = {
   width: 60,
-  height: "85%",
+  height: "80%",
   backgroundColor: colors.error,
   borderRadius: 20,
   justifyContent: "center",

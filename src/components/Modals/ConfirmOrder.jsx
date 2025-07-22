@@ -52,7 +52,7 @@ const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
               type="Ionicons"
               name={checked[index] ? "radio-button-on" : "radio-button-off"}
               size={22}
-              color={colors.purple}
+              color={checked[index] ? colors.purple : "#E6E4E0"}
             />
             <Text style={styles.confirmationText}>{text}</Text>
           </TouchableOpacity>

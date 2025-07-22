@@ -39,8 +39,8 @@ const LabelPickerButton = (props) => {
               {
                 borderRadius: scaleSize(type == "pdf" ? 0 : 12),
 
-                width: responsive.width(noImage ? 30 : 40),
-                height: responsive.width(noImage ? 30 : 40),
+                width: responsive.width(noImage ? 25 : 40),
+                height: responsive.width(noImage ? 25 : 40),
               },
             ]}
           />
@@ -48,8 +48,8 @@ const LabelPickerButton = (props) => {
             <Text
               title={title}
               numberOfLines={2}
-              width={noImage ? "100%" : width / 1.7}
               style={styles.uploadText}
+              width={noImage ? "100%" : width / 1.7}
             />
 
             {weight && (

@@ -1,11 +1,10 @@
 import React from "react";
 import { FullImage } from "..";
 import styles from "./buttonStyle";
-import { Text, TouchableOpacity } from "react-native";
-import Icon from "react-native-dynamic-vector-icons";
-import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
-import responsive from "../../theme/responsive";
 import { appImages } from "../../assets";
+import responsive from "../../theme/responsive";
+import { Text, TouchableOpacity } from "react-native";
+import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 
 const ImageButton = (props) => {
   const { onPress, source, title, noImage, isError } = props;

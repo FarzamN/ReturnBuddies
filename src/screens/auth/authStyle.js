@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import { fontScale, hp, wp } from "../../theme/responsive";
+import { fontScale, scaleSize, wp } from "../../theme/responsive";
 import { fonts } from "../../assets";
 
 export default StyleSheet.create({
   mainTitle: {
     fontFamily: fonts[600],
-    fontSize: fontScale(20),
-    marginTop: wp(5),
+    fontSize: fontScale(23),
+    marginTop: wp(1),
     textAlign: "left",
     color: colors.black,
   },
@@ -15,22 +15,22 @@ export default StyleSheet.create({
     marginBottom: wp(5),
     textAlign: "center",
     fontFamily: fonts[400],
-    fontSize: fontScale(12),
+    fontSize: fontScale(14),
     color: colors.grey,
   },
   forgotTextStyle: {
     marginBottom: wp(5),
     textAlign: "right",
     fontFamily: fonts[500],
-    fontSize: fontScale(12),
+    fontSize: fontScale(11),
   },
   dontAccountTextStyle: {
-    fontSize: fontScale(13),
+    fontSize: fontScale(14),
     fontFamily: fonts[500],
     color: colors.description,
   },
   dontAccountSignUpTextStyle: {
-    fontSize: fontScale(13),
+    fontSize: fontScale(14),
     fontFamily: fonts[500],
     color: colors.purple,
   },
@@ -52,11 +52,11 @@ export default StyleSheet.create({
     color: "#000",
     marginBottom: 8,
     fontFamily: fonts[600],
-    fontSize: fontScale(20),
+    fontSize: fontScale(18),
   },
   subText: {
-    fontFamily: fonts[500],
-    fontSize: fontScale(12),
+    fontFamily: fonts[400],
+    fontSize: fontScale(14),
     color: "#888",
     textAlign: "center",
     marginBottom: 25,
@@ -82,5 +82,11 @@ export default StyleSheet.create({
     fontSize: fontScale(14),
     textAlign: "center",
     lineHeight: wp(12),
+  },
+  otpSub: {
+    color: "#211F1C",
+    fontFamily: fonts[400],
+    marginTop: scaleSize(5),
+    fontSize: fontScale(14),
   },
 });
