@@ -4,12 +4,16 @@ import styles from "./textStyle";
 import { Space_Between } from "../../theme/globalStyle";
 
 const SpaceText = (props) => {
-  const { title, value, load } = props;
+  const { title, value, load, visible } = props;
   return (
-    <Space_Between>
-      <Text style={styles.promoCode} title={title} />
-      <Text title={load ? "Wait..." : value} style={styles.promoCode} />
-    </Space_Between>
+    <>
+      {!visible && (
+        <Space_Between>
+          <Text style={styles.promoCode} title={title} />
+          <Text title={load ? "Wait..." : value} style={styles.promoCode} />
+        </Space_Between>
+      )}
+    </>
   );
 };
 

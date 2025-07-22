@@ -59,6 +59,7 @@ const ConfirmPickup = () => {
     invalid: false,
   });
 
+  // const totalItemCount = 20;
   const totalItemCount = draftSelectedRetun
     .map((item) => item.products.length)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -159,14 +160,26 @@ const ConfirmPickup = () => {
 
         <SpaceText
           title="Pickup"
-          value={`$${
-            totalItemCount <= FREE_ITEMS_THRESHOLD
-              ? BASE_PRICE
-              : totalItemCount * ADDITIONAL_ITEM_PRICE
-          }`}
+          // value={`$${
+          //   totalItemCount <= FREE_ITEMS_THRESHOLD
+          //     ? BASE_PRICE
+          //     : totalItemCount * ADDITIONAL_ITEM_PRICE
+          // }`}
+          value={`$${BASE_PRICE}`}
         />
         <Height />
 
+        <SpaceText
+          title={`Extra item${totalItemCount > 11 ? "s" : ""}`}
+          // value={`$${
+          //   totalItemCount <= FREE_ITEMS_THRESHOLD
+          //     ? BASE_PRICE
+          //     : totalItemCount * ADDITIONAL_ITEM_PRICE
+          // BASE_PRICE, FREE_ITEMS_THRESHOLD, ADDITIONAL_ITEM_PRICE
+          // }`}
+          visible={totalItemCount < 11}
+          value={totalItemCount * ADDITIONAL_ITEM_PRICE - FREE_ITEMS_THRESHOLD}
+        />
         <TouchableOpacity
           onPress={() =>
             setPromoCode((pre) => ({ ...pre, visible: !pre.visible }))
@@ -233,10 +246,11 @@ const ConfirmPickup = () => {
           </View>
         )}
 
-        <Height />
+        {promocode.discount !== 0 && <Height />}
         <SpaceText
           title="Discount"
           load={promocode.load}
+          visible={promocode.discount === 0}
           value={`$${(promocode.discount / 100) * BASE_PRICE}`}
         />
         <Height />
