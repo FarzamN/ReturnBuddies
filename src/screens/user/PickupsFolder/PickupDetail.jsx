@@ -7,6 +7,7 @@ import {
   TrackingCard,
   PickupButton,
   ReturnInnerCard,
+  ReturnSection,
 } from "../../../components";
 
 import moment from "moment";
@@ -19,7 +20,13 @@ import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
 import { scaleSize, wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
-import { FlatList, ScrollView, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { deletePickupAPI, pickupDetailAPI } from "../../../apis/pickupQueries";
 import { iOS } from "../../../utils/constants";
 
@@ -73,7 +80,16 @@ const PickupDetail = ({ route }) => {
     <Body horizontal={wp(5)}>
       <Header leftTitle="Return Details" />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={load}
+            onRefresh={() => pickupDetailAPI(item._id, setLoad)(dispatch)}
+            tintColor={colors.purple}
+          />
+        }
+      >
         <Text style={styles.pickupTitle} title={"Return #122"} />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -120,14 +136,16 @@ const PickupDetail = ({ route }) => {
         {!cancelled && <TrackingCard tracking={trackingNumber} />}
         <FlatList
           scrollEnabled={false}
-          data={all_products}
+          //   data={all_products}
+          data={item?.bundleId}
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           ListHeaderComponent={
             <Text style={styles.pickupTitle} title="Pickup Items" />
           }
           renderItem={({ item }) => (
-            <ReturnInnerCard data={item} background={colors.white} />
+            // <ReturnInnerCard data={item} background={colors.white} />
+            <ReturnSection disabled section={item} />
           )}
         />
         <Text style={styles.pickupTitle} title="Pickup Details" />
@@ -214,12 +232,13 @@ const setpStyle = {
     width: 40,
     height: 40,
     borderRadius: 20,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
   label: {
     color: "#333",
     marginTop: 10,
+    marginVertical: 15,
     textAlign: "center",
     fontFamily: fonts[500],
   },
@@ -233,7 +252,7 @@ const setpStyle = {
     height: 2,
     zIndex: -1,
     left: "15%",
-    position: "absolute",
     width: `${70}%`,
+    position: "absolute",
   },
 };

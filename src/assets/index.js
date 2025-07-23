@@ -12,12 +12,12 @@ export const appImages = {
   logo: require(`./images/logo.png`),
   profileBackground: require(`./images/profileBackground.jpeg`),
 
+  trackingBus: require(`./images/tracking-bus.png`),
+
   //  ------- Onboard
   onboard4: require(`./images/Overboard/onboard4.png`),
   onboard5: require(`./images/Overboard/onboard5.png`),
   onboard6: require(`./images/Overboard/onboard6.png`),
-
-  trackingBus: require(`./images/tracking-bus.png`),
 
   //  ------- social media
   x: require("./images/support/x.png"),
@@ -28,10 +28,10 @@ export const appImages = {
 
   //  ------- Pickup step icons
 
-  pickup_truck: require("../assets/images/pickup-steps/pickup-truck.png"),
-  pickup_user_cart: require("../assets/images/pickup-steps/user-cart.png"),
   pickup_cube: require("../assets/images/pickup-steps/cube.png"),
   pickup_cross: require("../assets/images/pickup-steps/bag-cross.png"),
+  pickup_truck: require("../assets/images/pickup-steps/pickup-truck.png"),
+  pickup_user_cart: require("../assets/images/pickup-steps/user-cart.png"),
   pickup_warehouse: require("../assets/images/pickup-steps/warehouse.png"),
 
   //  ------- Icons

@@ -194,7 +194,6 @@ export const addAddressAPI = (data, goBack, load) => {
 export const getAddressAPI = (load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "get",
       endpoint: "get-all-address",
       onSuccess: (data) => {
         dispatch(setGetAddress(data.addresses.reverse()));
@@ -238,7 +237,6 @@ export const addPaymentAPI = (data, goBack, load) => {
 export const getPaymentAPI = (load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "get",
       endpoint: "get-payment-card",
       onSuccess: ({ cards }) => {
         dispatch(setGetPayments(cards.reverse()));
@@ -388,7 +386,6 @@ export const changepasswordForgetAPI = async (data, load, nav) => {
 export const getFAQsAPI = () => {
   return async (dispatch) => {
     apiRequest({
-      method: "get",
       endpoint: "get-all-faq",
       onSuccess: ({ data }) => {
         dispatch(setFaqs(data));

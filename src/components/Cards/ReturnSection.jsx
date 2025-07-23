@@ -7,7 +7,6 @@ import { ReturnInnerCard, MainButton, Text } from "..";
 import { useNavigation } from "@react-navigation/native";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import { View, Pressable, FlatList, Text as RNText } from "react-native";
-import { fontScale } from "../../theme/responsive";
 
 const ReturnSection = (props) => {
   const { navigate } = useNavigation();

@@ -15,10 +15,12 @@ import Icon from "react-native-dynamic-vector-icons";
 import responsive, { wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { Body, FullImage, Header, Text } from "../../../components";
+import { colors } from "../../../theme/colors";
 
 const Support = () => {
   const { getFaqs } = useSelector((state) => state.auth);
   const [expandedSection, setExpandedSection] = useState(null);
+  const isExpanded = (index) => expandedSection === index;
 
   const renderAnswerWithBoldEmail = (text) => {
     const emailRegex = /[\w.-]+@[\w.-]+\.\w+/g;
@@ -83,48 +85,43 @@ const Support = () => {
           title="Frequently Asked Questions"
         />
         <FlatList
+          data={getFaqs}
           nestedScrollEnabled
           scrollEnabled={false}
-          data={getFaqs}
           keyExtractor={(_, index) => index.toString()}
-          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
           contentContainerStyle={settingStyle.whiteFlatlistBox}
-          renderItem={({ item, index }) => {
-            const { question, answer } = item;
-            return (
-              <View>
-                <Pressable
-                  style={[
-                    styles.FAQsectionHeader,
-                    {
-                      marginBottom: expandedSection !== index && 20,
-                    },
-                  ]}
-                  onPress={() =>
-                    setExpandedSection(expandedSection === index ? null : index)
-                  }
-                >
-                  <Text style={styles.FAQSectionText} title={question} />
-                  <Icon
-                    type={"Entypo"}
-                    size={20}
-                    color="black"
-                    name={`chevron-${
-                      expandedSection === index ? "up" : "down"
-                    }`}
+          ItemSeparatorComponent={() => <View style={settingStyle.separator} />}
+          renderItem={({ item, index }) => (
+            <>
+              <Pressable
+                style={[
+                  styles.FAQsectionHeader,
+                  {
+                    marginBottom: !isExpanded(index) && 20,
+                  },
+                ]}
+                onPress={() =>
+                  setExpandedSection(isExpanded(index) ? null : index)
+                }
+              >
+                <Text style={styles.FAQSectionText} title={item.question} />
+                <Icon
+                  size={20}
+                  type="Entypo"
+                  color={colors.black}
+                  name={`chevron-${isExpanded(index) ? "up" : "down"}`}
+                />
+              </Pressable>
+              {isExpanded(index) && (
+                <View style={styles.FAQcontent}>
+                  <Text
+                    style={styles.FAQcontentText}
+                    title={renderAnswerWithBoldEmail(item.answer)}
                   />
-                </Pressable>
-                {expandedSection === index && (
-                  <View style={styles.FAQcontent}>
-                    <Text
-                      style={styles.FAQcontentText}
-                      title={renderAnswerWithBoldEmail(answer)}
-                    />
-                  </View>
-                )}
-              </View>
-            );
-          }}
+                </View>
+              )}
+            </>
+          )}
         />
 
         <>

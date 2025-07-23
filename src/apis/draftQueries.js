@@ -4,20 +4,20 @@ import {
   setDraftReturn,
   setDraftCompleteData,
   setDraftSelectedRetun,
-} from '../redux/slices/draftSlice';
-import {getItem} from '../utils/storage';
-import {apiRequest, catchFun, showNotification} from '../function';
+} from "../redux/slices/draftSlice";
+import { getItem } from "../utils/storage";
+import { apiRequest, catchFun, showNotification } from "../function";
 
 export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
-  return async dispatch => {
+  return async (dispatch) => {
     apiRequest({
-      method: 'post',
-      endpoint: 'addbundle',
-      contentType: 'multipart/form-data',
+      method: "post",
+      endpoint: "addbundle",
+      contentType: "multipart/form-data",
       data,
-      onSuccess: res => {
+      onSuccess: (res) => {
         confirmOrder(false);
-        showNotification('success', 'Success', res.message);
+        showNotification("success", "Success", res.message);
         getReturnItem(load)(dispatch);
         goBack();
       },
@@ -26,12 +26,11 @@ export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
   };
 };
 
-export const getReturnItem = load => {
-  return async dispatch => {
+export const getReturnItem = (load) => {
+  return async (dispatch) => {
     apiRequest({
-      method: 'get',
-      endpoint: 'getAllReturnBundles',
-      onSuccess: ({data}) => {
+      endpoint: "getAllReturnBundles",
+      onSuccess: ({ data }) => {
         dispatch(setDraftItem(data.reverse()));
       },
       onFinally: load,
@@ -40,11 +39,10 @@ export const getReturnItem = load => {
 };
 
 export const getSelectedReturnItem = (bundleIDs, load) => {
-  return async dispatch => {
+  return async (dispatch) => {
     apiRequest({
-      method: 'get',
       endpoint: `getbundle?bundleId=${bundleIDs}`,
-      onSuccess: ({data}) => {
+      onSuccess: ({ data }) => {
         dispatch(setDraftSelectedRetun(data.reverse()));
       },
       onFinally: load,
@@ -53,14 +51,14 @@ export const getSelectedReturnItem = (bundleIDs, load) => {
 };
 
 export const editLabelAPI = (data, load, goBack, _id) => {
-  return async dispatch => {
+  return async (dispatch) => {
     apiRequest({
-      method: 'post',
-      endpoint: 'editLabe',
-      contentType: 'multipart/form-data',
+      method: "post",
+      endpoint: "editLabe",
+      contentType: "multipart/form-data",
       data,
-      onSuccess: ({data}) => {
-        const newID = data.bundle._id ?? '';
+      onSuccess: ({ data }) => {
+        const newID = data.bundle._id ?? "";
         const updatedIDs = newID ? [..._id, newID] : [..._id];
         getSelectedReturnItem(updatedIDs, load)(dispatch);
         getReturnItem(load)(dispatch);
@@ -72,19 +70,19 @@ export const editLabelAPI = (data, load, goBack, _id) => {
 };
 
 export const uploadLabelAPI = (data, load, goBack, _id) => {
-  return async dispatch => {
+  return async (dispatch) => {
     apiRequest({
-      method: 'post',
-      endpoint: '/uploadLabel',
-      contentType: 'multipart/form-data',
+      method: "post",
+      endpoint: "/uploadLabel",
+      contentType: "multipart/form-data",
       data,
-      onSuccess: ({data, message}) => {
-        const newID = data.bundle._id ?? '';
+      onSuccess: ({ data, message }) => {
+        const newID = data.bundle._id ?? "";
         const updatedIDs = newID ? [..._id, newID] : [..._id];
         getSelectedReturnItem(updatedIDs, load)(dispatch);
         getReturnItem(load)(dispatch);
 
-        showNotification('success', message, 'hurry');
+        showNotification("success", message, "hurry");
         goBack();
       },
       onFinally: load,
@@ -93,17 +91,17 @@ export const uploadLabelAPI = (data, load, goBack, _id) => {
 };
 
 export const deleteBundle = (IDs, load) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       load(true);
       // const userID = ;
       const url = `deletebundle?bundleId=${IDs[0]}`;
 
       const res = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          userid: getItem('userID'),
-          Authorization: 'Bearer ' + getItem('token'),
+          userid: getItem("userID"),
+          Authorization: "Bearer " + getItem("token"),
         },
       });
       // const response = await instance.post(url, {
@@ -112,14 +110,14 @@ export const deleteBundle = (IDs, load) => {
       //     // Authorization: "Bearer " + getItem("token"),
       //   },
       // });
-      const {status, message} = res.json;
+      const { status, message } = res.json;
       load(false);
 
       if (status === 200) {
         getReturnItem(load)(dispatch);
-        showNotification('success', message, 'hurry');
+        showNotification("success", message, "hurry");
       } else {
-        showNotification('error', message, 'Status Code 401');
+        showNotification("error", message, "Status Code 401");
       }
     } catch (err) {
       const msg = err?.response?.data?.message || err.message;
@@ -130,11 +128,10 @@ export const deleteBundle = (IDs, load) => {
 };
 
 export const getBasePriceAPI = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     apiRequest({
-      method: 'get',
       endpoint: `get-baseprice`,
-      onSuccess: ({data}) => {
+      onSuccess: ({ data }) => {
         dispatch(setGetBaseData(data));
       },
     });
@@ -142,24 +139,24 @@ export const getBasePriceAPI = () => {
 };
 
 export const confirmPickupAPI = (data, nav, load) => {
-  return async dispatch => {
+  return async (dispatch) => {
     apiRequest({
-      method: 'post',
-      endpoint: 'add-pickup',
+      method: "post",
+      endpoint: "add-pickup",
       data,
-      onSuccess: ({data}) => {
-        nav('trackPickup');
+      onSuccess: ({ data }) => {
+        nav("trackPickup");
         dispatch(setDraftCompleteData(data));
         dispatch(
           setDraftReturn({
-            _id: '',
+            _id: "",
             date: null,
             time: null,
-            pickupMethod: 'Doorstep',
-            note: '',
+            pickupMethod: "Doorstep",
+            note: "",
             selectedAddress: null,
             selectedPayment: null,
-          }),
+          })
         );
       },
       onFinally: load,
