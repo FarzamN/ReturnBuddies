@@ -55,24 +55,24 @@ export default StyleSheet.create({
     lineHeight: wp(12),
   },
   timerText: {
+    fontSize: 16,
     marginTop: wp(5),
     textAlign: "center",
     fontFamily: fonts[500],
-    fontSize: fontScale(16),
     color: colors.description,
   },
   timerSecondText: {
-    fontSize: fontScale(16),
-    fontFamily: fonts[600],
-    color: colors.purple,
+    fontSize: 16,
     marginTop: wp(5),
+    color: colors.purple,
+    fontFamily: fonts[600],
   },
   resendText: {
+    fontSize: 12,
+    textAlign: "center",
     fontFamily: fonts[500],
-    fontSize: fontScale(12),
     marginTop: scaleSize(15),
     color: colors.description,
-    textAlign: "center",
   },
 
   FAQsectionHeader: {
@@ -128,12 +128,12 @@ export default StyleSheet.create({
   },
 
   deleteButton: {
-    alignSelf: "center",
-    backgroundColor: "#FDEFF2",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 999, // pill shape
     marginTop: 20,
+    borderRadius: 999,
+    alignSelf: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#FDEFF2",
   },
 
   deleteText: {
@@ -144,13 +144,13 @@ export default StyleSheet.create({
   },
 
   verifyButton: {
-    paddingHorizontal: wp(4),
-    paddingVertical: wp(1),
     borderRadius: wp(5),
+    paddingVertical: wp(1),
+    paddingHorizontal: wp(4),
   },
 
   verifyText: {
-    fontSize: fontScale(12),
+    fontSize: 12,
     fontFamily: fonts[400],
   },
   phoneWrapper: {
@@ -166,9 +166,9 @@ export default StyleSheet.create({
 
   phoneInput: {
     flex: 1,
-    top: fontScale(iOS ? 0 : 1.5),
-    fontSize: fontScale(13),
+    fontSize: 13,
     color: colors.black,
     fontFamily: fonts[400],
+    top: fontScale(iOS ? 0 : 1.5),
   },
 });

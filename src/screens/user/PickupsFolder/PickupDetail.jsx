@@ -224,9 +224,9 @@ const setpStyle = {
     fontFamily: fonts[500],
   },
   date: {
+    fontSize: 11,
     color: "#888",
     fontFamily: fonts[400],
-    fontSize: scaleSize(11),
   },
   line: {
     top: 20,

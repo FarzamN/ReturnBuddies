@@ -126,13 +126,12 @@ const styles = StyleSheet.create({
   },
   swiperContainer: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
   slide: {
     width,
     alignItems: "center",
-    // justifyContent: "center",
     paddingHorizontal: wp(5),
   },
   dynamicImage: {
@@ -140,17 +139,17 @@ const styles = StyleSheet.create({
     height: height / 2,
   },
   title: {
+    fontSize: 22,
     marginTop: hp(2),
     textAlign: "center",
     color: colors.black,
-    fontSize: fontScale(22),
     fontFamily: fonts[600],
   },
   subtitle: {
+    fontSize: 15,
     textAlign: "center",
     fontFamily: fonts[400],
     marginTop: scaleSize(5),
-    fontSize: fontScale(15),
     color: colors.description,
   },
   dotWrapper: {

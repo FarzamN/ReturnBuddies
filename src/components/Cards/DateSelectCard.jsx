@@ -1,9 +1,8 @@
-import { TouchableOpacity } from "react-native";
 import React from "react";
 import { Text } from "..";
-import { colors } from "../../theme/colors";
 import { fonts } from "../../assets";
-import { fontScale } from "../../theme/responsive";
+import { colors } from "../../theme/colors";
+import { TouchableOpacity } from "react-native";
 
 const DateSelectCard = ({ date, onPress, focus }) => {
   return (
@@ -22,7 +21,7 @@ const DateSelectCard = ({ date, onPress, focus }) => {
       <Text
         color={focus ? colors.white : "#94A3B8"}
         style={{
-          fontSize: fontScale(12),
+          fontSize: 12,
           fontFamily: fonts[400],
         }}
         title={date.format("ddd")} // Days
@@ -30,17 +29,17 @@ const DateSelectCard = ({ date, onPress, focus }) => {
       <Text
         color={focus ? colors.white : colors.purple}
         style={{
+          fontSize: 18,
           marginVertical: 7,
           fontFamily: fonts[600],
-          fontSize: fontScale(18),
         }}
         title={date.format("D")} // date
       />
       <Text
         color={focus ? colors.white : "#94A3B8"}
         style={{
-          fontSize: fontScale(13),
-          fontFamily: focus ? fonts[600] : fonts[500],
+          fontSize: 13,
+          fontFamily: fonts[focus ? 600 : 500],
         }}
         title={date.format("MMM")} // month
       />

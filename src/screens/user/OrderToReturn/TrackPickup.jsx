@@ -46,7 +46,7 @@ const TrackPickup = ({ navigation }) => {
             width: width / 2,
             aspectRatio: 1 / 1,
           }}
-          titleStyle={{ fontSize: fontScale(20), fontFamily: fonts[700] }}
+          titleStyle={{ fontSize: 20, fontFamily: fonts[700] }}
           title={`Your pickup is confirmed for \n ${moment(pickupDate).format(
             "MMM DD, yyyy"
           )}`}

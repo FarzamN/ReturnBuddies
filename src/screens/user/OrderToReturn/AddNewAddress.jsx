@@ -140,9 +140,9 @@ export default AddNewAddress;
 const styles = StyleSheet.create({
   checkBoxText: {
     width: "90%",
+    fontSize: 13,
     marginLeft: 7,
     fontFamily: fonts[400],
-    fontSize: fontScale(13),
     top: fontScale(iOS ? 0 : 1),
   },
   inputCont: {

@@ -71,9 +71,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTypeText: {
+    fontSize: 13,
     color: colors.black,
     fontFamily: fonts[400],
-    fontSize: fontScale(13),
   },
 
   defaultBadge: {
@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   defaultText: {
-    top: fontScale(iOS ? 0 : 1),
+    fontSize: 11,
     color: "#67CE67",
     fontFamily: fonts[400],
-    fontSize: fontScale(11),
+    top: fontScale(iOS ? 0 : 1),
   },
 });

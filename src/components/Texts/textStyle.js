@@ -1,13 +1,13 @@
-import { fonts } from "../../assets";
+import { fontFamily, fonts } from "../../assets";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import { scaleSize } from "../../theme/responsive";
 import { iOS } from "../../utils/constants";
+import { scaleSize } from "../../theme/responsive";
 
 const textStyle = StyleSheet.create({
   text: {
-    top: iOS ? 0 : 1,
     fontSize: 14,
+    top: iOS ? 0 : 1,
     fontFamily: fonts[400],
   },
 

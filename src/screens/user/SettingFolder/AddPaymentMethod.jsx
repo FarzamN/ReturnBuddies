@@ -1,4 +1,3 @@
-import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
 import {
   Body,
   Header,
@@ -7,26 +6,23 @@ import {
   RequiredText,
   CircleCheck,
 } from "../../../components";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  wp,
+  fontScale,
+  scaleSize,
+  verticalScale,
+} from "../../../theme/responsive";
+import { Row, Height, globalStyle } from "../../../theme/globalStyle";
+
+import { iOS } from "../../../utils/constants";
 import { colors } from "../../../theme/colors";
 import { cardValidator } from "../../../function";
 import React, { useState, useEffect } from "react";
 import { appImages, fonts } from "../../../assets";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import {
-  fontScale,
-  scaleSize,
-  verticalScale,
-  wp,
-} from "../../../theme/responsive";
+import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
 import { addPaymentAPI, editPaymentAPI } from "../../../apis/authQueries";
-import {
-  globalStyle,
-  Height,
-  Row,
-  Space_Between,
-} from "../../../theme/globalStyle";
-import { iOS } from "../../../utils/constants";
 
 const AddPaymentMethod = ({ route }) => {
   const { item, editing } = route?.params || {};
@@ -284,9 +280,9 @@ const styles = StyleSheet.create({
     borderColor: colors.lightGrey,
   },
   label: {
+    fontSize: 13,
     color: colors.text,
     fontFamily: fonts[500],
-    fontSize: fontScale(13),
     marginBottom: verticalScale(1),
   },
   input: {
@@ -307,9 +303,9 @@ const styles = StyleSheet.create({
     borderColor: colors.error,
   },
   errorText: {
+    fontSize: 15,
     marginTop: wp(1),
     color: colors.error,
-    fontSize: fontScale(15),
   },
 
   cardTypeBadge: {
@@ -322,10 +318,10 @@ const styles = StyleSheet.create({
   },
   checkBoxText: {
     width: "90%",
+    fontSize: 13,
     marginLeft: 7,
-    top: fontScale(iOS ? 0 : 1),
     fontFamily: fonts[400],
-    fontSize: fontScale(13),
+    top: fontScale(iOS ? 0 : 1),
   },
 });
 

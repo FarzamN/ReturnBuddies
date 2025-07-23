@@ -1,7 +1,6 @@
 import { fonts } from "../../assets";
 import { StyleSheet } from "react-native";
-import { colors } from "../../theme/colors";
-import { fontScale, scaleSize } from "../../theme/responsive";
+import { scaleSize } from "../../theme/responsive";
 
 const inputStyles = StyleSheet.create({
   mainInputCont: {
@@ -10,10 +9,10 @@ const inputStyles = StyleSheet.create({
   },
   inputStyles: {
     height: 50,
+    fontSize: 15,
     borderWidth: 1,
     paddingHorizontal: 20,
     fontFamily: fonts[500],
-    fontSize: fontScale(15),
   },
 });
 

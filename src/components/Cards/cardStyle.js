@@ -28,14 +28,14 @@ export default StyleSheet.create({
     marginRight: wp(3),
   },
   returtnHistoryTitle: {
-    fontSize: fontScale(13),
-    fontFamily: fonts[600],
+    fontSize: 13,
     color: colors.black,
+    fontFamily: fonts[600],
   },
   returtnHistoryStatus: {
-    fontSize: fontScale(12),
-    fontFamily: fonts[500],
+    fontSize: 12,
     color: "#777777",
+    fontFamily: fonts[500],
   },
   returtnHistoryDate: {
     marginLeft: 8,

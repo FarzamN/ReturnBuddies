@@ -35,11 +35,7 @@ const Empty = (props) => {
       <Text
         center
         title={title}
-        style={[
-          styles.emptyTitle,
-          { fontSize: fontScale(source ? 14 : 18) },
-          titleStyle,
-        ]}
+        style={[styles.emptyTitle, { fontSize: source ? 14 : 18 }, titleStyle]}
       />
       {customText && customText()}
       {!isButton && <Text style={styles.emptyDesc} title={sub} />}

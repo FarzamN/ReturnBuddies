@@ -78,7 +78,7 @@ const MainInput = forwardRef((props, ref) => {
         secureTextEntry={password ? show : false}
         autoCapitalize={small ? "none" : undefined}
         contentStyle={{
-          fontSize: fontScale(13),
+          fontSize: 13,
           top: fontScale(iOS ? 0 : 1.5),
           color: disabled ? "#908F8D" : black,
           fontFamily: disabled ? fonts[500] : fonts[400],

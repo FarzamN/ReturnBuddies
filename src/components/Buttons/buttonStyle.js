@@ -1,42 +1,42 @@
 import { fonts } from "../../assets";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
 import { iOS } from "../../utils/constants";
+import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   containerStyle: {
+    height: 56,
     marginTop: 5,
     width: "100%",
     marginBottom: 15,
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: fontScale(2),
-    height: 56,
+    borderWidth: scaleSize(2),
     borderRadius: scaleSize(35),
   },
 
   font: {
+    fontSize: 13,
     color: colors.white,
     fontFamily: fonts[600],
-    fontSize: fontScale(13),
     top: fontScale(iOS ? 0 : 1),
   },
 
   socialImage: {
+    marginRight: scaleSize(8),
     width: responsive.height(20),
     height: responsive.height(20),
-    marginRight: scaleSize(8),
   },
 
   // Image Btuuon style
 
   ImageButton: {
     borderWidth: 1,
+    borderStyle: "dashed",
     padding: scaleSize(15),
     borderRadius: scaleSize(12),
-    borderStyle: "dashed",
     backgroundColor: colors.white,
   },
   ImageIcon: {
@@ -46,8 +46,8 @@ export default StyleSheet.create({
   ImageText: {
     fontSize: 12,
     color: "#111827",
-    top: fontScale(iOS ? 0 : 2),
     fontFamily: fonts[400],
+    top: fontScale(iOS ? 0 : 2),
   },
   uploadText: {
     fontSize: 14,
@@ -57,17 +57,17 @@ export default StyleSheet.create({
   },
 
   selectDate: {
+    width: 130,
+    padding: 12,
     borderWidth: 1,
     borderRadius: 50,
-    padding: 12,
-    width: 130,
   },
   PickupCont: {
-    backgroundColor: colors.white,
-    paddingVertical: 20,
-    borderRadius: 15,
-    paddingHorizontal: 10,
     marginTop: 20,
+    borderRadius: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    backgroundColor: colors.white,
   },
   pickupTitle: {
     fontSize: 14,

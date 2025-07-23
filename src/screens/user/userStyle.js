@@ -2,7 +2,7 @@ import { fonts } from "../../assets";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
-import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
+import responsive, { scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   draftTitle: {

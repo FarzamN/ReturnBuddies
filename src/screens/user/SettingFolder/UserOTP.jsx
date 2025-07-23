@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { Body, Header, Text, Validation } from "../../../components";
-import styles from "../userStyle";
-import { fontScale, wp } from "../../../theme/responsive";
-import { Height } from "../../../theme/globalStyle";
-import { View, Text as RNText, TouchableOpacity } from "react-native";
-import { CodeField, Cursor } from "react-native-confirmation-code-field";
-import { colors } from "../../../theme/colors";
-import authStyle from "../../auth/authStyle";
-import BackgroundTimer from "react-native-background-timer";
-import { useDispatch, useSelector } from "react-redux";
 import {
-  editProfileVerificationAPI,
-  forgotEmailVerficationCompleteAPI,
-  phoneVerficationCompleteAPI,
-  resendForgotEmailVerficationAPI,
   resendPhoneOTPAPI,
   resendPhoneVerficationAPI,
+  editProfileVerificationAPI,
+  phoneVerficationCompleteAPI,
+  resendForgotEmailVerficationAPI,
+  forgotEmailVerficationCompleteAPI,
 } from "../../../apis/authQueries";
+
+import styles from "../userStyle";
 import { fonts } from "../../../assets";
+import authStyle from "../../auth/authStyle";
+import { colors } from "../../../theme/colors";
+import { wp } from "../../../theme/responsive";
+import React, { useEffect, useState } from "react";
+import { Height } from "../../../theme/globalStyle";
+import { useDispatch, useSelector } from "react-redux";
+import BackgroundTimer from "react-native-background-timer";
+import { Body, Header, Text, Validation } from "../../../components";
+import { View, Text as RNText, TouchableOpacity, Platform } from "react-native";
+import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
 const UserOTP = ({ navigation, route }) => {
-  const { goBack, navigate } = navigation;
   const dispatch = useDispatch();
   const { number, type } = route.params;
+  const { goBack, navigate } = navigation;
 
   const { otp, user } = useSelector((state) => state.auth);
 
   const [load, setLoad] = useState(false);
-  const [otpValue, setOtpValue] = useState("");
+  const [value, setValue] = useState("");
   const [seconds, setCountDown] = useState(60);
   const [error, setErrot] = useState({ visible: false, msg: "" });
 
@@ -35,7 +36,8 @@ const UserOTP = ({ navigation, route }) => {
     phone: number,
     name: user?.name || "",
   };
-  const onSubmit = () => {
+  const onSubmit = (otpValue) => {
+    console.log("otpValue", otpValue);
     if (type == "forgetPasswrod") {
       const emailData = { email: number, otp: otpValue };
       forgotEmailVerficationCompleteAPI(emailData, navigate, setLoad);
@@ -87,7 +89,7 @@ const UserOTP = ({ navigation, route }) => {
     <Body horizontal={wp(5)}>
       <Header />
       <Text
-        style={{ fontFamily: fonts[700], fontSize: fontScale(24) }}
+        style={{ fontFamily: fonts[700], fontSize: 24 }}
         center
         title="Enter Code"
       />
@@ -107,13 +109,16 @@ const UserOTP = ({ navigation, route }) => {
         ]}
       >
         <CodeField
+          autoFocus
           cellCount={5}
-          autoFucus
-          value={otpValue}
+          value={value}
           keyboardType="number-pad"
-          onSubmitEditing={onSubmit}
           textContentType="oneTimeCode"
-          onChangeText={(txt) => setOtpValue(txt)}
+          onSubmitEditing={() => onSubmit(value)}
+          onChangeText={(txt) => {
+            setValue(txt);
+            if (txt.length === 5) onSubmit(txt);
+          }}
           renderCell={({ index, symbol, isFocused }) => (
             <View
               key={index}

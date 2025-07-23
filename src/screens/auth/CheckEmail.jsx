@@ -24,16 +24,11 @@ const CheckEmail = () => {
       <Header leftTitle="Forgot password" />
       <Height />
       <Text
-        style={[
-          userStyle.draftTitle,
-          {
-            fontSize: fontScale(16),
-          },
-        ]}
+        style={[userStyle.draftTitle, { fontSize: 16 }]}
         title="Let’s get you back in"
       />
       <Text
-        style={styles.draftSub}
+        style={userStyle.draftSub}
         title="Enter your email address and we’ll send you a one-time verification code to reset your password."
       />
       <Height />

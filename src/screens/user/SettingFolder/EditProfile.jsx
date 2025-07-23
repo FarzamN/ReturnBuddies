@@ -10,7 +10,7 @@ import {
   CustomAlert,
 } from "../../../components";
 import { View, TextInput, ScrollView, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import settingStyle from "./settingStyle";
 import { colors } from "../../../theme/colors";
@@ -37,6 +37,9 @@ const EditProfile = () => {
   const { user } = useSelector((state) => state.auth);
 
   const [isVerified, setIsVerified] = useState(user?.phoneVerified);
+  useEffect(() => {
+    setIsVerified(user?.phoneVerified);
+  }, [user?.phoneVerified]);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteLoad, setDeleteLoad] = useState(false);
 
