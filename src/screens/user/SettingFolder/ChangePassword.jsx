@@ -34,7 +34,7 @@ const ChangePassword = () => {
     formState: { errors },
   } = useForm({ mode: "all" });
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header title="Change Password" />
       <Text
         style={[styles.contactUStext, { marginVertical: wp(5) }]}

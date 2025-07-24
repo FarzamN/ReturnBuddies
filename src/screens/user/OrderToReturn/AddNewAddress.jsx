@@ -57,7 +57,7 @@ const AddNewAddress = ({ route }) => {
     addAddressAPI(updatedData, goBack, setIsPending)(dispatch);
   };
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle={`${editing ? "Edit" : "Add New"} Address`} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <RequiredText title="Address" required />

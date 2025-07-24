@@ -18,6 +18,8 @@ import { SwipeListView } from "react-native-swipe-list-view";
 
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
 import { getPaymentAPI, deletePaymentAPI } from "../../../apis/authQueries";
+import { iOS } from "../../../utils/constants";
+import { Height } from "../../../theme/globalStyle";
 
 const SelectPaymentMethod = ({ route }) => {
   const { isPickup } = route.params || {};
@@ -41,7 +43,7 @@ const SelectPaymentMethod = ({ route }) => {
     getPaymentAPI(setLoad)(dispatch);
   }, []);
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header
         leftTitle="Payment methods"
         addBTN={getPayments.length !== 0}
@@ -97,6 +99,7 @@ const SelectPaymentMethod = ({ route }) => {
           }}
         />
       )}
+      {iOS && <Height />}
 
       <CustomAlert
         show={alert.visible}

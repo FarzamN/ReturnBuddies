@@ -9,10 +9,12 @@ import { appImages, fonts } from "../../assets";
 const AddDraftCard = ({ submittedItems, onEdit }) => {
   return (
     <>
-      <RequiredText title="Item to return" />
+      <RequiredText
+        title={`Item${submittedItems.length > 1 ? "s" : ""} to return`}
+      />
 
-      {submittedItems.map((item, index) => {
-        return (
+      {submittedItems.map(
+        (item, index) =>
           item.detail && (
             <View key={index} style={styles.itemCard}>
               <Row>
@@ -40,8 +42,7 @@ const AddDraftCard = ({ submittedItems, onEdit }) => {
               </Row>
             </View>
           )
-        );
-      })}
+      )}
       <Height />
     </>
   );

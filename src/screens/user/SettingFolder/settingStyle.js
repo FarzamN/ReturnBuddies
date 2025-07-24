@@ -145,7 +145,7 @@ export default StyleSheet.create({
 
   verifyButton: {
     borderRadius: wp(5),
-    paddingVertical: wp(1),
+    paddingVertical: wp(1.3),
     paddingHorizontal: wp(4),
   },
 
@@ -154,13 +154,13 @@ export default StyleSheet.create({
     fontFamily: fonts[400],
   },
   phoneWrapper: {
+    height: 50,
+    borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
+    paddingHorizontal: 20,
     borderColor: "#EEEEEE",
     borderRadius: scaleSize(15),
-    paddingHorizontal: scaleSize(10),
-    paddingVertical: wp(3.5),
     backgroundColor: colors.white,
   },
 

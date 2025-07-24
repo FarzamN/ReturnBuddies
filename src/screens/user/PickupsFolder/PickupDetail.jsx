@@ -77,7 +77,7 @@ const PickupDetail = ({ route }) => {
   }, []);
 
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle="Return Details" />
 
       <ScrollView

@@ -1,14 +1,15 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import { colors } from "../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
-import { globalStyle } from "../../theme/globalStyle";
 import { Text } from "..";
-import { fontScale } from "../../theme/responsive";
 import { fonts } from "../../assets";
 import { iOS } from "../../utils/constants";
+import { colors } from "../../theme/colors";
+import { TouchableOpacity } from "react-native";
+import { fontScale } from "../../theme/responsive";
+import Icon from "react-native-dynamic-vector-icons";
+import { globalStyle } from "../../theme/globalStyle";
 
-const CircleCheck = ({ focus, onPress, title }) => {
+const CircleCheck = (props) => {
+  const { focus, onPress, title } = props;
   return (
     <TouchableOpacity style={[globalStyle.row]} onPress={onPress}>
       <Icon
@@ -24,12 +25,11 @@ const CircleCheck = ({ focus, onPress, title }) => {
 
 export default CircleCheck;
 
-const styles = StyleSheet.create({
+const styles = {
   checkBoxText: {
-    width: "90%",
     fontSize: 14,
     marginLeft: 7,
     fontFamily: fonts[400],
     top: fontScale(iOS ? 0 : 1),
   },
-});
+};

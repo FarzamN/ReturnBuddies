@@ -29,7 +29,7 @@ const AddPhoneNumber = ({ navigation }) => {
     formState: { errors },
   } = useForm({ mode: "all" });
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle="Phone number" />
 
       <Text style={styles.draftTitle} title="Verify your phone number" />

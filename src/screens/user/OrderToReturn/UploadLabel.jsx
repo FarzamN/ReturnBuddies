@@ -121,7 +121,8 @@ const UploadLabel = ({ route }) => {
         title={"Upload Return Label or QR Code"}
       />
       <Text
-        style={[styles.draftSub, { fontSize: 11, fontFamily: fonts[300] }]}
+        width={"90%"}
+        style={[styles.draftSub, { fontSize: 11 }]}
         title={
           "Upload a file or screenshot of your shipping label from the retailer"
         }

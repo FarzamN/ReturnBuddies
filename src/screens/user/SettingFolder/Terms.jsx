@@ -6,7 +6,7 @@ import styles from "./settingStyle";
 
 const Terms = () => {
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header title="Term of service" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>

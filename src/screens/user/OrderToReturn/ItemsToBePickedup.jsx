@@ -9,7 +9,7 @@ const ItemsToBePickedup = () => {
   const { draftSelectedRetun } = useSelector((state) => state.draft);
 
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle="Items to be picked up" />
       <Height />
       <FlatList

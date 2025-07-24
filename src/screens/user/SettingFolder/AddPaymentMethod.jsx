@@ -12,7 +12,6 @@ import {
   scaleSize,
   verticalScale,
 } from "../../../theme/responsive";
-import { Row, Height, globalStyle } from "../../../theme/globalStyle";
 
 import { iOS } from "../../../utils/constants";
 import { colors } from "../../../theme/colors";
@@ -21,8 +20,9 @@ import React, { useState, useEffect } from "react";
 import { appImages, fonts } from "../../../assets";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
+import { Row, Height, globalStyle } from "../../../theme/globalStyle";
 import { addPaymentAPI, editPaymentAPI } from "../../../apis/authQueries";
+import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
 
 const AddPaymentMethod = ({ route }) => {
   const { item, editing } = route?.params || {};
@@ -176,8 +176,8 @@ const AddPaymentMethod = ({ route }) => {
     if (isSubmitted) validateForm();
   }, [cardData]);
   return (
-    <Body horizontal={wp(5)}>
-      <Header leftTitle={`${editing ? "Edit" : "Add"} Payment Method`} />
+    <Body horizontal={wp(4)}>
+      <Header leftTitle={`${editing ? "Edit" : "Add"} payment card`} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <Height />
@@ -185,11 +185,11 @@ const AddPaymentMethod = ({ route }) => {
         <View style={styles.inputContainer}>
           <RequiredText required title="Card details" />
           <TextInput
-            placeholder="Card Name"
             value={cardData.name}
+            placeholder="Card Name"
             placeholderTextColor={colors.grey}
-            onChangeText={(text) => handleChange("name", text)}
             style={[styles.input, styles.border]}
+            onChangeText={(text) => handleChange("name", text)}
           />
           {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
         </View>
@@ -204,53 +204,58 @@ const AddPaymentMethod = ({ route }) => {
             },
           ]}
         >
-          <View style={{}}>
-            <View
-              style={[
-                styles.input,
-                globalStyle.row,
-                errors.number && styles.errorInput,
-              ]}
-            >
-              <FullImage
-                style={{ width: 30, height: 20 }}
-                source={appImages.card}
-              />
-              <TextInput
-                keyboardType="numeric"
-                value={cardData.number}
-                style={[styles.CardNameInput]}
-                placeholder="4242 4242 4242 4242"
-                placeholderTextColor={colors.grey}
-                maxLength={cardType === "amex" ? 17 : 19}
-                onChangeText={(text) => handleChange("number", text)}
-              />
-            </View>
+          <View
+            style={[
+              styles.input,
+              globalStyle.row,
+              errors.number && styles.errorInput,
+              { width: "60%", backgroundColor: "#6f68f8" },
+            ]}
+          >
+            <FullImage
+              source={appImages.card}
+              style={{ width: 30, height: 20 }}
+            />
+            <TextInput
+              keyboardType="numeric"
+              value={cardData.number}
+              style={[styles.CardNameInput]}
+              placeholder="4242 4242 4242 4242"
+              placeholderTextColor={colors.grey}
+              maxLength={cardType === "amex" ? 17 : 19}
+              onChangeText={(text) => handleChange("number", text)}
+            />
           </View>
 
           {/* Expiry and CVV */}
-          <View style={[styles.inputContainer, {}]}>
+          <View style={[{ width: "20%", backgroundColor: "#5bd9e9" }]}>
             <TextInput
               maxLength={5}
               placeholder="MM/YY"
+              style={[
+                styles.input,
+                { paddingHorizontal: 0, textAlign: "center" },
+              ]}
               value={cardData.date}
               keyboardType="numeric"
               placeholderTextColor={colors.grey}
               onChangeText={(text) => handleChange("date", text)}
-              style={[styles.input]}
             />
           </View>
 
-          <View style={[styles.inputContainer, {}]}>
+          <View style={[{ width: "20%", backgroundColor: "pink" }]}>
             <TextInput
               secureTextEntry
+              style={[
+                styles.input,
+                { paddingHorizontal: 0, textAlign: "center" },
+              ]}
               value={cardData.cvv}
               keyboardType="numeric"
               placeholderTextColor={colors.grey}
               maxLength={cardType === "amex" ? 4 : 3}
               placeholder={cardType === "amex" ? "1234" : "123"}
               onChangeText={(text) => handleChange("cvv", text)}
-              style={[styles.input]}
             />
           </View>
         </Row>
@@ -276,7 +281,7 @@ const styles = StyleSheet.create({
   border: {
     overflow: "hidden",
     borderWidth: scaleSize(1),
-    borderRadius: scaleSize(20),
+    borderRadius: scaleSize(15),
     borderColor: colors.lightGrey,
   },
   label: {
@@ -286,11 +291,11 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(1),
   },
   input: {
+    height: 56,
     fontSize: 15,
     color: colors.black,
     fontFamily: fonts[500],
-    height: verticalScale(56),
-    backgroundColor: colors.white,
+    // backgroundColor: colors.white,
     paddingHorizontal: scaleSize(10),
   },
   CardNameInput: {

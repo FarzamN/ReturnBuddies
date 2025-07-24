@@ -2,30 +2,29 @@ import {
   Body,
   Text,
   Header,
+  SpaceText,
   MainButton,
   CircleCheck,
   PickupButton,
   ItemPickupButton,
-  SpaceText,
 } from "../../../components";
 
 import moment from "moment";
-import styles from "../userStyle";
 import { appImages } from "../../../assets";
-import { wp } from "../../../theme/responsive";
+import { scaleSize, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
+import { iOS } from "../../../utils/constants";
+import { Height } from "../../../theme/globalStyle";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
+import textStyle from "../../../components/Texts/textStyle";
 import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
 import { useFreezeScreen, useIskeyboard } from "../../../hooks";
 import { maskCardNumber, showNotification } from "../../../function";
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
-import textStyle from "../../../components/Texts/textStyle";
-import { iOS } from "../../../utils/constants";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
@@ -45,7 +44,7 @@ const ConfirmPickup = () => {
   );
 
   const [load, setLoad] = useState(false);
-  const { Overlay } = useFreezeScreen(load); // Pass isPending to hook
+  const { Overlay } = useFreezeScreen(load);
   const [focus, setFocus] = useState(false);
 
   const [totalPrice, setTotalPrice] = useState(0);
@@ -122,8 +121,9 @@ const ConfirmPickup = () => {
     };
     confirmPickupAPI(value, navigate, setLoad)(dispatch);
   };
+
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle="Confirm Pickup" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <PickupButton
@@ -131,7 +131,7 @@ const ConfirmPickup = () => {
           title={
             selectedAddress?.street || pickupAddress?.street || "Add address"
           }
-          twoTitle={selectedAddress?.suite}
+          twoTitle={selectedAddress?.suite || pickupAddress?.suite}
           onPress={() => navigate("selectNewAddress", { isPickup: true })}
         />
         <PickupButton
@@ -158,26 +158,12 @@ const ConfirmPickup = () => {
 
         <Height />
 
-        <SpaceText
-          title="Pickup"
-          // value={`$${
-          //   totalItemCount <= FREE_ITEMS_THRESHOLD
-          //     ? BASE_PRICE
-          //     : totalItemCount * ADDITIONAL_ITEM_PRICE
-          // }`}
-          value={`$${BASE_PRICE}`}
-        />
+        <SpaceText title="Pickup" value={`$${BASE_PRICE}`} />
         <Height />
 
         <SpaceText
-          title={`Extra item${totalItemCount > 11 ? "s" : ""}`}
-          // value={`$${
-          //   totalItemCount <= FREE_ITEMS_THRESHOLD
-          //     ? BASE_PRICE
-          //     : totalItemCount * ADDITIONAL_ITEM_PRICE
-          // BASE_PRICE, FREE_ITEMS_THRESHOLD, ADDITIONAL_ITEM_PRICE
-          // }`}
           visible={totalItemCount < 11}
+          title={`Extra item${totalItemCount > 11 ? "s" : ""}`}
           value={totalItemCount * ADDITIONAL_ITEM_PRICE - FREE_ITEMS_THRESHOLD}
         />
         <TouchableOpacity
@@ -193,7 +179,9 @@ const ConfirmPickup = () => {
         </TouchableOpacity>
 
         {promocode.visible && (
-          <View style={settingStyle.phoneWrapper}>
+          <View
+            style={[settingStyle.phoneWrapper, { marginTop: scaleSize(10) }]}
+          >
             <TextInput
               value={promocode.value}
               onChangeText={(value) =>
@@ -275,7 +263,7 @@ const ConfirmPickup = () => {
           onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
         />
         <Height />
-        {hasOversized && (
+        {!hasOversized && (
           <CircleCheck
             focus={focus}
             title="I acknowledge that a surcharge may apply to items exceeding 35 lbs or measuring 30” in any direction."

@@ -186,7 +186,7 @@ const AddDraftItem = () => {
   };
 
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle={""} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.draftTitle} title={"What are you returning?"} />

@@ -23,23 +23,24 @@ import {
   SelectNewAddress,
   ItemsToBePickedup,
   SelectPaymentMethod,
-} from '../screens/user';
-import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+} from "../screens/user";
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const TabNav = () => {
-  const {Navigator, Screen} = createBottomTabNavigator();
+  const { Navigator, Screen } = createBottomTabNavigator();
   return (
     <Navigator
       initialRouteName="orderRoute"
       screenOptions={{
         headerShown: false,
-        orientation: 'portrait',
+        orientation: "portrait",
         tabBarStyle: {
-          display: 'none',
+          display: "none",
         },
-      }}>
+      }}
+    >
       <Screen name="orderRoute" component={AllOrderToReturn} />
       <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
       <Screen name="myPickupsRoute" component={AllMyPickups} />
@@ -53,8 +54,13 @@ const Stack = createNativeStackNavigator();
 
 const AllOrderToReturn = () => (
   <Stack.Navigator
-    screenOptions={{headerShown: false, orientation: 'portrait_up'}}
-    initialRouteName="draftItem">
+    screenOptions={{
+      headerShown: false,
+      orientation: "portrait_up",
+      animation: "none",
+    }}
+    initialRouteName="draftItem"
+  >
     <Stack.Screen name="draftItem" component={DraftItem} />
     <Stack.Screen name="uploadLabel" component={UploadLabel} />
     <Stack.Screen name="settingRoute" component={AllSettings} />
@@ -81,16 +87,26 @@ const AllOrderToReturn = () => (
 
 const AllAddDraft = () => (
   <Stack.Navigator
-    screenOptions={{headerShown: false, orientation: 'portrait_up'}}
-    initialRouteName="addDraftItem">
+    screenOptions={{
+      headerShown: false,
+      orientation: "portrait_up",
+      animation: "none",
+    }}
+    initialRouteName="addDraftItem"
+  >
     <Stack.Screen name="addDraftItem" component={AddDraftItem} />
   </Stack.Navigator>
 );
 
 const AllSettings = () => (
   <Stack.Navigator
-    screenOptions={{headerShown: false, orientation: 'portrait_up'}}
-    initialRouteName="setting">
+    screenOptions={{
+      headerShown: false,
+      orientation: "portrait_up",
+      // animation: "none",
+    }}
+    initialRouteName="setting"
+  >
     <Stack.Screen name="terms" component={Terms} />
     <Stack.Screen name="privacy" component={Privacy} />
     <Stack.Screen name="setting" component={Setting} />
@@ -104,8 +120,13 @@ const AllSettings = () => (
 
 const AllMyPickups = () => (
   <Stack.Navigator
-    screenOptions={{headerShown: false, orientation: 'portrait_up'}}
-    initialRouteName="myPickups">
+    screenOptions={{
+      headerShown: false,
+      orientation: "portrait_up",
+      animation: "none",
+    }}
+    initialRouteName="myPickups"
+  >
     <Stack.Screen name="support" component={Support} />
     <Stack.Screen name="myPickups" component={MyPickups} />
     <Stack.Screen name="pickupDetail" component={PickupDetail} />

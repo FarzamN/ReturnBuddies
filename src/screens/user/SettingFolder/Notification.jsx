@@ -82,7 +82,7 @@ const Notification = () => {
   );
 
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle="Notifications" />
       <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled>
         <Text style={settingStyle.settingTitle} title="Text Message" />

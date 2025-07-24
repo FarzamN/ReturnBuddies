@@ -110,13 +110,15 @@ const SchedulePickup = ({ route }) => {
           ))}
         </View>
       </ScrollView>
-      <CircleCheck
-        focus={selection.confirm}
-        title="I confirm the return deadline for all items is at least 2 business days after my selected pickup date"
-        onPress={() =>
-          setSelection((prev) => ({ ...prev, confirm: !prev.confirm }))
-        }
-      />
+      <View style={{ paddingRight: wp(3) }}>
+        <CircleCheck
+          focus={selection.confirm}
+          title="I confirm the return deadline for all items is at least 2 business days after my selected pickup date"
+          onPress={() =>
+            setSelection((prev) => ({ ...prev, confirm: !prev.confirm }))
+          }
+        />
+      </View>
       <Height />
       <MainButton title="Continue" load={load} onPress={onSubmit} />
       {iOS && <Height />}

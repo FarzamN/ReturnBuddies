@@ -26,7 +26,7 @@ const TrackPickup = ({ navigation }) => {
     replace("myPickupsRoute");
   };
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Height />
 
       <View style={[globalStyle.flex, { justifyContent: "space-between" }]}>

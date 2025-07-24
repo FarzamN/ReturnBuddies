@@ -86,7 +86,7 @@ const UserOTP = ({ navigation, route }) => {
   }, [seconds]);
 
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header />
       <Text
         style={{ fontFamily: fonts[700], fontSize: 24 }}

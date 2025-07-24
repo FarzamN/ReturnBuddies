@@ -79,7 +79,7 @@ const EditProfile = () => {
     },
   });
   return (
-    <Body horizontal={wp(5)}>
+    <Body horizontal={wp(4)}>
       <Header leftTitle="Profile Settings" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <MainInput
@@ -98,14 +98,14 @@ const EditProfile = () => {
           <View style={settingStyle.phoneWrapper}>
             <TextInput
               value={phoneValue.value}
+              keyboardType="phone-pad"
+              placeholder="+12 345678967"
+              style={settingStyle.phoneInput}
+              placeholderTextColor="#B0B0B0"
               onChangeText={(text) => {
                 setPhoneValue({ error: false, value: text, message: "" });
                 setIsVerified(false);
               }}
-              placeholder="+12 345678967"
-              keyboardType="phone-pad"
-              placeholderTextColor="#B0B0B0"
-              style={settingStyle.phoneInput}
             />
 
             <TouchableOpacity
