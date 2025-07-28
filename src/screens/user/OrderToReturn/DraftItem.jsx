@@ -9,6 +9,7 @@ import {
   DraftSkeleton,
 } from "../../../components";
 import styles from "../userStyle";
+import { fonts } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +23,7 @@ const DraftItem = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
 
+  // const draftData = [];
   const { draftData } = useSelector((state) => state.draft);
 
   const [refresh, setRefresh] = useState(false);
@@ -122,6 +124,7 @@ const DraftItem = () => {
           ListEmptyComponent={
             <Empty
               title="You have no items to return"
+              titleStyle={{ fontFamily: fonts[600], fontSize: 19 }}
               customText={() => (
                 <RNText
                   style={[

@@ -171,4 +171,11 @@ export default StyleSheet.create({
     fontFamily: fonts[400],
     top: fontScale(iOS ? 0 : 1.5),
   },
+
+  settingEmailText: {
+    fontFamily: fonts[500],
+    fontSize: 10,
+    color: "#3A3A3A",
+    marginLeft: 5,
+  },
 });

@@ -141,7 +141,7 @@ const EditProfile = () => {
         <Height />
 
         <Text
-          style={{ fontFamily: fonts[500], fontSize: 10, color: "#3A3A3A" }}
+          style={settingStyle.settingEmailText}
           title="This is the email associated with your account and cannot be changed."
         />
 
@@ -170,14 +170,14 @@ const EditProfile = () => {
       <Height />
       <CustomAlert
         isImage
-        title="Delete account?"
         show={showDelete}
-        message={
-          "Deleting your account will permanently remove all your information, including return history, any scheduled pickups, and personal details. This action cannot be undone."
-        }
+        title="Delete account?"
         showProgress={deleteLoad}
         onCancelPressed={() => setShowDelete(false)}
         onConfirmPressed={() => deleteAccountAPI(setDeleteLoad)(dispatch)}
+        message={
+          "Deleting your account will permanently remove all your information, including return history, any scheduled pickups, and personal details. This action cannot be undone."
+        }
       />
     </Body>
   );

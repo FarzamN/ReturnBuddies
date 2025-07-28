@@ -12,6 +12,7 @@ import {
   AddDraftCard,
   ConfirmOrderModal,
   AboutOversizeModal,
+  ImagePickerModal,
 } from "../../../components";
 import styles from "../userStyle";
 import buttonStyle from "../userStyle";
@@ -23,7 +24,7 @@ import { showNotification } from "../../../function";
 import { useNavigation } from "@react-navigation/native";
 import { scaleSize, wp } from "../../../theme/responsive";
 import { uploadReturnItems } from "../../../apis/draftQueries";
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import { View, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { useGalleryPermission, useIskeyboard } from "../../../hooks";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
@@ -32,7 +33,8 @@ const AddDraftItem = () => {
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
   const { isKeyboard } = useIskeyboard();
-  const { openGallery } = useGalleryPermission();
+  const { openGallery, openCamera, image, picker, setPicker } =
+    useGalleryPermission();
 
   const [images, setImages] = useState([]);
   const [imageErrors, setImageErrors] = useState([]);
@@ -59,8 +61,11 @@ const AddDraftItem = () => {
     name: "items",
   });
 
-  const handleImagePick = async (index) => {
-    const img = await openGallery();
+  const handleImagePick = async (index, source) => {
+    const img = source === "camera" ? await openCamera() : await openGallery();
+
+    if (!img) return;
+
     const updated = [...images];
     updated[index] = img;
     setImages(updated);
@@ -73,10 +78,6 @@ const AddDraftItem = () => {
     const hasImageError = errors.some((e) => e);
     if (hasImageError) return;
 
-    // const itemsWithImages = data.items.map((item, index) => ({
-    //   ...item,
-    //   image: images[index] || null,
-    // }));
     const index = fields.length - 1;
     const currentItem = getValues(`items.${index}`);
     const currentImage = images[index];
@@ -98,13 +99,11 @@ const AddDraftItem = () => {
     setShowConfirmOrder(true);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     const body = new FormData();
 
-    // Filter out items with no detail
     const validItems = submittedItems.filter((item) => item.detail?.trim());
 
-    // Map only the valid ones
     const inputs = validItems.map((item) => ({
       detail: item.detail,
       oversized: item.oversized,
@@ -122,9 +121,7 @@ const AddDraftItem = () => {
     uploadReturnItems(body, setShowConfirmOrder, setLoad, goBack)(dispatch);
   };
 
-  const isValidItem = (item, image) => {
-    return item?.detail?.trim() && image?.uri;
-  };
+  const isValidItem = (item, image) => item?.detail?.trim() && image?.uri;
 
   const handleAdd = async (data) => {
     setEditMode(false);
@@ -242,7 +239,7 @@ const AddDraftItem = () => {
                     ? { uri: images[index].uri }
                     : appImages.camera
                 }
-                onPress={() => handleImagePick(index)}
+                onPress={() => setPicker(true)}
                 title={
                   images[index]?.name ||
                   "Take a photo of the item you want to return"
@@ -306,6 +303,17 @@ const AddDraftItem = () => {
         visible={showConfirmOrder}
         onPress={handleSubmit(onSubmit)}
         onClose={() => setShowConfirmOrder(false)}
+      />
+      <ImagePickerModal
+        visible={picker}
+        onClose={() => setPicker(false)}
+        onCamera={() => {
+          // handleImagePick(fields.length - 1, "camera");
+          Alert.alert("Camera is not available");
+        }}
+        onPicture={() => {
+          handleImagePick(fields.length - 1, "gallery");
+        }}
       />
     </Body>
   );

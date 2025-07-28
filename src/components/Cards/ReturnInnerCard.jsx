@@ -3,17 +3,12 @@ import moment from "moment";
 import styles from "./cardStyle";
 import { View } from "react-native";
 import { Text, FullImage } from "..";
-import { width } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
+import { width } from "../../theme/responsive";
 
-const ItemsToBePickedupCard = ({ data, background }) => {
+const ItemsToBePickedupCard = ({ data }) => {
   return (
-    <View
-      style={[
-        styles.sectionCard,
-        { backgroundColor: background || colors.background },
-      ]}
-    >
+    <View style={[styles.sectionCard, { backgroundColor: colors.background }]}>
       <FullImage
         isUrl
         radius={10}

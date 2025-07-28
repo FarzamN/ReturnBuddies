@@ -63,10 +63,10 @@ const ReturnSection = (props) => {
       </View>
 
       <FlatList
+        scrollEnabled={false}
         data={section.products}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => <ReturnInnerCard data={item} />}
-        scrollEnabled={false}
       />
       {isLabel && (
         <MainButton

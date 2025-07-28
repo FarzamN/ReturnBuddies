@@ -21,6 +21,7 @@ const CustomAlert = (props) => {
     isImage,
     secMessage,
     showProgress,
+    messageStyle,
     type = "error",
     onCancelPressed,
     onConfirmPressed,
@@ -58,7 +59,7 @@ const CustomAlert = (props) => {
               style={[
                 styles.message,
                 {
-                  color: colors.black,
+                  color: "#424242",
                   fontFamily: fonts[600],
                 },
               ]}
@@ -66,7 +67,9 @@ const CustomAlert = (props) => {
           )}{" "}
           {message}
         </RNText>
-        {secMessage && <Text style={styles.message} center title={message} />}
+        {secMessage && (
+          <Text style={[styles.message, messageStyle]} center title={message} />
+        )}
         <Height />
         <Space_evenly>
           <TouchableOpacity
@@ -108,13 +111,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
+    color: "#424242",
     textAlign: "center",
-    color: colors.black,
     fontFamily: fonts[600],
   },
   message: {
     fontSize: 12,
-    color: colors.grey,
+    color: "#5D5D5D",
     textAlign: "center",
     fontFamily: fonts[400],
   },

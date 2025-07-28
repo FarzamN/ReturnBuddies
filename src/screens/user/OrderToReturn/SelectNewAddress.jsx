@@ -98,13 +98,13 @@ const SelectNewAddress = ({ route }) => {
       )}
       {iOS && <Height />}
       <CustomAlert
-        show={alert.visible}
-        message={`Are you sure you want to delete this Address?\nThis action cannot be undone.`}
         showProgress={load}
+        show={alert.visible}
         onCancelPressed={() => setAlert({ visible: false })}
         onConfirmPressed={() =>
           deleteAddressAPI(alert._id, setAlert, setLoad)(dispatch)
         }
+        message={`Are you sure you want to delete this Address?\nThis action cannot be undone.`}
       />
     </Body>
   );

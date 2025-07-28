@@ -39,6 +39,10 @@ const SelectPaymentMethod = ({ route }) => {
     getPaymentAPI(setLoad)(dispatch);
   };
 
+  const onSubmit = () => {
+    goBack();
+    dispatch(setDraftReturn({ selectedPayment: select.data }));
+  };
   useEffect(() => {
     getPaymentAPI(setLoad)(dispatch);
   }, []);
@@ -92,20 +96,19 @@ const SelectPaymentMethod = ({ route }) => {
       {isPickup && getPayments.length !== 0 && (
         <MainButton
           title="Continue"
+          onPress={onSubmit}
           disabled={!select.data}
-          onPress={() => {
-            goBack();
-            dispatch(setDraftReturn({ selectedPayment: select.data }));
-          }}
         />
       )}
       {iOS && <Height />}
 
       <CustomAlert
-        show={alert.visible}
-        message={`Are you sure you want to delete this Payment card?\nThis action cannot be undone.`}
         showProgress={load}
+        show={alert.visible}
         onCancelPressed={() => setAlert({ visible: false })}
+        message={
+          "Are you sure you want to delete this Payment card?\nThis action cannot be undone."
+        }
         onConfirmPressed={() =>
           deletePaymentAPI(alert._id, setAlert, setLoad)(dispatch)
         }

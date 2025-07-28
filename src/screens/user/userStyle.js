@@ -17,8 +17,8 @@ export default StyleSheet.create({
   },
 
   draftCustomText: {
-    fontSize: 11,
-    fontFamily: fonts[500],
+    fontSize: 15,
+    fontFamily: fonts[400],
   },
 
   button: {

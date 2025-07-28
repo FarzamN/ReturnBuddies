@@ -1,4 +1,11 @@
 import {
+  View,
+  FlatList,
+  ScrollView,
+  RefreshControl,
+  TouchableOpacity,
+} from "react-native";
+import {
   Body,
   Text,
   Header,
@@ -6,12 +13,12 @@ import {
   CustomAlert,
   TrackingCard,
   PickupButton,
-  ReturnInnerCard,
   ReturnSection,
 } from "../../../components";
 
 import moment from "moment";
 import styles from "../userStyle";
+import { iOS } from "../../../utils/constants";
 import { colors } from "../../../theme/colors";
 import React, { useEffect, useState } from "react";
 import { appImages, fonts } from "../../../assets";
@@ -20,15 +27,7 @@ import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
 import { scaleSize, wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
-import {
-  FlatList,
-  RefreshControl,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
 import { deletePickupAPI, pickupDetailAPI } from "../../../apis/pickupQueries";
-import { iOS } from "../../../utils/constants";
 
 const PickupDetail = ({ route }) => {
   const { item } = route.params;
@@ -38,7 +37,6 @@ const PickupDetail = ({ route }) => {
   const { data, trackingNumber } = useSelector(
     (state) => state.pickup.pickupDetailData
   );
-  const all_products = item?.bundleId.flatMap((item) => item.products);
 
   const [load, setLoad] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -50,32 +48,39 @@ const PickupDetail = ({ route }) => {
       label: "Pickup Requested",
       icon: appImages.pickup_truck,
       date: "17 June, 2025",
-      completed: data?.status === "Pickup Requested",
+      completed:
+        data?.status === "Pickup Requested" ||
+        data?.status === "picked up" ||
+        data?.status === "inspected" ||
+        data?.status === "delivered",
     },
     {
-      label: "Picked up by RB",
-      icon: appImages.pickup_user_cart,
+      label: cancelled ? "Pickup Cancelled" : "Picked up by RB",
+      icon: cancelled ? appImages.pickup_cross : appImages.pickup_user_cart,
       date: "17 June, 2025",
-      completed: data?.status === "in transit",
+      completed:
+        data?.status === "picked up" ||
+        data?.status === "inspected" ||
+        data?.status === "delivered",
     },
     {
       label: "At RB Warehouse",
       icon: appImages.pickup_warehouse,
       date: "17 June, 2025",
-      completed: data?.status === "completed",
+      completed: data?.status === "inspected" || data?.status === "delivered",
     },
     {
       label: "Dropped off at UPS",
       icon: appImages.pickup_cube,
       date: "17 June, 2025",
-      completed: data?.status === "completed",
+      completed: data?.status === "delivered",
     },
   ];
 
   useEffect(() => {
     pickupDetailAPI(item._id, setLoad)(dispatch);
   }, []);
-
+  console.log(data?.status);
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Return Details" />
@@ -85,18 +90,19 @@ const PickupDetail = ({ route }) => {
         refreshControl={
           <RefreshControl
             refreshing={load}
-            onRefresh={() => pickupDetailAPI(item._id, setLoad)(dispatch)}
             tintColor={colors.purple}
+            onRefresh={() => pickupDetailAPI(item._id, setLoad)(dispatch)}
           />
         }
       >
-        <Text style={styles.pickupTitle} title={"Return #122"} />
+        <Text style={styles.pickupTitle} title={"Pickup #122"} />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {steps.map((step, index) => (
             <React.Fragment key={index}>
               <View style={setpStyle.stepContainer}>
                 <View
+                  cla
                   style={[
                     setpStyle.iconWrapper,
                     {
@@ -119,7 +125,7 @@ const PickupDetail = ({ route }) => {
                   />
                 </View>
                 <Text style={setpStyle.label} title={step.label} />
-                <Text style={setpStyle.date} title={step.date} />
+                {/* <Text style={setpStyle.date} title={step.date} /> */}
               </View>
 
               <View
@@ -136,17 +142,13 @@ const PickupDetail = ({ route }) => {
         {!cancelled && <TrackingCard tracking={trackingNumber} />}
         <FlatList
           scrollEnabled={false}
-          //   data={all_products}
           data={item?.bundleId}
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           ListHeaderComponent={
             <Text style={styles.pickupTitle} title="Pickup Items" />
           }
-          renderItem={({ item }) => (
-            // <ReturnInnerCard data={item} background={colors.white} />
-            <ReturnSection disabled section={item} />
-          )}
+          renderItem={({ item }) => <ReturnSection disabled section={item} />}
         />
         <Text style={styles.pickupTitle} title="Pickup Details" />
         <PickupButton
@@ -202,17 +204,16 @@ const PickupDetail = ({ route }) => {
       </ScrollView>
 
       <CustomAlert
-        title="Are you sure you want to cancel this pickup?"
+        isNote="No fees "
         show={showDelete}
-        isNote="No fees"
-        message={
-          " will apply if cancelled before 9:00 AM on the day of pickup."
-        }
+        showProgress={load}
         cancelText="Keep pickup"
         confirmText="Cancel pickup"
-        secMessage="If you wish to reschedule, please contact us."
-        showProgress={load}
+        messageStyle={{ color: "#424242" }}
         onCancelPressed={() => setShowDelete(false)}
+        title="Are you sure you want to cancel this pickup?"
+        secMessage="If you wish to reschedule, please contact us."
+        message={"will apply if cancelled before 9:00 AM on the day of pickup."}
         onConfirmPressed={() =>
           deletePickupAPI(item._id, setLoad, setShowDelete)(dispatch)
         }

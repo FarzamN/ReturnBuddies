@@ -34,9 +34,11 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Return buddies requests to access photos as user can change his profile pic in the app.</string>
+	<string>Return buddies requests to access photos to change profile Photos and upload Return Items Images in the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Return buddies requests to access photos as user can change his profile pic in the app.</string>
+	<string>Return buddies requests to access photos to change profile Photos and upload Return Items Images in the app.</string>
+	 <key>NSCameraUsageDescription</key>
+  <string>Return buddies requests to access Camera to change profile Photos and upload Return Items Images in the app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

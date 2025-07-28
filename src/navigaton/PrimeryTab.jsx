@@ -1,19 +1,20 @@
-import React, {useEffect} from 'react';
-import {appImages} from '../assets';
-import {colors} from '../theme/colors';
-import {useDispatch} from 'react-redux';
-import {android} from '../utils/constants';
-import {Space_Between} from '../theme/globalStyle';
-import {useNavigation} from '@react-navigation/native';
-import {setPathType} from '../redux/slices/pickupSlice';
-import {Image, TouchableOpacity, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React from "react";
+import { appImages } from "../assets";
+import { colors } from "../theme/colors";
+import { useDispatch } from "react-redux";
+import { width } from "../theme/responsive";
+import { android } from "../utils/constants";
+import { Space_Between } from "../theme/globalStyle";
+import { useNavigation } from "@react-navigation/native";
+import { setPathType } from "../redux/slices/pickupSlice";
+import { Image, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const PrimeryTab = props => {
-  const {currentTab} = props;
+const PrimeryTab = (props) => {
+  const { currentTab } = props;
   const dispatch = useDispatch();
-  const {navigate} = useNavigation();
-  const {bottom} = useSafeAreaInsets();
+  const { navigate } = useNavigation();
+  const { bottom } = useSafeAreaInsets();
 
   const bar = {
     left: 0,
@@ -21,44 +22,52 @@ const PrimeryTab = props => {
     height: 50,
     zIndex: 99,
     bottom: bottom,
-    position: 'absolute',
+    position: "absolute",
     paddingHorizontal: 20,
   };
 
-  const handlePress = path => {
-    if (path === 'myPickupsRoute') {
-      dispatch(setPathType('notSetting'));
-      navigate('myPickupsRoute');
+  const handlePress = (path) => {
+    if (path === "myPickupsRoute") {
+      dispatch(setPathType("notSetting"));
+      navigate("myPickupsRoute");
     }
     navigate(path);
   };
 
   return (
-    <View style={{paddingBottom: 10}}>
+    <View>
       <Space_Between style={bar}>
-        {['draftItem', 'addDraftRoute', 'myPickupsRoute'].map(path => (
+        {["draftItem", "addDraftRoute", "myPickupsRoute"].map((path) => (
           <TouchableOpacity
             key={path}
             onPress={() => handlePress(path)}
             style={{
-              width: '33%',
+              width: "33%",
               height: 50,
               bottom:
-                path == 'addDraftRoute' ? bottom + (android ? 40 : 10) : null,
-              // backgroundColor: "red",
+                path == "addDraftRoute" ? bottom + (android ? 40 : 10) : null,
             }}
           />
         ))}
       </Space_Between>
 
-      <Image
-        source={
-          currentTab === 'Home' ? appImages.homeActive : appImages.pickupActive
-        }
-        resizeMode="cover"
-        style={{width: '100%', height: 100}}
-      />
-      <View style={{height: bottom, backgroundColor: colors.white}} />
+      <View
+        style={{
+          width: width,
+          height: 120,
+        }}
+      >
+        <Image
+          source={
+            currentTab === "Home"
+              ? appImages.homeActive
+              : appImages.pickupActive
+          }
+          resizeMode="cover"
+          style={{ width: "100%", height: "100%" }}
+        />
+      </View>
+      <View style={{ height: bottom, backgroundColor: colors.white }} />
     </View>
   );
 };

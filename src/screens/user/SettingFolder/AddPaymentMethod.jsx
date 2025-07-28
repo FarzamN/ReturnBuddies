@@ -209,7 +209,7 @@ const AddPaymentMethod = ({ route }) => {
               styles.input,
               globalStyle.row,
               errors.number && styles.errorInput,
-              { width: "60%", backgroundColor: "#6f68f8" },
+              { width: "60%" },
             ]}
           >
             <FullImage
@@ -228,7 +228,7 @@ const AddPaymentMethod = ({ route }) => {
           </View>
 
           {/* Expiry and CVV */}
-          <View style={[{ width: "20%", backgroundColor: "#5bd9e9" }]}>
+          <View style={[{ width: "20%" }]}>
             <TextInput
               maxLength={5}
               placeholder="MM/YY"
@@ -243,7 +243,7 @@ const AddPaymentMethod = ({ route }) => {
             />
           </View>
 
-          <View style={[{ width: "20%", backgroundColor: "pink" }]}>
+          <View style={[{ width: "20%" }]}>
             <TextInput
               secureTextEntry
               style={[
