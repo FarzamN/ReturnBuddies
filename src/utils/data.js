@@ -35,12 +35,14 @@ export const loginInput = [
     p: "Enter email",
     name: "email",
     def: "johnmark@gmail.com",
+    keyboard: "email-address",
   },
   {
     label: "Password",
     p: "Enter password",
     name: "password",
     def: "12345678",
+    keyboard: "default",
   },
 ];
 

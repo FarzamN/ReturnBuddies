@@ -1,9 +1,9 @@
 import {
+  iOS,
   required,
   maxLength,
   minLength,
   emailPattern,
-  iOS,
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
@@ -19,14 +19,13 @@ import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
-import { fonts } from "../../assets";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { navigate } = useNavigation();
+
   const showOTP = useRef(false);
   const openOTP = () => showOTP.current?.show();
-
-  const { goBack, navigate } = useNavigation();
 
   const [isPending, setIsPending] = useState(false);
   const { Overlay } = useFreezeScreen(isPending);
@@ -52,7 +51,7 @@ const Login = () => {
         >
           <Text style={styles.mainTitle} title="Welcome back" />
 
-          {loginInput.map(({ name, p, label }) => {
+          {loginInput.map(({ name, p, label, keyboard }) => {
             const isPassword = name === "password";
             const isError = errors[isPassword ? "password" : "email"];
             const rules = isPassword
@@ -67,9 +66,9 @@ const Login = () => {
                 };
             return (
               <MainInput
+                bold
                 small
                 rounded
-                bold
                 key={name}
                 name={name}
                 title={label}
@@ -78,9 +77,9 @@ const Login = () => {
                 control={control}
                 isError={!!isError}
                 password={isPassword}
+                keyboardType={keyboard}
                 message={isError?.message}
                 Container={{ marginTop: wp(5) }}
-                keyboardType={!isPassword ? "email-address" : "default"}
               />
             );
           })}
@@ -95,9 +94,8 @@ const Login = () => {
           </TouchableOpacity>
           <Text title={"Or"} style={styles.orTextStyle} />
 
-          {/* <View style={[globalStyle.ph20]}> */}
-          <MainButton social google onPress={handleSubmit} />
-          <MainButton social apple onPress={handleSubmit} />
+          <MainButton social google />
+          <MainButton social apple />
         </ScrollView>
         <MainButton
           title={"Login"}

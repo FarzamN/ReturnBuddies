@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
+import { fonts } from "../../assets";
 import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
 import Icon from "react-native-dynamic-vector-icons";
-import { fonts } from "../../assets";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 const ImagePickerModal = ({ visible, onClose, onPicture, onCamera }) => {
   const { bottom } = useSafeAreaInsets();

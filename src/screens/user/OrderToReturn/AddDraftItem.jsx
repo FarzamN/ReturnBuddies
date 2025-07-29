@@ -10,9 +10,9 @@ import {
   ImageButton,
   RequiredText,
   AddDraftCard,
+  ImagePickerModal,
   ConfirmOrderModal,
   AboutOversizeModal,
-  ImagePickerModal,
 } from "../../../components";
 import styles from "../userStyle";
 import buttonStyle from "../userStyle";
@@ -24,7 +24,7 @@ import { showNotification } from "../../../function";
 import { useNavigation } from "@react-navigation/native";
 import { scaleSize, wp } from "../../../theme/responsive";
 import { uploadReturnItems } from "../../../apis/draftQueries";
-import { View, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import { useGalleryPermission, useIskeyboard } from "../../../hooks";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
@@ -33,16 +33,15 @@ const AddDraftItem = () => {
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
   const { isKeyboard } = useIskeyboard();
-  const { openGallery, openCamera, image, picker, setPicker } =
-    useGalleryPermission();
+  const { openGallery, openCamera, picker, setPicker } = useGalleryPermission();
 
-  const [images, setImages] = useState([]);
-  const [imageErrors, setImageErrors] = useState([]);
   const [load, setLoad] = useState(false);
-  const [showAbout, setShowAbout] = useState(false);
-  const [showConfirmOrder, setShowConfirmOrder] = useState(false);
-  const [submittedItems, setSubmittedItems] = useState([]);
+  const [images, setImages] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+  const [imageErrors, setImageErrors] = useState([]);
+  const [submittedItems, setSubmittedItems] = useState([]);
+  const [showConfirmOrder, setShowConfirmOrder] = useState(false);
 
   const {
     control,
@@ -307,13 +306,8 @@ const AddDraftItem = () => {
       <ImagePickerModal
         visible={picker}
         onClose={() => setPicker(false)}
-        onCamera={() => {
-          // handleImagePick(fields.length - 1, "camera");
-          Alert.alert("Camera is not available");
-        }}
-        onPicture={() => {
-          handleImagePick(fields.length - 1, "gallery");
-        }}
+        onCamera={() => handleImagePick(fields.length - 1, "camera")}
+        onPicture={() => handleImagePick(fields.length - 1, "gallery")}
       />
     </Body>
   );
