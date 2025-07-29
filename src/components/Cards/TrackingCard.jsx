@@ -1,13 +1,13 @@
 import React from "react";
-import { View } from "react-native";
 import { FullImage, Text } from "..";
-import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
+import { appImages, fonts } from "../../assets";
 import { scaleSize } from "../../theme/responsive";
 import userStyle from "../../screens/user/userStyle";
+import { Share, TouchableOpacity, View } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 
-const TrackingCard = (props) => {
+const TrackingCard = ({ tracking }) => {
   return (
     <View
       style={{
@@ -25,15 +25,24 @@ const TrackingCard = (props) => {
             title="UPS Tracking #: "
           />
           <Text
-            title={props.tracking}
+            title={tracking}
             color={colors.purple}
             style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
           />
         </Row>
-        <FullImage
-          source={appImages.shareCircle}
-          style={globalStyle.deleteIcon}
-        />
+        <TouchableOpacity
+          onPress={() =>
+            Share.share({
+              message: tracking,
+              title: "Share UPS tracking Code",
+            })
+          }
+        >
+          <FullImage
+            source={appImages.shareCircle}
+            style={globalStyle.deleteIcon}
+          />
+        </TouchableOpacity>
       </Space_Between>
     </View>
   );

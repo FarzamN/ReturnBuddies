@@ -4,10 +4,10 @@ import { colors } from "../theme/colors";
 import { useDispatch } from "react-redux";
 import { width } from "../theme/responsive";
 import { android } from "../utils/constants";
-import { Space_Between } from "../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { setPathType } from "../redux/slices/pickupSlice";
 import { Image, TouchableOpacity, View } from "react-native";
+import { globalStyle, Space_Between } from "../theme/globalStyle";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PrimeryTab = (props) => {
@@ -51,12 +51,7 @@ const PrimeryTab = (props) => {
         ))}
       </Space_Between>
 
-      <View
-        style={{
-          width: width,
-          height: 120,
-        }}
-      >
+      <View style={{ width, height: 120 }}>
         <Image
           source={
             currentTab === "Home"
@@ -64,7 +59,7 @@ const PrimeryTab = (props) => {
               : appImages.pickupActive
           }
           resizeMode="cover"
-          style={{ width: "100%", height: "100%" }}
+          style={globalStyle.full}
         />
       </View>
       <View style={{ height: bottom, backgroundColor: colors.white }} />

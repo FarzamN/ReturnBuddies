@@ -30,7 +30,11 @@ export default function Splash() {
     <View
       style={[globalStyle.flex, globalStyle.center, { backgroundColor: white }]}
     >
-      <StatusBar backgroundColor={white} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={white}
+        barStyle="dark-content"
+        translucent={false}
+      />
       <Animated.View style={{ opacity, transform: [{ scale }] }}>
         <Image source={appImages.logo} style={{ width: 200, height: 200 }} />
       </Animated.View>

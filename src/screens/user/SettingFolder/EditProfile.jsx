@@ -153,9 +153,9 @@ const EditProfile = () => {
           <FullImage source={appImages.delete} style={globalStyle.iconImage} />
 
           <Text
-            style={settingStyle.deleteText}
             color={colors.error}
             title="Delete Account"
+            style={settingStyle.deleteText}
           />
         </TouchableOpacity>
       </ScrollView>

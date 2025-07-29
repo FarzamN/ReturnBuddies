@@ -87,8 +87,8 @@ const Login = () => {
           <Height />
           <TouchableOpacity onPress={() => navigate("checkEmail")}>
             <Text
-              title={"Forgot password?"}
               color={colors.purple}
+              title={"Forgot password?"}
               style={styles.forgotTextStyle}
             />
           </TouchableOpacity>

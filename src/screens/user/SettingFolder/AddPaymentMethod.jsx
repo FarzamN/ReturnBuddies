@@ -196,29 +196,27 @@ const AddPaymentMethod = ({ route }) => {
 
         {/* Card Number Input */}
         <Height />
-        <Row
-          style={[
-            styles.border,
-            {
-              backgroundColor: colors.white,
-            },
-          ]}
-        >
+        <Row style={styles.border}>
           <View
             style={[
               styles.input,
               globalStyle.row,
               errors.number && styles.errorInput,
-              { width: "60%" },
+              {
+                width: "60%",
+                //  backgroundColor: "pink"
+              },
             ]}
           >
             <FullImage
               source={appImages.card}
-              style={{ width: 30, height: 20 }}
+              style={{ width: 23.5, height: 15 }}
             />
             <TextInput
+              textAlign="center"
               keyboardType="numeric"
               value={cardData.number}
+              cursorColor={colors.purple}
               style={[styles.CardNameInput]}
               placeholder="4242 4242 4242 4242"
               placeholderTextColor={colors.grey}
@@ -228,10 +226,20 @@ const AddPaymentMethod = ({ route }) => {
           </View>
 
           {/* Expiry and CVV */}
-          <View style={[{ width: "20%" }]}>
+          <View
+            style={[
+              {
+                width: "20%",
+                //   backgroundColor: "#1ecbe1"
+              },
+            ]}
+          >
             <TextInput
+              textAlign="center"
               maxLength={5}
+              cursorColor={colors.purple}
               placeholder="MM/YY"
+              sty
               style={[
                 styles.input,
                 { paddingHorizontal: 0, textAlign: "center" },
@@ -243,13 +251,22 @@ const AddPaymentMethod = ({ route }) => {
             />
           </View>
 
-          <View style={[{ width: "20%" }]}>
+          <View
+            style={[
+              {
+                width: "20%",
+                //  backgroundColor: "#6f7bf3"
+              },
+            ]}
+          >
             <TextInput
+              textAlign="center"
               secureTextEntry
               style={[
                 styles.input,
                 { paddingHorizontal: 0, textAlign: "center" },
               ]}
+              cursorColor={colors.purple}
               value={cardData.cvv}
               keyboardType="numeric"
               placeholderTextColor={colors.grey}
@@ -283,6 +300,7 @@ const styles = StyleSheet.create({
     borderWidth: scaleSize(1),
     borderRadius: scaleSize(15),
     borderColor: colors.lightGrey,
+    backgroundColor: colors.white,
   },
   label: {
     fontSize: 13,
@@ -295,12 +313,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.black,
     fontFamily: fonts[500],
-    // backgroundColor: colors.white,
-    paddingHorizontal: scaleSize(10),
+    paddingHorizontal: 10,
   },
   CardNameInput: {
     fontSize: 15,
-    marginLeft: 10,
     color: colors.black,
     fontFamily: fonts[500],
   },

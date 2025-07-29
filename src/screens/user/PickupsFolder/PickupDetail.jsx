@@ -80,7 +80,7 @@ const PickupDetail = ({ route }) => {
   useEffect(() => {
     pickupDetailAPI(item._id, setLoad)(dispatch);
   }, []);
-  console.log(data?.status);
+
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Return Details" />

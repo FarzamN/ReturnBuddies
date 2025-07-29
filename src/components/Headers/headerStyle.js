@@ -1,8 +1,8 @@
 import { fonts } from "../../assets";
-import { StyleSheet } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
-import responsive, { fontScale, wp } from "../../theme/responsive";
+import responsive, { fontScale, scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   right: {
@@ -24,9 +24,9 @@ export default StyleSheet.create({
   },
 
   headerCont: {
-    marginTop: iOS ? 10 : 20,
     height: responsive.height(48),
     marginBottom: iOS ? 0 : wp(4),
+    marginTop: iOS ? scaleSize(10) : StatusBar.currentHeight + scaleSize(20),
   },
   logoStyle: {
     width: wp(10),

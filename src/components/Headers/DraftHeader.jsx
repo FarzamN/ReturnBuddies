@@ -3,11 +3,12 @@ import React from "react";
 import styles from "./headerStyle";
 import { useSelector } from "react-redux";
 import { colors } from "../../theme/colors";
-import { TouchableOpacity } from "react-native";
+import { StatusBar, TouchableOpacity } from "react-native";
 import { scaleSize, wp } from "../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Row, Space_Between } from "../../theme/globalStyle";
+import { iOS } from "../../utils/constants";
 
 const DraftHeader = (props) => {
   const { pickup } = props;
@@ -16,7 +17,12 @@ const DraftHeader = (props) => {
 
   return (
     <Space_Between
-      style={{ paddingHorizontal: wp(5), marginTop: scaleSize(20) }}
+      style={{
+        paddingHorizontal: wp(5),
+        marginTop: iOS
+          ? scaleSize(20)
+          : StatusBar.currentHeight + scaleSize(20),
+      }}
     >
       <Text
         style={styles.nameHeader}

@@ -7,15 +7,9 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import React from "react";
-import {
-  wp,
-  fontScale,
-  scaleSize,
-  verticalScale,
-} from "../../../theme/responsive";
+import settingStyle from "./settingStyle";
 import { colors } from "../../../theme/colors";
 import { FullImage } from "../../../components";
 import { appImages, fonts } from "../../../assets";
@@ -23,9 +17,9 @@ import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { globalStyle } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
+import { wp, scaleSize } from "../../../theme/responsive";
 import { setLogout } from "../../../redux/slices/authSlice";
 import { setPathType } from "../../../redux/slices/pickupSlice";
-import settingStyle from "./settingStyle";
 
 const settingsData = [
   { title: "Profile settings", icon: appImages.user, route: "editProfile" },
@@ -65,27 +59,13 @@ const Setting = () => {
 
   return (
     <View style={globalStyle.flex}>
-      <SafeAreaView style={styles.safeArea} />
+      <View style={styles.safeArea} />
       <StatusBar
         barStyle="dark-content"
         backgroundColor={colors.none}
         translucent
       />
-      {/* <ImageBackground
-          resizeMode="contain"
-          
-          source={appImages.profileBackground}
-          > */}
-      {/* <ImageBackground
-          source={appImages.profileBackground}
-          resizeMode="cover"
-          //  style={{
-            //   height: 100,
-            //   width: "100%",
-            //   position: "absolute",
-            //   transform: [{ rotate: "-10deg" }], // Rotate 45 degrees
-            //   }}
-            > */}
+
       <Image
         resizeMode="cover"
         source={appImages.profileBackground}
@@ -147,6 +127,7 @@ const Setting = () => {
 
 const styles = StyleSheet.create({
   safeArea: {
+    height: 35,
     backgroundColor: colors.lightPurple,
   },
   backButton: {

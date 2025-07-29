@@ -16,8 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useMemo, useState } from "react";
 import { Height, globalStyle } from "../../../theme/globalStyle";
-import { BackHandler, FlatList, View, Text as RNText } from "react-native";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
+import { BackHandler, FlatList, View, Text as RNText } from "react-native";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,6 @@ const DraftItem = () => {
   const [isPending, setIsPending] = useState(false);
   const [hasUnselected, setHasUnselected] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
-  // const [returnItemCount, setReturnItemCount] = useState(0);
 
   const toggleSelect = (returns) => {
     const { _id } = returns;
@@ -87,7 +86,7 @@ const DraftItem = () => {
       />
       */}
       <Height />
-      <Height />
+      {/* <Height /> */}
 
       {draftData && draftData.length > 0 && (
         <View style={{ paddingHorizontal: wp(5) }}>

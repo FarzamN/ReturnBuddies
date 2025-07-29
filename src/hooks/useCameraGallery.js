@@ -1,3 +1,4 @@
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import {
   check,
   request,
@@ -5,13 +6,11 @@ import {
   PERMISSIONS,
   openSettings,
 } from "react-native-permissions";
-
 import { useState } from "react";
-import { iOS } from "../utils/constants";
 import { Alert, Platform } from "react-native";
-import ImagePicker from "react-native-image-crop-picker";
+import { iOS } from "../utils/constants";
 
-export const useGalleryPermission = () => {
+export const useCameraGallery = () => {
   const [picker, setPicker] = useState(false);
 
   const getPermissionType = (type) => {
@@ -30,7 +29,6 @@ export const useGalleryPermission = () => {
     }
   };
 
-  // ✅ Reusable permission request handler
   const requestPermission = async (type) => {
     const permission = getPermissionType(type);
     const result = await check(permission);
@@ -38,12 +36,10 @@ export const useGalleryPermission = () => {
     switch (result) {
       case RESULTS.GRANTED:
         return true;
-
       case RESULTS.DENIED: {
         const newResult = await request(permission);
         return newResult === RESULTS.GRANTED;
       }
-
       case RESULTS.BLOCKED:
         Alert.alert(
           "Permission Required",
@@ -54,62 +50,59 @@ export const useGalleryPermission = () => {
           ]
         );
         return null;
-
       default:
         return null;
     }
   };
 
-  // ✅ Gallery picker
+  // ✅ Open Gallery
   const openGallery = async () => {
     const hasPermission = await requestPermission("gallery");
     if (!hasPermission) return null;
 
-    try {
-      const result = await ImagePicker.openPicker({
-        width: 300,
-        height: 300,
-        cropping: true,
-        mediaType: "photo",
+    return new Promise((resolve) => {
+      launchImageLibrary({ mediaType: "photo" }, (response) => {
+        if (response.didCancel) {
+          resolve(null);
+        } else if (response.errorMessage) {
+          console.warn("Gallery Error:", response.errorMessage);
+          resolve(null);
+        } else {
+          const asset = response.assets[0];
+          setPicker(false);
+          resolve({
+            name: asset.fileName,
+            uri: asset.uri,
+            type: asset.type,
+          });
+        }
       });
-
-      setPicker(false);
-      return {
-        name: result.path.split("/").pop() || "",
-        uri: result.path,
-        type: "image/jpeg",
-      };
-    } catch (err) {
-      if (err.code !== "E_PICKER_CANCELLED")
-        console.warn("Image Picker Error:", err);
-      return null;
-    }
+    });
   };
 
-  // ✅ Camera picker
+  // ✅ Open Camera
   const openCamera = async () => {
     const hasPermission = await requestPermission("camera");
     if (!hasPermission) return null;
 
-    try {
-      const result = await ImagePicker.openCamera({
-        width: 300,
-        height: 300,
-        cropping: true,
-        mediaType: "photo",
+    return new Promise((resolve) => {
+      launchCamera({ mediaType: "photo", saveToPhotos: true }, (response) => {
+        if (response.didCancel) {
+          resolve(null);
+        } else if (response.errorMessage) {
+          console.warn("Camera Error:", response.errorMessage);
+          resolve(null);
+        } else {
+          const asset = response?.assets[0];
+          setPicker(false);
+          resolve({
+            name: asset.fileName,
+            uri: asset.uri,
+            type: asset.type,
+          });
+        }
       });
-
-      setPicker(false);
-      return {
-        name: result.path.split("/").pop() || "",
-        uri: result.path,
-        type: "image/jpeg",
-      };
-    } catch (err) {
-      if (err.code !== "E_PICKER_CANCELLED")
-        console.warn("Image Picker Error:", err);
-      return null;
-    }
+    });
   };
 
   return { openGallery, openCamera, picker, setPicker };

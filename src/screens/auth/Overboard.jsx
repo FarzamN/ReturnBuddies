@@ -95,7 +95,6 @@ const Onboarding = ({ navigation }) => {
           />
           <MainButton
             style={styles.createAccountButton}
-            // style={{ width: (402 * 44) / 100 }}
             onPress={() => navigate("register")}
             title={"Create account"}
           />
@@ -152,20 +151,20 @@ const styles = StyleSheet.create({
   },
 
   rowButtonWrapper: {
+    width,
     flexDirection: "row",
     alignItems: "center",
-    paddingBottom: hp(2),
     justifyContent: "space-evenly",
+    paddingBottom: iOS ? 0 : hp(2),
   },
   loginButton: {
-    width: "44%",
+    width: wp(45),
     borderWidth: 1,
     borderColor: colors.purple,
     backgroundColor: colors.none,
   },
   createAccountButton: {
-    width: wp(44),
-    width: "44%",
+    width: wp(45),
     borderWidth: 1,
   },
 });

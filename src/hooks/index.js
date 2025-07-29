@@ -1,5 +1,5 @@
 import { useIskeyboard } from "./useIskeyboard";
 import { useFreezeScreen } from "./useFreezeScreen";
-import { useGalleryPermission } from "./useGalleryPermission";
+import { useCameraGallery } from "./useCameraGallery";
 
-export { useGalleryPermission, useFreezeScreen, useIskeyboard };
+export { useCameraGallery, useFreezeScreen, useIskeyboard };
