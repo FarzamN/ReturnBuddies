@@ -11,12 +11,12 @@ const MainButton = (props) => {
     load,
     style,
     title,
+    apple,
+    social,
     onPress,
     disabled,
     marginTop,
     textStyle,
-    social,
-    apple,
   } = props;
   return (
     <TouchableOpacity

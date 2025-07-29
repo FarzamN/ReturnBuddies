@@ -2,7 +2,6 @@ import { Dimensions } from "react-native";
 import DeviceInfo from "react-native-device-info";
 
 export const { width, height } = Dimensions.get("window");
-console.log("width, height", width, height);
 
 export const wp = (p) => width * (p / 100);
 export const hp = (p) => height * (p / 100);

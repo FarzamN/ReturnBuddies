@@ -1,25 +1,19 @@
-import React, { useRef } from "react";
 import {
   View,
   Text,
   Image,
+  StatusBar,
   StyleSheet,
   SafeAreaView,
-  StatusBar,
 } from "react-native";
-import { SwiperFlatList } from "react-native-swiper-flatlist";
-import {
-  fontScale,
-  height,
-  hp,
-  scaleSize,
-  width,
-  wp,
-} from "../../theme/responsive";
-import { appImages, fonts } from "../../assets";
+import { hp, wp, width, height, scaleSize } from "../../theme/responsive";
+import React, { useRef } from "react";
 import { colors } from "../../theme/colors";
-import { globalStyle, Height } from "../../theme/globalStyle";
+import { iOS } from "../../utils/constants";
 import { MainButton } from "../../components";
+import { appImages, fonts } from "../../assets";
+import { SwiperFlatList } from "react-native-swiper-flatlist";
+import { globalStyle, Height } from "../../theme/globalStyle";
 
 const onboardingArray = [
   {
@@ -100,7 +94,8 @@ const Onboarding = ({ navigation }) => {
             title={"Login"}
           />
           <MainButton
-            style={{ width: wp(44) }}
+            style={styles.createAccountButton}
+            // style={{ width: (402 * 44) / 100 }}
             onPress={() => navigate("register")}
             title={"Create account"}
           />
@@ -113,16 +108,12 @@ const Onboarding = ({ navigation }) => {
 export default Onboarding;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
   imageLogo: {
     width: wp(43),
     height: wp(4.6),
     marginHorizontal: wp(5),
-    marginTop: scaleSize(20),
-    marginBottom: scaleSize(40),
+    marginBottom: scaleSize(20),
+    marginTop: iOS ? scaleSize(20) : StatusBar.currentHeight + 20,
   },
   swiperContainer: {
     flex: 1,
@@ -167,13 +158,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   loginButton: {
-    width: wp(44),
+    width: "44%",
     borderWidth: 1,
     borderColor: colors.purple,
     backgroundColor: colors.none,
   },
   createAccountButton: {
     width: wp(44),
-    borderRadius: 50,
+    width: "44%",
+    borderWidth: 1,
   },
 });
