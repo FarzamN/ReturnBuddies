@@ -12,6 +12,50 @@ import instance from "../utils/urls";
 import { getItem, setItem } from "../utils/storage";
 import { apiRequest, catchFun, showNotification } from "../function";
 
+// export const googleLoginAPI = (data) => {
+//   return async (dispatch) => {
+//     apiRequest({
+//       data,
+//       method: "post",
+//       endpoint: "user/Login-with-google",
+//       onSuccess: ({ user, token }) => {
+//         setItem("token", token);
+//         setItem("userID", user._id);
+//         dispatch(setLogin({ user, token }));
+//       },
+//     });
+//   };
+// };
+
+export const googleLoginAPI = (data) => {
+  return async (dispatch) => {
+    const url =
+      "https://returnbuddies-production.up.railway.app/api/user/Login-with-google";
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken: data }),
+      });
+
+      const responseData = await response.json();
+      const { status, message, user, token } = responseData;
+
+      if (status === 200) {
+        setItem("token", token);
+        setItem("userID", user._id);
+        dispatch(setLogin({ user, token }));
+      } else {
+        showNotification("error", message, "Status Code 400");
+      }
+    } catch (error) {
+      catchFun(error, "googleLoginAPI");
+    }
+  };
+};
+
 export const loginAPI = (data, showOTP, saveEmail, load) => {
   return async (dispatch) => {
     apiRequest({

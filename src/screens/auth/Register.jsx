@@ -10,13 +10,16 @@ import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
 import React, { useRef, useState } from "react";
 import { registerInput } from "../../utils/data";
-import { registerAPI } from "../../apis/authQueries";
+import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
+  const dispatch = useDispatch();
   const showOTP = useRef(false);
   const { goBack } = useNavigation();
 
@@ -24,9 +27,20 @@ const Register = () => {
 
   const openOTP = () => showOTP.current?.show();
   const [saveEmail, setSaveEmail] = useState("");
-  const onSubmit = (value) => {
+  const onSubmit = (value) =>
     registerAPI(value, openOTP, setSaveEmail, setLoading);
+
+  const handleGoodleSignin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const { data } = await GoogleSignin.signIn();
+      const { idToken } = data;
+      googleLoginAPI(idToken)(dispatch);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
+  const handleAppleSignin = () => {};
 
   const {
     control,
@@ -80,8 +94,8 @@ const Register = () => {
 
           <Text style={styles.orTextStyle} title={"Or"} />
 
-          <MainButton social google />
-          <MainButton social apple />
+          <MainButton social google onPress={handleGoodleSignin} />
+          <MainButton social apple onPress={handleAppleSignin} />
           <Row style={{ justifyContent: "center" }}>
             <Text
               style={styles.dontAccountTextStyle}

@@ -14,11 +14,12 @@ import { wp } from "../../theme/responsive";
 import { loginInput } from "../../utils/data";
 import { useFreezeScreen } from "../../hooks";
 import React, { useState, useRef } from "react";
-import { loginAPI } from "../../apis/authQueries";
+import { googleLoginAPI, loginAPI } from "../../apis/authQueries";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,20 @@ const Login = () => {
   const onSubmit = (data) =>
     loginAPI(data, openOTP, setSaveEmail, setIsPending)(dispatch);
 
+  // ************ google login *************
+
+  const handleGoodleSignin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const { data } = await GoogleSignin.signIn();
+      const { idToken } = data;
+      googleLoginAPI(idToken)(dispatch);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const handleAppleSignin = () => {};
   const {
     control,
     handleSubmit,
@@ -94,8 +109,8 @@ const Login = () => {
           </TouchableOpacity>
           <Text title={"Or"} style={styles.orTextStyle} />
 
-          <MainButton social google />
-          <MainButton social apple />
+          <MainButton social google onPress={handleGoodleSignin} />
+          <MainButton social apple onPress={handleAppleSignin} />
         </ScrollView>
         <MainButton
           title={"Login"}
