@@ -9,11 +9,11 @@ import {
 import React, { useState } from "react";
 import { fonts } from "../../../assets";
 import { useForm } from "react-hook-form";
+import { ScrollView, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { iOS, required } from "../../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 import { fontScale, wp } from "../../../theme/responsive";
-import { ScrollView, StyleSheet } from "react-native";
 import { Height, Space_Between } from "../../../theme/globalStyle";
 import { editAddressAPI, addAddressAPI } from "../../../apis/authQueries";
 

@@ -393,3 +393,22 @@ export const getFAQsAPI = () => {
     });
   };
 };
+
+export const getNotificationAPI = async (email, text) => {
+  apiRequest({
+    endpoint: "get-notifications",
+    onSuccess: ({ Notifications }) => {
+      email(Notifications.email);
+      text(Notifications.text);
+    },
+  });
+};
+
+export const postNotificationAPI = async (data) => {
+  apiRequest({
+    data,
+    method: "post",
+    endpoint: "add-notifications",
+    onSuccess: () => {},
+  });
+};

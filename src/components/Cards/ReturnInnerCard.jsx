@@ -12,6 +12,7 @@ const ItemsToBePickedupCard = ({ data }) => {
       <FullImage
         isUrl
         radius={10}
+        resizeMode="cover"
         source={data.thumbnail}
         style={styles.sectionImage}
       />

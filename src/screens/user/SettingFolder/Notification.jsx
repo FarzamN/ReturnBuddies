@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import settingStyle from "./settingStyle";
 import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { Body, Header, Text } from "../../../components";
 import { View, FlatList, Switch, ScrollView } from "react-native";
 import { Height, Space_Between } from "../../../theme/globalStyle";
+import {
+  getNotificationAPI,
+  postNotificationAPI,
+} from "../../../apis/authQueries";
 
 const Notification = () => {
   const [textData, setTextData] = useState([
@@ -13,21 +17,21 @@ const Notification = () => {
       title: "Pickup Updates",
       detail:
         "Messages confirming your scheduled pickup, item pickup, and dropoff.",
-      value: true,
+      value: false,
     },
     {
       _id: "pickup_reminder",
       title: "Pickup Reminder",
       detail:
         "A morning message letting you know a pickup is scheduled for today.",
-      value: true,
+      value: false,
     },
     {
       _id: "label_issues",
       title: "Label Issues",
       detail:
         "Messages if your return label is missing, inval_id, or can’t be processed.",
-      value: true,
+      value: false,
     },
   ]);
 
@@ -36,33 +40,50 @@ const Notification = () => {
       _id: "account_security",
       title: "Account & Security",
       detail: "Important account, support and security related messages.",
-      value: true,
+      value: false,
     },
     {
       _id: "draft_reminders",
       title: "Draft Reminders",
       detail: "Reminder to finish scheduling items saved in drafts.",
-      value: true,
+      value: false,
     },
     {
       _id: "pickup_confirmations",
       title: "Pickup Confirmations",
       detail:
         "Details of when your pickup is scheduled, upcoming, completed, or rescheduled.",
-      value: true,
+      value: false,
     },
   ]);
 
   const handleToggle = (section, index) => {
-    const newData = [...(section === "text" ? textData : emailData)];
-    newData[index].value = !newData[index].value;
+    let updatedTextData = [...textData];
+    let updatedEmailData = [...emailData];
 
-    if (section === "text") setTextData(newData);
-    else setEmailData(newData);
+    if (section === "text") {
+      updatedTextData[index].value = !updatedTextData[index].value;
+      setTextData(updatedTextData);
+    } else {
+      updatedEmailData[index].value = !updatedEmailData[index].value;
+      setEmailData(updatedEmailData);
+    }
 
-    // updateNotificationSetting(newData[index]._id, newData[index].value);
-    console.log(newData[index]._id, newData[index].value);
+    // ✅ Merge both arrays after updating
+    const merged = [...updatedTextData, ...updatedEmailData];
+
+    // ✅ Convert to desired object format
+    const data = merged.reduce((acc, item) => {
+      acc[item._id] = item.value;
+      return acc;
+    }, {});
+
+    postNotificationAPI(data);
   };
+
+  useEffect(() => {
+    getNotificationAPI(setEmailData, setTextData);
+  }, []);
 
   const renderItem = (item, index, section) => (
     <View style={settingStyle.toggleItemContainer}>

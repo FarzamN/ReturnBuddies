@@ -22,12 +22,12 @@ export default StyleSheet.create({
   },
 
   button: {
+    height: 37,
     width: "80%",
     borderRadius: 15,
     alignSelf: "center",
     backgroundColor: "#F3E8F9",
-    marginBottom: iOS ? 25 : 0,
-    height: responsive.height(40),
+    // marginBottom: iOS ? 25 : 0,
   },
   buttonText: {
     fontSize: 12,

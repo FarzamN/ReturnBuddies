@@ -1,13 +1,13 @@
-import { StyleSheet } from "react-native";
 import {
-  fontScale,
   hp,
-  scaleSize,
-  verticalScale,
   wp,
+  scaleSize,
+  fontScale,
+  verticalScale,
 } from "../../../theme/responsive";
-import { colors } from "../../../theme/colors";
 import { fonts } from "../../../assets";
+import { StyleSheet } from "react-native";
+import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
 
 export default StyleSheet.create({
@@ -22,18 +22,18 @@ export default StyleSheet.create({
     fontFamily: fonts[500],
   },
   ImageStyle: {
-    borderWidth: 1,
-    borderColor: colors.borderColor,
     padding: 10,
+    borderWidth: 1,
     borderRadius: 20,
+    borderColor: colors.borderColor,
   },
   ContactImageStyle: {
+    padding: 10,
     width: wp(15),
     height: wp(15),
     borderWidth: 1,
-    borderColor: colors.borderColor,
-    padding: 10,
     borderRadius: 20,
+    borderColor: colors.borderColor,
   },
 
   emailText: {
@@ -44,15 +44,15 @@ export default StyleSheet.create({
   cell: {
     width: wp(17),
     height: wp(13),
-    borderRadius: 15,
     borderWidth: 1,
-    borderColor: colors.borderColor,
-    backgroundColor: "#FAFAFA",
-    color: colors.black,
+    borderRadius: 15,
     fontSize: hp(2.4),
-    fontWeight: "600",
-    textAlign: "center",
     lineHeight: wp(12),
+    textAlign: "center",
+    color: colors.black,
+    fontFamily: fonts[600],
+    backgroundColor: "#FAFAFA",
+    borderColor: colors.borderColor,
   },
   timerText: {
     fontSize: 16,
@@ -80,8 +80,8 @@ export default StyleSheet.create({
     alignItems: "center",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    justifyContent: "space-between",
     marginTop: verticalScale(20),
+    justifyContent: "space-between",
   },
   FAQcontent: {
     padding: wp(2),
@@ -173,9 +173,9 @@ export default StyleSheet.create({
   },
 
   settingEmailText: {
-    fontFamily: fonts[500],
     fontSize: 10,
-    color: "#3A3A3A",
     marginLeft: 5,
+    color: "#3A3A3A",
+    fontFamily: fonts[500],
   },
 });

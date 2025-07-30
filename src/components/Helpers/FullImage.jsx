@@ -34,7 +34,7 @@ const FullImage = (props) => {
       {isUrl ? (
         <FastImage
           source={getImageSource()}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={resizeMode ? resizeMode : FastImage.resizeMode.contain}
           style={[globalStyle.full, ImageStyle, { borderRadius: radius }]}
         />
       ) : (

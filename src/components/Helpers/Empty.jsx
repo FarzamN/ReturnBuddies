@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./helperStyle";
 import { View } from "react-native";
 import { appImages } from "../../assets";
-import { fontScale, wp } from "../../theme/responsive";
+import { wp } from "../../theme/responsive";
 import { AddButton, FullImage, Text } from "..";
 
 const Empty = (props) => {

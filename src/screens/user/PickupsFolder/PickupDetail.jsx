@@ -95,7 +95,7 @@ const PickupDetail = ({ route }) => {
           />
         }
       >
-        <Text style={styles.pickupTitle} title={"Pickup #122"} />
+        <Text style={styles.pickupTitle} title={`Pickup# ${item.PickupName}`} />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {steps.map((step, index) => (

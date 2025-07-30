@@ -17,6 +17,10 @@ const ReturnSection = (props) => {
       onPress={() => onSelect(section)}
       style={[styles.sectionContainer, selected && styles.selectedSection]}
     >
+      {/* style={[
+        styles.headerRow,
+        { flexWrap: "wrap", alignItems: "center" },
+        ]} */}
       <View
         style={[
           styles.headerRow,
@@ -24,40 +28,49 @@ const ReturnSection = (props) => {
           { flexWrap: "wrap" },
         ]}
       >
-        <Row>
-          {selected && (
-            <Icon
-              size={20}
-              name="checkbox"
-              type="Ionicons"
-              color={colors.purple}
-            />
-          )}
-          <RNText
-            style={[
-              styles.BundleName,
-              {
-                marginLeft: selected ? 5 : 0,
-              },
-            ]}
-            allowFontScaling
-            numberOfLines={1}
-          >
-            {section.BundleName}
-          </RNText>
-        </Row>
+        {/* Left Side - BundleName */}
+        <View style={{ flex: 1 }}>
+          <Row>
+            {selected && (
+              <Icon
+                size={20}
+                name="checkbox"
+                type="Ionicons"
+                color={colors.purple}
+              />
+            )}
+            <RNText
+              style={[styles.BundleName, { marginLeft: selected ? 5 : 0 }]}
+            >
+              {section.BundleName}
+            </RNText>
+          </Row>
+        </View>
+
+        {/* Right Side - LabelTitle */}
         {isLabel && (
           <View
-            style={[
-              styles.labelBox,
-              { backgroundColor: isPositive ? "#F0FBF0" : "#FEF0F2" },
-            ]}
+            style={{
+              minWidth: "40%",
+              alignItems: "flex-end",
+            }}
           >
-            <Text
-              style={styles.labelTitle}
-              color={isPositive ? "#4CD963" : "#ED6479"}
-              title={isPositive ? "Label uploaded" : "No return label uploaded"}
-            />
+            <View
+              style={[
+                styles.labelBox,
+                {
+                  backgroundColor: isPositive ? "#F0FBF0" : "#FEF0F2",
+                },
+              ]}
+            >
+              <Text
+                style={styles.labelTitle}
+                color={isPositive ? "#4CD963" : "#ED6479"}
+                title={
+                  isPositive ? "Label uploaded" : "No return label uploaded"
+                }
+              />
+            </View>
           </View>
         )}
       </View>

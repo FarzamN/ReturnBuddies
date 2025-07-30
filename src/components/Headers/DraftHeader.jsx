@@ -30,19 +30,17 @@ const DraftHeader = (props) => {
         title={
           pickup
             ? "My Pickups"
-            : `Welcome${FirstLogin ? "" : " back"}, ${name}!`
+            : `Welcome${FirstLogin ? "" : " back"}, ${name.split(" ").shift()}!`
         }
       />
-      <Row>
-        <TouchableOpacity onPress={() => navigate("settingRoute")}>
-          <Icon
-            size={22}
-            type="Ionicons"
-            color={colors.black}
-            name="settings-outline"
-          />
-        </TouchableOpacity>
-      </Row>
+      <TouchableOpacity onPress={() => navigate("settingRoute")}>
+        <Icon
+          size={22}
+          type="Ionicons"
+          color={colors.black}
+          name="settings-outline"
+        />
+      </TouchableOpacity>
     </Space_Between>
   );
 };

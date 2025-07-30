@@ -22,7 +22,9 @@ const ImageButton = (props) => {
       <Space_Between>
         <Row>
           <FullImage
+            radius={10}
             source={source}
+            resizeMode="cover"
             style={[
               styles.ImageIcon,
               {

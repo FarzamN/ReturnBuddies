@@ -91,7 +91,6 @@ export const apiRequest = async ({
       Authorization: `Bearer ${token}`,
       ...(contentType && { "Content-Type": contentType }),
     };
-
     const response =
       method === "get"
         ? await instance.get(endpoint, { headers })

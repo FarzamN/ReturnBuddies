@@ -1,22 +1,19 @@
-import {
-  Row,
-  Divider,
-  globalStyle,
-  Space_Between,
-} from "../../theme/globalStyle";
-
 import React from "react";
 import moment from "moment";
 import styles from "./cardStyle";
 import { FullImage, Text } from "..";
-import { appImages, fonts } from "../../assets";
 import { colors } from "../../theme/colors";
-import { Text as RNText, View } from "react-native";
-import { scaleSize, width } from "../../theme/responsive";
+import { appImages, fonts } from "../../assets";
 import Icon from "react-native-dynamic-vector-icons";
+import { scaleSize, width } from "../../theme/responsive";
+import { Row, Divider, globalStyle } from "../../theme/globalStyle";
+import { Text as RNText, TouchableOpacity, View } from "react-native";
 
 const PickupSection = ({ data, onPress }) => {
+  // const flat_products = data?.bundleId.flat().map((item) => item.products)[0];
+
   const all_products = data?.bundleId.flatMap((item) => item.products);
+  // console.log({ flat_products, all_products });
   return (
     <View style={[styles.sectionContainer, globalStyle.ph0]}>
       <View style={globalStyle.ph10}>
@@ -26,21 +23,34 @@ const PickupSection = ({ data, onPress }) => {
             { flexWrap: "wrap", marginBottom: scaleSize(5) },
           ]}
         >
-          <RNText allowFontScaling numberOfLines={1} style={styles.BundleName}>
-            {data.bundleId[0].BundleName}
-          </RNText>
-          <Text
-            color={"#B1AFB2"}
-            style={{ fontSize: 12, fontFamily: fonts[400] }}
-            title={moment(data.createdAt).format("dddd, MMM do yyyy")}
-          />
+          {/* Left: Pickup Name */}
+          <View style={{ flex: 1, minWidth: "50%" }}>
+            <RNText style={styles.BundleName}>
+              {`Pickup# ${data.PickupName}`}
+            </RNText>
+          </View>
+
+          {/* Right: Date */}
+          <View style={{ minWidth: "40%", alignItems: "flex-end" }}>
+            <Text
+              color={"#B1AFB2"}
+              style={{
+                fontSize: 12,
+                fontFamily: fonts[400],
+                textAlign: "right",
+              }}
+              title={moment(data.createdAt).format("dddd, MMM do yyyy")}
+            />
+          </View>
         </View>
+
         <Divider />
         <Row style={globalStyle.mt10}>
           <Row>
             <FullImage
               isUrl
               radius={10}
+              resizeMode="cover"
               style={styles.sectionImage}
               source={all_products[0].thumbnail}
             />
@@ -48,6 +58,7 @@ const PickupSection = ({ data, onPress }) => {
               <FullImage
                 isUrl
                 radius={10}
+                resizeMode="cover"
                 style={[globalStyle.shadow, styles.pickup1stImage]}
                 source={all_products[1]?.thumbnail}
               />
@@ -85,7 +96,10 @@ const PickupSection = ({ data, onPress }) => {
         </Row>
       </View>
       <Divider />
-      <Space_Between style={[globalStyle.ph10, globalStyle.mt10]}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[globalStyle.ph10, globalStyle.mt10, globalStyle.space_Between]}
+      >
         <Row>
           <FullImage
             source={
@@ -106,11 +120,10 @@ const PickupSection = ({ data, onPress }) => {
         <Icon
           size={20}
           type="Feather"
-          onPress={onPress}
           name="chevron-right"
           color={colors.black}
         />
-      </Space_Between>
+      </TouchableOpacity>
     </View>
   );
 };

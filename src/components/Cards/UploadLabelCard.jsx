@@ -4,8 +4,8 @@ import styles from "./cardStyle";
 import { FullImage, Text } from "..";
 import { colors } from "../../theme/colors";
 import Icon from "react-native-dynamic-vector-icons";
+import { globalStyle, Row } from "../../theme/globalStyle";
 import { View, FlatList, TouchableOpacity } from "react-native";
-import { globalStyle, Height, Row } from "../../theme/globalStyle";
 
 const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
   return (
@@ -43,8 +43,9 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
                 <FullImage
                   isUrl
                   radius={10}
-                  style={styles.sectionImage}
+                  resizeMode="cover"
                   source={item.thumbnail}
+                  style={styles.sectionImage}
                 />
                 <View>
                   <Text style={styles.sectionTitle} title={item.productName} />

@@ -17,8 +17,8 @@ const AuthNavigation = () => {
     <Navigator
       initialRouteName="overboard"
       screenOptions={{
+        animation: "none",
         headerShown: false,
-        animation: "ios_from_left",
         orientation: "portrait_up",
       }}
     >

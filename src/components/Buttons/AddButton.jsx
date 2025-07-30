@@ -17,7 +17,7 @@ const AddButton = ({ onPress }) => {
         { width: undefined, borderRadius: 50 },
       ]}
     >
-      <Icon name="plus-square" type="Feather" color={colors.purple} size={20} />
+      <Icon name="plus-square" type="Feather" color={colors.purple} size={15} />
       <Text
         title="Add"
         color={colors.purple}

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./buttonStyle";
 import { FullImage, Text } from "..";
-import { appImages } from "../../assets";
+import { appImages, fonts } from "../../assets";
 import responsive, { scaleSize, width } from "../../theme/responsive";
 import { TouchableOpacity, View } from "react-native";
 import { globalStyle, Row } from "../../theme/globalStyle";
@@ -32,8 +32,8 @@ const LabelPickerButton = (props) => {
         <Row>
           <FullImage
             isUrl={isUrl}
+            resizeMode={"cover"}
             source={type == "pdf" ? appImages.pdf : source}
-            resizeMode={noImage ? "cover" : "contain"}
             style={[
               styles.ImageIcon,
               {
@@ -54,8 +54,8 @@ const LabelPickerButton = (props) => {
 
             {weight && (
               <Text
-                style={[styles.ImageText, { fontWeight: "500" }]}
                 title={`${weight} kb •`}
+                style={[styles.ImageText, { fontFamily: fonts[500] }]}
               />
             )}
           </View>
