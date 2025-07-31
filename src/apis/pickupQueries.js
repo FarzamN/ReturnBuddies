@@ -20,6 +20,7 @@ export const pickupDetailAPI = (id, load) => {
     apiRequest({
       endpoint: `/get-pickup-by-id/${id}`,
       onSuccess: ({ data, trackingNumber }) => {
+        console.log("trackingNumber", trackingNumber);
         dispatch(setPickupDetailData({ data, trackingNumber }));
       },
       onFinally: load,
@@ -29,7 +30,6 @@ export const pickupDetailAPI = (id, load) => {
 
 export const deletePickupAPI = (id, load, showDelete) => {
   return async (dispatch) => {
-    console.log("id", id);
     apiRequest({
       method: "post",
       endpoint: `/canceled-pickup/${id}`,

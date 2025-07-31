@@ -263,7 +263,7 @@ const ConfirmPickup = () => {
           onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
         />
         <Height />
-        {!hasOversized && (
+        {hasOversized && (
           <CircleCheck
             focus={focus}
             title="I acknowledge that a surcharge may apply to items exceeding 35 lbs or measuring 30” in any direction."

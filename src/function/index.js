@@ -84,10 +84,10 @@ export const apiRequest = async ({
   try {
     onFinally?.(true);
     const token = getItem("token");
-    const userID = getItem("userID");
+    const userid = getItem("userID");
 
     const headers = {
-      userid: userID,
+      userid,
       Authorization: `Bearer ${token}`,
       ...(contentType && { "Content-Type": contentType }),
     };

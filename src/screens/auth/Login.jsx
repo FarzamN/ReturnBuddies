@@ -21,6 +21,8 @@ import { ScrollView, TouchableOpacity } from "react-native";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
+import appleAuth from "@invertase/react-native-apple-authentication";
+
 const Login = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
@@ -49,7 +51,30 @@ const Login = () => {
     }
   };
 
-  const handleAppleSignin = () => {};
+  // ************ apple login *************
+
+  const handleAppleSignin = async () => {
+    try {
+      // Perform login request
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+      });
+
+      // Get current authentication state
+      const credentialState = await appleAuth.getCredentialStateForUser(
+        appleAuthRequestResponse.user
+      );
+
+      // Check if credential is valid
+      if (credentialState === appleAuth.AUTHORIZED) {
+        return appleAuthRequestResponse;
+      }
+    } catch (error) {
+      console.error("Apple Sign-In Error:", error);
+      throw error;
+    }
+  };
   const {
     control,
     handleSubmit,
@@ -110,7 +135,15 @@ const Login = () => {
           <Text title={"Or"} style={styles.orTextStyle} />
 
           <MainButton social google onPress={handleGoodleSignin} />
-          <MainButton social apple onPress={handleAppleSignin} />
+          {/* {appleAuthAndroid.isSupported && ( */}
+          <MainButton
+            social
+            apple
+            onPress={() =>
+              handleAppleSignin().then((user) => console.log(user))
+            }
+          />
+          {/* )} */}
         </ScrollView>
         <MainButton
           title={"Login"}

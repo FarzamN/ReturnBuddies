@@ -39,11 +39,18 @@ const Support = () => {
       );
       if (emails && emails[i]) {
         output.push(
-          <Text
+          <TouchableOpacity
+            onPress={() => Linking.openURL(emails[i])}
             key={`email-${i}`}
-            style={[styles.FAQcontentText, { fontFamily: fonts[600] }]}
-            title={emails[i]}
-          />
+          >
+            <Text
+              style={[
+                styles.FAQcontentText,
+                { fontFamily: fonts[600], top: 5 },
+              ]}
+              title={emails[i]}
+            />
+          </TouchableOpacity>
         );
       }
     }

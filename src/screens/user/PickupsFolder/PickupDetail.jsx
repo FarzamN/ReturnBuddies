@@ -139,7 +139,7 @@ const PickupDetail = ({ route }) => {
         </ScrollView>
 
         <Height />
-        {!cancelled && <TrackingCard tracking={trackingNumber} />}
+        {!cancelled && <TrackingCard message={trackingNumber} />}
         <FlatList
           scrollEnabled={false}
           data={item?.bundleId}

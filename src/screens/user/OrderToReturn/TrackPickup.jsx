@@ -1,16 +1,16 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
-import { Body, Empty, MainButton } from "../../../components";
-import { fontScale, width, wp } from "../../../theme/responsive";
-import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
-import Icon from "react-native-dynamic-vector-icons";
-import { colors } from "../../../theme/colors";
-import { appImages, fonts } from "../../../assets";
-import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import React, { useState } from "react";
+import { colors } from "../../../theme/colors";
+import { iOS } from "../../../utils/constants";
+import { View, StatusBar } from "react-native";
+import { appImages, fonts } from "../../../assets";
+import Icon from "react-native-dynamic-vector-icons";
+import { width, wp } from "../../../theme/responsive";
+import { useDispatch, useSelector } from "react-redux";
 import { getPickupAPI } from "../../../apis/pickupQueries";
 import { getReturnItem } from "../../../apis/draftQueries";
-import { iOS } from "../../../utils/constants";
+import { Body, Empty, MainButton } from "../../../components";
+import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 
 const TrackPickup = ({ navigation }) => {
   const { replace } = navigation;
@@ -30,7 +30,7 @@ const TrackPickup = ({ navigation }) => {
       <Height />
 
       <View style={[globalStyle.flex, { justifyContent: "space-between" }]}>
-        <Space_Between>
+        <Space_Between style={{ marginTop: StatusBar.currentHeight + 20 }}>
           <View />
           <Icon
             onPress={() => replace("draftItem")}
