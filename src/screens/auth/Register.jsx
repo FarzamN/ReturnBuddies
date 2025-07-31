@@ -6,17 +6,17 @@ import {
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
 import React, { useRef, useState } from "react";
 import { registerInput } from "../../utils/data";
-import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
-import { Body, MainButton, Header, Text, MainInput } from "../../components";
+import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { useDispatch } from "react-redux";
+import { Body, MainButton, Header, Text, MainInput } from "../../components";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -33,8 +33,9 @@ const Register = () => {
   const handleGoodleSignin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const { data } = await GoogleSignin.signIn();
-      const { idToken } = data;
+      const {
+        data: { idToken },
+      } = await GoogleSignin.signIn();
       googleLoginAPI(idToken)(dispatch);
     } catch (error) {
       console.log("error", error);
