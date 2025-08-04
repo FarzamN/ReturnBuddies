@@ -41,7 +41,7 @@ const PickupDetail = ({ route }) => {
   const [load, setLoad] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const cancelled = data?.status === "Pickup Canceled";
+  const cancelled = data?.status === "Pickup cancelled";
 
   const steps = [
     {
@@ -95,7 +95,7 @@ const PickupDetail = ({ route }) => {
           />
         }
       >
-        <Text style={styles.pickupTitle} title={`Pickup# ${item.PickupName}`} />
+        <Text style={styles.pickupTitle} title={`Pickup #${item.PickupName}`} />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {steps.map((step, index) => (
@@ -150,7 +150,10 @@ const PickupDetail = ({ route }) => {
           }
           renderItem={({ item }) => <ReturnSection disabled section={item} />}
         />
-        <Text style={styles.pickupTitle} title="Pickup Details" />
+        <Text
+          style={[styles.pickupTitle, { marginBottom: -10 }]}
+          title="Pickup Details"
+        />
         <PickupButton
           disable
           isTwoDetail={data?.note}
@@ -161,8 +164,8 @@ const PickupDetail = ({ route }) => {
         />
         <PickupButton
           disable
-          detail={data?.pickupTime}
           source={appImages.clock}
+          detail={data?.pickupTime}
           title={moment(data?.pickupDate).format("dddd, MMM DD, yy")}
         />
         <PickupButton disable source={appImages.call} title={data?.phone} />
@@ -178,9 +181,9 @@ const PickupDetail = ({ route }) => {
             style={[globalStyle.row, settingStyle.deleteButton]}
           >
             <Text
-              style={settingStyle.deleteText}
               color={colors.error}
               title="Cancel pickup"
+              style={settingStyle.deleteText}
             />
           </TouchableOpacity>
         )}
@@ -190,8 +193,8 @@ const PickupDetail = ({ route }) => {
           <Text
             center
             color={colors.purple}
-            title="Contact us for help"
             style={styles.promoCode}
+            title="Contact us for help"
           />
         </TouchableOpacity>
         <Height />

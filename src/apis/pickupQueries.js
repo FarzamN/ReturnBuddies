@@ -32,7 +32,7 @@ export const deletePickupAPI = (id, load, showDelete) => {
   return async (dispatch) => {
     apiRequest({
       method: "post",
-      endpoint: `/canceled-pickup/${id}`,
+      endpoint: `/cancelled-pickup/${id}`,
       onSuccess: () => {
         showDelete(false);
         getPickupAPI(load)(dispatch);

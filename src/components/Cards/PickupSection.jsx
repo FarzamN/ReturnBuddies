@@ -26,7 +26,7 @@ const PickupSection = ({ data, onPress }) => {
           {/* Left: Pickup Name */}
           <View style={{ flex: 1, minWidth: "50%" }}>
             <RNText style={styles.BundleName}>
-              {`Pickup# ${data.PickupName}`}
+              {`Pickup #${data.PickupName}`}
             </RNText>
           </View>
 
@@ -103,7 +103,7 @@ const PickupSection = ({ data, onPress }) => {
         <Row>
           <FullImage
             source={
-              data?.status === "Pickup Canceled"
+              data?.status === "Pickup cancelled"
                 ? appImages.cancelled
                 : data?.status === "Completed"
                 ? appImages.complete
@@ -112,9 +112,9 @@ const PickupSection = ({ data, onPress }) => {
             style={{ width: 30, height: 30 }}
           />
           <Text
-            color={data?.status === "Pickup Canceled" ? "#9E2424" : "#318252"}
             title={data?.status}
             style={styles.pickupDetailText}
+            color={data?.status === "Pickup cancelled" ? "#9E2424" : "#318252"}
           />
         </Row>
         <Icon

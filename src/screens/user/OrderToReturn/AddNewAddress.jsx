@@ -131,6 +131,7 @@ const AddNewAddress = ({ route }) => {
         load={isPending}
         onPress={handleSubmit(onSubmit)}
       />
+      {iOS && <Height />}
     </Body>
   );
 };

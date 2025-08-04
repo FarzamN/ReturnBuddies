@@ -5,8 +5,9 @@ import {
   MainButton,
   PrimeryTab,
   DraftHeader,
+  CustomAlert,
+  HiddenDelete,
   ReturnSection,
-  DraftSkeleton,
 } from "../../../components";
 import styles from "../userStyle";
 import { fonts } from "../../../assets";
@@ -15,9 +16,15 @@ import { wp } from "../../../theme/responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useMemo, useState } from "react";
+import { SwipeListView } from "react-native-swipe-list-view";
 import { Height, globalStyle } from "../../../theme/globalStyle";
+import {
+  BackHandler,
+  View,
+  Text as RNText,
+  RefreshControl,
+} from "react-native";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
-import { BackHandler, FlatList, View, Text as RNText } from "react-native";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -26,10 +33,10 @@ const DraftItem = () => {
   // const draftData = [];
   const { draftData } = useSelector((state) => state.draft);
 
-  const [refresh, setRefresh] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [hasUnselected, setHasUnselected] = useState(false);
   const [selectedReturns, setSelectedReturns] = useState([]);
+  const [alert, setAlert] = useState({ visible: false, _id: "" });
 
   const toggleSelect = (returns) => {
     const { _id } = returns;
@@ -75,18 +82,7 @@ const DraftItem = () => {
   return (
     <Body>
       <DraftHeader />
-      {/* <Height /> 
-      <Icon
-        type="AntDesign"
-        name="behance-square"
-        color="red"
-        size={30}
-        style={{ position: "absolute", top: 20, left: 20 }}
-        onPress={() => deleteBundle(selectedReturns, setIsPending)(dispatch)}
-      />
-      */}
       <Height />
-      {/* <Height /> */}
 
       {draftData && draftData.length > 0 && (
         <View style={{ paddingHorizontal: wp(5) }}>
@@ -101,58 +97,63 @@ const DraftItem = () => {
         </View>
       )}
 
-      {isPending ? (
-        <FlatList
-          data={[1, 1, 1]}
-          contentContainerStyle={globalStyle.ph15}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={() => <DraftSkeleton height={70} />}
-        />
-      ) : (
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          refreshing={refresh}
-          onRefresh={() => {
-            setRefresh(true);
-            getReturnItem(setIsPending)(dispatch);
-            setRefresh(false);
-          }}
-          data={draftData}
-          contentContainerStyle={globalStyle.ph15}
-          keyExtractor={(_, index) => index.toString()}
-          ListEmptyComponent={
-            <Empty
-              title="You have no items to return"
-              titleStyle={{ fontFamily: fonts[600], fontSize: 19 }}
-              customText={() => (
-                <RNText
-                  style={[
-                    styles.draftCustomText,
-                    {
-                      color: colors.grey,
-                    },
-                  ]}
-                >
-                  Tap the{" "}
-                  <Text
-                    title="+"
-                    color={colors.purple}
-                    style={styles.draftCustomText}
-                  />{" "}
-                  button to start returning!
-                </RNText>
-              )}
-            />
-          }
-          renderItem={({ item }) => (
-            <ReturnSection
-              section={item}
-              onSelect={toggleSelect}
-              selected={selectedReturns.includes(item._id)}
-            />
-          )}
-        />
-      )}
+      <SwipeListView
+        refreshControl={
+          <RefreshControl
+            refreshing={isPending}
+            colors={[colors.purple]}
+            tintColor={colors.purple}
+            onRefresh={() => getReturnItem(setIsPending)(dispatch)}
+          />
+        }
+        data={draftData}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={globalStyle.ph15}
+        keyExtractor={(_, index) => index.toString()}
+        ListEmptyComponent={
+          <Empty
+            title="You have no items to return"
+            titleStyle={{ fontFamily: fonts[600], fontSize: 19 }}
+            customText={() => (
+              <RNText
+                style={[
+                  styles.draftCustomText,
+                  {
+                    color: colors.grey,
+                  },
+                ]}
+              >
+                Tap the{" "}
+                <Text
+                  title="+"
+                  color={colors.purple}
+                  style={styles.draftCustomText}
+                />{" "}
+                button to start returning!
+              </RNText>
+            )}
+          />
+        }
+        renderItem={({ item }) => (
+          <ReturnSection
+            section={item}
+            onSelect={toggleSelect}
+            selected={selectedReturns.includes(item._id)}
+          />
+        )}
+        renderHiddenItem={({ item, index }, rowMap) => (
+          <HiddenDelete
+            height={70}
+            radius={12}
+            alignItems="center"
+            onPress={() => {
+              rowMap[index]?.closeRow();
+              setAlert({ visible: true, _id: item._id });
+            }}
+          />
+        )}
+        rightOpenValue={-75}
+      />
 
       {selectedCount && draftData ? (
         <>
@@ -172,6 +173,15 @@ const DraftItem = () => {
       ) : (
         <PrimeryTab currentTab="Home" />
       )}
+      <CustomAlert
+        show={alert.visible}
+        showProgress={isPending}
+        onCancelPressed={() => setAlert({ visible: false })}
+        onConfirmPressed={() =>
+          deleteBundle(alert._id, setAlert, setIsPending)(dispatch)
+        }
+        message={`Are you sure you want to delete this Bundle?\nThis action cannot be undone.`}
+      />
     </Body>
   );
 };

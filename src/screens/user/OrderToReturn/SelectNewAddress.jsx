@@ -42,7 +42,7 @@ const SelectNewAddress = ({ route }) => {
   return (
     <Body horizontal={wp(4)}>
       <Header
-        leftTitle="Adresses"
+        leftTitle="Addresses"
         addBTN={getAddress?.length !== 0}
         onPress={() => navigate("addNewAddress")}
       />

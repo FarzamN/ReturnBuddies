@@ -3,12 +3,12 @@ import { colors } from "./src/theme/colors";
 import TabNav from "./src/navigaton/TabNav";
 import AuthNav from "./src/navigaton/AuthNav";
 import React, { useEffect, useState } from "react";
+import { getFAQsAPI } from "./src/apis/authQueries";
 import { useDispatch, useSelector } from "react-redux";
 import { NotifierWrapper } from "react-native-notifier";
+import { getBasePriceAPI } from "./src/apis/draftQueries";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
-import { getBasePriceAPI } from "./src/apis/draftQueries";
-import { getFAQsAPI } from "./src/apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const App = () => {

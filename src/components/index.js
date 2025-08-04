@@ -46,10 +46,6 @@ import UploadLabelCard from "./Cards/UploadLabelCard";
 import ReturnInnerCard from "./Cards/ReturnInnerCard";
 import PickupMethodCard from "./Cards/PickupMethodCard";
 
-// Skeleton
-import DraftSkeleton from "./Skeletons/DraftSkeleton";
-import ScheduleSkeleton from "./Skeletons/ScheduleSkeleton";
-
 import Text from "./Texts/Text";
 import RequiredText from "./Texts/RequiredText";
 import Validation from "./Texts/Validation";
@@ -94,10 +90,6 @@ export {
   ImagePickerModal,
   ConfirmOrderModal,
   AboutOversizeModal,
-
-  // Skeleton
-  DraftSkeleton,
-  ScheduleSkeleton,
 
   // Inputs
   MainInput,

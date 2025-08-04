@@ -186,7 +186,7 @@ const AddPaymentMethod = ({ route }) => {
           <RequiredText required title="Card details" />
           <TextInput
             value={cardData.name}
-            placeholder="Card Name"
+            placeholder="Cardholder name"
             placeholderTextColor={colors.grey}
             style={[styles.input, styles.border]}
             onChangeText={(text) => handleChange("name", text)}
@@ -204,7 +204,7 @@ const AddPaymentMethod = ({ route }) => {
               errors.number && styles.errorInput,
               {
                 width: "60%",
-                //  backgroundColor: "pink"
+                // backgroundColor: "#ffc5faff",
               },
             ]}
           >
@@ -218,7 +218,7 @@ const AddPaymentMethod = ({ route }) => {
               value={cardData.number}
               cursorColor={colors.purple}
               style={[styles.CardNameInput]}
-              placeholder="4242 4242 4242 4242"
+              placeholder="4242 4242 4242 4242   "
               placeholderTextColor={colors.grey}
               maxLength={cardType === "amex" ? 17 : 19}
               onChangeText={(text) => handleChange("number", text)}
@@ -230,7 +230,7 @@ const AddPaymentMethod = ({ route }) => {
             style={[
               {
                 width: "20%",
-                //   backgroundColor: "#1ecbe1"
+                //  backgroundColor: "#8cecf9ff",
               },
             ]}
           >
@@ -255,7 +255,7 @@ const AddPaymentMethod = ({ route }) => {
             style={[
               {
                 width: "20%",
-                //  backgroundColor: "#6f7bf3"
+                //  backgroundColor: "#a5acf8ff",
               },
             ]}
           >
@@ -271,7 +271,7 @@ const AddPaymentMethod = ({ route }) => {
               keyboardType="numeric"
               placeholderTextColor={colors.grey}
               maxLength={cardType === "amex" ? 4 : 3}
-              placeholder={cardType === "amex" ? "1234" : "123"}
+              placeholder="CVC"
               onChangeText={(text) => handleChange("cvv", text)}
             />
           </View>
@@ -288,7 +288,7 @@ const AddPaymentMethod = ({ route }) => {
         />
       </ScrollView>
 
-      <MainButton load={load} title="Save Card" onPress={onSubmit} />
+      <MainButton load={load} title="Save" onPress={onSubmit} />
       {iOS && <Height />}
     </Body>
   );
@@ -317,6 +317,7 @@ const styles = StyleSheet.create({
   },
   CardNameInput: {
     fontSize: 15,
+    marginLeft: 5,
     color: colors.black,
     fontFamily: fonts[500],
   },

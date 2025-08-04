@@ -19,9 +19,8 @@ const AddButton = ({ onPress }) => {
     >
       <Icon name="plus-square" type="Feather" color={colors.purple} size={15} />
       <Text
-        title="Add"
+        title=" Add"
         color={colors.purple}
-        style={globalStyle.mh10}
         textStyle={buttonStyle.buttonText}
       />
     </TouchableOpacity>
