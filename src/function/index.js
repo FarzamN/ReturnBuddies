@@ -4,13 +4,14 @@ import { getItem } from "../utils/storage";
 import { Notifier } from "react-native-notifier";
 import Component from "../components/Helpers/CustomToast";
 
-export const showNotification = (type, title, message) => {
+export const showNotification = (title, message) => {
   Notifier.showNotification({
     title,
     Component,
     description: message,
     componentProps: {
-      type,
+      type: "error",
+
       title,
       message,
     },
@@ -19,7 +20,7 @@ export const showNotification = (type, title, message) => {
 };
 
 export const catchFun = (msg, url) =>
-  showNotification("error", msg, `Internal server error at ${url}`);
+  showNotification(msg, "Internal server error");
 
 export const getNextWeekdays = (count) => {
   const days = [];
@@ -101,15 +102,15 @@ export const apiRequest = async ({
     } else if (status === 201) {
       onNotFound?.(response.data);
     } else {
-      showNotification("error", message, `Status Code ${status + endpoint}`);
+      showNotification(message, `Status Code ${status + endpoint}`);
       onFailure?.(response.data);
-      console.log("error", message, `Status Code ${status + endpoint}`);
+      console.log(message, `Status Code ${status + endpoint}`);
     }
   } catch (err) {
     const msg = err?.response?.data?.message || err.message;
     catchFun(msg, endpoint);
     onFailure?.(err);
-    console.log("error", msg, `Status Code ${endpoint}`);
+    console.log(msg, `Status Code ${endpoint}`);
   } finally {
     onFinally?.(false);
   }

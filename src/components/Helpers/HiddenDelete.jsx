@@ -1,6 +1,8 @@
 import React from "react";
+import { FullImage } from "..";
+import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
+import { globalStyle } from "../../theme/globalStyle";
 import { View, TouchableOpacity } from "react-native";
 
 const HiddenDelete = ({ onPress, height, radius, alignItems }) => {
@@ -13,7 +15,11 @@ const HiddenDelete = ({ onPress, height, radius, alignItems }) => {
           { height: height ?? "80%", borderRadius: radius ?? 20 },
         ]}
       >
-        <Icon name="delete" type="MaterialIcons" size={24} color="#fff" />
+        <FullImage
+          color="#fff"
+          source={appImages.delete}
+          style={globalStyle.deleteIcon}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -23,7 +29,6 @@ export default HiddenDelete;
 
 const deleteButton = {
   width: 60,
-
   alignItems: "center",
   justifyContent: "center",
   backgroundColor: colors.error,

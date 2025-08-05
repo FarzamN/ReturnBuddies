@@ -11,7 +11,6 @@ import {
 
 import moment from "moment";
 import { appImages } from "../../../assets";
-import { scaleSize, wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
 import { Height } from "../../../theme/globalStyle";
@@ -19,6 +18,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
+import { scaleSize, wp } from "../../../theme/responsive";
 import textStyle from "../../../components/Texts/textStyle";
 import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
@@ -86,7 +86,7 @@ const ConfirmPickup = () => {
 
   const onSubmit = () => {
     if (!phone) {
-      showNotification("error", "Error", "Please set your phone number");
+      showNotification("Please set your phone number", "Error");
       return;
     }
 
@@ -98,12 +98,12 @@ const ConfirmPickup = () => {
       : pickupAddress;
 
     if (!finalPayment?.cardNumber) {
-      showNotification("error", "Error", "Please set your Payment method");
+      showNotification("Please set your Payment method", "Error");
       return;
     }
 
     if (!finalAddress?.street) {
-      showNotification("error", "Error", "Please set your Pickup Address");
+      showNotification("Please set your Pickup Address", "Error");
       return;
     }
 
@@ -164,7 +164,9 @@ const ConfirmPickup = () => {
         <SpaceText
           visible={totalItemCount < 11}
           title={`Extra item${totalItemCount > 11 ? "s" : ""}`}
-          value={totalItemCount * ADDITIONAL_ITEM_PRICE - FREE_ITEMS_THRESHOLD}
+          value={`$${
+            totalItemCount * ADDITIONAL_ITEM_PRICE - FREE_ITEMS_THRESHOLD
+          }`}
         />
         <TouchableOpacity
           onPress={() =>
@@ -184,13 +186,13 @@ const ConfirmPickup = () => {
           >
             <TextInput
               value={promocode.value}
+              autoCapitalize="characters"
+              placeholder="Enter Promo code"
+              style={settingStyle.phoneInput}
+              placeholderTextColor="#B0B0B0"
               onChangeText={(value) =>
                 setPromoCode((prev) => ({ ...prev, value, invalid: false }))
               }
-              placeholder="Enter Promo code"
-              placeholderTextColor="#B0B0B0"
-              style={settingStyle.phoneInput}
-              autoCapitalize="characters"
             />
 
             <TouchableOpacity

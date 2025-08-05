@@ -61,7 +61,7 @@ const EditProfile = () => {
   };
   const onSubmit = (data) => {
     if (!isVerified) {
-      showNotification("error", "please Verify Phone number", "Error");
+      showNotification("please Verify Phone number", "Error");
       return;
     }
     editProfileAPI(data, setIsPending)(dispatch);

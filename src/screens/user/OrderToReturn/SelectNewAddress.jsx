@@ -9,31 +9,27 @@ import {
 } from "../../../components";
 import { appImages } from "../../../assets";
 import { RefreshControl } from "react-native";
+import { iOS } from "../../../utils/constants";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
 import React, { useEffect, useState } from "react";
+import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
 import { getAddressAPI, deleteAddressAPI } from "../../../apis/authQueries";
-import { iOS } from "../../../utils/constants";
-import { Height } from "../../../theme/globalStyle";
 
 const SelectNewAddress = ({ route }) => {
-  const { isPickup } = route.params || {};
   const dispatch = useDispatch();
-
+  const { isPickup } = route.params || {};
   const { navigate, goBack } = useNavigation();
+
   const { getAddress } = useSelector((state) => state.auth) ?? [];
 
   const [load, setLoad] = useState(false);
   const [select, setSelect] = useState({ index: "", data: null });
   const [alert, setAlert] = useState({ visible: false, _id: "" });
-
-  const onRefresh = () => {
-    getAddressAPI(setLoad)(dispatch);
-  };
 
   useEffect(() => {
     getAddressAPI(setLoad)(dispatch);
@@ -53,9 +49,9 @@ const SelectNewAddress = ({ route }) => {
         refreshControl={
           <RefreshControl
             refreshing={load}
-            onRefresh={onRefresh}
             colors={[colors.purple]}
             tintColor={colors.purple}
+            onRefresh={() => getAddressAPI(setLoad)(dispatch)}
           />
         }
         renderItem={({ item, index }) => (

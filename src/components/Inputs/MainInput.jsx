@@ -1,15 +1,15 @@
 import style from "./inputStyle";
 import { View } from "react-native";
 import { fonts } from "../../assets";
+import React, { useState } from "react";
+import { iOS } from "../../utils/constants";
 import { colors } from "../../theme/colors";
 import { RequiredText, Validation } from "..";
 import { useController } from "react-hook-form";
 import { fontScale } from "../../theme/responsive";
-import React, { forwardRef, useState } from "react";
 import { TextInput, DefaultTheme } from "react-native-paper";
-import { iOS } from "../../utils/constants";
 
-const MainInput = forwardRef((props, ref) => {
+const MainInput = (props, ref) => {
   const {
     name,
     bold,
@@ -116,6 +116,6 @@ const MainInput = forwardRef((props, ref) => {
       {isError && <Validation isError message={message} />}
     </View>
   );
-});
+};
 
 export default MainInput;

@@ -2,10 +2,9 @@ import React from "react";
 import { FullImage, Text } from "..";
 import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
-import { toastColors } from "../../utils/data";
 import { appImages, fonts } from "../../assets";
 import { Height, Space_evenly } from "../../theme/globalStyle";
-import { fontScale, scaleSize, verticalScale } from "../../theme/responsive";
+import { scaleSize, verticalScale } from "../../theme/responsive";
 import {
   View,
   StyleSheet,
@@ -22,16 +21,12 @@ const CustomAlert = (props) => {
     secMessage,
     showProgress,
     messageStyle,
-    type = "error",
     onCancelPressed,
     onConfirmPressed,
     cancelText = "Cancel",
     confirmText = "Delete",
     title = "Are you sure?",
   } = props;
-
-  const { bg, border, iconBg, icon, iconType } =
-    toastColors[type] || toastColors.info;
 
   return (
     <Modal

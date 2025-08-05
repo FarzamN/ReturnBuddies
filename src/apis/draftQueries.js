@@ -5,9 +5,7 @@ import {
   setDraftCompleteData,
   setDraftSelectedRetun,
 } from "../redux/slices/draftSlice";
-import { getItem } from "../utils/storage";
-import { apiRequest, catchFun, showNotification } from "../function";
-import { Alert } from "react-native";
+import { apiRequest } from "../function";
 
 export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
   return async (dispatch) => {
@@ -16,9 +14,8 @@ export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
       endpoint: "addbundle",
       contentType: "multipart/form-data",
       data,
-      onSuccess: (res) => {
+      onSuccess: () => {
         confirmOrder(false);
-        showNotification("success", "Success", res.message);
         getReturnItem(load)(dispatch);
         goBack();
       },
@@ -77,13 +74,11 @@ export const uploadLabelAPI = (data, load, goBack, _id) => {
       endpoint: "/uploadLabel",
       contentType: "multipart/form-data",
       data,
-      onSuccess: ({ data, message }) => {
+      onSuccess: ({ data }) => {
         const newID = data.bundle._id ?? "";
         const updatedIDs = newID ? [..._id, newID] : [..._id];
         getSelectedReturnItem(updatedIDs, load)(dispatch);
         getReturnItem(load)(dispatch);
-
-        showNotification("success", message, "hurry");
         goBack();
       },
       onFinally: load,
@@ -104,42 +99,6 @@ export const deleteBundle = (IDs, alert, load) => {
     });
   };
 };
-
-// export const deleteBundle = (IDs, alert, load) => {
-//   return async (dispatch) => {
-//     try {
-//       load(true);
-//       const url = ;
-
-//       const res = await fetch(url, {
-//         method: "POST",
-//         headers: {
-//           userid: getItem("userID"),
-//           Authorization: "Bearer " + getItem("token"),
-//         },
-//       });
-//       // const response = await instance.post(url, {
-//       //   headers: {
-//       //     userid: getItem("userID"),
-//       //     // Authorization: "Bearer " + getItem("token"),
-//       //   },
-//       // });
-//       const { status, message } = res.json;
-//       console.log(status);
-//       load(false);
-
-//       if (status === 200) {
-
-//       } else {
-//         showNotification("error", message, "Status Code 401");
-//       }
-//     } catch (err) {
-//       const msg = err?.response?.data?.message || err.message;
-//       catchFun(msg);
-//       load(false);
-//     }
-//   };
-// };
 
 export const getBasePriceAPI = () => {
   return async (dispatch) => {

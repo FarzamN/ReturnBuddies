@@ -160,7 +160,7 @@ const AddDraftItem = () => {
 
   const handleEdit = (_, index) => {
     if (editMode) {
-      showNotification("error", "Please Edit the current item first", "Error");
+      showNotification("Please Edit the current item first", "Error");
       return;
     }
     const item = submittedItems[index];

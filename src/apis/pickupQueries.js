@@ -47,8 +47,7 @@ export const checkPromocode = (code, setPromoCode) => {
   setPromoCode((prev) => ({ ...prev, load: true, invalid: false }));
   apiRequest({
     endpoint: `/get-Promo?code=${code}`,
-    onSuccess: ({ promo, message }) => {
-      showNotification("success", "Success", message);
+    onSuccess: ({ promo }) => {
       setPromoCode((prev) => ({
         ...prev,
         discount: promo.Discount,

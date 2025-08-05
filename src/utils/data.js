@@ -1,34 +1,3 @@
-export const toastColors = {
-  success: {
-    icon: "check",
-    bg: "#f6fff9",
-    border: "#47C1B5",
-    iconBg: "#47C1B5",
-    iconType: "Feather",
-  },
-  error: {
-    bg: "#FFF5F3",
-    icon: "close",
-    border: "#F3CBC4",
-    iconBg: "#DF452F",
-    iconType: "Ionicons",
-  },
-  info: {
-    bg: "#F4F8FE",
-    border: "#9DC0EE",
-    iconBg: "#3391B6",
-    icon: "information",
-    iconType: "Ionicons",
-  },
-  warning: {
-    bg: "#FFF8EC",
-    border: "#F4D9AB",
-    iconBg: "#FD9904",
-    icon: "exclamation",
-    iconType: "AntDesign",
-  },
-};
-
 export const loginInput = [
   {
     label: "Email",

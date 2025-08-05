@@ -117,9 +117,8 @@ export const changePasswordAPI = async (data, load, goBack) => {
     load(false);
     if (status === 200) {
       goBack();
-      showNotification("success", "Hurry", message);
     } else {
-      showNotification("error", message, "Status Code 401");
+      showNotification(message, "Status Code 401");
     }
   } catch (err) {
     load(false);
@@ -134,10 +133,9 @@ export const addPhoneNumberAPI = (data, type, navigation, load) => {
       method: "post",
       endpoint: "user/updatePhone",
       data,
-      onSuccess: ({ OTP, message }) => {
+      onSuccess: ({ OTP }) => {
         dispatch(setOTP(OTP));
         navigation.navigate("userOTP", { number: data.phone, type });
-        showNotification("success", "Hurry", message);
       },
       onFinally: load,
     });
@@ -150,9 +148,6 @@ export const editProfileAPI = (data, load) => {
       method: "post",
       endpoint: "user/editProfile",
       data,
-      onSuccess: ({ message }) => {
-        showNotification("success", "Hurry", message);
-      },
       onFinally: load,
     });
   };
@@ -179,11 +174,10 @@ export const editProfileVerificationAPI = (data, type, navigation, load) => {
       method: "post",
       endpoint: "/user/updateNameandPhoneVerification",
       data,
-      onSuccess: ({ user, message }) => {
+      onSuccess: ({ user }) => {
         dispatch(setLogin({ user }));
         navigation.goBack();
         navigation.goBack();
-        showNotification("success", "Hurry", message);
       },
       onFinally: load,
     });
@@ -210,8 +204,8 @@ export const getAddressAPI = (load) => {
   return async (dispatch) => {
     apiRequest({
       endpoint: "get-all-address",
-      onSuccess: (data) => {
-        dispatch(setGetAddress(data.addresses.reverse()));
+      onSuccess: ({ addresses }) => {
+        dispatch(setGetAddress(addresses.reverse()));
       },
       onFinally: load,
     });
@@ -381,7 +375,6 @@ export const resendForgotEmailVerficationAPI = async (data, load) => {
     method: "post",
     endpoint: "user/forgot-password",
     data,
-    onSuccess: () => {},
     onFinally: load,
   });
 };
@@ -424,6 +417,5 @@ export const postNotificationAPI = async (data) => {
     data,
     method: "post",
     endpoint: "add-notifications",
-    onSuccess: () => {},
   });
 };

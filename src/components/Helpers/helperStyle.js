@@ -27,6 +27,8 @@ const helperStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
+    borderColor: "#F3CBC4",
+    backgroundColor: "#FFF5F3",
   },
   ToastText1: {
     color: black,
@@ -43,6 +45,7 @@ const helperStyle = StyleSheet.create({
     aspectRatio: 1 / 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#DF452F",
 
     elevation: 5,
     shadowColor: black,

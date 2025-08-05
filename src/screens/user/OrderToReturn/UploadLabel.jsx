@@ -68,15 +68,15 @@ const UploadLabel = ({ route }) => {
 
   const handleUpload = () => {
     if (selectedReturns.length === 0) {
-      showNotification("error", "Please select any Item first", "Error");
+      showNotification("Please select any Item first", "Error");
       return;
     }
     if (!isEdit && !labelDocs) {
-      showNotification("error", "Please upload label", "Error");
+      showNotification("Please upload label", "Error");
       return;
     }
     if (!isEdit && !showDate.date) {
-      showNotification("error", "Please select date", "Error");
+      showNotification("Please select date", "Error");
       return;
     }
 
