@@ -9,8 +9,7 @@ import { Height } from "../../theme/globalStyle";
 import { changepasswordForgetAPI } from "../../apis/authQueries";
 
 const ForgetPassword = ({ route }) => {
-  // const { email } = route.params;
-  const email = "XXXXXXXXXXXXXX";
+  const { email } = route.params;
   const { navigate } = useNavigation();
   const [load, setload] = useState(false);
 

@@ -15,9 +15,8 @@ import { wp } from "../../../theme/responsive";
 import React, { useEffect, useState } from "react";
 import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
-import BackgroundTimer from "react-native-background-timer";
 import { Body, Header, Text, Validation } from "../../../components";
-import { View, Text as RNText, TouchableOpacity, Platform } from "react-native";
+import { View, Text as RNText, TouchableOpacity } from "react-native";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
 const UserOTP = ({ navigation, route }) => {
@@ -37,7 +36,6 @@ const UserOTP = ({ navigation, route }) => {
     name: user?.name || "",
   };
   const onSubmit = (otpValue) => {
-    console.log("otpValue", otpValue);
     if (type == "forgetPasswrod") {
       const emailData = { email: number, otp: otpValue };
       forgotEmailVerficationCompleteAPI(emailData, navigate, setLoad);
@@ -61,28 +59,25 @@ const UserOTP = ({ navigation, route }) => {
   const handleReset = () => {
     if (type == "verifyPhoneNumber") {
       const phoneData = { phone: number };
-      resendPhoneVerficationAPI(phoneData, setLoad)(dispatch);
+      resendPhoneVerficationAPI(phoneData, setCountDown, setLoad)(dispatch);
       return;
     }
     if (type == "forgetPasswrod") {
       const emailData = { email: number };
-      resendForgotEmailVerficationAPI(emailData, setLoad);
+      resendForgotEmailVerficationAPI(emailData, setCountDown, setLoad);
       return;
     }
 
-    resendPhoneOTPAPI(data, setCountDown, setLoad)(dispatch);
+    resendPhoneOTPAPI(data, setCountDown, setCountDown, setLoad)(dispatch);
   };
 
-  // *********************** Timer Start ***********************
   useEffect(() => {
-    const intervalId = BackgroundTimer.setInterval(() => {
-      if (seconds > 0) {
-        setCountDown(seconds - 1);
-      }
+    if (seconds <= 0) return;
+    const intervalId = setInterval(() => {
+      setCountDown((prev) => prev - 1);
     }, 1000);
 
-    // Cancel the timer when you are done with it
-    return () => BackgroundTimer.clearInterval(intervalId);
+    return () => clearInterval(intervalId);
   }, [seconds]);
 
   return (

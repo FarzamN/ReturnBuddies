@@ -17,18 +17,19 @@ import { ScrollView, TouchableOpacity } from "react-native";
 import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
+import { showNotification } from "../../function";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const showOTP = useRef(false);
   const { goBack } = useNavigation();
 
   const [isLoading, setLoading] = useState(false);
 
-  const openOTP = () => showOTP.current?.show();
+  const [showOTP, setShowOTP] = useState(false);
   const [saveEmail, setSaveEmail] = useState("");
+
   const onSubmit = (value) =>
-    registerAPI(value, openOTP, setSaveEmail, setLoading);
+    registerAPI(value, setShowOTP, setSaveEmail, setLoading);
 
   const handleGoodleSignin = async () => {
     try {
@@ -38,7 +39,7 @@ const Register = () => {
       } = await GoogleSignin.signIn();
       googleLoginAPI(idToken)(dispatch);
     } catch (error) {
-      console.log("error", error);
+      showNotification(error, "error");
     }
   };
   const handleAppleSignin = () => {};
@@ -108,7 +109,11 @@ const Register = () => {
           </Row>
         </ScrollView>
       </Body>
-      <AuthOTP ref={showOTP} email={saveEmail} />
+      <AuthOTP
+        email={saveEmail}
+        visible={showOTP}
+        onClose={() => setShowOTP(false)}
+      />
     </>
   );
 };

@@ -19,8 +19,7 @@ export const showNotification = (title, message) => {
   });
 };
 
-export const catchFun = (msg, url) =>
-  showNotification(msg, "Internal server error");
+export const catchFun = (msg) => showNotification(msg, "Internal server error");
 
 export const getNextWeekdays = (count) => {
   const days = [];

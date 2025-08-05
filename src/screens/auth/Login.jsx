@@ -21,13 +21,13 @@ import { googleLoginAPI, loginAPI } from "../../apis/authQueries";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
+import { showNotification } from "../../function";
 
 const Login = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
 
-  const showOTP = useRef(false);
-  const openOTP = () => showOTP.current?.show();
+  const [showOTP, setShowOTP] = useState(false);
 
   const [isPending, setIsPending] = useState(false);
   const { Overlay } = useFreezeScreen(isPending);
@@ -35,7 +35,7 @@ const Login = () => {
   const [saveEmail, setSaveEmail] = useState("");
 
   const onSubmit = (data) =>
-    loginAPI(data, openOTP, setSaveEmail, setIsPending)(dispatch);
+    loginAPI(data, setShowOTP, setSaveEmail, setIsPending)(dispatch);
 
   // ************ google login *************
 
@@ -47,7 +47,8 @@ const Login = () => {
       } = await GoogleSignin.signIn();
       googleLoginAPI(idToken)(dispatch);
     } catch (error) {
-      console.log("error", error);
+      // showNotification(error.error, "error");
+      console.log("error", error.error);
     }
   };
 
@@ -163,7 +164,11 @@ const Login = () => {
         <Height />
       </Body>
       <Overlay />
-      <AuthOTP ref={showOTP} email={saveEmail} />
+      <AuthOTP
+        email={saveEmail}
+        visible={showOTP}
+        onClose={() => setShowOTP(false)}
+      />
     </>
   );
 };

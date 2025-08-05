@@ -13,21 +13,21 @@ import {
 const Notification = () => {
   const [textData, setTextData] = useState([
     {
-      _id: "pickup_updates",
+      _id: "PickupUpdates",
       title: "Pickup Updates",
       detail:
         "Messages confirming your scheduled pickup, item pickup, and dropoff.",
       value: false,
     },
     {
-      _id: "pickup_reminder",
+      _id: "PickupReminder",
       title: "Pickup Reminder",
       detail:
         "A morning message letting you know a pickup is scheduled for today.",
       value: false,
     },
     {
-      _id: "label_issues",
+      _id: "LabelIssues",
       title: "Label Issues",
       detail:
         "Messages if your return label is missing, inval_id, or can’t be processed.",
@@ -37,19 +37,19 @@ const Notification = () => {
 
   const [emailData, setEmailData] = useState([
     {
-      _id: "account_security",
+      _id: "AccountSecurity",
       title: "Account & Security",
       detail: "Important account, support and security related messages.",
       value: false,
     },
     {
-      _id: "draft_reminders",
+      _id: "DraftReminder",
       title: "Draft Reminders",
       detail: "Reminder to finish scheduling items saved in drafts.",
       value: false,
     },
     {
-      _id: "pickup_confirmations",
+      _id: "PickupConfirmation",
       title: "Pickup Confirmations",
       detail:
         "Details of when your pickup is scheduled, upcoming, completed, or rescheduled.",

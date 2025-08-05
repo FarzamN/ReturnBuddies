@@ -1,8 +1,8 @@
-import { apiRequest, showNotification } from "../function";
 import {
   setPickupData,
   setPickupDetailData,
 } from "../redux/slices/pickupSlice";
+import { apiRequest } from "../function";
 
 export const getPickupAPI = (load) => {
   return async (dispatch) => {
@@ -20,7 +20,6 @@ export const pickupDetailAPI = (id, load) => {
     apiRequest({
       endpoint: `/get-pickup-by-id/${id}`,
       onSuccess: ({ data, trackingNumber }) => {
-        console.log("trackingNumber", trackingNumber);
         dispatch(setPickupDetailData({ data, trackingNumber }));
       },
       onFinally: load,

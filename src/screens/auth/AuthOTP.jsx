@@ -1,20 +1,21 @@
 import styles from "./authStyle";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { appImages } from "../../assets";
 import { useDispatch } from "react-redux";
 import { View, Text } from "react-native";
 import { colors } from "../../theme/colors";
-import { Height } from "../../theme/globalStyle";
+import { globalStyle, Height } from "../../theme/globalStyle";
+import Modal from "react-native-modal";
 import { verifyOTPAPI } from "../../apis/authQueries";
-import ActionSheet from "react-native-actions-sheet";
 import { FullImage, MainButton } from "../../components";
 import { useNavigation } from "@react-navigation/native";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
-const AuthOTP = ({ ref, email }) => {
+const AuthOTP = ({ visible, email, onClose }) => {
   const dispatch = useDispatch();
-  const { navigate, replace } = useNavigation();
+  const { replace } = useNavigation();
 
+  const [error, setError] = useState(false);
   const [verify, setVerify] = useState(false);
   const [otpValue, setOtpValue] = useState("");
   const [isPending, setIsPending] = useState(false);
@@ -24,59 +25,81 @@ const AuthOTP = ({ ref, email }) => {
       replace("login");
     } else {
       const data = { email, otp: otpValue };
-      verifyOTPAPI(data, setIsPending, setVerify)(dispatch);
+      verifyOTPAPI(data, setIsPending, setError, setVerify)(dispatch);
     }
   };
+
+  useEffect(() => {
+    if (visible) {
+      setError(false);
+      setOtpValue("");
+    }
+  }, [visible]);
+
   return (
-    <ActionSheet
-      ref={ref}
-      headerAlwaysVisible
-      // containerStyle={styles.modalContainer}
+    <Modal
+      onBackButtonPress={onClose}
+      onBackdropPress={onClose}
+      isVisible={visible}
+      style={styles.modalContainer}
     >
-      <View style={styles.card}>
+      <View style={[styles.card, globalStyle.pv10]}>
         <FullImage
           style={{ width: 150, height: 150 }}
           source={verify ? appImages.otpSuccess : appImages.otpImage}
         />
         <Height />
         <Text style={styles.title}>
-          {verify ? "Account Created!" : " Verify your email"}
+          {verify ? "Account Created!" : "Verify your email"}
         </Text>
         <Text style={styles.subText}>
           {verify
             ? "Your account has been successfully created. Please log in to start returning!"
-            : "We've sent you a 5-digit verification code. Please check on your email."}
+            : "We've sent you a 5-digit verification code. Please check your email."}
         </Text>
 
-        {/* 👉 You will handle this: OTP input fields */}
         {!verify && (
-          <View style={styles.otpContainer}>
-            <CodeField
-              autoFocus
-              cellCount={5}
-              value={otpValue}
-              keyboardType="number-pad"
-              textContentType="oneTimeCode"
-              onChangeText={(txt) => setOtpValue(txt)}
-              renderCell={({ index, symbol, isFocused }) => (
-                <View
-                  key={index}
-                  style={[
-                    styles.cell,
-                    {
-                      borderColor: isFocused
-                        ? colors.purple
-                        : colors.borderColor,
-                    },
-                  ]}
-                >
-                  <Text key={index} style={[styles.cellText]}>
-                    {symbol || (isFocused ? <Cursor /> : null)}
-                  </Text>
-                </View>
-              )}
-            />
-          </View>
+          <>
+            <View
+              style={[styles.otpContainer, { marginBottom: error ? 10 : 30 }]}
+            >
+              <CodeField
+                autoFocus
+                cellCount={5}
+                value={otpValue}
+                keyboardType="number-pad"
+                textContentType="oneTimeCode"
+                onChangeText={(txt) => {
+                  setOtpValue(txt);
+                  if (error) setError(false);
+                }}
+                renderCell={({ index, symbol, isFocused }) => (
+                  <View
+                    key={index}
+                    style={[
+                      styles.cell,
+                      {
+                        borderColor: isFocused
+                          ? colors.purple
+                          : colors.borderColor,
+                      },
+                    ]}
+                  >
+                    <Text style={styles.cellText}>
+                      {symbol || (isFocused ? <Cursor /> : null)}
+                    </Text>
+                  </View>
+                )}
+              />
+            </View>
+            {error && (
+              <Text
+                style={{ color: colors.error, fontSize: 14, marginBottom: 10 }}
+              >
+                Invalid OTP
+              </Text>
+            )}
+          </>
         )}
 
         <MainButton
@@ -85,7 +108,7 @@ const AuthOTP = ({ ref, email }) => {
           title={verify ? "Login" : "Verify"}
         />
       </View>
-    </ActionSheet>
+    </Modal>
   );
 };
 

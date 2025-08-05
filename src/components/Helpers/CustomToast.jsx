@@ -33,7 +33,8 @@ const CustomToast = ({ title, message }) => {
             },
           ]}
         >
-          {message}
+          {/* {message} */}
+          Error
         </Text>
       </View>
     </View>

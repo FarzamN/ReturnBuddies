@@ -106,8 +106,8 @@ const MainInput = (props, ref) => {
             <TextInput.Icon
               rippleColor={purple}
               icon={show ? "eye" : "eye-off"}
+              color={isError ? error : "#E1E1E1"}
               onPress={() => setShow((prev) => !prev)}
-              color={password ? "#E1E1E1" : errorColor}
             />
           )
         }

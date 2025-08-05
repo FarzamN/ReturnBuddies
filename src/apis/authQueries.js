@@ -39,9 +39,10 @@ export const loginAPI = (data, showOTP, saveEmail, load) => {
         dispatch(setLogin({ user, token }));
       },
       onNotFound: () => {
-        showOTP();
+        showOTP(true);
         saveEmail(data.email);
       },
+
       onFinally: load,
     });
   };
@@ -53,14 +54,14 @@ export const registerAPI = async (data, showOTP, saveEmail, load) => {
     endpoint: "user/register",
     data,
     onSuccess: () => {
-      showOTP();
+      showOTP(true);
       saveEmail(data.email);
     },
     onFinally: load,
   });
 };
 
-export const verifyOTPAPI = (data, load, verify) => {
+export const verifyOTPAPI = (data, load, error, verify) => {
   return async (dispatch) => {
     apiRequest({
       method: "post",
@@ -69,6 +70,7 @@ export const verifyOTPAPI = (data, load, verify) => {
       onSuccess: () => {
         verify((pre) => !pre);
       },
+      onFailure: () => error(true),
       onFinally: load,
     });
   };
@@ -316,7 +318,7 @@ export const phoneVerficationAPI = (data, nav, load) => {
   };
 };
 
-export const resendPhoneVerficationAPI = (data, load) => {
+export const resendPhoneVerficationAPI = (data, setCountDown, load) => {
   return async (dispatch) => {
     apiRequest({
       method: "post",
@@ -324,6 +326,7 @@ export const resendPhoneVerficationAPI = (data, load) => {
       data,
       onSuccess: ({ otp }) => {
         dispatch(setOTP(otp));
+        setCountDown(60);
       },
       onFinally: load,
     });
@@ -358,7 +361,6 @@ export const checkEmailToForgetPasswordAPI = async (data, navigate, load) => {
 };
 
 export const forgotEmailVerficationCompleteAPI = async (data, nav, load) => {
-  console.log("data", data);
   apiRequest({
     method: "post",
     endpoint: "user/forgot-verfication",
@@ -370,11 +372,16 @@ export const forgotEmailVerficationCompleteAPI = async (data, nav, load) => {
   });
 };
 
-export const resendForgotEmailVerficationAPI = async (data, load) => {
+export const resendForgotEmailVerficationAPI = async (
+  data,
+  countDown,
+  load
+) => {
   apiRequest({
     method: "post",
     endpoint: "user/forgot-password",
     data,
+    onSuccess: () => countDown(60),
     onFinally: load,
   });
 };
