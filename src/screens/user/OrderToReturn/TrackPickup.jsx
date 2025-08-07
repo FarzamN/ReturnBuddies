@@ -13,8 +13,8 @@ import { Body, Empty, MainButton } from "../../../components";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
 
 const TrackPickup = ({ navigation }) => {
-  const { replace } = navigation;
   const dispatch = useDispatch();
+  const { replace } = navigation;
   const [load, setLoad] = useState(false);
   const { draftCompleteData } = useSelector((state) => state.draft);
 
@@ -27,17 +27,15 @@ const TrackPickup = ({ navigation }) => {
   };
   return (
     <Body horizontal={wp(4)}>
-      <Height />
-
       <View style={[globalStyle.flex, { justifyContent: "space-between" }]}>
         <Space_Between style={{ marginTop: StatusBar.currentHeight + 20 }}>
           <View />
           <Icon
-            onPress={() => replace("draftItem")}
-            name="close"
             size={20}
-            color={colors.black}
+            name="close"
             type="AntDesign"
+            color={colors.black}
+            onPress={() => replace("draftItem")}
           />
         </Space_Between>
         <Empty

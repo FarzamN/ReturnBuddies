@@ -79,6 +79,7 @@ const SelectNewAddress = ({ route }) => {
             }}
           />
         )}
+        disableRightSwipe
         rightOpenValue={-75}
       />
 

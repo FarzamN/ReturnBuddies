@@ -1,8 +1,7 @@
-import { ScrollView, View } from "react-native";
 import React from "react";
+import { ScrollView, View } from "react-native";
+import { wp } from "../../../theme/responsive";
 import { Body, Header, Text } from "../../../components";
-import { hp, wp } from "../../../theme/responsive";
-import styles from "./settingStyle";
 
 const Terms = () => {
   return (

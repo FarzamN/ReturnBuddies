@@ -97,6 +97,7 @@ const Setting = () => {
           data={settingsData}
           renderItem={({ item }) => (
             <TouchableOpacity
+              activeOpacity={0.7}
               style={styles.item}
               onPress={() => handlePress(item)}
             >

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import userStyle from "../user/userStyle";
-import { fontScale, wp } from "../../theme/responsive";
+import { wp } from "../../theme/responsive";
 import { Height } from "../../theme/globalStyle";
 import { required } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 import { checkEmailToForgetPasswordAPI } from "../../apis/authQueries";
 import { Body, Header, MainButton, MainInput, Text } from "../../components";
-import authStyle from "./authStyle";
 
 const CheckEmail = () => {
   const { navigate } = useNavigation();

@@ -98,6 +98,7 @@ const PickupSection = ({ data, onPress }) => {
       <Divider />
       <TouchableOpacity
         onPress={onPress}
+        activeOpacity={0.7}
         style={[globalStyle.ph10, globalStyle.mt10, globalStyle.space_Between]}
       >
         <Row>

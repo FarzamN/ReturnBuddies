@@ -6,18 +6,18 @@ import {
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
-import React, { useRef, useState } from "react";
 import { registerInput } from "../../utils/data";
+import { showNotification } from "../../function";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
-import { showNotification } from "../../function";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ const Register = () => {
           keyboardShouldPersistTaps={"always"}
           showsVerticalScrollIndicator={false}
         >
-          {registerInput.map(({ name, p, label, def }) => {
+          {registerInput.map(({ name, p, label }) => {
             const isPassword = name === "password";
             const isError = errors[name];
 
@@ -69,8 +69,6 @@ const Register = () => {
             };
             return (
               <MainInput
-                // defaultValue={def}
-                small
                 rounded
                 key={name}
                 name={name}
@@ -80,6 +78,7 @@ const Register = () => {
                 control={control}
                 isError={!!isError}
                 password={isPassword}
+                small={name !== "name"}
                 message={isError?.message}
                 Container={{ marginTop: wp(5) }}
                 keyboardType={!isPassword ? "email-address" : "default"}
@@ -103,15 +102,15 @@ const Register = () => {
               style={styles.dontAccountTextStyle}
               title={"Have an account?"}
             />
-            <TouchableOpacity onPress={goBack}>
+            <TouchableOpacity activeOpacity={0.7} onPress={goBack}>
               <Text style={styles.dontAccountSignUpTextStyle} title=" Login" />
             </TouchableOpacity>
           </Row>
         </ScrollView>
       </Body>
       <AuthOTP
-        email={saveEmail}
         visible={showOTP}
+        email={saveEmail}
         onClose={() => setShowOTP(false)}
       />
     </>

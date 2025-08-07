@@ -1,5 +1,3 @@
-import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   Login,
   UserOTP,
@@ -9,6 +7,8 @@ import {
   CheckEmail,
   ForgetPassword,
 } from "../screens/auth";
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const AuthNavigation = () => {
   const { Navigator, Screen } = createNativeStackNavigator();

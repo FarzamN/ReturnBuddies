@@ -56,13 +56,13 @@ export default StyleSheet.create({
     marginRight: wp(3),
   },
   sectionContainer: {
-    backgroundColor: colors.white,
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    marginBottom: 16,
     borderWidth: 1,
+    borderRadius: 12,
+    marginBottom: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     borderColor: colors.white,
+    backgroundColor: colors.white,
   },
   selectedSection: {
     borderWidth: 1,

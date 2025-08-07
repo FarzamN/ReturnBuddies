@@ -38,6 +38,7 @@ const ImagePickerModal = ({ visible, onClose, onPicture, onCamera }) => {
               onClose(); // ✅ close modal first
               setTimeout(() => action.onPress(), 1000);
             }}
+            activeOpacity={0.7}
             style={styles.modalBtn}
           >
             <Icon

@@ -11,7 +11,11 @@ import { globalStyle } from "../../theme/globalStyle";
 const CircleCheck = (props) => {
   const { focus, onPress, title } = props;
   return (
-    <TouchableOpacity style={[globalStyle.row]} onPress={onPress}>
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.7}
+      style={[globalStyle.row]}
+    >
       <Icon
         size={20}
         type={focus ? "Ionicons" : "Entypo"}

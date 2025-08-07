@@ -45,6 +45,7 @@ export const deletePickupAPI = (id, load, showDelete) => {
 export const checkPromocode = (code, setPromoCode) => {
   setPromoCode((prev) => ({ ...prev, load: true, invalid: false }));
   apiRequest({
+    noNotification: true,
     endpoint: `/get-Promo?code=${code}`,
     onSuccess: ({ promo }) => {
       setPromoCode((prev) => ({
@@ -54,6 +55,14 @@ export const checkPromocode = (code, setPromoCode) => {
         applied: true,
         load: false,
         invalid: false,
+      }));
+    },
+    onFailure: () => {
+      setPromoCode((prev) => ({
+        ...prev,
+        invalid: true,
+        applied: false,
+        load: false,
       }));
     },
     onNotFound: () =>

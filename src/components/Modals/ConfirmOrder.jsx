@@ -1,13 +1,11 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-import Modal from "react-native-modal";
-import styles from "./modalStyle";
-import { globalStyle, Height } from "../../theme/globalStyle";
 import { MainButton } from "..";
-import Icon from "react-native-dynamic-vector-icons";
+import styles from "./modalStyle";
+import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
-import { fonts } from "../../assets";
-import { fontScale } from "../../theme/responsive";
+import React, { useEffect, useState } from "react";
+import Icon from "react-native-dynamic-vector-icons";
+import { View, Text, TouchableOpacity } from "react-native";
+import { globalStyle, Height } from "../../theme/globalStyle";
 
 const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
   const agreements = [
@@ -45,6 +43,7 @@ const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
         {agreements.map((text, index) => (
           <TouchableOpacity
             key={index}
+            activeOpacity={0.7}
             onPress={() => toggleCheck(index)}
             style={[globalStyle.row, { marginBottom: 10 }]}
           >

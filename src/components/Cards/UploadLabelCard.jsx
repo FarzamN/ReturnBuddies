@@ -37,6 +37,7 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
                 name={isSelected ? "checkbox" : "check-box-outline-blank"}
               />
               <TouchableOpacity
+                activeOpacity={0.7}
                 onPress={() => onItemSelect(item._id)}
                 style={[styles.sectionCard, { width: "90%" }]}
               >

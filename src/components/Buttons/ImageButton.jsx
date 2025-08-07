@@ -10,6 +10,7 @@ const ImageButton = (props) => {
   const { onPress, source, title, noImage, isError } = props;
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       onPress={onPress}
       style={[
         styles.ImageButton,

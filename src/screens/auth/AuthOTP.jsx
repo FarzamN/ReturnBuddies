@@ -1,14 +1,14 @@
 import styles from "./authStyle";
-import React, { useEffect, useState } from "react";
+import Modal from "react-native-modal";
 import { appImages } from "../../assets";
 import { useDispatch } from "react-redux";
 import { View, Text } from "react-native";
 import { colors } from "../../theme/colors";
-import { globalStyle, Height } from "../../theme/globalStyle";
-import Modal from "react-native-modal";
+import React, { useEffect, useState } from "react";
 import { verifyOTPAPI } from "../../apis/authQueries";
 import { FullImage, MainButton } from "../../components";
 import { useNavigation } from "@react-navigation/native";
+import { globalStyle, Height } from "../../theme/globalStyle";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
 const AuthOTP = ({ visible, email, onClose }) => {
@@ -38,9 +38,9 @@ const AuthOTP = ({ visible, email, onClose }) => {
 
   return (
     <Modal
-      onBackButtonPress={onClose}
-      onBackdropPress={onClose}
       isVisible={visible}
+      onBackdropPress={onClose}
+      onBackButtonPress={onClose}
       style={styles.modalContainer}
     >
       <View style={[styles.card, globalStyle.pv10]}>

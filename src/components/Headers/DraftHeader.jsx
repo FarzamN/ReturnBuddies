@@ -3,12 +3,12 @@ import React from "react";
 import styles from "./headerStyle";
 import { useSelector } from "react-redux";
 import { colors } from "../../theme/colors";
-import { StatusBar, TouchableOpacity } from "react-native";
-import { scaleSize, wp } from "../../theme/responsive";
-import Icon from "react-native-dynamic-vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { Row, Space_Between } from "../../theme/globalStyle";
 import { iOS } from "../../utils/constants";
+import Icon from "react-native-dynamic-vector-icons";
+import { scaleSize, wp } from "../../theme/responsive";
+import { useNavigation } from "@react-navigation/native";
+import { StatusBar, TouchableOpacity } from "react-native";
+import { Row, Space_Between } from "../../theme/globalStyle";
 
 const DraftHeader = (props) => {
   const { pickup } = props;
@@ -33,7 +33,10 @@ const DraftHeader = (props) => {
             : `Welcome${FirstLogin ? "" : " back"}, ${name.split(" ").shift()}!`
         }
       />
-      <TouchableOpacity onPress={() => navigate("settingRoute")}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => navigate("settingRoute")}
+      >
         <Icon
           size={22}
           type="Ionicons"

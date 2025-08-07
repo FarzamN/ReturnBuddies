@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./buttonStyle";
 import { FullImage, Text } from "..";
 import { appImages, fonts } from "../../assets";
-import responsive, { scaleSize, width } from "../../theme/responsive";
 import { TouchableOpacity, View } from "react-native";
 import { globalStyle, Row } from "../../theme/globalStyle";
+import responsive, { scaleSize, width } from "../../theme/responsive";
 
 const LabelPickerButton = (props) => {
   const { onPress, source, title, weight, noImage, isError, isUrl } = props;
@@ -12,6 +12,7 @@ const LabelPickerButton = (props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      activeOpacity={0.7}
       style={[
         styles.ImageButton,
         globalStyle.row,

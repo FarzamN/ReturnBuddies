@@ -10,12 +10,12 @@ import styles from "./settingStyle";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import settingStyle from "./settingStyle";
+import { colors } from "../../../theme/colors";
 import { appImages, fonts } from "../../../assets";
 import Icon from "react-native-dynamic-vector-icons";
 import responsive, { wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { Body, FullImage, Header, Text } from "../../../components";
-import { colors } from "../../../theme/colors";
 
 const Support = () => {
   const { getFaqs } = useSelector((state) => state.auth);
@@ -40,6 +40,7 @@ const Support = () => {
       if (emails && emails[i]) {
         output.push(
           <TouchableOpacity
+            activeOpacity={0.7}
             onPress={() => Linking.openURL(emails[i])}
             key={`email-${i}`}
           >
@@ -150,6 +151,7 @@ const Support = () => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 key={item.id}
+                activeOpacity={0.7}
                 onPress={() => Linking.openURL(item.link)}
                 style={[{ flexDirection: "row" }, globalStyle.mv20]}
               >
@@ -174,6 +176,7 @@ const Support = () => {
         {socialButton.map(({ img, link }) => (
           <TouchableOpacity
             key={link}
+            activeOpacity={0.7}
             onPress={() => Linking.openURL(link)}
             style={{ margin: wp(2) }}
           >

@@ -31,8 +31,8 @@ export default StyleSheet.create({
   },
   dontAccountSignUpTextStyle: {
     fontSize: 14,
-    fontFamily: fonts[500],
     color: colors.purple,
+    fontFamily: fonts[500],
   },
 
   modalContainer: {
@@ -43,10 +43,11 @@ export default StyleSheet.create({
   },
   card: {
     width: "100%",
-    borderRadius: 30,
-    paddingHorizontal: 25,
     alignItems: "center",
+    paddingHorizontal: 25,
+    borderTopLeftRadius: 30,
     backgroundColor: "white",
+    borderTopRightRadius: 30,
   },
   title: {
     fontSize: 18,
@@ -56,10 +57,10 @@ export default StyleSheet.create({
   },
   subText: {
     fontSize: 14,
-    fontFamily: fonts[400],
     color: "#888",
-    textAlign: "center",
     marginBottom: 25,
+    textAlign: "center",
+    fontFamily: fonts[400],
   },
   otpContainer: {
     width: "100%",

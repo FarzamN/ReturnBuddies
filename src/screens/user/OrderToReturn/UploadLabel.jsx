@@ -98,7 +98,7 @@ const UploadLabel = ({ route }) => {
       editLabelAPI(body, setLoad, goBack, labelID)(dispatch);
       return;
     }
-
+    console.log("body", body);
     uploadLabelAPI(body, setLoad, goBack, labelID)(dispatch);
   };
 
@@ -176,7 +176,7 @@ const UploadLabel = ({ route }) => {
           <SelectDate
             title={
               isEdit
-                ? moment(showDate.date).format("YYYY/MM/DD")
+                ? moment(showDate.date).format("DD/MM/YYYY")
                 : showDate.date || "Select Date"
             }
             onPress={() => setShowDate({ open: true, date: null })}
@@ -190,9 +190,9 @@ const UploadLabel = ({ route }) => {
       <DatePicker
         visible={showDate.open}
         onClose={() => setShowDate({ open: false, date: null })}
-        onPress={(date) => {
-          setShowDate({ open: false, date });
-        }}
+        onPress={(date) =>
+          setShowDate({ open: false, date: moment(date).format("DD/MM/YYYY") })
+        }
       />
 
       <Overlay />

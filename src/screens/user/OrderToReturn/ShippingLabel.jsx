@@ -6,14 +6,14 @@ import {
   ReturnSection,
 } from "../../../components";
 import styles from "../userStyle";
-import { wp } from "../../../theme/responsive";
-import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
+import { wp } from "../../../theme/responsive";
+import { iOS } from "../../../utils/constants";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Height } from "../../../theme/globalStyle";
 import { getSelectedReturnItem } from "../../../apis/draftQueries";
 import { setDraftReturn, setLabelID } from "../../../redux/slices/draftSlice";
-import { iOS } from "../../../utils/constants";
 
 const SchedulePickup = ({ navigation, route }) => {
   const dispatch = useDispatch();

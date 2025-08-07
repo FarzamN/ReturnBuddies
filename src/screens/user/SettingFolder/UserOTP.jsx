@@ -146,7 +146,11 @@ const UserOTP = ({ navigation, route }) => {
         style={[styles.timerSecondText, { color: "#525252", marginTop: wp(3) }]}
         title="Having trouble?"
       />
-      <TouchableOpacity disabled={seconds != 0} onPress={handleReset}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={handleReset}
+        disabled={seconds != 0}
+      >
         <Text
           style={styles.resendText}
           color={seconds == 0 ? colors.purple : colors.black}

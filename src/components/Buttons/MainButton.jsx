@@ -21,6 +21,7 @@ const MainButton = (props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      activeOpacity={0.7}
       disabled={load || disabled}
       style={[
         globalStyle.row,

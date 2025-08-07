@@ -114,21 +114,22 @@ export const getBasePriceAPI = () => {
 export const confirmPickupAPI = (data, nav, load) => {
   return async (dispatch) => {
     apiRequest({
+      data,
       method: "post",
       endpoint: "add-pickup",
-      data,
       onSuccess: ({ data }) => {
         nav("trackPickup");
         dispatch(setDraftCompleteData(data));
         dispatch(
           setDraftReturn({
             _id: "",
+            note: "",
             date: null,
             time: null,
-            pickupMethod: "Doorstep",
-            note: "",
+            selectedDateObj: {},
             selectedAddress: null,
             selectedPayment: null,
+            pickupMethod: "Doorstep",
           })
         );
       },

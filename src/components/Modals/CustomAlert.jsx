@@ -1,3 +1,9 @@
+import {
+  View,
+  StyleSheet,
+  Text as RNText,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { FullImage, Text } from "..";
 import Modal from "react-native-modal";
@@ -5,12 +11,6 @@ import { colors } from "../../theme/colors";
 import { appImages, fonts } from "../../assets";
 import { Height, Space_evenly } from "../../theme/globalStyle";
 import { scaleSize, verticalScale } from "../../theme/responsive";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text as RNText,
-} from "react-native";
 
 const CustomAlert = (props) => {
   const {
@@ -68,6 +68,7 @@ const CustomAlert = (props) => {
         <Height />
         <Space_evenly>
           <TouchableOpacity
+            activeOpacity={0.7}
             onPress={onCancelPressed}
             style={[styles.modalButton, styles.cancelButton]}
           >
@@ -75,6 +76,7 @@ const CustomAlert = (props) => {
           </TouchableOpacity>
 
           <TouchableOpacity
+            activeOpacity={0.7}
             disabled={showProgress}
             onPress={onConfirmPressed}
             style={[styles.modalButton, styles.deleteButton]}

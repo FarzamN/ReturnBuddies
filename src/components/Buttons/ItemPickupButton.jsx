@@ -1,11 +1,11 @@
-import { TouchableOpacity } from "react-native";
 import React from "react";
 import { Text } from "..";
 import styles from "./buttonStyle";
+import { useSelector } from "react-redux";
+import { colors } from "../../theme/colors";
+import { TouchableOpacity } from "react-native";
 import { globalStyle } from "../../theme/globalStyle";
 import Icon from "react-native-dynamic-vector-icons";
-import { colors } from "../../theme/colors";
-import { useSelector } from "react-redux";
 
 const ItemPickupButton = (props) => {
   const { title, onPress } = props;
@@ -14,6 +14,7 @@ const ItemPickupButton = (props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      activeOpacity={0.7}
       style={[globalStyle.space_Between, styles.PickupCont]}
     >
       <Text style={styles.pickupTitle} title={title} />

@@ -177,6 +177,7 @@ const PickupDetail = ({ route }) => {
         />
         {!cancelled && (
           <TouchableOpacity
+            activeOpacity={0.7}
             onPress={() => setShowDelete(true)}
             style={[globalStyle.row, settingStyle.deleteButton]}
           >
@@ -189,7 +190,10 @@ const PickupDetail = ({ route }) => {
         )}
 
         <Height />
-        <TouchableOpacity onPress={() => navigate("support")}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigate("support")}
+        >
           <Text
             center
             color={colors.purple}

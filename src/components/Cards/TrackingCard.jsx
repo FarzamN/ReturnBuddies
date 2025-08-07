@@ -17,33 +17,44 @@ const TrackingCard = ({ message }) => {
         borderRadius: scaleSize(10),
       }}
     >
-      <Text style={userStyle.pickupTitle} title="Track your return" />
-      <Space_Between>
-        <Row style={{ top: 5 }}>
-          <Text
-            style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
-            title="UPS Tracking #: "
-          />
-          <Text
-            title={message}
-            color={colors.purple}
-            style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
-          />
-        </Row>
-        <TouchableOpacity
-          onPress={() =>
-            Share.share({
-              message,
-              title: "Share UPS tracking Code",
-            })
-          }
-        >
-          <FullImage
-            source={appImages.shareCircle}
-            style={globalStyle.deleteIcon}
-          />
-        </TouchableOpacity>
-      </Space_Between>
+      <Text
+        style={userStyle.pickupTitle}
+        title={message ? "Track your return" : "Waiting for tracking info..."}
+      />
+      {message ? (
+        <Space_Between>
+          <Row style={{ top: 5 }}>
+            <Text
+              style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
+              title="UPS Tracking #: "
+            />
+            <Text
+              title={message}
+              color={colors.purple}
+              style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
+            />
+          </Row>
+          <TouchableOpacity
+            onPress={() =>
+              Share.share({
+                message,
+                title: "Share UPS tracking Code",
+              })
+            }
+            activeOpacity={0.7}
+          >
+            <FullImage
+              source={appImages.shareCircle}
+              style={globalStyle.deleteIcon}
+            />
+          </TouchableOpacity>
+        </Space_Between>
+      ) : (
+        <Text
+          style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
+          title="We’ll show your tracking number here soon."
+        />
+      )}
     </View>
   );
 };

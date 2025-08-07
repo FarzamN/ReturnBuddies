@@ -9,6 +9,7 @@ import buttonStyle from "../../screens/user/userStyle";
 const AddButton = ({ onPress }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       onPress={onPress}
       style={[
         globalStyle.row,

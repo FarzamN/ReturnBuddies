@@ -1,10 +1,9 @@
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import Icon from "react-native-dynamic-vector-icons";
-import { Height, Row, globalStyle } from "../../theme/globalStyle";
-import responsive, { fontScale, wp } from "../../theme/responsive";
-import { FullImage, RequiredText, Text } from "..";
 import { appImages, fonts } from "../../assets";
+import { FullImage, RequiredText, Text } from "..";
+import responsive, { wp } from "../../theme/responsive";
+import { Height, Row, globalStyle } from "../../theme/globalStyle";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 const AddDraftCard = ({ submittedItems, onEdit }) => {
   return (
@@ -26,7 +25,10 @@ const AddDraftCard = ({ submittedItems, onEdit }) => {
                   <Text style={styles.itemTitle} title={item.detail} />
                 </View>
                 <View style={styles.iconContainer}>
-                  <TouchableOpacity onPress={() => onEdit(item, index)}>
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={() => onEdit(item, index)}
+                  >
                     <FullImage
                       source={appImages.edit}
                       style={globalStyle.iconImage}

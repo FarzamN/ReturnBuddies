@@ -1,14 +1,15 @@
-import { TouchableOpacity } from "react-native";
 import React from "react";
-import { Space_Between } from "../../theme/globalStyle";
 import { Text } from "..";
-import Icon from "react-native-dynamic-vector-icons";
-import { colors } from "../../theme/colors";
 import styles from "./cardStyle";
+import { colors } from "../../theme/colors";
+import { TouchableOpacity } from "react-native";
+import Icon from "react-native-dynamic-vector-icons";
+import { Space_Between } from "../../theme/globalStyle";
 
 const PickupMethodCard = ({ data, onPress, focus }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       onPress={() => onPress(data.title)}
       style={[
         styles.pickupMethodCont,

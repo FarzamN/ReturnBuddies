@@ -9,17 +9,16 @@ import {
 } from "../../../components";
 import { appImages } from "../../../assets";
 import { RefreshControl } from "react-native";
+import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
 import React, { useEffect, useState } from "react";
+import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
-
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
 import { getPaymentAPI, deletePaymentAPI } from "../../../apis/authQueries";
-import { iOS } from "../../../utils/constants";
-import { Height } from "../../../theme/globalStyle";
 
 const SelectPaymentMethod = ({ route }) => {
   const { isPickup } = route.params || {};
@@ -90,6 +89,7 @@ const SelectPaymentMethod = ({ route }) => {
             }}
           />
         )}
+        disableRightSwipe
         rightOpenValue={-75}
       />
 

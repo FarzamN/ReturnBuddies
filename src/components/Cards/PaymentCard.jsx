@@ -1,12 +1,12 @@
 import React from "react";
 import { FullImage } from "..";
+import { iOS } from "../../utils/constants";
 import { colors } from "../../theme/colors";
 import { appImages, fonts } from "../../assets";
 import { maskCardNumber } from "../../function";
 import { fontScale } from "../../theme/responsive";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
-import { iOS } from "../../utils/constants";
 
 const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
   const getCardType = (cardNumber) => {
@@ -46,6 +46,7 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
   return (
     <TouchableOpacity
       disabled={disabled}
+      activeOpacity={0.7}
       style={[
         styles.cardContainer,
         {
@@ -77,7 +78,11 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
             <Text style={styles.defaultText}>Default</Text>
           </View>
         )}
-        <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
+        <TouchableOpacity
+          onPress={onEdit}
+          activeOpacity={0.7}
+          style={globalStyle.ml10}
+        >
           <FullImage source={appImages.edit} style={globalStyle.iconImage} />
         </TouchableOpacity>
       </Space_Between>

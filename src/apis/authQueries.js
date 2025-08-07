@@ -426,3 +426,22 @@ export const postNotificationAPI = async (data) => {
     endpoint: "add-notifications",
   });
 };
+
+export const getSorts = async (setDates) => {
+  apiRequest({
+    endpoint: "get-disabled-slots",
+    onSuccess: ({ data }) => {
+      const sortedData = data
+        .map((item) => ({
+          ...item,
+          formattedDate: new Date(item.date).toISOString().split("T")[0],
+        }))
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      setDates((prev) => ({
+        ...prev,
+        date: sortedData,
+      }));
+    },
+  });
+};

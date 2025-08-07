@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import settingStyle from "./settingStyle";
-import { wp } from "../../../theme/responsive";
-import { colors } from "../../../theme/colors";
-import { Body, Header, Text } from "../../../components";
-import { View, FlatList, Switch, ScrollView } from "react-native";
-import { Height, Space_Between } from "../../../theme/globalStyle";
 import {
   getNotificationAPI,
   postNotificationAPI,
 } from "../../../apis/authQueries";
+import settingStyle from "./settingStyle";
+import { wp } from "../../../theme/responsive";
+import { colors } from "../../../theme/colors";
+import React, { useEffect, useState } from "react";
+import { Body, Header, Text } from "../../../components";
+import { View, FlatList, Switch, ScrollView } from "react-native";
+import { Height, Space_Between } from "../../../theme/globalStyle";
 
 const Notification = () => {
   const [textData, setTextData] = useState([

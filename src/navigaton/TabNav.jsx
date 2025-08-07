@@ -55,9 +55,9 @@ const Stack = createNativeStackNavigator();
 const AllOrderToReturn = () => (
   <Stack.Navigator
     screenOptions={{
+      animation: "none",
       headerShown: false,
       orientation: "portrait_up",
-      animation: "none",
     }}
     initialRouteName="draftItem"
   >
@@ -88,9 +88,9 @@ const AllOrderToReturn = () => (
 const AllAddDraft = () => (
   <Stack.Navigator
     screenOptions={{
+      animation: "none",
       headerShown: false,
       orientation: "portrait_up",
-      animation: "none",
     }}
     initialRouteName="addDraftItem"
   >
@@ -102,8 +102,8 @@ const AllSettings = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
-      orientation: "portrait_up",
       // animation: "none",
+      orientation: "portrait_up",
     }}
     initialRouteName="setting"
   >
@@ -121,9 +121,9 @@ const AllSettings = () => (
 const AllMyPickups = () => (
   <Stack.Navigator
     screenOptions={{
+      animation: "none",
       headerShown: false,
       orientation: "portrait_up",
-      animation: "none",
     }}
     initialRouteName="myPickups"
   >

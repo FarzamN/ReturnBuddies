@@ -12,19 +12,22 @@ import { Image, TouchableOpacity, View } from "react-native";
 const Header = (props) => {
   const { goBack, navigate } = useNavigation();
   const {
-    title,
     flag,
+    title,
+    addBTN,
+    onPress,
     imageLogo,
     leftTitle,
     isSetting,
-    addBTN,
-    onPress,
     onBackPress,
   } = props;
   return (
     <View style={[globalStyle.space_Between, styles.headerCont]}>
       <Row>
-        <TouchableOpacity onPress={onBackPress ? onBackPress : goBack}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={onBackPress ? onBackPress : goBack}
+        >
           <Icon
             type="Ionicons"
             name="arrow-back"
@@ -49,7 +52,10 @@ const Header = (props) => {
         />
       )}
       {flag ? (
-        <TouchableOpacity onPress={() => navigate("support")}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigate("support")}
+        >
           <Icon
             type="Ionicons"
             name="flag-outline"
@@ -58,7 +64,10 @@ const Header = (props) => {
           />
         </TouchableOpacity>
       ) : isSetting ? (
-        <TouchableOpacity onPress={() => navigate("settingRoute")}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigate("settingRoute")}
+        >
           <Icon
             size={22}
             type="Ionicons"

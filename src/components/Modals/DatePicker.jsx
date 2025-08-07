@@ -5,7 +5,6 @@ import Modal from "react-native-modal";
 import React, { useState } from "react";
 import { colors } from "../../theme/colors";
 import { Calendar } from "react-native-calendars";
-import { fontScale } from "../../theme/responsive";
 import Icon from "react-native-dynamic-vector-icons";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Height, Space_Between } from "../../theme/globalStyle";
@@ -74,6 +73,7 @@ const DatePicker = ({ visible, onClose, onPress }) => {
         <Space_Between>
           <TouchableOpacity
             onPress={onClose}
+            activeOpacity={0.7}
             style={{
               flex: 1,
               borderColor: "#A24BF4",
@@ -92,6 +92,7 @@ const DatePicker = ({ visible, onClose, onPress }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
+            activeOpacity={0.7}
             onPress={() => onPress(selected)}
             style={{
               flex: 1,

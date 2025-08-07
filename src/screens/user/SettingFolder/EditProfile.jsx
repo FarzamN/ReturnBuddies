@@ -9,25 +9,25 @@ import {
   RequiredText,
   CustomAlert,
 } from "../../../components";
-import { View, TextInput, ScrollView, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import settingStyle from "./settingStyle";
-import { colors } from "../../../theme/colors";
-import { useIskeyboard } from "../../../hooks";
-import { wp } from "../../../theme/responsive";
-import { appImages, fonts } from "../../../assets";
-import { required } from "../../../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import inputStyles from "../../../components/Inputs/inputStyle";
-import { globalStyle, Height } from "../../../theme/globalStyle";
 import {
   editProfileAPI,
   deleteAccountAPI,
   phoneVerficationAPI,
 } from "../../../apis/authQueries";
 import { showNotification } from "../../../function";
+import settingStyle from "./settingStyle";
+import { colors } from "../../../theme/colors";
+import { useIskeyboard } from "../../../hooks";
+import { wp } from "../../../theme/responsive";
+import React, { useEffect, useState } from "react";
+import { appImages, fonts } from "../../../assets";
+import { required } from "../../../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import inputStyles from "../../../components/Inputs/inputStyle";
+import { globalStyle, Height } from "../../../theme/globalStyle";
+import { View, TextInput, ScrollView, TouchableOpacity } from "react-native";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -110,6 +110,7 @@ const EditProfile = () => {
 
             <TouchableOpacity
               onPress={onVerify}
+              activeOpacity={0.7}
               disabled={verifyLoad || isVerified}
               style={[
                 settingStyle.verifyButton,
@@ -132,10 +133,10 @@ const EditProfile = () => {
         <Height />
         <RequiredText title="Email" />
         <MainInput
+          noTitle
           disabled
           name={"email"}
           control={control}
-          noTitle
           Container={{ marginTop: 0 }}
         />
         <Height />
@@ -146,7 +147,7 @@ const EditProfile = () => {
         />
 
         <TouchableOpacity
-          // onPress={() => navigate("deleteAccount")}
+          activeOpacity={0.7}
           onPress={() => setShowDelete(true)}
           style={[globalStyle.row, settingStyle.deleteButton]}
         >

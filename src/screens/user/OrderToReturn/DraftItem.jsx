@@ -1,4 +1,10 @@
 import {
+  View,
+  BackHandler,
+  RefreshControl,
+  Text as RNText,
+} from "react-native";
+import {
   Body,
   Text,
   Empty,
@@ -18,12 +24,6 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useMemo, useState } from "react";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Height, globalStyle } from "../../../theme/globalStyle";
-import {
-  BackHandler,
-  View,
-  Text as RNText,
-  RefreshControl,
-} from "react-native";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
 
 const DraftItem = () => {
@@ -110,6 +110,28 @@ const DraftItem = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={globalStyle.ph15}
         keyExtractor={(_, index) => index.toString()}
+        ListFooterComponent={
+          <>
+            {selectedCount && draftData ? (
+              <MainButton
+                style={[
+                  styles.button,
+                  { width: undefined, paddingHorizontal: 15 },
+                ]}
+                textStyle={styles.buttonText}
+                title={`Schedule Pickup for ${returnItemCount} Item${
+                  returnItemCount > 1 ? "s" : ""
+                }`}
+                onPress={() => {
+                  navigate("shippingLabel", { returnLabel: selectedReturns });
+                  setSelectedReturns([]);
+                }}
+              />
+            ) : (
+              <></>
+            )}
+          </>
+        }
         ListEmptyComponent={
           <Empty
             title="You have no items to return"
@@ -152,27 +174,18 @@ const DraftItem = () => {
             }}
           />
         )}
+        disableRightSwipe
         rightOpenValue={-75}
       />
 
-      {selectedCount && draftData ? (
-        <>
-          <MainButton
-            style={styles.button}
-            textStyle={styles.buttonText}
-            title={`Schedule Pickup for ${returnItemCount} Item${
-              returnItemCount > 1 ? "s" : ""
-            }`}
-            onPress={() => {
-              navigate("shippingLabel", { returnLabel: selectedReturns });
-              setSelectedReturns([]);
-            }}
-          />
-          <Height />
-        </>
+      {/* {selectedCount && draftData ? (
+        <> */}
+
+      {/* <Height /> */}
+      {/* </>
       ) : (
-        <PrimeryTab currentTab="Home" />
-      )}
+        )} */}
+      <PrimeryTab currentTab="Home" />
       <CustomAlert
         show={alert.visible}
         showProgress={isPending}

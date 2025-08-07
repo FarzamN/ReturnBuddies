@@ -6,32 +6,57 @@ import {
   CircleCheck,
   TimeSelectCard,
 } from "../../../components";
+
+import moment from "moment";
 import styles from "../userStyle";
+import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
 import { ScrollView, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Height } from "../../../theme/globalStyle";
 import { DateSelectCard } from "../../../components";
+import { getSorts } from "../../../apis/authQueries";
+import { showNotification } from "../../../function";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
-import { getNextWeekdays, showNotification } from "../../../function";
-import { iOS } from "../../../utils/constants";
 
 const SchedulePickup = ({ route }) => {
   const { isEdit } = route.params;
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
-  const { time, date } = useSelector((state) => state.draft.draftReturn);
+  const { time, date, selectedDateObj } = useSelector(
+    (state) => state.draft.draftReturn
+  );
 
-  const [dates, setDates] = useState([]);
+  const [dates, setDates] = useState({
+    date: [],
+    timeSlots: [
+      {
+        time: "9:00 AM to 6:00 PM",
+        value: true,
+      },
+      {
+        time: "9:00 AM to 1:00 PM",
+        value: true,
+      },
+      {
+        time: "11:00 AM to 3:00 PM",
+        value: true,
+      },
+      {
+        time: "2:00 PM to 6:00 PM",
+        value: true,
+      },
+    ],
+  });
   const [load, setLoad] = useState(false);
   const [selection, setSelection] = useState({
     dates: date,
     times: time,
     confirm: true,
+    selectedDateObj,
   });
-
   const onSubmit = () => {
     const requiredFields = {
       dates: "Date",
@@ -40,11 +65,7 @@ const SchedulePickup = ({ route }) => {
     };
     for (const field in requiredFields) {
       if (!selection[field]) {
-        showNotification(
-          "error",
-          `${requiredFields[field]} is required`,
-          "Error"
-        );
+        showNotification(`${requiredFields[field]} is required`, "Error");
         return;
       }
     }
@@ -53,7 +74,8 @@ const SchedulePickup = ({ route }) => {
     dispatch(
       setDraftReturn({
         date: selection.dates,
-        time: selection.times,
+        time: selection.times.time,
+        selectedDateObj: selection.selectedDateObj,
       })
     );
     navigate(isEdit ? "confirmPickup" : "pickupMethod");
@@ -61,9 +83,7 @@ const SchedulePickup = ({ route }) => {
   };
 
   useEffect(() => {
-    const weekdays = getNextWeekdays(6);
-    weekdays.shift();
-    setDates(weekdays);
+    getSorts(setDates);
   }, []);
 
   return (
@@ -76,17 +96,23 @@ const SchedulePickup = ({ route }) => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView horizontal style={styles.dateContainer}>
-          {dates.map((date, index) => {
-            const formatted = date.format("YYYY-MM-DD");
+          {dates.date.map((item, index) => {
+            const formatted = moment(item.date).format("YYYY-MM-DD");
             const isSelected = selection.dates === formatted;
 
             return (
               <DateSelectCard
-                date={date}
                 key={index}
+                date={item.date}
                 focus={isSelected}
+                disabled={item.disabled}
                 onPress={() =>
-                  setSelection((prev) => ({ ...prev, dates: formatted }))
+                  setSelection((prev) => ({
+                    ...prev,
+                    times: null,
+                    dates: formatted || date,
+                    selectedDateObj: item,
+                  }))
                 }
               />
             );
@@ -94,20 +120,23 @@ const SchedulePickup = ({ route }) => {
         </ScrollView>
 
         <View style={[styles.dateContainer, { flexDirection: "column" }]}>
-          {[
-            "9:00 AM - 6:00 PM",
-            "9:00AM - 1:00PM",
-            "11:00 AM - 3:00 PM",
-            "2:00 PM - 6:00 PM",
-          ].map((times, index) => (
-            <TimeSelectCard
-              data={times}
-              key={index}
-              index={index}
-              focus={times === selection.times}
-              onPress={() => setSelection((prev) => ({ ...prev, times }))}
-            />
-          ))}
+          {(selection.selectedDateObj?.timeSlots || dates.timeSlots).map(
+            (slot, index) => (
+              <TimeSelectCard
+                key={index}
+                index={index}
+                data={slot.time}
+                disabled={slot.value}
+                focus={
+                  selection.times === slot.time ||
+                  selection.times?.time === slot.time
+                }
+                onPress={() =>
+                  setSelection((prev) => ({ ...prev, times: slot }))
+                }
+              />
+            )
+          )}
         </View>
       </ScrollView>
       <View style={{ paddingRight: wp(3) }}>

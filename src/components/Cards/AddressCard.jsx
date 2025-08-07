@@ -1,15 +1,16 @@
 import React from "react";
 import { FullImage } from "..";
 import { colors } from "../../theme/colors";
+import { iOS } from "../../utils/constants";
 import { appImages, fonts } from "../../assets";
 import { fontScale } from "../../theme/responsive";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
-import { iOS } from "../../utils/constants";
 
 const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       disabled={disabled}
       style={[
         styles.cardContainer,
@@ -37,7 +38,11 @@ const AddressCard = ({ data, onPress, focus, disabled, onEdit }) => {
             <Text style={styles.defaultText}>Default</Text>
           </View>
         )}
-        <TouchableOpacity onPress={onEdit} style={globalStyle.ml10}>
+        <TouchableOpacity
+          onPress={onEdit}
+          activeOpacity={0.7}
+          style={globalStyle.ml10}
+        >
           <FullImage source={appImages.edit} style={globalStyle.iconImage} />
         </TouchableOpacity>
       </Space_Between>

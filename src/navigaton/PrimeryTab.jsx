@@ -40,6 +40,7 @@ const PrimeryTab = (props) => {
         {["draftItem", "addDraftRoute", "myPickupsRoute"].map((path) => (
           <TouchableOpacity
             key={path}
+            activeOpacity={0.7}
             onPress={() => handlePress(path)}
             style={{
               width: "33%",

@@ -7,13 +7,13 @@ import {
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { colors } from "../../theme/colors";
 import { wp } from "../../theme/responsive";
 import { loginInput } from "../../utils/data";
 import { useFreezeScreen } from "../../hooks";
-import React, { useState, useRef } from "react";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
@@ -21,7 +21,6 @@ import { googleLoginAPI, loginAPI } from "../../apis/authQueries";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Body, MainButton, Header, Text, MainInput } from "../../components";
-import { showNotification } from "../../function";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -126,7 +125,10 @@ const Login = () => {
           })}
 
           <Height />
-          <TouchableOpacity onPress={() => navigate("checkEmail")}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigate("checkEmail")}
+          >
             <Text
               color={colors.purple}
               title={"Forgot password?"}
@@ -156,7 +158,10 @@ const Login = () => {
             style={styles.dontAccountTextStyle}
             title={"Don't have an account?"}
           />
-          <TouchableOpacity onPress={() => navigate("register")}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigate("register")}
+          >
             <Text style={styles.dontAccountSignUpTextStyle} title=" Register" />
           </TouchableOpacity>
         </Row>

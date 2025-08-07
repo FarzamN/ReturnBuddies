@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Image, StatusBar, View } from "react-native";
 import { appImages } from "../assets";
-import { globalStyle } from "../theme/globalStyle";
 import { colors } from "../theme/colors";
+import React, { useEffect, useRef } from "react";
+import { globalStyle } from "../theme/globalStyle";
+import { Animated, Image, StatusBar, View } from "react-native";
 
 export default function Splash() {
   const opacity = useRef(new Animated.Value(0)).current;

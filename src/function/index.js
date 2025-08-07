@@ -80,6 +80,7 @@ export const apiRequest = async ({
   onNotFound,
   onFailure,
   onFinally,
+  noNotification = false,
 }) => {
   try {
     onFinally?.(true);
@@ -101,13 +102,14 @@ export const apiRequest = async ({
     } else if (status === 201) {
       onNotFound?.(response.data);
     } else {
-      showNotification(message, `Status Code ${status + endpoint}`);
+      if (!noNotification)
+        showNotification(message, `Status Code ${status + endpoint}`);
       onFailure?.(response.data);
       console.log(message, `Status Code ${status + endpoint}`);
     }
   } catch (err) {
     const msg = err?.response?.data?.message || err.message;
-    catchFun(msg, endpoint);
+    if (!noNotification) catchFun(msg, endpoint);
     onFailure?.(err);
     console.log(msg, `Status Code ${endpoint}`);
   } finally {

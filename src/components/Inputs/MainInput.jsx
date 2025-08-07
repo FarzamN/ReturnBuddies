@@ -43,7 +43,6 @@ const MainInput = (props, ref) => {
   });
 
   const { black, grey, purple, white, error } = colors;
-  const errorColor = isError ? error : black;
 
   return (
     <View style={[style.mainInputCont, Container]}>
@@ -87,7 +86,7 @@ const MainInput = (props, ref) => {
           style.inputStyles,
           {
             borderRadius: rounded ? 50 : 15,
-            borderColor: isError ? error : "#EEEEEE",
+            borderColor: isError ? error : "#EFF0F9",
             backgroundColor: isError ? "#fff7f7" : disabled ? "#F6F6F6" : white,
           },
           restyle,
@@ -104,9 +103,9 @@ const MainInput = (props, ref) => {
         right={
           password && (
             <TextInput.Icon
-              rippleColor={purple}
               icon={show ? "eye" : "eye-off"}
               color={isError ? error : "#E1E1E1"}
+              rippleColor={isError ? error : purple}
               onPress={() => setShow((prev) => !prev)}
             />
           )

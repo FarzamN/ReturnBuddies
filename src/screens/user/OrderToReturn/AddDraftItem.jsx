@@ -202,6 +202,7 @@ const AddDraftItem = () => {
               <RequiredText title={"Item details"} required />
               {submittedItems.length >= 1 && (
                 <TouchableOpacity
+                  activeOpacity={0.7}
                   style={{ marginTop: -8 }}
                   onPress={() => remove(index)}
                 >

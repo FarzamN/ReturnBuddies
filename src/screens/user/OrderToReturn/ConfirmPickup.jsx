@@ -13,8 +13,8 @@ import moment from "moment";
 import { appImages } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
-import { Height } from "../../../theme/globalStyle";
 import React, { useEffect, useState } from "react";
+import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
@@ -169,6 +169,7 @@ const ConfirmPickup = () => {
           }`}
         />
         <TouchableOpacity
+          activeOpacity={0.7}
           onPress={() =>
             setPromoCode((pre) => ({ ...pre, visible: !pre.visible }))
           }
@@ -196,6 +197,7 @@ const ConfirmPickup = () => {
             />
 
             <TouchableOpacity
+              activeOpacity={0.7}
               onPress={() =>
                 checkPromocode(promocode.value.trim(), setPromoCode)
               }

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
+import { Height } from "../../theme/globalStyle";
 import { showNotification } from "../../function";
 import { useNavigation } from "@react-navigation/native";
+import { changepasswordForgetAPI } from "../../apis/authQueries";
 import { Body, Header, MainButton, MainInput } from "../../components";
 import { maxLength, minLength, required } from "../../utils/constants";
-import { Height } from "../../theme/globalStyle";
-import { changepasswordForgetAPI } from "../../apis/authQueries";
 
 const ForgetPassword = ({ route }) => {
   const { email } = route.params;
@@ -16,7 +16,6 @@ const ForgetPassword = ({ route }) => {
   const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
       showNotification(
-        "error",
         "New Password and Confirm Password do not match",
         "Password Error"
       );

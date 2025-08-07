@@ -10,7 +10,11 @@ import { globalStyle, Space_Between } from "../../theme/globalStyle";
 const Oversize = ({ focus, onPress, onAboutPress }) => {
   return (
     <Space_Between>
-      <TouchableOpacity onPress={onPress} style={globalStyle.row}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={onPress}
+        style={globalStyle.row}
+      >
         <Icon
           size={20}
           style={{ marginRight: 5 }}
@@ -21,7 +25,7 @@ const Oversize = ({ focus, onPress, onAboutPress }) => {
         <Text title={"Oversized Item?"} />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={onAboutPress}>
+      <TouchableOpacity activeOpacity={0.7} onPress={onAboutPress}>
         <FullImage
           source={appImages.information}
           style={{ width: responsive.width(20), height: responsive.width(20) }}

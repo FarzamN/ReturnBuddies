@@ -1,13 +1,13 @@
-import React from 'react';
-import {FullImage, Text} from '..';
-import styles from './buttonStyle';
-import {appImages} from '../../assets';
-import {colors} from '../../theme/colors';
-import {width} from '../../theme/responsive';
-import {TouchableOpacity, View} from 'react-native';
-import {Row, globalStyle} from '../../theme/globalStyle';
+import React from "react";
+import styles from "./buttonStyle";
+import { FullImage, Text } from "..";
+import { appImages } from "../../assets";
+import { colors } from "../../theme/colors";
+import { width } from "../../theme/responsive";
+import { TouchableOpacity, View } from "react-native";
+import { Row, globalStyle } from "../../theme/globalStyle";
 
-const PickupButton = props => {
+const PickupButton = (props) => {
   const {
     title,
     detail,
@@ -21,22 +21,24 @@ const PickupButton = props => {
   } = props;
   return (
     <TouchableOpacity
-      disabled={disable}
       onPress={onPress}
-      style={[globalStyle.space_Between, styles.PickupCont]}>
+      disabled={disable}
+      activeOpacity={0.7}
+      style={[globalStyle.space_Between, styles.PickupCont]}
+    >
       <Row>
         {!isPayment && <FullImage source={source} style={styles.pickupImage} />}
 
         <View>
           {isPayment ? (
             <Row>
-              <Text style={styles.pickupTitle} title={'Pay Via'} />
+              <Text style={styles.pickupTitle} title={"Pay Via"} />
 
               <Text
                 title={title}
                 width={width / 1.7}
                 color={colors.purple}
-                style={[styles.pickupTitle, {marginLeft: 5}]}
+                style={[styles.pickupTitle, { marginLeft: 5 }]}
               />
             </Row>
           ) : (

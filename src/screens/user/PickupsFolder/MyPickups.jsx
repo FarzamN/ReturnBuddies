@@ -12,16 +12,15 @@ import {
   DraftHeader,
   PickupSection,
 } from "../../../components";
-
 import styles from "../userStyle";
+import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
 import React, { useEffect, useState } from "react";
+import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { getPickupAPI } from "../../../apis/pickupQueries";
 import { setPathType } from "../../../redux/slices/pickupSlice";
-import { globalStyle, Height } from "../../../theme/globalStyle";
-import { colors } from "../../../theme/colors";
 
 const MyPickups = () => {
   const dispatch = useDispatch();
@@ -47,7 +46,7 @@ const MyPickups = () => {
   }, []);
 
   return (
-    <Body horizontal={wp(isPickup ? 5 : 0)}>
+    <Body horizontal={isPickup ? wp(4) : 0}>
       {isPickup ? (
         <Header
           leftTitle="Pickups"
@@ -71,7 +70,7 @@ const MyPickups = () => {
         }
         nestedScrollEnabled
         showsVerticalScrollIndicator={false}
-        style={{ paddingHorizontal: wp(isPickup ? 0 : 5) }}
+        style={{ paddingHorizontal: isPickup ? 0 : wp(4) }}
       >
         <Height />
 

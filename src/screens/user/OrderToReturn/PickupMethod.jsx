@@ -12,12 +12,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ScrollView } from "react-native";
 import { useIskeyboard } from "../../../hooks";
+import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
 import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
-import { iOS } from "../../../utils/constants";
 
 const PickupMethod = () => {
   const dispatch = useDispatch();

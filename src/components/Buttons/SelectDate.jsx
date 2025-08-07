@@ -1,7 +1,6 @@
 import React from "react";
 import { Text } from "..";
 import styles from "./buttonStyle";
-import { fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import Icon from "react-native-dynamic-vector-icons";
@@ -12,6 +11,7 @@ const SelectDate = (props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      activeOpacity={0.7}
       style={[
         globalStyle.row,
         globalStyle.center,
