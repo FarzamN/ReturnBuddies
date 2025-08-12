@@ -7,10 +7,18 @@ import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import { View, FlatList, TouchableOpacity } from "react-native";
 
-const UploadLabelCard = ({ data, selectedReturns, onItemSelect }) => {
+const UploadLabelCard = ({ data, selectedReturns, onItemSelect, isError }) => {
   return (
     <View
-      style={[styles.sectionContainer, { padding: 0, paddingHorizontal: 10 }]}
+      style={[
+        styles.sectionContainer,
+        {
+          padding: 0,
+          paddingHorizontal: 10,
+          borderWidth: isError ? 1 : 0,
+          borderColor: isError && colors.error,
+        },
+      ]}
     >
       <View style={[styles.headerRow, globalStyle.space_Between]}>
         <Row>

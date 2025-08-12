@@ -20,6 +20,7 @@ import { showNotification } from "../../../function";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
+import { colors } from "../../../theme/colors";
 
 const SchedulePickup = ({ route }) => {
   const { isEdit } = route.params;
@@ -57,17 +58,21 @@ const SchedulePickup = ({ route }) => {
     confirm: true,
     selectedDateObj,
   });
+  const [error, setError] = useState({
+    date: false,
+    time: false,
+    confirm: false,
+  });
   const onSubmit = () => {
-    const requiredFields = {
-      dates: "Date",
-      times: "Time",
-      confirm: "Confirmation",
-    };
-    for (const field in requiredFields) {
-      if (!selection[field]) {
-        showNotification(`${requiredFields[field]} is required`, "Error");
-        return;
-      }
+    if (!selection.dates) {
+      setError((prev) => ({ ...prev, date: true }));
+      return;
+    } else if (!selection.times) {
+      setError((prev) => ({ ...prev, time: true }));
+      return;
+    } else if (!selection.confirm) {
+      setError((prev) => ({ ...prev, confirm: true }));
+      return;
     }
 
     setLoad(true);
@@ -86,6 +91,12 @@ const SchedulePickup = ({ route }) => {
     getSorts(setDates);
   }, []);
 
+  useEffect(() => {
+    if (selection.confirm) setError((prev) => ({ ...prev, confirm: false }));
+    if (selection.dates) setError((prev) => ({ ...prev, date: false }));
+    if (selection.times) setError((prev) => ({ ...prev, time: false }));
+  }, [selection.dates, selection.times, selection.confirm]);
+
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Schedule Pickup" />
@@ -95,7 +106,16 @@ const SchedulePickup = ({ route }) => {
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView horizontal style={styles.dateContainer}>
+        <ScrollView
+          horizontal
+          style={[
+            styles.dateContainer,
+            {
+              borderWidth: error.date ? 1 : 0,
+              borderColor: error.date && colors.error,
+            },
+          ]}
+        >
           {dates.date.map((item, index) => {
             const formatted = moment(item.date).format("YYYY-MM-DD");
             const isSelected = selection.dates === formatted;
@@ -119,7 +139,16 @@ const SchedulePickup = ({ route }) => {
           })}
         </ScrollView>
 
-        <View style={[styles.dateContainer, { flexDirection: "column" }]}>
+        <View
+          style={[
+            styles.dateContainer,
+            {
+              flexDirection: "column",
+              borderWidth: error.time ? 1 : 0,
+              borderColor: error.time && colors.error,
+            },
+          ]}
+        >
           {(selection.selectedDateObj?.timeSlots || dates.timeSlots).map(
             (slot, index) => (
               <TimeSelectCard
@@ -141,6 +170,7 @@ const SchedulePickup = ({ route }) => {
       </ScrollView>
       <View style={{ paddingRight: wp(3) }}>
         <CircleCheck
+          isError={error.confirm}
           focus={selection.confirm}
           title="I confirm the return deadline for all items is at least 2 business days after my selected pickup date"
           onPress={() =>

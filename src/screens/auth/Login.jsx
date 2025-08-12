@@ -1,4 +1,12 @@
 import {
+  Body,
+  Text,
+  Header,
+  MainInput,
+  MainButton,
+  Validation,
+} from "../../components";
+import {
   iOS,
   required,
   maxLength,
@@ -7,20 +15,19 @@ import {
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
-import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { colors } from "../../theme/colors";
 import { wp } from "../../theme/responsive";
 import { loginInput } from "../../utils/data";
 import { useFreezeScreen } from "../../hooks";
+import React, { useEffect, useState } from "react";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { googleLoginAPI, loginAPI } from "../../apis/authQueries";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { Body, MainButton, Header, Text, MainInput } from "../../components";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -32,9 +39,13 @@ const Login = () => {
   const { Overlay } = useFreezeScreen(isPending);
 
   const [saveEmail, setSaveEmail] = useState("");
+  const [error, setError] = useState({
+    msg: "",
+    visible: false,
+  });
 
   const onSubmit = (data) =>
-    loginAPI(data, setShowOTP, setSaveEmail, setIsPending)(dispatch);
+    loginAPI(data, setShowOTP, setError, setSaveEmail, setIsPending)(dispatch);
 
   // ************ google login *************
 
@@ -46,7 +57,6 @@ const Login = () => {
       } = await GoogleSignin.signIn();
       googleLoginAPI(idToken)(dispatch);
     } catch (error) {
-      // showNotification(error.error, "error");
       console.log("error", error.error);
     }
   };
@@ -75,12 +85,22 @@ const Login = () => {
       throw error;
     }
   };
+
   const {
+    watch,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
 
+  const email = watch("email");
+  const password = watch("password");
+  useEffect(() => {
+    setError({
+      msg: "",
+      visible: false,
+    });
+  }, [email, password]);
   return (
     <>
       <Body horizontal={wp(4)}>
@@ -123,7 +143,7 @@ const Login = () => {
               />
             );
           })}
-
+          <Validation isError={error.visible} message={error.msg} />
           <Height />
           <TouchableOpacity
             activeOpacity={0.7}

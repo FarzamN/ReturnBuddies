@@ -6,7 +6,7 @@ import {
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
@@ -17,7 +17,14 @@ import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { Body, MainButton, Header, Text, MainInput } from "../../components";
+import {
+  Body,
+  MainButton,
+  Header,
+  Text,
+  MainInput,
+  Validation,
+} from "../../components";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -27,9 +34,12 @@ const Register = () => {
 
   const [showOTP, setShowOTP] = useState(false);
   const [saveEmail, setSaveEmail] = useState("");
-
+  const [error, setError] = useState({
+    msg: "",
+    visible: false,
+  });
   const onSubmit = (value) =>
-    registerAPI(value, setShowOTP, setSaveEmail, setLoading);
+    registerAPI(value, setShowOTP, setError, setSaveEmail, setLoading);
 
   const handleGoodleSignin = async () => {
     try {
@@ -45,10 +55,20 @@ const Register = () => {
   const handleAppleSignin = () => {};
 
   const {
+    watch,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
+  const email = watch("email");
+  const password = watch("password");
+  const name = watch("name");
+  useEffect(() => {
+    setError({
+      msg: "",
+      visible: false,
+    });
+  }, [email, password, name]);
   return (
     <>
       <Body horizontal={wp(4)}>
@@ -85,6 +105,8 @@ const Register = () => {
               />
             );
           })}
+          <Validation isError={error.visible} message={error.msg} />
+
           <Height />
           <Height />
           <MainButton

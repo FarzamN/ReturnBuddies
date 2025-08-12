@@ -52,7 +52,7 @@ export const editLabelAPI = (data, load, goBack, _id) => {
   return async (dispatch) => {
     apiRequest({
       method: "post",
-      endpoint: "editLabe",
+      endpoint: "editLabel",
       contentType: "multipart/form-data",
       data,
       onSuccess: ({ data }) => {

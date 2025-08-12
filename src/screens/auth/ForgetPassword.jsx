@@ -1,39 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
 import { Height } from "../../theme/globalStyle";
 import { showNotification } from "../../function";
 import { useNavigation } from "@react-navigation/native";
 import { changepasswordForgetAPI } from "../../apis/authQueries";
-import { Body, Header, MainButton, MainInput } from "../../components";
+import {
+  Body,
+  Header,
+  MainButton,
+  MainInput,
+  Validation,
+} from "../../components";
 import { maxLength, minLength, required } from "../../utils/constants";
 
 const ForgetPassword = ({ route }) => {
   const { email } = route.params;
   const { navigate } = useNavigation();
   const [load, setload] = useState(false);
+  const [error, setError] = useState("");
 
   const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
-      showNotification(
-        "New Password and Confirm Password do not match",
-        "Password Error"
-      );
+      setError("New Password and Confirm Password do not match");
       return;
     }
 
     const e = { password: data.password, email };
-    changepasswordForgetAPI(e, setload, navigate);
+    changepasswordForgetAPI(e, setError, setload, navigate);
   };
   const {
+    watch,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
+  const password = watch("password");
+  const c_passowrd = watch("confirmPassword");
+  useEffect(() => {
+    setError("");
+  }, [password, c_passowrd]);
+
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Forgot password" />
-
       {[
         {
           label: "Password",
@@ -65,6 +75,7 @@ const ForgetPassword = ({ route }) => {
           Container={{ marginTop: wp(5) }}
         />
       ))}
+      <Validation isError={error} message={error} />
       <Height />
       <MainButton
         load={load}

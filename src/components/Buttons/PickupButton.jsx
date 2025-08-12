@@ -13,6 +13,7 @@ const PickupButton = (props) => {
     detail,
     source,
     onPress,
+    isError,
     isPayment,
     twoTitle,
     twoDetail,
@@ -24,10 +25,20 @@ const PickupButton = (props) => {
       onPress={onPress}
       disabled={disable}
       activeOpacity={0.7}
-      style={[globalStyle.space_Between, styles.PickupCont]}
+      style={[
+        globalStyle.space_Between,
+        styles.PickupCont,
+        { borderWidth: isError ? 1 : 0, borderColor: isError && colors.error },
+      ]}
     >
       <Row>
-        {!isPayment && <FullImage source={source} style={styles.pickupImage} />}
+        {!isPayment && (
+          <FullImage
+            source={source}
+            style={styles.pickupImage}
+            color={isError ? colors.error : undefined}
+          />
+        )}
 
         <View>
           {isPayment ? (
@@ -76,7 +87,11 @@ const PickupButton = (props) => {
         </View>
       </Row>
       {!disable && (
-        <FullImage source={appImages.edit} style={globalStyle.iconImage} />
+        <FullImage
+          source={appImages.edit}
+          color={isError ? colors.error : undefined}
+          style={globalStyle.iconImage}
+        />
       )}
     </TouchableOpacity>
   );

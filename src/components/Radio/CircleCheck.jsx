@@ -9,7 +9,7 @@ import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle } from "../../theme/globalStyle";
 
 const CircleCheck = (props) => {
-  const { focus, onPress, title } = props;
+  const { focus, onPress, title, isError } = props;
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -19,21 +19,23 @@ const CircleCheck = (props) => {
       <Icon
         size={20}
         type={focus ? "Ionicons" : "Entypo"}
-        color={focus ? colors.purple : colors.grey}
+        color={focus ? colors.purple : isError ? colors.error : colors.grey}
         name={focus ? "checkmark-circle" : "circle"}
       />
-      <Text title={title} style={styles.checkBoxText} />
+      <Text
+        title={title}
+        style={checkBoxText}
+        color={isError ? colors.error : colors.black}
+      />
     </TouchableOpacity>
   );
 };
 
 export default CircleCheck;
 
-const styles = {
-  checkBoxText: {
-    fontSize: 14,
-    marginLeft: 7,
-    fontFamily: fonts[400],
-    top: fontScale(iOS ? 0 : 1),
-  },
+const checkBoxText = {
+  fontSize: 14,
+  marginLeft: 7,
+  fontFamily: fonts[400],
+  top: fontScale(iOS ? 0 : 1),
 };

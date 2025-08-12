@@ -9,19 +9,18 @@ import {
   RequiredText,
   CustomAlert,
 } from "../../../components";
-import { useForm } from "react-hook-form";
 import {
   editProfileAPI,
   deleteAccountAPI,
   phoneVerficationAPI,
 } from "../../../apis/authQueries";
-import { showNotification } from "../../../function";
 import settingStyle from "./settingStyle";
+import { useForm } from "react-hook-form";
+import { appImages } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { useIskeyboard } from "../../../hooks";
 import { wp } from "../../../theme/responsive";
 import React, { useEffect, useState } from "react";
-import { appImages, fonts } from "../../../assets";
 import { required } from "../../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -31,11 +30,14 @@ import { View, TextInput, ScrollView, TouchableOpacity } from "react-native";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
-  const { navigate } = useNavigation();
+  const { navigate, goBack } = useNavigation();
   const { isKeyboard } = useIskeyboard();
 
   const { user } = useSelector((state) => state.auth);
 
+  const [error, setError] = useState({
+    verify: false,
+  });
   const [isVerified, setIsVerified] = useState(user?.phoneVerified);
   useEffect(() => {
     setIsVerified(user?.phoneVerified);
@@ -61,10 +63,10 @@ const EditProfile = () => {
   };
   const onSubmit = (data) => {
     if (!isVerified) {
-      showNotification("please Verify Phone number", "Error");
+      setError({ verify: true });
       return;
     }
-    editProfileAPI(data, setIsPending)(dispatch);
+    editProfileAPI(data, goBack, setIsPending)(dispatch);
   };
 
   const {
@@ -114,11 +116,23 @@ const EditProfile = () => {
               disabled={verifyLoad || isVerified}
               style={[
                 settingStyle.verifyButton,
-                { backgroundColor: isVerified ? "#E8F8E8" : "#F4E8FF" },
+                {
+                  backgroundColor: isVerified
+                    ? "#E8F8E8"
+                    : error.verify
+                    ? "#ED64791A"
+                    : "#F4E8FF",
+                },
               ]}
             >
               <Text
-                color={isVerified ? "#66CE67" : colors.purple}
+                color={
+                  isVerified
+                    ? "#66CE67"
+                    : error.verify
+                    ? "#ED6479"
+                    : colors.purple
+                }
                 style={settingStyle.verifyText}
                 title={
                   verifyLoad ? "loading..." : isVerified ? "Verified" : "Verify"

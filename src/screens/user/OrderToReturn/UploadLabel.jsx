@@ -12,14 +12,13 @@ import {
 
 import moment from "moment";
 import styles from "../userStyle";
-import React, { useState } from "react";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
 import { imageURl } from "../../../utils/urls";
 import { useFreezeScreen } from "../../../hooks";
+import React, { useEffect, useState } from "react";
 import { appImages, fonts } from "../../../assets";
 import { Height } from "../../../theme/globalStyle";
-import { showNotification } from "../../../function";
 import { ScrollView, Text as T } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -39,7 +38,13 @@ const UploadLabel = ({ route }) => {
   const [selectedReturns, setSelectedReturns] = useState([]);
   const [showDate, setShowDate] = useState({
     open: false,
-    date: isEdit ? labels?.date : null,
+    date: isEdit ? labels?.formattedDate : null,
+  });
+
+  const [error, setError] = useState({
+    items: false,
+    label: false,
+    date: false,
   });
 
   const handleItemSelect = (productId) => {
@@ -67,16 +72,16 @@ const UploadLabel = ({ route }) => {
   };
 
   const handleUpload = () => {
-    if (selectedReturns.length === 0) {
-      showNotification("Please select any Item first", "Error");
+    if (!isEdit && !labelDocs) {
+      setError((prev) => ({ ...prev, label: true }));
       return;
     }
-    if (!isEdit && !labelDocs) {
-      showNotification("Please upload label", "Error");
+    if (selectedReturns.length === 0) {
+      setError((prev) => ({ ...prev, items: true }));
       return;
     }
     if (!isEdit && !showDate.date) {
-      showNotification("Please select date", "Error");
+      setError((prev) => ({ ...prev, date: true }));
       return;
     }
 
@@ -98,10 +103,20 @@ const UploadLabel = ({ route }) => {
       editLabelAPI(body, setLoad, goBack, labelID)(dispatch);
       return;
     }
-    console.log("body", body);
     uploadLabelAPI(body, setLoad, goBack, labelID)(dispatch);
   };
 
+  useEffect(() => {
+    if (labelDocs) {
+      setError((prev) => ({ ...prev, label: false }));
+    }
+    if (selectedReturns.length > 0) {
+      setError((prev) => ({ ...prev, items: false }));
+    }
+    if (showDate.date) {
+      setError((prev) => ({ ...prev, date: false }));
+    }
+  }, [labelDocs, selectedReturns, showDate.date]);
   // const getSelectedProduct = () => {
   //   for (const bundle of draftSelectedRetun) {
   //     const match = bundle.products.find((p) => p._id === selectedReturns);
@@ -111,6 +126,7 @@ const UploadLabel = ({ route }) => {
   // };
 
   // const selectedProduct = getSelectedProduct();
+
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Upload Label" />
@@ -133,6 +149,7 @@ const UploadLabel = ({ route }) => {
         <>
           <LabelPickerButton
             // isUrl={labelDocs?.uri || isEdit}
+            isError={error.label}
             type={labelDocs?.type}
             onPress={handleDocumentPick}
             noImage={!labelDocs?.type ?? !labels?.labelReceipt !== "pending"}
@@ -167,6 +184,7 @@ const UploadLabel = ({ route }) => {
 
         <UploadLabelCard
           data={labels}
+          isError={error.items}
           onItemSelect={handleItemSelect}
           selectedReturns={selectedReturns}
         />
@@ -174,11 +192,8 @@ const UploadLabel = ({ route }) => {
         <>
           <RequiredText title={"Return item by"} required />
           <SelectDate
-            title={
-              isEdit
-                ? moment(showDate.date).format("DD/MM/YYYY")
-                : showDate.date || "Select Date"
-            }
+            isError={error.date}
+            title={showDate.date || "Select Date"}
             onPress={() => setShowDate({ open: true, date: null })}
           />
           <Height />
@@ -191,7 +206,7 @@ const UploadLabel = ({ route }) => {
         visible={showDate.open}
         onClose={() => setShowDate({ open: false, date: null })}
         onPress={(date) =>
-          setShowDate({ open: false, date: moment(date).format("DD/MM/YYYY") })
+          setShowDate({ open: false, date: moment(date).format("MM/DD/YYYY") })
         }
       />
 

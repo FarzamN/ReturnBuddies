@@ -29,7 +29,7 @@ const UserOTP = ({ navigation, route }) => {
   const [load, setLoad] = useState(false);
   const [value, setValue] = useState("");
   const [seconds, setCountDown] = useState(60);
-  const [error, setErrot] = useState({ visible: false, msg: "" });
+  const [error, setError] = useState({ visible: false, msg: "" });
 
   const data = {
     phone: number,
@@ -38,22 +38,27 @@ const UserOTP = ({ navigation, route }) => {
   const onSubmit = (otpValue) => {
     if (type == "forgetPasswrod") {
       const emailData = { email: number, otp: otpValue };
-      forgotEmailVerficationCompleteAPI(emailData, navigate, setLoad);
+      forgotEmailVerficationCompleteAPI(emailData, setError, navigate, setLoad);
       return;
     }
 
     if (otpValue !== otp) {
-      setErrot({ visible: true, msg: "Wrong OTP code, please try again" });
+      setError({ visible: true, msg: "Wrong OTP code, please try again" });
       return;
     }
     if (type == "verifyPhoneNumber") {
       const phoneData = { otp: Number(otpValue) };
-      phoneVerficationCompleteAPI(phoneData, goBack, setLoad)(dispatch);
+      phoneVerficationCompleteAPI(
+        phoneData,
+        setError,
+        goBack,
+        setLoad
+      )(dispatch);
       return;
     }
 
     editProfileVerificationAPI(data, type, navigation, setLoad)(dispatch);
-    setErrot({ visible: false, msg: "" });
+    setError({ visible: false, msg: "" });
   };
 
   const handleReset = () => {
@@ -84,9 +89,9 @@ const UserOTP = ({ navigation, route }) => {
     <Body horizontal={wp(4)}>
       <Header />
       <Text
-        style={{ fontFamily: fonts[700], fontSize: 24 }}
         center
         title="Enter Code"
+        style={{ fontFamily: fonts[700], fontSize: 24 }}
       />
       <Text
         center
@@ -113,6 +118,7 @@ const UserOTP = ({ navigation, route }) => {
           onChangeText={(txt) => {
             setValue(txt);
             if (txt.length === 5) onSubmit(txt);
+            setError({ visible: false, msg: "" });
           }}
           renderCell={({ index, symbol, isFocused }) => (
             <View

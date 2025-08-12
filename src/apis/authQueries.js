@@ -27,12 +27,13 @@ export const googleLoginAPI = (idToken) => {
   };
 };
 
-export const loginAPI = (data, showOTP, saveEmail, load) => {
+export const loginAPI = (data, showOTP, error, saveEmail, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "user/login",
       data,
+      method: "post",
+      noNotification: true,
+      endpoint: "user/login",
       onSuccess: ({ user, token }) => {
         setItem("token", token);
         setItem("userID", user._id);
@@ -42,21 +43,24 @@ export const loginAPI = (data, showOTP, saveEmail, load) => {
         showOTP(true);
         saveEmail(data.email);
       },
+      onFailure: ({ message }) => error({ msg: message, visible: true }),
 
       onFinally: load,
     });
   };
 };
 
-export const registerAPI = async (data, showOTP, saveEmail, load) => {
+export const registerAPI = async (data, showOTP, error, saveEmail, load) => {
   apiRequest({
-    method: "post",
-    endpoint: "user/register",
     data,
+    method: "post",
+    noNotification: true,
+    endpoint: "user/register",
     onSuccess: () => {
       showOTP(true);
       saveEmail(data.email);
     },
+    onCatchFailure: (message) => error({ msg: message, visible: true }),
     onFinally: load,
   });
 };
@@ -147,10 +151,14 @@ export const addPhoneNumberAPI = (data, type, navigation, load) => {
 export const editProfileAPI = (data, load) => {
   return async (dispatch) => {
     apiRequest({
+      data,
       method: "post",
       endpoint: "user/editProfile",
-      data,
       onFinally: load,
+      onSuccess: ({ user }) => {
+        goBack();
+        dispatch(setLogin({ user }));
+      },
     });
   };
 };
@@ -173,9 +181,10 @@ export const resendPhoneOTPAPI = (data, coundDown, load) => {
 export const editProfileVerificationAPI = (data, type, navigation, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "/user/updateNameandPhoneVerification",
       data,
+      method: "post",
+      noNotification: true,
+      endpoint: "/user/updateNameandPhoneVerification",
       onSuccess: ({ user }) => {
         dispatch(setLogin({ user }));
         navigation.goBack();
@@ -333,41 +342,58 @@ export const resendPhoneVerficationAPI = (data, setCountDown, load) => {
   };
 };
 
-export const phoneVerficationCompleteAPI = (data, goBack, load) => {
+export const phoneVerficationCompleteAPI = (data, errot, goBack, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "user/verifyPhone",
       data,
+      method: "post",
+      noNotification: true,
+      endpoint: "user/verifyPhone",
       onSuccess: ({ user }) => {
         goBack();
         dispatch(setLogin({ user }));
       },
+      onFailure: ({ message }) => errot({ msg: message, visible: true }),
+      onCatchFailure: ({ message }) => errot({ msg: message, visible: true }),
       onFinally: load,
     });
   };
 };
 
-export const checkEmailToForgetPasswordAPI = async (data, navigate, load) => {
+export const checkEmailToForgetPasswordAPI = async (
+  data,
+  setError,
+  navigate,
+  load
+) => {
   apiRequest({
-    method: "post",
-    endpoint: "user/forgot-password",
     data,
+    method: "post",
+    noNotification: true,
+    endpoint: "user/forgot-password",
     onSuccess: () => {
       navigate("otp", { number: data.email, type: "forgetPasswrod" });
     },
+    onFailure: ({ message }) => setError(message),
     onFinally: load,
   });
 };
 
-export const forgotEmailVerficationCompleteAPI = async (data, nav, load) => {
+export const forgotEmailVerficationCompleteAPI = async (
+  data,
+  error,
+  nav,
+  load
+) => {
   apiRequest({
-    method: "post",
-    endpoint: "user/forgot-verfication",
     data,
+    method: "post",
+    noNotification: true,
+    endpoint: "user/forgot-verfication",
     onSuccess: () => {
       nav("forgetPassword", { email: data.email });
     },
+    onFailure: ({ message }) => error({ msg: message, visible: true }),
     onFinally: load,
   });
 };
@@ -386,7 +412,7 @@ export const resendForgotEmailVerficationAPI = async (
   });
 };
 
-export const changepasswordForgetAPI = async (data, load, nav) => {
+export const changepasswordForgetAPI = async (data, error, load, nav) => {
   apiRequest({
     method: "post",
     endpoint: "user/reset-password",
@@ -394,6 +420,7 @@ export const changepasswordForgetAPI = async (data, load, nav) => {
     onSuccess: () => {
       nav("login");
     },
+    onFailure: ({ message }) => error(message),
     onFinally: load,
   });
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import userStyle from "../user/userStyle";
 import { wp } from "../../theme/responsive";
@@ -6,18 +6,34 @@ import { Height } from "../../theme/globalStyle";
 import { required } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 import { checkEmailToForgetPasswordAPI } from "../../apis/authQueries";
-import { Body, Header, MainButton, MainInput, Text } from "../../components";
+import {
+  Body,
+  Header,
+  MainButton,
+  MainInput,
+  Text,
+  Validation,
+} from "../../components";
 
 const CheckEmail = () => {
   const { navigate } = useNavigation();
   const [load, setLoad] = useState(false);
+  const [error, setError] = useState("");
 
-  const onSubmit = (e) => checkEmailToForgetPasswordAPI(e, navigate, setLoad);
+  const onSubmit = (e) =>
+    checkEmailToForgetPasswordAPI(e, setError, navigate, setLoad);
   const {
+    watch,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
+  const email = watch("email");
+
+  useEffect(() => {
+    setError("");
+  }, [email]);
+
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Forgot password" />
@@ -43,6 +59,7 @@ const CheckEmail = () => {
           required: required("Email"),
         }}
       />
+      <Validation isError={error} message={error} />
       <Height />
 
       <MainButton

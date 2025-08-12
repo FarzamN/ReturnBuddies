@@ -81,6 +81,7 @@ export const apiRequest = async ({
   onFailure,
   onFinally,
   noNotification = false,
+  onCatchFailure,
 }) => {
   try {
     onFinally?.(true);
@@ -110,8 +111,8 @@ export const apiRequest = async ({
   } catch (err) {
     const msg = err?.response?.data?.message || err.message;
     if (!noNotification) catchFun(msg, endpoint);
-    onFailure?.(err);
-    console.log(msg, `Status Code ${endpoint}`);
+    onCatchFailure?.(msg);
+    console.log(msg, endpoint);
   } finally {
     onFinally?.(false);
   }

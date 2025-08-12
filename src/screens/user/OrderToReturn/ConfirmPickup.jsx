@@ -48,7 +48,6 @@ const ConfirmPickup = () => {
   const [focus, setFocus] = useState(false);
 
   const [totalPrice, setTotalPrice] = useState(0);
-
   const [promocode, setPromoCode] = useState({
     value: "",
     visible: false,
@@ -58,6 +57,11 @@ const ConfirmPickup = () => {
     invalid: false,
   });
 
+  const [error, setError] = useState({
+    address: false,
+    phone: false,
+    payment: false,
+  });
   // const totalItemCount = 20;
   const totalItemCount = draftSelectedRetun
     .map((item) => item.products.length)
@@ -84,26 +88,22 @@ const ConfirmPickup = () => {
     setTotalPrice(calculateTotalPrice());
   }, [totalItemCount, promocode.discount]);
 
+  const finalPayment = selectedPayment?.cardNumber ? selectedPayment : payment;
+  const finalAddress = selectedAddress?.street
+    ? selectedAddress
+    : pickupAddress;
   const onSubmit = () => {
-    if (!phone) {
-      showNotification("Please set your phone number", "Error");
+    if (!finalAddress?.street) {
+      setError((prev) => ({ ...prev, address: true }));
       return;
     }
-
-    const finalPayment = selectedPayment?.cardNumber
-      ? selectedPayment
-      : payment;
-    const finalAddress = selectedAddress?.street
-      ? selectedAddress
-      : pickupAddress;
+    if (!phone) {
+      setError((prev) => ({ ...prev, phone: true }));
+      return;
+    }
 
     if (!finalPayment?.cardNumber) {
-      showNotification("Please set your Payment method", "Error");
-      return;
-    }
-
-    if (!finalAddress?.street) {
-      showNotification("Please set your Pickup Address", "Error");
+      setError((prev) => ({ ...prev, payment: true }));
       return;
     }
 
@@ -121,12 +121,19 @@ const ConfirmPickup = () => {
     };
     confirmPickupAPI(value, navigate, setLoad)(dispatch);
   };
+  useEffect(() => {
+    if (phone) setError((prev) => ({ ...prev, phone: false }));
+    if (finalPayment?.cardNumber)
+      setError((prev) => ({ ...prev, payment: false }));
+    if (finalAddress?.street) setError((prev) => ({ ...prev, address: false }));
+  }, [phone, finalPayment?.cardNumber, finalAddress?.street]);
 
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Confirm Pickup" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <PickupButton
+          isError={error.address}
           source={appImages.location}
           title={
             selectedAddress?.street || pickupAddress?.street || "Add address"
@@ -147,6 +154,7 @@ const ConfirmPickup = () => {
           onPress={() => navigate("schedulePickup", { isEdit: true })}
         />
         <PickupButton
+          isError={error.phone}
           source={appImages.call}
           title={phone || "Add phone number"}
           onPress={() => navigate("addPhoneNumber")}
@@ -253,6 +261,7 @@ const ConfirmPickup = () => {
         />
 
         <PickupButton
+          isError={error.payment}
           isPayment={selectedPayment?.cardNumber || payment?.cardNumber}
           source={appImages.wallet}
           title={`${
