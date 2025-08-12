@@ -68,13 +68,15 @@ export const registerAPI = async (data, showOTP, error, saveEmail, load) => {
 export const verifyOTPAPI = (data, load, error, verify) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "user/verifyemail",
       data,
+      method: "post",
+      noNotification: true,
+      endpoint: "user/verifyemail",
       onSuccess: () => {
         verify((pre) => !pre);
       },
       onFailure: () => error(true),
+      onCatchFailure: () => error(true),
       onFinally: load,
     });
   };

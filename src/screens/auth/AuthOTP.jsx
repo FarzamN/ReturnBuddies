@@ -19,7 +19,7 @@ const AuthOTP = ({ visible, email, onClose }) => {
   const [verify, setVerify] = useState(false);
   const [otpValue, setOtpValue] = useState("");
   const [isPending, setIsPending] = useState(false);
-
+  console.log("error", error);
   const onSubmit = () => {
     if (verify) {
       replace("login");
