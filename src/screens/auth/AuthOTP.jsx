@@ -19,7 +19,7 @@ const AuthOTP = ({ visible, email, onClose }) => {
   const [verify, setVerify] = useState(false);
   const [otpValue, setOtpValue] = useState("");
   const [isPending, setIsPending] = useState(false);
-  console.log("error", error);
+
   const onSubmit = () => {
     if (verify) {
       replace("login");
@@ -38,10 +38,13 @@ const AuthOTP = ({ visible, email, onClose }) => {
 
   return (
     <Modal
+      avoidKeyboard
       isVisible={visible}
+      swipeDirection="down"
       onBackdropPress={onClose}
+      onSwipeComplete={onClose}
       onBackButtonPress={onClose}
-      style={styles.modalContainer}
+      style={[styles.modalContainer, { alignItems: undefined }]}
     >
       <View style={[styles.card, globalStyle.pv10]}>
         <FullImage
@@ -64,7 +67,7 @@ const AuthOTP = ({ visible, email, onClose }) => {
               style={[styles.otpContainer, { marginBottom: error ? 10 : 30 }]}
             >
               <CodeField
-                autoFocus
+                // autoFocus
                 cellCount={5}
                 value={otpValue}
                 keyboardType="number-pad"

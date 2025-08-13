@@ -20,8 +20,6 @@ export default StyleSheet.create({
   },
   forgotTextStyle: {
     fontSize: 11,
-    textAlign: "right",
-    marginBottom: wp(5),
     fontFamily: fonts[500],
   },
   dontAccountTextStyle: {

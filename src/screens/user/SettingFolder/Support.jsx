@@ -79,9 +79,15 @@ const Support = () => {
   ];
 
   const socialButton = [
-    { img: appImages.instagram, link: "https://instagram.com" },
-    { img: appImages.x, link: "https://x.com" },
-    { img: appImages.website, link: "https://google.com" },
+    {
+      img: appImages.instagram,
+      link: "https://www.instagram.com/returnbuddies",
+    },
+    {
+      img: appImages.x,
+      link: "https://x.com/returnbuddies",
+    },
+    { img: appImages.website, link: "https://www.returnbuddies.com/" },
   ];
 
   return (

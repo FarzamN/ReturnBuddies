@@ -147,14 +147,17 @@ const Login = () => {
           <Height />
           <TouchableOpacity
             activeOpacity={0.7}
+            style={{ alignSelf: "flex-end" }}
             onPress={() => navigate("checkEmail")}
           >
             <Text
               color={colors.purple}
-              title={"Forgot password?"}
+              title="Forgot password?"
               style={styles.forgotTextStyle}
             />
           </TouchableOpacity>
+
+          <Height />
           <Text title={"Or"} style={styles.orTextStyle} />
 
           <MainButton social google onPress={handleGoodleSignin} />

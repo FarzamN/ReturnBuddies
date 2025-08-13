@@ -11,16 +11,15 @@ import moment from "moment";
 import styles from "../userStyle";
 import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
+import { colors } from "../../../theme/colors";
 import { ScrollView, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Height } from "../../../theme/globalStyle";
 import { DateSelectCard } from "../../../components";
 import { getSorts } from "../../../apis/authQueries";
-import { showNotification } from "../../../function";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { setDraftReturn } from "../../../redux/slices/draftSlice";
-import { colors } from "../../../theme/colors";
 
 const SchedulePickup = ({ route }) => {
   const { isEdit } = route.params;

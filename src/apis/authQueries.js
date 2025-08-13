@@ -87,7 +87,6 @@ export const deleteAccountAPI = (load) => {
     apiRequest({
       method: "post",
       endpoint: "user/delete-account",
-      data: {},
       onSuccess: () => {
         dispatch(setLogout());
       },
@@ -99,12 +98,10 @@ export const deleteAccountAPI = (load) => {
 export const deleteAccountOTPAPI = (data, load) => {
   return async (dispatch) => {
     apiRequest({
+      data,
       method: "post",
       endpoint: "user/verify-&-delete-account",
-      data,
-      onSuccess: () => {
-        dispatch(setLogout());
-      },
+      onSuccess: () => dispatch(setLogout()),
       onFinally: load,
     });
   };
@@ -289,7 +286,6 @@ export const deletePaymentAPI = (_id, setAlert, load) => {
     apiRequest({
       method: "post",
       endpoint: `delete-payment-card/${_id}`,
-      data: {},
       onSuccess: () => {
         setAlert({ visible: false, _id: "" });
         getPaymentAPI(load)(dispatch);
