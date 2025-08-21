@@ -20,6 +20,21 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.47814484030-ebh93osqqpe7h3i1djc9gudqhlfl8bl4</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -31,14 +46,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Return buddies requests to access Camera to change profile Photos and upload Return Items Images in the app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Return buddies requests to access photos to change profile Photos and upload Return Items Images in the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Return buddies requests to access photos to change profile Photos and upload Return Items Images in the app.</string>
-	 <key>NSCameraUsageDescription</key>
-  <string>Return buddies requests to access Camera to change profile Photos and upload Return Items Images in the app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
