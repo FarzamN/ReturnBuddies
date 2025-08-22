@@ -1,16 +1,15 @@
 import { fonts } from "../../assets";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
-import { iOS } from "../../utils/constants";
-import responsive, { scaleSize, wp } from "../../theme/responsive";
+import { scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   draftTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: fonts[600],
   },
   draftSub: {
-    fontSize: 12,
+    fontSize: 14,
     color: "#211F1C",
     fontFamily: fonts[400],
     marginTop: scaleSize(5),

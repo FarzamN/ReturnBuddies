@@ -27,6 +27,21 @@ export const googleLoginAPI = (idToken) => {
   };
 };
 
+export const appleLoginAPI = (idToken) => {
+  return async (dispatch) => {
+    apiRequest({
+      data: JSON.stringify({ idToken }),
+      method: "post",
+      endpoint: "user/Login-with-apple",
+      onSuccess: ({ user, token }) => {
+        setItem("token", token);
+        setItem("userID", user._id);
+        dispatch(setLogin({ user, token }));
+      },
+    });
+  };
+};
+
 export const loginAPI = (data, showOTP, error, saveEmail, load) => {
   return async (dispatch) => {
     apiRequest({

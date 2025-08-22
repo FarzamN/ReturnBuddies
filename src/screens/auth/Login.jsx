@@ -6,6 +6,7 @@ import {
   MainButton,
   Validation,
 } from "../../components";
+
 import {
   iOS,
   required,
@@ -25,7 +26,11 @@ import React, { useEffect, useState } from "react";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
-import { googleLoginAPI, loginAPI } from "../../apis/authQueries";
+import {
+  appleLoginAPI,
+  googleLoginAPI,
+  loginAPI,
+} from "../../apis/authQueries";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
@@ -65,18 +70,17 @@ const Login = () => {
 
   const handleAppleSignin = async () => {
     try {
-      // Perform login request
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
 
-      // Get current authentication state
       const credentialState = await appleAuth.getCredentialStateForUser(
         appleAuthRequestResponse.user
       );
 
-      // Check if credential is valid
+      const idToken = "";
+      appleLoginAPI(idToken)(dispatch);
       if (credentialState === appleAuth.AUTHORIZED) {
         return appleAuthRequestResponse;
       }
