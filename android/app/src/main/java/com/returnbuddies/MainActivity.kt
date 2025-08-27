@@ -1,4 +1,4 @@
-package com.app.returnbuddies
+package com.returnbuddies.app
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

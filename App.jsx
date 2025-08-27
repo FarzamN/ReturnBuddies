@@ -10,17 +10,19 @@ import { getBasePriceAPI } from "./src/apis/draftQueries";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { OneSignal, LogLevel } from "react-native-onesignal";
 
 const App = () => {
   const dispatch = useDispatch();
+  const ONESIGNAL_APP_ID = "249b4107-fde7-41c1-9d81-b3c4fa097156";
 
   const { user } = useSelector((state) => state.auth);
 
   GoogleSignin.configure({
     webClientId:
-      "47814484030-jk2std4j9f0n1recohmceaeo4jpihgmq.apps.googleusercontent.com",
+      "44903643593-lqp344riggspaem55elarln5esgubu3d.apps.googleusercontent.com",
     iosClientId:
-      "47814484030-ebh93osqqpe7h3i1djc9gudqhlfl8bl4.apps.googleusercontent.com",
+      "44903643593-371v24l963qnkr4hn370mh5ovt7gvrr1.apps.googleusercontent.com",
     offlineAccess: true,
     forceCodeForRefreshToken: true,
   });
@@ -34,6 +36,55 @@ const App = () => {
     }
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, [user]);
+
+  useEffect(() => {
+    // Set the log level for debugging
+    OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+    // Initialize OneSignal
+    OneSignal.initialize(ONESIGNAL_APP_ID);
+
+    // Request notification permission
+    OneSignal.Notifications.requestPermission(false);
+
+    const handleWillDisplayEvent = (event) => {
+      const notification = event.notification;
+      event.notification.display();
+      // if (notification.body && token !== null) getNotificationApi()(dispatch);
+
+      // Extract any additional data from the notification
+    };
+
+    const handleSubscriptionChangeEvent = async (event) => {
+      if (event.current.optedIn) {
+        const userId = await OneSignal.User.pushSubscription.getIdAsync();
+        setItem("notification_id", userId);
+      }
+    };
+
+    // Handle notifications shown in foreground
+    OneSignal.Notifications.addEventListener(
+      "foregroundWillDisplay",
+      handleWillDisplayEvent
+    );
+
+    // Subscription observer for user ID
+    OneSignal.User.pushSubscription.addEventListener(
+      "change",
+      handleSubscriptionChangeEvent
+    );
+
+    return () => {
+      // Cleanup listeners
+      OneSignal.Notifications.removeEventListener(
+        "foregroundWillDisplay",
+        handleWillDisplayEvent
+      );
+      OneSignal.User.pushSubscription.removeEventListener(
+        "change",
+        handleSubscriptionChangeEvent
+      );
+    };
+  }, []);
 
   setTimeout(() => {
     setShowSplash(false);

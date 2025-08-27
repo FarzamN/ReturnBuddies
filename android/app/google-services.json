@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "44903643593",
+    "project_id": "return-buddies-916ba",
+    "storage_bucket": "return-buddies-916ba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44903643593:android:a75f7c086ab8d0ae249018",
+        "android_client_info": {
+          "package_name": "com.returnbuddies.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44903643593-rar3hj41ckeecm9s9o1uq001o19iddqq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.returnbuddies.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "44903643593-lqp344riggspaem55elarln5esgubu3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXvXnU9SpBKa0DPWa0YwW6npr5pNcBX20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44903643593-lqp344riggspaem55elarln5esgubu3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

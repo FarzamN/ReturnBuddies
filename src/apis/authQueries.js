@@ -15,7 +15,7 @@ import { apiRequest, catchFun, showNotification } from "../function";
 export const googleLoginAPI = (idToken) => {
   return async (dispatch) => {
     apiRequest({
-      data: JSON.stringify({ idToken }),
+      data: { idToken },
       method: "post",
       endpoint: "user/Login-with-google",
       onSuccess: ({ user, token }) => {

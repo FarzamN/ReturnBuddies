@@ -6,7 +6,6 @@ import {
   MainButton,
   Validation,
 } from "../../components";
-
 import {
   iOS,
   required,
@@ -14,6 +13,12 @@ import {
   minLength,
   emailPattern,
 } from "../../utils/constants";
+import {
+  loginAPI,
+  appleLoginAPI,
+  googleLoginAPI,
+} from "../../apis/authQueries";
+
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
 import { useDispatch } from "react-redux";
@@ -26,13 +31,13 @@ import React, { useEffect, useState } from "react";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
-import {
-  appleLoginAPI,
-  googleLoginAPI,
-  loginAPI,
-} from "../../apis/authQueries";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithCredential,
+} from "@react-native-firebase/auth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -57,12 +62,10 @@ const Login = () => {
   const handleGoodleSignin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const {
-        data: { idToken },
-      } = await GoogleSignin.signIn();
-      googleLoginAPI(idToken)(dispatch);
+      const { data } = await GoogleSignin.signIn();
+      googleLoginAPI(data.idToken)(dispatch);
     } catch (error) {
-      console.log("error", error.error);
+      console.log("error", error);
     }
   };
 
@@ -165,15 +168,15 @@ const Login = () => {
           <Text title={"Or"} style={styles.orTextStyle} />
 
           <MainButton social google onPress={handleGoodleSignin} />
-          {/* {appleAuthAndroid.isSupported && ( */}
-          <MainButton
-            social
-            apple
-            onPress={() =>
-              handleAppleSignin().then((user) => console.log(user))
-            }
-          />
-          {/* )} */}
+          {iOS && (
+            <MainButton
+              social
+              apple
+              onPress={() =>
+                handleAppleSignin().then((user) => console.log(user))
+              }
+            />
+          )}
         </ScrollView>
         <MainButton
           title={"Login"}

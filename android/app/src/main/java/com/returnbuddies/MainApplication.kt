@@ -1,4 +1,4 @@
-package com.app.returnbuddies
+package com.returnbuddies.app
 
 import android.app.Application
 import com.facebook.react.PackageList

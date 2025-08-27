@@ -3,27 +3,28 @@ import {
   maxLength,
   minLength,
   emailPattern,
+  iOS,
 } from "../../utils/constants";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
-import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
 import { registerInput } from "../../utils/data";
-import { showNotification } from "../../function";
+import React, { useEffect, useState } from "react";
 import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
+import appleAuth from "@invertase/react-native-apple-authentication";
 import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import {
   Body,
-  MainButton,
   Header,
   Text,
   MainInput,
   Validation,
+  MainButton,
 } from "../../components";
 
 const Register = () => {
@@ -44,15 +45,34 @@ const Register = () => {
   const handleGoodleSignin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const {
-        data: { idToken },
-      } = await GoogleSignin.signIn();
-      googleLoginAPI(idToken)(dispatch);
+      const { data } = await GoogleSignin.signIn();
+      googleLoginAPI(data.idToken)(dispatch);
     } catch (error) {
-      showNotification(error, "error");
+      console.log("error", error);
     }
   };
-  const handleAppleSignin = () => {};
+
+  const handleAppleSignin = async () => {
+    try {
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+      });
+
+      const credentialState = await appleAuth.getCredentialStateForUser(
+        appleAuthRequestResponse.user
+      );
+
+      const idToken = "";
+      appleLoginAPI(idToken)(dispatch);
+      if (credentialState === appleAuth.AUTHORIZED) {
+        return appleAuthRequestResponse;
+      }
+    } catch (error) {
+      console.error("Apple Sign-In Error:", error);
+      throw error;
+    }
+  };
 
   const {
     watch,
@@ -118,7 +138,8 @@ const Register = () => {
           <Text style={styles.orTextStyle} title={"Or"} />
 
           <MainButton social google onPress={handleGoodleSignin} />
-          <MainButton social apple onPress={handleAppleSignin} />
+          {iOS && <MainButton social apple onPress={handleAppleSignin} />}
+
           <Row style={{ justifyContent: "center" }}>
             <Text
               style={styles.dontAccountTextStyle}
