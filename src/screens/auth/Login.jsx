@@ -33,11 +33,6 @@ import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithCredential,
-} from "@react-native-firebase/auth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -78,15 +73,8 @@ const Login = () => {
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
 
-      const credentialState = await appleAuth.getCredentialStateForUser(
-        appleAuthRequestResponse.user
-      );
-
-      const idToken = "";
+      const idToken = appleAuthRequestResponse.identityToken;
       appleLoginAPI(idToken)(dispatch);
-      if (credentialState === appleAuth.AUTHORIZED) {
-        return appleAuthRequestResponse;
-      }
     } catch (error) {
       console.error("Apple Sign-In Error:", error);
       throw error;

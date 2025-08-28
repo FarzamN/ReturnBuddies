@@ -24,10 +24,10 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Editor</string> 
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.47814484030-ebh93osqqpe7h3i1djc9gudqhlfl8bl4</string>
+				<string>com.googleusercontent.apps.44903643593-371v24l963qnkr4hn370mh5ovt7gvrr1</string>
 			</array>
 		</dict>
 		<dict>

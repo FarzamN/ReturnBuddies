@@ -6,4 +6,9 @@
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
     </style>
 
+
+</resources>
+
+<resources>
+    <string name="onesignal_notification_accent_color">FF00FF00</string>
 </resources>

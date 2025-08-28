@@ -11,6 +11,8 @@ import {
 import instance from "../utils/urls";
 import { getItem, setItem } from "../utils/storage";
 import { apiRequest, catchFun, showNotification } from "../function";
+import appleAuth from "@invertase/react-native-apple-authentication";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 export const googleLoginAPI = (idToken) => {
   return async (dispatch) => {
@@ -30,7 +32,7 @@ export const googleLoginAPI = (idToken) => {
 export const appleLoginAPI = (idToken) => {
   return async (dispatch) => {
     apiRequest({
-      data: JSON.stringify({ idToken }),
+      data: { idToken },
       method: "post",
       endpoint: "user/Login-with-apple",
       onSuccess: ({ user, token }) => {
@@ -104,6 +106,8 @@ export const deleteAccountAPI = (load) => {
       endpoint: "user/delete-account",
       onSuccess: () => {
         dispatch(setLogout());
+        GoogleSignin.signOut();
+        appleAuth.Operation.LOGOUT;
       },
       onFinally: load,
     });
@@ -162,7 +166,7 @@ export const addPhoneNumberAPI = (data, type, navigation, load) => {
   };
 };
 
-export const editProfileAPI = (data, load) => {
+export const editProfileAPI = (data, goBack, load) => {
   return async (dispatch) => {
     apiRequest({
       data,
