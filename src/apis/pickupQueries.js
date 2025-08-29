@@ -19,8 +19,8 @@ export const pickupDetailAPI = (id, load) => {
   return async (dispatch) => {
     apiRequest({
       endpoint: `/get-pickup-by-id/${id}`,
-      onSuccess: ({ data, trackingNumber }) => {
-        dispatch(setPickupDetailData({ data, trackingNumber }));
+      onSuccess: ({ data, trackingNumber, Carrier }) => {
+        dispatch(setPickupDetailData({ data, trackingNumber, Carrier }));
       },
       onFinally: load,
     });

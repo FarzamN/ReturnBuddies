@@ -7,7 +7,7 @@ import userStyle from "../../screens/user/userStyle";
 import { Share, TouchableOpacity, View } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 
-const TrackingCard = ({ message }) => {
+const TrackingCard = ({ message, carrier }) => {
   return (
     <View
       style={{
@@ -26,7 +26,7 @@ const TrackingCard = ({ message }) => {
           <Row style={{ top: 5 }}>
             <Text
               style={[userStyle.pickupTitle, { fontFamily: fonts[400] }]}
-              title="UPS Tracking #: "
+              title={`${carrier} Tracking #: `}
             />
             <Text
               title={message}
@@ -38,7 +38,7 @@ const TrackingCard = ({ message }) => {
             onPress={() =>
               Share.share({
                 message,
-                title: "Share UPS tracking Code",
+                title: `Share ${carrier} tracking Code`,
               })
             }
             activeOpacity={0.7}

@@ -112,11 +112,12 @@ const AddDraftItem = () => {
 
     validItems.forEach((item) => {
       body.append("files", {
+        name: item.image.name,
         uri: item.image.uri,
         type: item.image.type,
-        name: item.image.name,
       });
     });
+    console.log(body);
     uploadReturnItems(body, setShowConfirmOrder, setLoad, goBack)(dispatch);
   };
 

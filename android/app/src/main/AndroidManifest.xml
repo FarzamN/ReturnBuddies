@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme"
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true">
+    <meta-data android:name="com.onesignal.NotificationIcon" android:resource="@drawable/ic_stat_onesignal_default"/>
 
         <activity
             android:name=".MainActivity"
