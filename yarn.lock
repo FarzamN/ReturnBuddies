@@ -6486,10 +6486,10 @@ react-native-notifier@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-notifier/-/react-native-notifier-2.0.0.tgz#99bb703fae8cbf0c0465a5beacdca923613344fa"
   integrity sha512-CKaoldBM2Lz9FIWn1frUZ70R8n1jCwaUsO4hGfqbNYFUZLV4OYy/UeEicWvrLy3Ce8fEg7WyYWVd0q+crsFQlA==
 
-react-native-onesignal@^5.2.13:
-  version "5.2.13"
-  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-5.2.13.tgz#b7fe51e426dd3b67a3d9132655337c7809ef9564"
-  integrity sha512-PCpOZfepieSPHaaT3uFYHDMy2+XMi7HMGiCWW7oic6SthW4NmjYPt0AmykZP7SJIQ9C3h2zMMlwrvPKK2ooxoQ==
+react-native-onesignal@5.2.9:
+  version "5.2.9"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-5.2.9.tgz#1d9b19caaa604fc0340909428f0d55ff4fb735d9"
+  integrity sha512-0/MRRZkR5hDPBedDmBNn6iopYCA/q/34aLHq1WxanBOMd8nNzyhDJ0qN9zJn8ZZUEM9SlR52YRPCXUB+NqJPkw==
   dependencies:
     invariant "^2.2.2"
 

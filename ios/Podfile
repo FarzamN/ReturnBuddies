@@ -59,6 +59,7 @@ pod "FirebaseAppCheckInterop", :modular_headers => true
 pod "FirebaseCore", :modular_headers => true
 pod "FirebaseCoreExtension", :modular_headers => true
 pod "RecaptchaInterop", :modular_headers => true
+pod 'Firebase'
 
   post_install do |installer|
     react_native_post_install(
