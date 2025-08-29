@@ -34,7 +34,7 @@ const PickupDetail = ({ route }) => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
 
-  const { data, trackingNumber } = useSelector(
+  const { data, trackingNumber, Carrier } = useSelector(
     (state) => state.pickup.pickupDetailData
   );
 
@@ -139,7 +139,10 @@ const PickupDetail = ({ route }) => {
         </ScrollView>
 
         <Height />
-        {!cancelled && <TrackingCard message={trackingNumber} />}
+        {(!cancelled || Carrier !== "Not Available") && (
+          <TrackingCard message={trackingNumber} carrier={Carrier} />
+        )}
+
         <FlatList
           scrollEnabled={false}
           data={item?.bundleId}

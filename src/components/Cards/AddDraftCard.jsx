@@ -17,6 +17,11 @@ const AddDraftCard = ({ submittedItems, onEdit }) => {
           item.detail && (
             <View key={index} style={styles.itemCard}>
               <Row>
+                {/* <Text
+                  style={styles.itemTitle}
+                  title={submittedItems.length + " "}
+                /> */}
+
                 <Image
                   source={{ uri: item?.image?.uri }}
                   style={styles.cardImage}

@@ -7,7 +7,7 @@ const url = "https://returnbuddies-production.up.railway.app/";
 
 const instance = axios.create({
   baseURL: `${url}api/`,
-  timeout: 10000,
+  timeout: 100000,
   headers: {
     "Content-Type": "application/json",
   },

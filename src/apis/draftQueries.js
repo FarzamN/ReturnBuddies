@@ -6,21 +6,59 @@ import {
   setDraftSelectedRetun,
 } from "../redux/slices/draftSlice";
 import { apiRequest } from "../function";
+import instance from "../utils/urls";
+import { getItem } from "../utils/storage";
+
+// export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
+//   return async (dispatch) => {
+//     apiRequest({
+//       data,
+//       method: "post",
+//       endpoint: "addbundle",
+//       contentType: "multipart/form-data",
+//       onSuccess: () => {
+//         confirmOrder(false);
+//         getReturnItem(load)(dispatch);
+//         goBack();
+//       },
+//       onFinally: load,
+//     });
+//   };
+// };
 
 export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
   return async (dispatch) => {
-    apiRequest({
-      method: "post",
-      endpoint: "addbundle",
-      contentType: "multipart/form-data",
-      data,
-      onSuccess: () => {
+    load(true);
+    const token = getItem("token");
+    const userid = getItem("userID");
+    const endpoint =
+      "https://returnbuddies-production.up.railway.app/api/addbundle";
+    try {
+      const response = await fetch(endpoint, {
+        body: data,
+        method: "POST",
+        headers: {
+          userid,
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      });
+
+      const resData = await response.json();
+      const { status, message } = resData;
+
+      load(false);
+      if (status === 200) {
         confirmOrder(false);
         getReturnItem(load)(dispatch);
         goBack();
-      },
-      onFinally: load,
-    });
+      } else {
+        console.log(message);
+      }
+    } catch (err) {
+      load(false);
+      console.log("chatch", err.message);
+    }
   };
 };
 

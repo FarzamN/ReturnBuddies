@@ -178,14 +178,24 @@ const DraftItem = () => {
         rightOpenValue={-75}
       />
 
-      {/* {selectedCount && draftData ? (
-        <> */}
-
-      {/* <Height /> */}
-      {/* </>
+      {selectedCount && draftData ? (
+        <>
+          <MainButton
+            style={[styles.button, { width: undefined, paddingHorizontal: 15 }]}
+            textStyle={styles.buttonText}
+            title={`Schedule Pickup for ${returnItemCount} Item${
+              returnItemCount > 1 ? "s" : ""
+            }`}
+            onPress={() => {
+              navigate("shippingLabel", { returnLabel: selectedReturns });
+              setSelectedReturns([]);
+            }}
+          />
+          <Height />
+        </>
       ) : (
-        )} */}
-      <PrimeryTab currentTab="Home" />
+        <PrimeryTab currentTab="Home" />
+      )}
       <CustomAlert
         show={alert.visible}
         showProgress={isPending}

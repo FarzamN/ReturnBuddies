@@ -139,9 +139,7 @@ const UploadLabel = ({ route }) => {
       <Text
         width={"90%"}
         style={[styles.draftSub, { fontSize: 11 }]}
-        title={
-          "Upload a file or screenshot of your shipping label from the retailer"
-        }
+        title="Upload a file or screenshot of your shipping label from the retailer"
       />
       <Height />
 
@@ -152,12 +150,12 @@ const UploadLabel = ({ route }) => {
             isError={error.label}
             type={labelDocs?.type}
             onPress={handleDocumentPick}
-            noImage={!labelDocs?.type ?? !labels?.labelReceipt !== "pending"}
+            // noImage={!labelDocs?.type ?? !labels?.labelReceipt !== "pending"}
             source={
               labelDocs?.uri
                 ? { uri: labelDocs.uri }
                 : isEdit
-                ? { uri: imageURl + labels?.labelReceipt }
+                ? { uri: labels?.labelReceipt }
                 : appImages.addLabel
             }
             title={

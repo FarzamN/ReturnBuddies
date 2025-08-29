@@ -112,7 +112,7 @@ export const apiRequest = async ({
     const msg = err?.response?.data?.message || err.message;
     if (!noNotification) catchFun(msg, endpoint);
     onCatchFailure?.(msg);
-    console.log(msg, endpoint);
+    console.log(msg, endpoint + "chu");
   } finally {
     onFinally?.(false);
   }
