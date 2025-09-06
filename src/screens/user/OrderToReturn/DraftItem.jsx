@@ -178,7 +178,7 @@ const DraftItem = () => {
         rightOpenValue={-75}
       />
 
-      {selectedCount && draftData ? (
+      {/* {selectedCount && draftData ? (
         <>
           <MainButton
             style={[styles.button, { width: undefined, paddingHorizontal: 15 }]}
@@ -195,7 +195,9 @@ const DraftItem = () => {
         </>
       ) : (
         <PrimeryTab currentTab="Home" />
-      )}
+      )} */}
+        <PrimeryTab currentTab="Home" />
+
       <CustomAlert
         show={alert.visible}
         showProgress={isPending}

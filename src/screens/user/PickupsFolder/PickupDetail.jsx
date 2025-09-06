@@ -1,3 +1,27 @@
+/* 
+import { View, Text } from 'react-native'
+import React,{useEffect, useState} from 'react'
+import { pickupDetailAPI } from '../../../apis/pickupQueries';
+import { useDispatch } from 'react-redux';
+
+const PickupDetail = ({route}) => {
+  const { item } = route.params;
+
+  const dispatch = useDispatch();
+  const [load, setLoad] = useState(false);
+    useEffect(() => {
+    pickupDetailAPI(item._id, setLoad)(dispatch);
+  }, []);
+  return (
+    <View>
+      <Text>PickupDetail</Text>
+    </View>
+  )
+}
+
+export default PickupDetail
+*/
+
 import {
   View,
   FlatList,
@@ -38,44 +62,51 @@ const PickupDetail = ({ route }) => {
     (state) => state.pickup.pickupDetailData
   );
 
+  const dd = useSelector((state) => state.pickup.pickupDetailData);
+
   const [load, setLoad] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
   const cancelled = data?.status === "Pickup cancelled";
 
-  const steps = [
+  const stepConfig = [
     {
+      key: "Pickup Requested",
       label: "Pickup Requested",
       icon: appImages.pickup_truck,
-      date: "17 June, 2025",
-      completed:
-        data?.status === "Pickup Requested" ||
-        data?.status === "picked up" ||
-        data?.status === "inspected" ||
-        data?.status === "delivered",
+      completedIf: ["Pickup Requested", "Picked Up", "Inspected", "In Transit"],
     },
     {
+      key: "Picked Up",
       label: cancelled ? "Pickup Cancelled" : "Picked up by RB",
       icon: cancelled ? appImages.pickup_cross : appImages.pickup_user_cart,
-      date: "17 June, 2025",
-      completed:
-        data?.status === "picked up" ||
-        data?.status === "inspected" ||
-        data?.status === "delivered",
+      completedIf: ["Picked Up", "Inspected", "In Transit"],
     },
     {
+      key: "Inspected",
       label: "At RB Warehouse",
       icon: appImages.pickup_warehouse,
-      date: "17 June, 2025",
-      completed: data?.status === "inspected" || data?.status === "delivered",
+      completedIf: ["Inspected", "In Transit"],
     },
     {
-      label: "Dropped off at UPS",
+      key: "In Transit",
+      label: `Dropped off at ${Carrier}`,
       icon: appImages.pickup_cube,
-      date: "17 June, 2025",
-      completed: data?.status === "delivered",
+      completedIf: ["In Transit"],
     },
   ];
+
+  // Build dynamic steps from history
+  const steps = stepConfig.map((cfg) => {
+    const matched = data?.statusHistory?.find((s) => s.status === cfg.key);
+    return {
+      label: cfg.label,
+      icon: cfg.icon,
+      date: matched?.updatedAt || null,
+      // date: "2025-09-02T12:02:52.766Z" || null,
+      completed: cfg.completedIf.includes(data?.status),
+    };
+  });
 
   useEffect(() => {
     pickupDetailAPI(item._id, setLoad)(dispatch);
@@ -125,7 +156,12 @@ const PickupDetail = ({ route }) => {
                   />
                 </View>
                 <Text style={setpStyle.label} title={step.label} />
-                {/* <Text style={setpStyle.date} title={step.date} /> */}
+                <Text
+                  style={setpStyle.date}
+                  title={
+                    step.date ? moment(step.date).format("DD MMM, YYYY") : ""
+                  }
+                />
               </View>
 
               <View

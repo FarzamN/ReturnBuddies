@@ -14,31 +14,48 @@ const PickupSection = ({ data, onPress }) => {
 
   const all_products = data?.bundleId.flatMap((item) => item.products);
   // console.log({ flat_products, all_products });
+
+  const updatedStatus = {
+    "Pickup Requested": "Pickup Requested",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "Inspected": "At RB Warehouse",
+    "Picked Up": "Picked Up by RB",
+    "In Transit": "Dropped off at Carrier",
+  }
+
+  const statusImage = {
+    "Inspected": appImages.pickup,
+    "Picked Up": appImages.pickup,
+    "delivered": appImages.pickup,
+    "In Transit": appImages.pickup,
+    "Completed": appImages.complete,
+    "cancelled": appImages.cancelled,
+    "Pickup Requested": appImages.pickup,
+    "Pickup cancelled": appImages.cancelled,
+  }
+
   return (
     <View style={[styles.sectionContainer, globalStyle.ph0]}>
       <View style={globalStyle.ph10}>
         <View
           style={[
             globalStyle.space_Between,
-            { flexWrap: "wrap", marginBottom: scaleSize(5) },
+            pickupStyle.headerRow,
           ]}
         >
           {/* Left: Pickup Name */}
-          <View style={{ flex: 1, minWidth: "50%" }}>
+          <View style={styles.bundleNameContainer}>
             <RNText style={styles.BundleName}>
               {`Pickup #${data.PickupName}`}
             </RNText>
           </View>
 
-          {/* Right: Date */}
-          <View style={{ minWidth: "40%", alignItems: "flex-end" }}>
+            {/* Right: Date */}
+            <View style={pickupStyle.headerRowDate}>
             <Text
               color={"#B1AFB2"}
-              style={{
-                fontSize: 12,
-                fontFamily: fonts[400],
-                textAlign: "right",
-              }}
+              style={pickupStyle.dateText}
               title={moment(data.createdAt).format("dddd, MMM do yyyy")}
             />
           </View>
@@ -59,8 +76,8 @@ const PickupSection = ({ data, onPress }) => {
                 isUrl
                 radius={10}
                 resizeMode="cover"
-                style={[globalStyle.shadow, styles.pickup1stImage]}
                 source={all_products[1]?.thumbnail}
+                style={[globalStyle.shadow, styles.pickup1stImage]}
               />
             )}
             {all_products.length > 2 && (
@@ -79,8 +96,8 @@ const PickupSection = ({ data, onPress }) => {
             }}
           >
             <Text
-              style={styles.labelName}
               width={width / 1.3}
+              style={styles.labelName}
               title={all_products[0].productName}
             />
             <View style={[styles.itemLengthBox, globalStyle.center]}>
@@ -99,22 +116,16 @@ const PickupSection = ({ data, onPress }) => {
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.7}
-        style={[globalStyle.ph10, globalStyle.mt10, globalStyle.space_Between]}
+        style={pickupStyle.endPressingRow}
       >
         <Row>
           <FullImage
-            source={
-              data?.status === "Pickup cancelled"
-                ? appImages.cancelled
-                : data?.status === "Completed"
-                ? appImages.complete
-                : appImages.pickup
-            }
-            style={{ width: 30, height: 30 }}
+            source={statusImage[data?.status]}
+            style={pickupStyle.statusImage}
           />
           <Text
-            title={data?.status}
             style={styles.pickupDetailText}
+            title={updatedStatus[data?.status]}
             color={data?.status === "Pickup cancelled" ? "#9E2424" : "#318252"}
           />
         </Row>
@@ -130,3 +141,27 @@ const PickupSection = ({ data, onPress }) => {
 };
 
 export default PickupSection;
+
+const pickupStyle = {
+  endPressingRow: [globalStyle.ph10, globalStyle.mt10, globalStyle.space_Between],
+  dateText: {
+    fontSize: 12,
+    textAlign: "right",
+    fontFamily: fonts[400],
+  },
+  statusImage: {
+    width: 30,
+    height: 30,
+  },
+  bundleNameContainer: {
+    flex: 1,
+    minWidth: "50%",
+  },
+  headerRow: 
+  { flexWrap: "wrap", marginBottom: scaleSize(5) },
+  headerRowDate: {
+    minWidth: "40%",
+    alignItems: "flex-end",
+  },
+
+}
