@@ -10,40 +10,33 @@ import { Row, Divider, globalStyle } from "../../theme/globalStyle";
 import { Text as RNText, TouchableOpacity, View } from "react-native";
 
 const PickupSection = ({ data, onPress }) => {
-  // const flat_products = data?.bundleId.flat().map((item) => item.products)[0];
-
   const all_products = data?.bundleId.flatMap((item) => item.products);
-  // console.log({ flat_products, all_products });
 
   const updatedStatus = {
     "Pickup Requested": "Pickup Requested",
-    "delivered": "Delivered",
-    "cancelled": "Cancelled",
-    "Inspected": "At RB Warehouse",
-    "Picked Up": "Picked Up by RB",
+    delivered: "Delivered",
+    "Pickup Cancelled": "Cancelled",
+    Inspected: "At RB Warehouse",
+    "Picked Up": "Picked up by RB",
     "In Transit": "Dropped off at Carrier",
-  }
+    Completed: "Completed",
+  };
 
   const statusImage = {
-    "Inspected": appImages.pickup,
+    Inspected: appImages.pickup,
     "Picked Up": appImages.pickup,
-    "delivered": appImages.pickup,
+    delivered: appImages.pickup,
     "In Transit": appImages.pickup,
-    "Completed": appImages.complete,
-    "cancelled": appImages.cancelled,
+    Completed: appImages.complete,
+    "Pickup Cancelled": appImages.cancelled,
     "Pickup Requested": appImages.pickup,
     "Pickup cancelled": appImages.cancelled,
-  }
-
+  };
+  console.log(data.createdAt);
   return (
     <View style={[styles.sectionContainer, globalStyle.ph0]}>
       <View style={globalStyle.ph10}>
-        <View
-          style={[
-            globalStyle.space_Between,
-            pickupStyle.headerRow,
-          ]}
-        >
+        <View style={[globalStyle.space_Between, pickupStyle.headerRow]}>
           {/* Left: Pickup Name */}
           <View style={styles.bundleNameContainer}>
             <RNText style={styles.BundleName}>
@@ -51,12 +44,12 @@ const PickupSection = ({ data, onPress }) => {
             </RNText>
           </View>
 
-            {/* Right: Date */}
-            <View style={pickupStyle.headerRowDate}>
+          {/* Right: Date */}
+          <View style={pickupStyle.headerRowDate}>
             <Text
               color={"#B1AFB2"}
               style={pickupStyle.dateText}
-              title={moment(data.createdAt).format("dddd, MMM do yyyy")}
+              title={moment(data.createdAt).format("dddd, MMM Do yyyy")}
             />
           </View>
         </View>
@@ -126,7 +119,7 @@ const PickupSection = ({ data, onPress }) => {
           <Text
             style={styles.pickupDetailText}
             title={updatedStatus[data?.status]}
-            color={data?.status === "Pickup cancelled" ? "#9E2424" : "#318252"}
+            color={data?.status === "Pickup Cancelled" ? "#9E2424" : "#318252"}
           />
         </Row>
         <Icon
@@ -143,7 +136,11 @@ const PickupSection = ({ data, onPress }) => {
 export default PickupSection;
 
 const pickupStyle = {
-  endPressingRow: [globalStyle.ph10, globalStyle.mt10, globalStyle.space_Between],
+  endPressingRow: [
+    globalStyle.ph10,
+    globalStyle.mt10,
+    globalStyle.space_Between,
+  ],
   dateText: {
     fontSize: 12,
     textAlign: "right",
@@ -157,11 +154,9 @@ const pickupStyle = {
     flex: 1,
     minWidth: "50%",
   },
-  headerRow: 
-  { flexWrap: "wrap", marginBottom: scaleSize(5) },
+  headerRow: { flexWrap: "wrap", marginBottom: scaleSize(5) },
   headerRowDate: {
     minWidth: "40%",
     alignItems: "flex-end",
   },
-
-}
+};

@@ -23,8 +23,9 @@ import textStyle from "../../../components/Texts/textStyle";
 import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
 import { useFreezeScreen, useIskeyboard } from "../../../hooks";
-import { maskCardNumber, showNotification } from "../../../function";
+import { maskCardNumber } from "../../../function";
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
+import momentTimeZone from "moment-timezone";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
@@ -107,10 +108,12 @@ const ConfirmPickup = () => {
       return;
     }
 
+    const tzDate = moment.tz(date, "America/New_York").format();
+
     const value = {
       note,
       phone,
-      pickupDate: date,
+      pickupDate: tzDate,
       pickupTime: time,
       total: totalPrice,
       pickupType: pickupMethod,
@@ -128,6 +131,7 @@ const ConfirmPickup = () => {
     if (finalAddress?.street) setError((prev) => ({ ...prev, address: false }));
   }, [phone, finalPayment?.cardNumber, finalAddress?.street]);
 
+  console.log(selectedAddress, pickupAddress);
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Confirm Pickup" />

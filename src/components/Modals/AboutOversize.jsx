@@ -38,9 +38,9 @@ const AboutOversize = ({ visible, onClose }) => {
         <Height />
 
         <Text
-          style={{ fontFamily: fonts[600], fontSize: 16 }}
-          title="Oversized Items"
           center
+          title="Oversized Items"
+          style={{ fontFamily: fonts[600], fontSize: 16 }}
         />
         <Height />
 
@@ -56,7 +56,7 @@ const AboutOversize = ({ visible, onClose }) => {
         <Text
           center
           style={styles.overSizeText}
-          title="Any item weighing over 15 lbs or measuring more than 25 inches in any
+          title="Any item weighing over 35 lbs or measuring more than 30 inches in any
           dimension is considered oversized and may incur an additional fee."
         />
         <Height />

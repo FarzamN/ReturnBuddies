@@ -104,15 +104,15 @@ export const apiRequest = async ({
       onNotFound?.(response.data);
     } else {
       if (!noNotification)
-        showNotification(message, `Status Code ${status + endpoint}`);
+        showNotification(message, `Status Code ${status + " " + endpoint}`);
       onFailure?.(response.data);
-      console.log(message, `Status Code ${status + endpoint}`);
+      console.log(message, `Status Code ${status + " " + endpoint}`);
     }
   } catch (err) {
     const msg = err?.response?.data?.message || err.message;
     if (!noNotification) catchFun(msg, endpoint);
     onCatchFailure?.(msg);
-    console.log(msg, endpoint + "chu");
+    console.log(msg, endpoint, "catch");
   } finally {
     onFinally?.(false);
   }

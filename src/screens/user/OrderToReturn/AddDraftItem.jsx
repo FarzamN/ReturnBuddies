@@ -224,7 +224,7 @@ const AddDraftItem = () => {
               name={`items.${index}.detail`}
               placeholder="e.g. Black Hoodie - Size XL"
               isError={!!errors?.items?.[index]?.detail}
-              rules={{ required: required("Item Details") }}
+              rules={{ required: required("Item details") }}
               message={errors?.items?.[index]?.detail?.message}
             />
 

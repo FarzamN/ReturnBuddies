@@ -73,6 +73,7 @@ const SelectNewAddress = ({ route }) => {
         }
         renderHiddenItem={({ item, index }, rowMap) => (
           <HiddenDelete
+            height={item.suite ? "87%" : "67%"}
             onPress={() => {
               rowMap[index]?.closeRow();
               setAlert({ visible: true, _id: item._id });

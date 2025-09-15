@@ -101,7 +101,7 @@ const SchedulePickup = ({ route }) => {
       <Header leftTitle="Schedule Pickup" />
       <Text
         title={"Choose Pickup date\nand time"}
-        style={[styles.draftTitle, { fontSize: 17 }]}
+        style={[styles.draftTitle, { fontSize: 16 }]}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>

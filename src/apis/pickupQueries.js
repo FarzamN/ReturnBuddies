@@ -9,7 +9,12 @@ export const getPickupAPI = (load) => {
     apiRequest({
       endpoint: "get-pickup-status",
       onSuccess: ({ data }) => {
-        dispatch(setPickupData({ active: data.active, past: data.past }));
+        dispatch(
+          setPickupData({
+            active: data.active.reverse(),
+            past: data.past.reverse(),
+          })
+        );
       },
       onFinally: load,
     });

@@ -21,5 +21,5 @@ export const emailPattern = {
 };
 
 export const required = (type) => {
-  return `${type} is Required`;
+  return `${type} is required`;
 };

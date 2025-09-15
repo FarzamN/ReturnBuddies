@@ -18,6 +18,7 @@ const App = () => {
 
   const { user } = useSelector((state) => state.auth);
 
+  console.log(user);
   GoogleSignin.configure({
     webClientId:
       "44903643593-lqp344riggspaem55elarln5esgubu3d.apps.googleusercontent.com",

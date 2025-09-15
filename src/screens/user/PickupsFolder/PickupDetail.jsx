@@ -67,32 +67,38 @@ const PickupDetail = ({ route }) => {
   const [load, setLoad] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const cancelled = data?.status === "Pickup cancelled";
+  const cancelled = data?.status === "Pickup Cancelled";
 
   const stepConfig = [
     {
       key: "Pickup Requested",
       label: "Pickup Requested",
       icon: appImages.pickup_truck,
-      completedIf: ["Pickup Requested", "Picked Up", "Inspected", "In Transit"],
+      completedIf: [
+        "Pickup Requested",
+        "Picked Up",
+        "Inspected",
+        "In Transit",
+        "Completed",
+      ],
     },
     {
       key: "Picked Up",
       label: cancelled ? "Pickup Cancelled" : "Picked up by RB",
       icon: cancelled ? appImages.pickup_cross : appImages.pickup_user_cart,
-      completedIf: ["Picked Up", "Inspected", "In Transit"],
+      completedIf: ["Picked Up", "Inspected", "In Transit", "Completed"],
     },
     {
       key: "Inspected",
       label: "At RB Warehouse",
       icon: appImages.pickup_warehouse,
-      completedIf: ["Inspected", "In Transit"],
+      completedIf: ["Inspected", "In Transit", "Completed"],
     },
     {
       key: "In Transit",
       label: `Dropped off at ${Carrier}`,
       icon: appImages.pickup_cube,
-      completedIf: ["In Transit"],
+      completedIf: ["In Transit", "Completed"],
     },
   ];
 
@@ -103,7 +109,6 @@ const PickupDetail = ({ route }) => {
       label: cfg.label,
       icon: cfg.icon,
       date: matched?.updatedAt || null,
-      // date: "2025-09-02T12:02:52.766Z" || null,
       completed: cfg.completedIf.includes(data?.status),
     };
   });
@@ -214,7 +219,7 @@ const PickupDetail = ({ route }) => {
           source={appImages.priceTag}
           detail={`$${data?.totalPrice}`}
         />
-        {!cancelled && (
+        {!(data?.status !== "Completed" || !cancelled) && (
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => setShowDelete(true)}

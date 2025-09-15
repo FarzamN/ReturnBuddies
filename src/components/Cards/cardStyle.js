@@ -135,7 +135,6 @@ export default StyleSheet.create({
     fontSize: 12,
     fontFamily: fonts[500],
     marginLeft: scaleSize(7),
-    textTransform: "capitalize",
   },
   itemLengthBox: {
     // flex: 1,

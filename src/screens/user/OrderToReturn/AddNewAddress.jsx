@@ -5,6 +5,7 @@ import {
   MainButton,
   RequiredText,
   CircleCheck,
+  Validation,
 } from "../../../components";
 import React, { useState } from "react";
 import { fonts } from "../../../assets";
@@ -22,6 +23,7 @@ const AddNewAddress = ({ route }) => {
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
 
+  const [error, setError] = useState({ open: false, msg: "" });
   const { getAddress } = useSelector((state) => state.auth) ?? [];
 
   const [isPending, setIsPending] = useState(false);
@@ -47,14 +49,14 @@ const AddNewAddress = ({ route }) => {
 
   const onSubmit = (data) => {
     if (editing) {
-      editAddressAPI(item._id, data, goBack, setIsPending)(dispatch);
+      editAddressAPI(item._id, data, goBack, setIsPending, setError)(dispatch);
       return;
     }
     const updatedData = {
       ...data,
       isDefault: getAddress.length == 0 ? 1 : isDefault,
     };
-    addAddressAPI(updatedData, goBack, setIsPending)(dispatch);
+    addAddressAPI(updatedData, goBack, setIsPending, setError)(dispatch);
   };
   return (
     <Body horizontal={wp(4)}>
@@ -94,10 +96,12 @@ const AddNewAddress = ({ route }) => {
         <Space_Between>
           {[
             {
+              maxLength: 20,
               name: "state",
               placeholder: "State",
             },
             {
+              maxLength: 5,
               name: "postalCode",
               placeholder: "Zip Code",
             },
@@ -114,11 +118,16 @@ const AddNewAddress = ({ route }) => {
                 item.name === "postalCode" ? "number-pad" : "default"
               }
               message={errors[item.name]?.message}
-              rules={{ required: required(item.placeholder) }}
+              rules={{
+                required: required(item.placeholder),
+                maxLength: item.maxLength,
+              }}
               Container={styles.inputCont}
             />
           ))}
         </Space_Between>
+        <Validation isError={error.open} message={error.msg} />
+
         <Height />
         <CircleCheck
           focus={isDefault === 1}

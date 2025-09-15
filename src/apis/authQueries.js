@@ -213,17 +213,20 @@ export const editProfileVerificationAPI = (data, type, navigation, load) => {
   };
 };
 
-export const addAddressAPI = (data, goBack, load) => {
+export const addAddressAPI = (data, goBack, load, error) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "add-address",
       data,
+      method: "post",
+      noNotification: true,
+      endpoint: "add-address",
       onSuccess: ({ Address }) => {
         goBack();
         if (Address.isDefault == 1) dispatch(updateAddress(Address));
         getAddressAPI(load)(dispatch);
       },
+      onFailure: ({ message }) => error({ msg: message, open: true }),
+      onCatchFailure: ({ message }) => error({ msg: message, open: true }),
       onFinally: load,
     });
   };
@@ -241,16 +244,19 @@ export const getAddressAPI = (load) => {
   };
 };
 
-export const editAddressAPI = (_id, data, goBack, load) => {
+export const editAddressAPI = (_id, data, goBack, load, error) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: `edit-address/${_id}`,
       data,
+      method: "post",
+      noNotification: true,
+      endpoint: `edit-address/${_id}`,
       onSuccess: () => {
         goBack();
         getAddressAPI(load)(dispatch);
       },
+      onFailure: ({ message }) => error({ msg: message, visible: true }),
+      onCatchFailure: ({ message }) => error({ msg: message, visible: true }),
       onFinally: load,
     });
   };
@@ -367,8 +373,8 @@ export const phoneVerficationCompleteAPI = (data, errot, goBack, load) => {
       noNotification: true,
       endpoint: "user/verifyPhone",
       onSuccess: ({ user }) => {
-        goBack();
         dispatch(setLogin({ user }));
+        goBack();
       },
       onFailure: ({ message }) => errot({ msg: message, visible: true }),
       onCatchFailure: ({ message }) => errot({ msg: message, visible: true }),
