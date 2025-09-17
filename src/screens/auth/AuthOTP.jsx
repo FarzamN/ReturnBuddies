@@ -25,7 +25,7 @@ const AuthOTP = ({ visible, email, onClose }) => {
       replace("login");
     } else {
       const data = { email, otp: otpValue };
-      verifyOTPAPI(data, setIsPending, setError, setVerify)(dispatch);
+      verifyOTPAPI(data, setIsPending, setError, setVerify);
     }
   };
 

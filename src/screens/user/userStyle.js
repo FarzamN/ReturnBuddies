@@ -5,11 +5,11 @@ import { scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   draftTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: fonts[600],
   },
   draftSub: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#211F1C",
     fontFamily: fonts[400],
     marginTop: scaleSize(5),

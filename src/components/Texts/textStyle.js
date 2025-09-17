@@ -18,7 +18,7 @@ const textStyle = StyleSheet.create({
     fontFamily: fonts[500],
   },
   helperText: {
-    fontSize: 10,
+    fontSize: 12,
     color: colors.error,
     fontFamily: fonts[400],
     marginTop: scaleSize(7),

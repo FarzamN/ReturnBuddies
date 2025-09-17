@@ -9,7 +9,7 @@ const Validation = (props) => {
     <>
       {isError && (
         <View style={{ marginHorizontal: mh }}>
-          <Text style={[style.helperText]} title={message} center={center} />
+          <Text style={style.helperText} title={message} center={center} />
         </View>
       )}
     </>

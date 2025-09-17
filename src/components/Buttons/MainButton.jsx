@@ -51,7 +51,7 @@ const MainButton = (props) => {
                 { color: colors.black, fontFamily: fonts[500] },
               ]}
             >
-              Login with {apple ? "Apple" : "Google"}
+              {title} with {apple ? "Apple" : "Google"}
             </Text>
           </Row>
         </>

@@ -1,10 +1,18 @@
 import {
+  iOS,
   required,
   maxLength,
   minLength,
   emailPattern,
-  iOS,
 } from "../../utils/constants";
+import {
+  Body,
+  Text,
+  Header,
+  MainInput,
+  Validation,
+  MainButton,
+} from "../../components";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
 import { useDispatch } from "react-redux";
@@ -18,14 +26,6 @@ import { ScrollView, TouchableOpacity } from "react-native";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { googleLoginAPI, registerAPI } from "../../apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import {
-  Body,
-  Header,
-  Text,
-  MainInput,
-  Validation,
-  MainButton,
-} from "../../components";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -137,8 +137,20 @@ const Register = () => {
 
           <Text style={styles.orTextStyle} title={"Or"} />
 
-          <MainButton social google onPress={handleGoodleSignin} />
-          {iOS && <MainButton social apple onPress={handleAppleSignin} />}
+          <MainButton
+            social
+            title="Sign up"
+            google
+            onPress={handleGoodleSignin}
+          />
+          {iOS && (
+            <MainButton
+              social
+              title="Sign up"
+              apple
+              onPress={handleAppleSignin}
+            />
+          )}
 
           <Row style={{ justifyContent: "center" }}>
             <Text

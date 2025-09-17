@@ -77,39 +77,36 @@ export const registerAPI = async (data, showOTP, error, saveEmail, load) => {
       showOTP(true);
       saveEmail(data.email);
     },
+
     onCatchFailure: (message) => error({ msg: message, visible: true }),
     onFinally: load,
   });
 };
 
-export const verifyOTPAPI = (data, load, error, verify) => {
-  return async (dispatch) => {
-    apiRequest({
-      data,
-      method: "post",
-      noNotification: true,
-      endpoint: "user/verifyemail",
-      onSuccess: () => {
-        verify((pre) => !pre);
-      },
-      onFailure: () => error(true),
-      onCatchFailure: () => error(true),
-      onFinally: load,
-    });
-  };
+export const verifyOTPAPI = async (data, load, error, verify) => {
+  apiRequest({
+    data,
+    method: "post",
+    onFinally: load,
+    noNotification: true,
+    endpoint: "user/verifyemail",
+    onFailure: () => error(true),
+    onCatchFailure: () => error(true),
+    onSuccess: () => verify((pre) => !pre),
+  });
 };
 
 export const deleteAccountAPI = (load) => {
   return async (dispatch) => {
     apiRequest({
       method: "post",
+      onFinally: load,
       endpoint: "user/delete-account",
       onSuccess: () => {
         dispatch(setLogout());
         GoogleSignin.signOut();
         appleAuth.Operation.LOGOUT;
       },
-      onFinally: load,
     });
   };
 };
@@ -119,9 +116,9 @@ export const deleteAccountOTPAPI = (data, load) => {
     apiRequest({
       data,
       method: "post",
+      onFinally: load,
       endpoint: "user/verify-&-delete-account",
       onSuccess: () => dispatch(setLogout()),
-      onFinally: load,
     });
   };
 };
@@ -154,14 +151,14 @@ export const changePasswordAPI = async (data, load, goBack) => {
 export const addPhoneNumberAPI = (data, type, navigation, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "user/updatePhone",
       data,
+      method: "post",
+      onFinally: load,
+      endpoint: "user/updatePhone",
       onSuccess: ({ OTP }) => {
         dispatch(setOTP(OTP));
         navigation.navigate("userOTP", { number: data.phone, type });
       },
-      onFinally: load,
     });
   };
 };
@@ -171,8 +168,8 @@ export const editProfileAPI = (data, goBack, load) => {
     apiRequest({
       data,
       method: "post",
-      endpoint: "user/editProfile",
       onFinally: load,
+      endpoint: "user/editProfile",
       onSuccess: ({ user }) => {
         goBack();
         dispatch(setLogin({ user }));
@@ -184,14 +181,14 @@ export const editProfileAPI = (data, goBack, load) => {
 export const resendPhoneOTPAPI = (data, coundDown, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "/user/updateNameandPhone",
       data,
+      method: "post",
+      onFinally: load,
+      endpoint: "/user/updateNameandPhone",
       onSuccess: ({ OTP }) => {
         dispatch(setOTP(OTP));
         coundDown(60);
       },
-      onFinally: load,
     });
   };
 };
@@ -201,6 +198,7 @@ export const editProfileVerificationAPI = (data, type, navigation, load) => {
     apiRequest({
       data,
       method: "post",
+      onFinally: load,
       noNotification: true,
       endpoint: "/user/updateNameandPhoneVerification",
       onSuccess: ({ user }) => {
@@ -208,7 +206,6 @@ export const editProfileVerificationAPI = (data, type, navigation, load) => {
         navigation.goBack();
         navigation.goBack();
       },
-      onFinally: load,
     });
   };
 };
@@ -218,6 +215,7 @@ export const addAddressAPI = (data, goBack, load, error) => {
     apiRequest({
       data,
       method: "post",
+      onFinally: load,
       noNotification: true,
       endpoint: "add-address",
       onSuccess: ({ Address }) => {
@@ -227,7 +225,6 @@ export const addAddressAPI = (data, goBack, load, error) => {
       },
       onFailure: ({ message }) => error({ msg: message, open: true }),
       onCatchFailure: ({ message }) => error({ msg: message, open: true }),
-      onFinally: load,
     });
   };
 };
@@ -235,11 +232,10 @@ export const addAddressAPI = (data, goBack, load, error) => {
 export const getAddressAPI = (load) => {
   return async (dispatch) => {
     apiRequest({
-      endpoint: "get-all-address",
-      onSuccess: ({ addresses }) => {
-        dispatch(setGetAddress(addresses.reverse()));
-      },
       onFinally: load,
+      endpoint: "get-all-address",
+      onSuccess: ({ addresses }) =>
+        dispatch(setGetAddress(addresses.reverse())),
     });
   };
 };
@@ -249,6 +245,7 @@ export const editAddressAPI = (_id, data, goBack, load, error) => {
     apiRequest({
       data,
       method: "post",
+      onFinally: load,
       noNotification: true,
       endpoint: `edit-address/${_id}`,
       onSuccess: () => {
@@ -257,7 +254,6 @@ export const editAddressAPI = (_id, data, goBack, load, error) => {
       },
       onFailure: ({ message }) => error({ msg: message, visible: true }),
       onCatchFailure: ({ message }) => error({ msg: message, visible: true }),
-      onFinally: load,
     });
   };
 };
@@ -265,15 +261,15 @@ export const editAddressAPI = (_id, data, goBack, load, error) => {
 export const addPaymentAPI = (data, goBack, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "add-Payment-card",
       data,
+      method: "post",
+      onFinally: load,
+      endpoint: "add-Payment-card",
       onSuccess: ({ card }) => {
         goBack();
         if (card.isDefault == 1) dispatch(updatePaymentCard(card));
         getPaymentAPI(load)(dispatch);
       },
-      onFinally: load,
     });
   };
 };
@@ -281,11 +277,9 @@ export const addPaymentAPI = (data, goBack, load) => {
 export const getPaymentAPI = (load) => {
   return async (dispatch) => {
     apiRequest({
-      endpoint: "get-payment-card",
-      onSuccess: ({ cards }) => {
-        dispatch(setGetPayments(cards.reverse()));
-      },
       onFinally: load,
+      endpoint: "get-payment-card",
+      onSuccess: ({ cards }) => dispatch(setGetPayments(cards.reverse())),
     });
   };
 };
@@ -293,15 +287,15 @@ export const getPaymentAPI = (load) => {
 export const editPaymentAPI = (_id, data, goBack, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: `edit-payment-card/${_id}`,
       data,
+      method: "post",
+      onFinally: load,
+      endpoint: `edit-payment-card/${_id}`,
       onSuccess: ({ card }) => {
         goBack();
         if (card.isDefault == 1) dispatch(updatePaymentCard(card));
         getPaymentAPI(load)(dispatch);
       },
-      onFinally: load,
     });
   };
 };
@@ -310,12 +304,12 @@ export const deletePaymentAPI = (_id, setAlert, load) => {
   return async (dispatch) => {
     apiRequest({
       method: "post",
+      onFinally: load,
       endpoint: `delete-payment-card/${_id}`,
       onSuccess: () => {
         setAlert({ visible: false, _id: "" });
         getPaymentAPI(load)(dispatch);
       },
-      onFinally: load,
     });
   };
 };
@@ -323,14 +317,14 @@ export const deletePaymentAPI = (_id, setAlert, load) => {
 export const deleteAddressAPI = (_id, setAlert, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: `delete-address/${_id}`,
       data: {},
+      method: "post",
+      onFinally: load,
+      endpoint: `delete-address/${_id}`,
       onSuccess: () => {
         setAlert({ visible: false, _id: "" });
         getAddressAPI(load)(dispatch);
       },
-      onFinally: load,
     });
   };
 };
@@ -338,14 +332,14 @@ export const deleteAddressAPI = (_id, setAlert, load) => {
 export const phoneVerficationAPI = (data, nav, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "user/phoneVerfication",
       data,
+      method: "post",
+      onFinally: load,
+      endpoint: "user/phoneVerfication",
       onSuccess: ({ otp }) => {
         dispatch(setOTP(otp));
         nav("userOTP", { number: data.phone, type: "verifyPhoneNumber" });
       },
-      onFinally: load,
     });
   };
 };
@@ -353,14 +347,14 @@ export const phoneVerficationAPI = (data, nav, load) => {
 export const resendPhoneVerficationAPI = (data, setCountDown, load) => {
   return async (dispatch) => {
     apiRequest({
-      method: "post",
-      endpoint: "user/phoneVerfication",
       data,
+      method: "post",
+      onFinally: load,
+      endpoint: "user/phoneVerfication",
       onSuccess: ({ otp }) => {
         dispatch(setOTP(otp));
         setCountDown(60);
       },
-      onFinally: load,
     });
   };
 };
@@ -370,6 +364,7 @@ export const phoneVerficationCompleteAPI = (data, errot, goBack, load) => {
     apiRequest({
       data,
       method: "post",
+      onFinally: load,
       noNotification: true,
       endpoint: "user/verifyPhone",
       onSuccess: ({ user }) => {
@@ -378,7 +373,6 @@ export const phoneVerficationCompleteAPI = (data, errot, goBack, load) => {
       },
       onFailure: ({ message }) => errot({ msg: message, visible: true }),
       onCatchFailure: ({ message }) => errot({ msg: message, visible: true }),
-      onFinally: load,
     });
   };
 };
@@ -392,13 +386,12 @@ export const checkEmailToForgetPasswordAPI = async (
   apiRequest({
     data,
     method: "post",
+    onFinally: load,
     noNotification: true,
     endpoint: "user/forgot-password",
-    onSuccess: () => {
-      navigate("otp", { number: data.email, type: "forgetPasswrod" });
-    },
+    onSuccess: () =>
+      navigate("otp", { number: data.email, type: "forgetPasswrod" }),
     onFailure: ({ message }) => setError(message),
-    onFinally: load,
   });
 };
 
@@ -411,13 +404,11 @@ export const forgotEmailVerficationCompleteAPI = async (
   apiRequest({
     data,
     method: "post",
+    onFinally: load,
     noNotification: true,
     endpoint: "user/forgot-verfication",
-    onSuccess: () => {
-      nav("forgetPassword", { email: data.email });
-    },
+    onSuccess: () => nav("forgetPassword", { email: data.email }),
     onFailure: ({ message }) => error({ msg: message, visible: true }),
-    onFinally: load,
   });
 };
 
@@ -427,24 +418,22 @@ export const resendForgotEmailVerficationAPI = async (
   load
 ) => {
   apiRequest({
-    method: "post",
-    endpoint: "user/forgot-password",
     data,
-    onSuccess: () => countDown(60),
+    method: "post",
     onFinally: load,
+    endpoint: "user/forgot-password",
+    onSuccess: () => countDown(60),
   });
 };
 
 export const changepasswordForgetAPI = async (data, error, load, nav) => {
   apiRequest({
-    method: "post",
-    endpoint: "user/reset-password",
     data,
-    onSuccess: () => {
-      nav("login");
-    },
-    onFailure: ({ message }) => error(message),
+    method: "post",
     onFinally: load,
+    onSuccess: () => nav("login"),
+    endpoint: "user/reset-password",
+    onFailure: ({ message }) => error(message),
   });
 };
 
@@ -452,9 +441,7 @@ export const getFAQsAPI = () => {
   return async (dispatch) => {
     apiRequest({
       endpoint: "get-all-faq",
-      onSuccess: ({ data }) => {
-        dispatch(setFaqs(data));
-      },
+      onSuccess: ({ data }) => dispatch(setFaqs(data)),
     });
   };
 };

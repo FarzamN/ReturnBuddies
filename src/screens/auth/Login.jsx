@@ -155,11 +155,17 @@ const Login = () => {
           <Height />
           <Text title={"Or"} style={styles.orTextStyle} />
 
-          <MainButton social google onPress={handleGoodleSignin} />
+          <MainButton
+            social
+            title="Login"
+            google
+            onPress={handleGoodleSignin}
+          />
           {iOS && (
             <MainButton
               social
               apple
+              title="Login"
               onPress={() =>
                 handleAppleSignin().then((user) => console.log(user))
               }
