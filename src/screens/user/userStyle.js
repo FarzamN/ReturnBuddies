@@ -5,7 +5,7 @@ import { scaleSize, wp } from "../../theme/responsive";
 
 export default StyleSheet.create({
   draftTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: fonts[600],
   },
   draftSub: {
