@@ -85,4 +85,9 @@ export const appImages = {
 
   // ------ tast images
   toastDelete: require("./images/notification/delete.png"),
+
+  // ----- modal icons
+  modalPDF: require("./images/modalIcons/pdf-file.png"),
+  modalCamera: require("./images/modalIcons/camera.png"),
+  modalPhoto: require("./images/modalIcons/gallery.png"),
 };

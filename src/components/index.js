@@ -23,6 +23,7 @@ import CustomAlert from "./Modals/CustomAlert";
 import ConfirmOrderModal from "./Modals/ConfirmOrder";
 import AboutOversizeModal from "./Modals/AboutOversize";
 import ImagePickerModal from "./Modals/ImagePickerModal";
+import SelectDocumentOrPhotoModal from "./Modals/SelectDocumentOrPhotoModal";
 
 // Buttons
 import AddButton from "./Buttons/AddButton";
@@ -90,6 +91,7 @@ export {
   ImagePickerModal,
   ConfirmOrderModal,
   AboutOversizeModal,
+  SelectDocumentOrPhotoModal,
 
   // Inputs
   MainInput,

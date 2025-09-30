@@ -1,32 +1,26 @@
 import React from "react";
-import { fonts, appImages } from "../../assets";
 import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
 import FullImage from "../Helpers/FullImage";
+import { appImages, fonts } from "../../assets";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
-const ImagePickerModal = ({ visible, onClose, onPicture, onCamera }) => {
+const SelectDocumentOrPhotoModal = ({ onPDF, visible, onClose, onPicture }) => {
   const { bottom } = useSafeAreaInsets();
 
   const actions = [
     {
+      iconName: appImages.modalPhoto,
       label: "Upload picture",
-      subLabel: "Choose from gallery",
       onPress: onPicture,
-      icon: appImages.modalPhoto,
+      subLabel: "Choose from gallery",
     },
     {
-      label: "Take a picture",
-      subLabel: "Open camera",
-      onPress: onCamera,
-      icon: appImages.modalCamera,
+      iconName: appImages.modalPDF,
+      label: "Upload PDF",
+      onPress: onPDF,
+      subLabel: "Open Document",
     },
   ];
 
@@ -56,8 +50,8 @@ const ImagePickerModal = ({ visible, onClose, onPicture, onCamera }) => {
               ]}
             >
               <FullImage
-                source={action.icon}
-                style={{ marginRight: 12, width: 24, height: 24 }}
+                source={action.iconName}
+                style={{ marginRight: 10, width: 23, height: 23 }}
               />
               <View>
                 <Text style={styles.actionText}>{action.label}</Text>
@@ -104,8 +98,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
   divider: {
-    borderBottomColor: "#E0E0E0",
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: "#E0E0E0",
   },
   actionText: {
     fontSize: 15,
@@ -131,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ImagePickerModal;
+export default SelectDocumentOrPhotoModal;

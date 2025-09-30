@@ -35,7 +35,7 @@ export default StyleSheet.create({
   },
 
   uploadSelectText: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.black,
     fontFamily: fonts[500],
   },

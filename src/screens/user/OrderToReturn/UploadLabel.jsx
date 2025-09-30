@@ -8,14 +8,13 @@ import {
   RequiredText,
   UploadLabelCard,
   LabelPickerButton,
+  SelectDocumentOrPhotoModal,
 } from "../../../components";
 
 import moment from "moment";
 import styles from "../userStyle";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
-import { imageURl } from "../../../utils/urls";
-import { useFreezeScreen } from "../../../hooks";
 import React, { useEffect, useState } from "react";
 import { appImages, fonts } from "../../../assets";
 import { Height } from "../../../theme/globalStyle";
@@ -23,23 +22,26 @@ import { ScrollView, Text as T } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { pick, types } from "@react-native-documents/picker";
+import { useCameraGallery, useFreezeScreen } from "../../../hooks";
 import { editLabelAPI, uploadLabelAPI } from "../../../apis/draftQueries";
 
 const UploadLabel = ({ route }) => {
   const { labels, isEdit } = route.params;
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
+  const { openGallery } = useCameraGallery();
 
   const { draftSelectedRetun, labelID } = useSelector((state) => state.draft);
 
   const [load, setLoad] = useState(false);
   const { Overlay } = useFreezeScreen(load);
-  const [labelDocs, setLabelDocs] = useState();
+  const [labelDocs, setLabelDocs] = useState({ uri: "", type: "", name: "" });
   const [selectedReturns, setSelectedReturns] = useState([]);
   const [showDate, setShowDate] = useState({
     open: false,
     date: isEdit ? labels?.formattedDate : null,
   });
+  const [showDocModal, setShowDocModal] = useState(false);
 
   const [error, setError] = useState({
     items: false,
@@ -61,13 +63,20 @@ const UploadLabel = ({ route }) => {
     try {
       const [result] = await pick({
         mode: "open",
-        type: [types.pdf, types.images],
+        type: [types.pdf],
       });
       if (result) {
-        setLabelDocs({ uri: result.uri, type: result.type, name: result.name });
+        setLabelDocs({ uri: result.uri, type: "pdf", name: result.name });
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handlePhonePicker = async () => {
+    const result = await openGallery();
+    if (result) {
+      setLabelDocs({ uri: result.uri, type: result.type, name: result.name });
     }
   };
 
@@ -149,7 +158,7 @@ const UploadLabel = ({ route }) => {
             // isUrl={labelDocs?.uri || isEdit}
             isError={error.label}
             type={labelDocs?.type}
-            onPress={handleDocumentPick}
+            onPress={() => setShowDocModal(true)}
             // noImage={!labelDocs?.type ?? !labels?.labelReceipt !== "pending"}
             source={
               labelDocs?.uri
@@ -209,6 +218,12 @@ const UploadLabel = ({ route }) => {
       />
 
       <Overlay />
+      <SelectDocumentOrPhotoModal
+        visible={showDocModal}
+        onPDF={handleDocumentPick}
+        onPicture={handlePhonePicker}
+        onClose={() => setShowDocModal(false)}
+      />
     </Body>
   );
 };
