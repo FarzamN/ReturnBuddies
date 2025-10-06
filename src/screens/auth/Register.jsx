@@ -1,7 +1,6 @@
 import {
   iOS,
   required,
-  maxLength,
   minLength,
   emailPattern,
 } from "../../utils/constants";
@@ -105,7 +104,6 @@ const Register = () => {
               required: required(name),
               pattern: name === "email" && emailPattern,
               minLength: isPassword && minLength,
-              maxLength: isPassword && maxLength,
             };
             return (
               <MainInput

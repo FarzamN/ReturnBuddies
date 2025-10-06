@@ -98,6 +98,7 @@ const Setting = () => {
         </Text>
         <FlatList
           data={settingsData}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <TouchableOpacity
               activeOpacity={0.7}

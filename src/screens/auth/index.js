@@ -10,9 +10,9 @@ export {
   Login,
   AuthOTP,
   UserOTP,
+  Support,
   Register,
   Overboard,
-  Support,
   CheckEmail,
   ForgetPassword,
 };

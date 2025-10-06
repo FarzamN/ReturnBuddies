@@ -51,12 +51,13 @@ export const loginAPI = (data, showOTP, error, saveEmail, load) => {
       method: "post",
       noNotification: true,
       endpoint: "user/login",
-      onSuccess: ({ user, token }) => {
+      onSuccess: ({ user, token, otp }) => {
         setItem("token", token);
         setItem("userID", user._id);
         dispatch(setLogin({ user, token }));
       },
-      onNotFound: () => {
+      onNotFound: (d) => {
+        console.log(d);
         showOTP(true);
         saveEmail(data.email);
       },
@@ -84,6 +85,7 @@ export const registerAPI = async (data, showOTP, error, saveEmail, load) => {
 };
 
 export const verifyOTPAPI = async (data, load, error, verify) => {
+  console.log(data);
   apiRequest({
     data,
     method: "post",

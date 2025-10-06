@@ -6579,7 +6579,7 @@ react-native-system-navigation-bar@^2.6.4:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native-webview@^13.16.0:
+react-native-webview@^13.12.4:
   version "13.16.0"
   resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-13.16.0.tgz#c995148f944a7eaf12389f0e6d5c6f5e6a775686"
   integrity sha512-Nh13xKZWW35C0dbOskD7OX01nQQavOzHbCw9XoZmar4eXCo7AvrYJ0jlUfRVVIJzqINxHlpECYLdmAdFsl9xDA==

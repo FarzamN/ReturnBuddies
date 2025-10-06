@@ -86,13 +86,13 @@ export const getSelectedReturnItem = (bundleIDs, load) => {
   };
 };
 
-export const editLabelAPI = (data, load, goBack, _id) => {
+export const editLabelAPI = (values, load, goBack, _id) => {
   return async (dispatch) => {
     apiRequest({
+      data:values,
       method: "post",
       endpoint: "editLabel",
       contentType: "multipart/form-data",
-      data,
       onSuccess: ({ data }) => {
         const newID = data.bundle._id ?? "";
         const updatedIDs = newID ? [..._id, newID] : [..._id];
@@ -105,13 +105,13 @@ export const editLabelAPI = (data, load, goBack, _id) => {
   };
 };
 
-export const uploadLabelAPI = (data, load, goBack, _id) => {
+export const uploadLabelAPI = (values, load, goBack, _id) => {
   return async (dispatch) => {
     apiRequest({
+      data:values,
       method: "post",
       endpoint: "/uploadLabel",
       contentType: "multipart/form-data",
-      data,
       onSuccess: ({ data }) => {
         const newID = data.bundle._id ?? "";
         const updatedIDs = newID ? [..._id, newID] : [..._id];
@@ -170,6 +170,12 @@ export const confirmPickupAPI = (data, nav, load) => {
             pickupMethod: "Doorstep",
           })
         );
+      },
+      onFailure: ({ message }) => {
+        console.log(message);
+      },
+      onCatchFailure: ({ message }) => {
+        console.log(message);
       },
       onFinally: load,
     });

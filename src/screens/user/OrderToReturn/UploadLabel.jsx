@@ -66,16 +66,17 @@ const UploadLabel = ({ route }) => {
         type: [types.pdf],
       });
       if (result) {
-        setLabelDocs({ uri: result.uri, type: "pdf", name: result.name });
+        setLabelDocs({ uri: result.uri, type: result.type, name: result.name });
       }
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handlePhonePicker = async () => {
+  const handlePhotoPicker = async () => {
     const result = await openGallery();
     if (result) {
+      console.log("photo",result)
       setLabelDocs({ uri: result.uri, type: result.type, name: result.name });
     }
   };
@@ -108,6 +109,8 @@ const UploadLabel = ({ route }) => {
           name: labelDocs.name,
         })
       : labels?.labelReceipt;
+
+      console.log({labelDocs,labels})
     if (isEdit) {
       editLabelAPI(body, setLoad, goBack, labelID)(dispatch);
       return;
@@ -221,7 +224,7 @@ const UploadLabel = ({ route }) => {
       <SelectDocumentOrPhotoModal
         visible={showDocModal}
         onPDF={handleDocumentPick}
-        onPicture={handlePhonePicker}
+        onPicture={handlePhotoPicker}
         onClose={() => setShowDocModal(false)}
       />
     </Body>

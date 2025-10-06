@@ -9,7 +9,7 @@ import { showNotification } from "../../../function";
 import { useNavigation } from "@react-navigation/native";
 import { changePasswordInput } from "../../../utils/data";
 import { changePasswordAPI } from "../../../apis/authQueries";
-import { maxLength, minLength, required } from "../../../utils/constants";
+import {  minLength, required } from "../../../utils/constants";
 import { Body, Header, MainButton, Text, MainInput } from "../../../components";
 
 const ChangePassword = () => {
@@ -51,7 +51,6 @@ const ChangePassword = () => {
             title={label}
             rules={{
               minLength,
-              maxLength,
               required: required(label),
             }}
             placeholder={p}

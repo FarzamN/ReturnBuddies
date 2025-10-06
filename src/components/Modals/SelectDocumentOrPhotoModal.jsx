@@ -5,6 +5,7 @@ import FullImage from "../Helpers/FullImage";
 import { appImages, fonts } from "../../assets";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { globalStyle } from "../../theme/globalStyle";
 
 const SelectDocumentOrPhotoModal = ({ onPDF, visible, onClose, onPicture }) => {
   const { bottom } = useSafeAreaInsets();
@@ -64,7 +65,7 @@ const SelectDocumentOrPhotoModal = ({ onPDF, visible, onClose, onPicture }) => {
         {/* Cancel Button */}
         <TouchableOpacity
           onPress={onClose}
-          style={[styles.sheet, styles.cancelBtn]}
+          style={[styles.sheet, globalStyle.center]}
           activeOpacity={0.7}
         >
           <Text style={styles.cancelText}>Cancel</Text>
@@ -111,10 +112,6 @@ const styles = StyleSheet.create({
     color: "#666",
     fontFamily: fonts[400],
     marginTop: 2,
-  },
-  cancelBtn: {
-    justifyContent: "center",
-    alignItems: "center",
   },
   cancelText: {
     fontSize: 16,

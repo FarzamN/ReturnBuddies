@@ -25,6 +25,7 @@ const UserOTP = ({ navigation, route }) => {
   const { goBack, navigate } = navigation;
 
   const { otp, user } = useSelector((state) => state.auth);
+console.log(otp);
 
   const [load, setLoad] = useState(false);
   const [value, setValue] = useState("");
@@ -50,7 +51,7 @@ const UserOTP = ({ navigation, route }) => {
       const phoneData = { otp: Number(otpValue) };
       phoneVerficationCompleteAPI(
         phoneData,
-        setError,
+        setError, 
         goBack,
         setLoad
       )(dispatch);
@@ -96,7 +97,7 @@ const UserOTP = ({ navigation, route }) => {
       <Text
         center
         style={authStyle.otpSub}
-        title={`Enter the OTP code we sent to\n${number}. ${otp}`}
+        title={`Enter the OTP code we sent to\n${number}.`}
       />
       <Height />
       <Height />

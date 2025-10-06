@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
 import { Height } from "../../theme/globalStyle";
-import { showNotification } from "../../function";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { minLength, required } from "../../utils/constants";
 import { changepasswordForgetAPI } from "../../apis/authQueries";
 import {
   Body,
@@ -12,7 +12,6 @@ import {
   MainInput,
   Validation,
 } from "../../components";
-import { maxLength, minLength, required } from "../../utils/constants";
 
 const ForgetPassword = ({ route }) => {
   const { email } = route.params;
@@ -65,7 +64,6 @@ const ForgetPassword = ({ route }) => {
           title={label}
           rules={{
             minLength,
-            maxLength,
             required: required(label),
           }}
           placeholder={p}

@@ -9,7 +9,6 @@ import {
 import {
   iOS,
   required,
-  maxLength,
   minLength,
   emailPattern,
 } from "../../utils/constants";
@@ -112,7 +111,6 @@ const Login = () => {
             const rules = isPassword
               ? {
                   minLength,
-                  maxLength,
                   required: required("Password"),
                 }
               : {

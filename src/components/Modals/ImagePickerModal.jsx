@@ -11,6 +11,7 @@ import {
   Platform,
 } from "react-native";
 import FullImage from "../Helpers/FullImage";
+import { globalStyle } from "../../theme/globalStyle";
 
 const ImagePickerModal = ({ visible, onClose, onPicture, onCamera }) => {
   const { bottom } = useSafeAreaInsets();
@@ -70,7 +71,7 @@ const ImagePickerModal = ({ visible, onClose, onPicture, onCamera }) => {
         {/* Cancel Button */}
         <TouchableOpacity
           onPress={onClose}
-          style={[styles.sheet, styles.cancelBtn]}
+          style={[styles.sheet, globalStyle.center]}
           activeOpacity={0.7}
         >
           <Text style={styles.cancelText}>Cancel</Text>
@@ -117,10 +118,6 @@ const styles = StyleSheet.create({
     color: "#666",
     fontFamily: fonts[400],
     marginTop: 2,
-  },
-  cancelBtn: {
-    justifyContent: "center",
-    alignItems: "center",
   },
   cancelText: {
     fontSize: 16,

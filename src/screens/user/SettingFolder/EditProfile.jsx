@@ -39,9 +39,10 @@ const EditProfile = () => {
     verify: false,
   });
   const [isVerified, setIsVerified] = useState(user?.phoneVerified);
+  console.log(user?.phoneVerified)
   useEffect(() => {
     setIsVerified(user?.phoneVerified);
-  }, [user?.phoneVerified]);
+}, [user?.phoneVerified,user]);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteLoad, setDeleteLoad] = useState(false);
 
@@ -54,13 +55,32 @@ const EditProfile = () => {
   });
 
   const onVerify = () => {
-    if (phoneValue.value) {
-      const data = { phone: phoneValue.value };
-      phoneVerficationAPI(data, navigate, setVerifyLoad)(dispatch);
-    } else {
-      setPhoneValue({ error: true, message: "Phone number is required" });
+    if (!phoneValue.value) {
+      setPhoneValue({
+        error: true,
+        value: "",
+        message: "Phone number is required",
+      });
+      return;
     }
+  
+    // Regex to check if phone starts with + and has at least 8 digits after it
+    const phoneRegex = /^\+\d{1,3}\s?\d{6,}$/;
+  
+    if (!phoneRegex.test(phoneValue.value)) {
+      setPhoneValue({
+        error: true,
+        value: phoneValue.value,
+        message: "Enter a valid phone number with country code (e.g. +92 3001234567)",
+      });
+      return;
+    }
+  
+    // If valid -> continue verification
+    const data = { phone: phoneValue.value };
+    phoneVerficationAPI(data, navigate, setVerifyLoad)(dispatch);
   };
+  
   const onSubmit = (data) => {
     if (!isVerified) {
       setError({ verify: true });

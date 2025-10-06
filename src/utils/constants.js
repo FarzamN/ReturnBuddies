@@ -10,11 +10,6 @@ export const minLength = {
   message: "Password must be at least 8 characters",
 };
 
-export const maxLength = {
-  value: 16,
-  message: "Password must be less than 20 characters",
-};
-
 export const emailPattern = {
   value: emailRegex,
   message: "Email is not valid",

@@ -11,8 +11,10 @@ import {
 
 import moment from "moment";
 import { appImages } from "../../../assets";
+import momentTimeZone from "moment-timezone";
 import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
+import { maskCardNumber } from "../../../function";
 import React, { useEffect, useState } from "react";
 import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,9 +25,7 @@ import textStyle from "../../../components/Texts/textStyle";
 import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
 import { useFreezeScreen, useIskeyboard } from "../../../hooks";
-import { maskCardNumber } from "../../../function";
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
-import momentTimeZone from "moment-timezone";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
@@ -62,6 +62,7 @@ const ConfirmPickup = () => {
     address: false,
     phone: false,
     payment: false,
+    oversized: false,
   });
   // const totalItemCount = 20;
   const totalItemCount = draftSelectedRetun
@@ -89,6 +90,7 @@ const ConfirmPickup = () => {
     setTotalPrice(calculateTotalPrice());
   }, [totalItemCount, promocode.discount]);
 
+  console.log(time)
   const finalPayment = selectedPayment?.cardNumber ? selectedPayment : payment;
   const finalAddress = selectedAddress?.street
     ? selectedAddress
@@ -107,8 +109,12 @@ const ConfirmPickup = () => {
       setError((prev) => ({ ...prev, payment: true }));
       return;
     }
+    if (hasOversized && !focus) {
+      setError((prev) => ({ ...prev, oversized: true }));
+      return;
+    }
 
-    const tzDate = moment.tz(date, "America/New_York").format();
+    const tzDate = momentTimeZone.tz(date, "America/New_York").format();
 
     const value = {
       note,
@@ -131,7 +137,6 @@ const ConfirmPickup = () => {
     if (finalAddress?.street) setError((prev) => ({ ...prev, address: false }));
   }, [phone, finalPayment?.cardNumber, finalAddress?.street]);
 
-  console.log(selectedAddress, pickupAddress);
   return (
     <Body horizontal={wp(4)}>
       <Header leftTitle="Confirm Pickup" />
@@ -282,9 +287,18 @@ const ConfirmPickup = () => {
         <Height />
         {hasOversized && (
           <CircleCheck
+            isError={error.oversized}
             focus={focus}
             title="I acknowledge that a surcharge may apply to items exceeding 35 lbs or measuring 30” in any direction."
-            onPress={() => setFocus((pre) => !pre)}
+            onPress={() => {
+              setFocus((pre) => !pre);
+              setError({
+                address: false,
+                phone: false,
+                payment: false,
+                oversized: false,
+              });
+            }}
           />
         )}
         <Height />
