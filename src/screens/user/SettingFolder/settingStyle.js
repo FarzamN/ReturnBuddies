@@ -166,6 +166,7 @@ export default StyleSheet.create({
 
   phoneInput: {
     flex: 1,
+    height: 50,
     fontSize: 13,
     color: colors.black,
     fontFamily: fonts[400],

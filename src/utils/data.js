@@ -38,18 +38,21 @@ export const registerInput = [
     p: "Enter full name",
     name: "name",
     def: "john mark",
+    error: "Full Name",
   },
   {
     label: "Email",
     p: "Enter email",
     name: "email",
     def: "johnmark@gmail.com",
+    error: "Email",
   },
   {
     label: "Password",
     p: "Enter password",
     name: "password",
     def: "12345678",
+    error: "Password",
   },
 ];
 

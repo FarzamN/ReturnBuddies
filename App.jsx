@@ -7,10 +7,10 @@ import { getFAQsAPI } from "./src/apis/authQueries";
 import { useDispatch, useSelector } from "react-redux";
 import { NotifierWrapper } from "react-native-notifier";
 import { getBasePriceAPI } from "./src/apis/draftQueries";
+import { OneSignal, LogLevel } from "react-native-onesignal";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { OneSignal, LogLevel } from "react-native-onesignal";
 
 const App = () => {
   const dispatch = useDispatch();

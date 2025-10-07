@@ -117,7 +117,6 @@ const AddDraftItem = () => {
         type: item.image.type,
       });
     });
-    console.log(body);
     uploadReturnItems(body, setShowConfirmOrder, setLoad, goBack)(dispatch);
   };
 

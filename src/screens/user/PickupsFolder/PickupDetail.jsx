@@ -68,7 +68,6 @@ const PickupDetail = ({ route }) => {
   const [showDelete, setShowDelete] = useState(false);
 
   const cancelled = data?.status === "Pickup Cancelled";
-  console.log(cancelled)
 
   const stepConfig = [
     {

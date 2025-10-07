@@ -42,7 +42,7 @@ const TabNav = () => {
       }}
     >
       <Screen name="orderRoute" component={AllOrderToReturn} />
-      <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
+      <Screen name="addDraftRoute" component={AllAddDraft} />
       <Screen name="myPickupsRoute" component={AllMyPickups} />
     </Navigator>
   );
@@ -50,10 +50,10 @@ const TabNav = () => {
 
 export default TabNav;
 
-const Stack = createNativeStackNavigator();
+const {Navigator,Screen} = createNativeStackNavigator();
 
 const AllOrderToReturn = () => (
-  <Stack.Navigator
+  <Navigator
     screenOptions={{
       animation: "none",
       headerShown: false,
@@ -61,32 +61,32 @@ const AllOrderToReturn = () => (
     }}
     initialRouteName="draftItem"
   >
-    <Stack.Screen name="draftItem" component={DraftItem} />
-    <Stack.Screen name="uploadLabel" component={UploadLabel} />
-    <Stack.Screen name="settingRoute" component={AllSettings} />
-    <Stack.Screen name="addDraftRoute" component={AllAddDraft} />
-    <Stack.Screen name="notification" component={Notification} />
-    <Stack.Screen name="shippingLabel" component={ShippingLabel} />
-    <Stack.Screen name="schedulePickup" component={SchedulePickup} />
+    <Screen name="draftItem" component={DraftItem} />
+    <Screen name="uploadLabel" component={UploadLabel} />
+    <Screen name="settingRoute" component={AllSettings} />
+    <Screen name="addDraftRoute" component={AllAddDraft} />
+    <Screen name="notification" component={Notification} />
+    <Screen name="shippingLabel" component={ShippingLabel} />
+    <Screen name="schedulePickup" component={SchedulePickup} />
 
-    <Stack.Screen name="trackPickup" component={TrackPickup} />
-    <Stack.Screen name="pickupMethod" component={PickupMethod} />
-    <Stack.Screen name="confirmPickup" component={ConfirmPickup} />
-    <Stack.Screen name="selectNewAddress" component={SelectNewAddress} />
+    <Screen name="trackPickup" component={TrackPickup} />
+    <Screen name="pickupMethod" component={PickupMethod} />
+    <Screen name="confirmPickup" component={ConfirmPickup} />
+    <Screen name="selectNewAddress" component={SelectNewAddress} />
 
-    <Stack.Screen name="userOTP" component={UserOTP} />
-    <Stack.Screen name="addNewAddress" component={AddNewAddress} />
-    <Stack.Screen name="addPhoneNumber" component={AddPhoneNumber} />
-    <Stack.Screen name="addPaymentMethod" component={AddPaymentMethod} />
-    <Stack.Screen name="selectPaymentMethod" component={SelectPaymentMethod} />
+    <Screen name="userOTP" component={UserOTP} />
+    <Screen name="addNewAddress" component={AddNewAddress} />
+    <Screen name="addPhoneNumber" component={AddPhoneNumber} />
+    <Screen name="addPaymentMethod" component={AddPaymentMethod} />
+    <Screen name="selectPaymentMethod" component={SelectPaymentMethod} />
 
-    <Stack.Screen name="myPickupsRoute" component={AllMyPickups} />
-    <Stack.Screen name="itemsToBePickedup" component={ItemsToBePickedup} />
-  </Stack.Navigator>
+    <Screen name="myPickupsRoute" component={AllMyPickups} />
+    <Screen name="itemsToBePickedup" component={ItemsToBePickedup} />
+  </ Navigator>
 );
 
 const AllAddDraft = () => (
-  <Stack.Navigator
+  <Navigator
     screenOptions={{
       animation: "none",
       headerShown: false,
@@ -94,32 +94,31 @@ const AllAddDraft = () => (
     }}
     initialRouteName="addDraftItem"
   >
-    <Stack.Screen name="addDraftItem" component={AddDraftItem} />
-  </Stack.Navigator>
+    <Screen name="addDraftItem" component={AddDraftItem} />
+  </ Navigator>
 );
 
 const AllSettings = () => (
-  <Stack.Navigator
+  <Navigator
     screenOptions={{
       headerShown: false,
-      // animation: "none",
       orientation: "portrait_up",
     }}
     initialRouteName="setting"
   >
-    <Stack.Screen name="terms" component={Terms} />
-    <Stack.Screen name="privacy" component={Privacy} />
-    <Stack.Screen name="setting" component={Setting} />
-    <Stack.Screen name="support" component={Support} />
-    <Stack.Screen name="editProfile" component={EditProfile} />
-    <Stack.Screen name="myPickupsRoute" component={AllMyPickups} />
-    <Stack.Screen name="notification" component={Notification} />
-    <Stack.Screen name="changePassword" component={ChangePassword} />
-  </Stack.Navigator>
+    <Screen name="terms" component={Terms} />
+    <Screen name="privacy" component={Privacy} />
+    <Screen name="setting" component={Setting} />
+    <Screen name="support" component={Support} />
+    <Screen name="editProfile" component={EditProfile} />
+    <Screen name="myPickupsRoute" component={AllMyPickups} />
+    <Screen name="notification" component={Notification} />
+    <Screen name="changePassword" component={ChangePassword} />
+  </ Navigator>
 );
 
 const AllMyPickups = () => (
-  <Stack.Navigator
+  <Navigator
     screenOptions={{
       animation: "none",
       headerShown: false,
@@ -127,9 +126,9 @@ const AllMyPickups = () => (
     }}
     initialRouteName="myPickups"
   >
-    <Stack.Screen name="support" component={Support} />
-    <Stack.Screen name="myPickups" component={MyPickups} />
-    <Stack.Screen name="pickupDetail" component={PickupDetail} />
-    <Stack.Screen name="settingRoute" component={AllSettings} />
-  </Stack.Navigator>
+    <Screen name="support" component={Support} />
+    <Screen name="myPickups" component={MyPickups} />
+    <Screen name="pickupDetail" component={PickupDetail} />
+    <Screen name="settingRoute" component={AllSettings} />
+  </ Navigator>
 );

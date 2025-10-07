@@ -116,9 +116,12 @@ const DraftItem = () => {
               <MainButton
                 style={[
                   styles.button,
-                  { width: undefined, paddingHorizontal: 15 },
+                  { width: undefined, paddingHorizontal: 30,height: 45 },
                 ]}
-                textStyle={styles.buttonText}
+                textStyle={[styles.buttonText,{
+                  fontSize: 12.5,
+                  fontFamily: fonts[500],
+                }]}
                 title={`Schedule Pickup for ${returnItemCount} Item${
                   returnItemCount > 1 ? "s" : ""
                 }`}

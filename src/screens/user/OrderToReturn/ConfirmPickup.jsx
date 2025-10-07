@@ -16,7 +16,7 @@ import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
 import { maskCardNumber } from "../../../function";
 import React, { useEffect, useState } from "react";
-import { Height } from "../../../theme/globalStyle";
+import { globalStyle, Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
@@ -25,7 +25,13 @@ import textStyle from "../../../components/Texts/textStyle";
 import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
 import { useFreezeScreen, useIskeyboard } from "../../../hooks";
-import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
@@ -90,7 +96,6 @@ const ConfirmPickup = () => {
     setTotalPrice(calculateTotalPrice());
   }, [totalItemCount, promocode.discount]);
 
-  console.log(time)
   const finalPayment = selectedPayment?.cardNumber ? selectedPayment : payment;
   const finalAddress = selectedAddress?.street
     ? selectedAddress
@@ -139,171 +144,176 @@ const ConfirmPickup = () => {
 
   return (
     <Body horizontal={wp(4)}>
-      <Header leftTitle="Confirm Pickup" />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <PickupButton
-          isError={error.address}
-          source={appImages.location}
-          title={
-            selectedAddress?.street || pickupAddress?.street || "Add address"
-          }
-          twoTitle={selectedAddress?.suite || pickupAddress?.suite}
-          onPress={() => navigate("selectNewAddress", { isPickup: true })}
-        />
-        <PickupButton
-          detail={note}
-          title={pickupMethod}
-          source={appImages.truck}
-          onPress={() => navigate("pickupMethod")}
-        />
-        <PickupButton
-          detail={time}
-          source={appImages.clock}
-          title={moment(date).format("dddd, MMM DD, yy")}
-          onPress={() => navigate("schedulePickup", { isEdit: true })}
-        />
-        <PickupButton
-          isError={error.phone}
-          source={appImages.call}
-          title={phone || "Add phone number"}
-          onPress={() => navigate("addPhoneNumber")}
-        />
-        <ItemPickupButton
-          onPress={() => navigate("itemsToBePickedup")}
-          title={`Items to be picked up (${totalItemCount})`}
-        />
-
-        <Height />
-
-        <SpaceText title="Pickup" value={`$${BASE_PRICE}`} />
-        <Height />
-
-        <SpaceText
-          visible={totalItemCount < 11}
-          title={`Extra item${totalItemCount > 11 ? "s" : ""}`}
-          value={`$${
-            totalItemCount * ADDITIONAL_ITEM_PRICE - FREE_ITEMS_THRESHOLD
-          }`}
-        />
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() =>
-            setPromoCode((pre) => ({ ...pre, visible: !pre.visible }))
-          }
-        >
-          <Text
-            color={colors.purple}
-            title="+ Add a Promo Code"
-            style={textStyle.promoCode}
+      <KeyboardAvoidingView
+        style={globalStyle.flex}
+        behavior={iOS ? "padding" : "height"}
+      >
+        <Header leftTitle="Confirm Pickup" />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <PickupButton
+            isError={error.address}
+            source={appImages.location}
+            title={
+              selectedAddress?.street || pickupAddress?.street || "Add address"
+            }
+            twoTitle={selectedAddress?.suite || pickupAddress?.suite}
+            onPress={() => navigate("selectNewAddress", { isPickup: true })}
           />
-        </TouchableOpacity>
+          <PickupButton
+            detail={note}
+            title={pickupMethod}
+            source={appImages.truck}
+            onPress={() => navigate("pickupMethod")}
+          />
+          <PickupButton
+            detail={time}
+            source={appImages.clock}
+            title={moment(date).format("dddd, MMM DD, yy")}
+            onPress={() => navigate("schedulePickup", { isEdit: true })}
+          />
+          <PickupButton
+            isError={error.phone}
+            source={appImages.call}
+            title={phone || "Add phone number"}
+            onPress={() => navigate("addPhoneNumber")}
+          />
+          <ItemPickupButton
+            onPress={() => navigate("itemsToBePickedup")}
+            title={`Items to be picked up (${totalItemCount})`}
+          />
 
-        {promocode.visible && (
-          <View
-            style={[settingStyle.phoneWrapper, { marginTop: scaleSize(10) }]}
+          <Height />
+
+          <SpaceText title="Pickup" value={`$${BASE_PRICE}`} />
+          <Height />
+
+          <SpaceText
+            visible={totalItemCount < 11}
+            title={`Extra item${totalItemCount > 11 ? "s" : ""}`}
+            value={`$${
+              totalItemCount * ADDITIONAL_ITEM_PRICE - FREE_ITEMS_THRESHOLD
+            }`}
+          />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() =>
+              setPromoCode((pre) => ({ ...pre, visible: !pre.visible }))
+            }
           >
-            <TextInput
-              value={promocode.value}
-              autoCapitalize="characters"
-              placeholder="Enter Promo code"
-              style={settingStyle.phoneInput}
-              placeholderTextColor="#B0B0B0"
-              onChangeText={(value) =>
-                setPromoCode((prev) => ({ ...prev, value, invalid: false }))
-              }
+            <Text
+              color={colors.purple}
+              title="+ Add a Promo Code"
+              style={textStyle.promoCode}
             />
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() =>
-                checkPromocode(promocode.value.trim(), setPromoCode)
-              }
-              disabled={
-                promocode.load || promocode.applied || !promocode.value.trim()
-              }
-              style={[
-                settingStyle.verifyButton,
-                {
-                  backgroundColor: promocode.applied
-                    ? "#E8F8E8"
-                    : promocode.invalid
-                    ? "#ED64791A"
-                    : "#F4E8FF",
-                },
-              ]}
+          {promocode.visible && (
+            <View
+              style={[settingStyle.phoneWrapper, { marginTop: scaleSize(10) }]}
             >
-              <Text
-                color={
-                  promocode.applied
-                    ? "#66CE67"
-                    : promocode.invalid
-                    ? "#ED6479"
-                    : colors.purple
-                }
-                style={settingStyle.verifyText}
-                title={
-                  promocode.load
-                    ? "Loading..."
-                    : promocode.applied
-                    ? "Applied"
-                    : promocode.invalid
-                    ? "Invalid"
-                    : "Apply"
+              <TextInput
+                value={promocode.value}
+                autoCapitalize="characters"
+                placeholder="Enter Promo code"
+                style={settingStyle.phoneInput}
+                placeholderTextColor="#B0B0B0"
+                onChangeText={(value) =>
+                  setPromoCode((prev) => ({ ...prev, value, invalid: false }))
                 }
               />
-            </TouchableOpacity>
-          </View>
-        )}
 
-        {promocode.discount !== 0 && <Height />}
-        <SpaceText
-          title="Discount"
-          load={promocode.load}
-          visible={promocode.discount === 0}
-          value={`$${(promocode.discount / 100) * BASE_PRICE}`}
-        />
-        <Height />
-        <SpaceText
-          title="Total"
-          load={promocode.load}
-          value={`$${totalPrice}`}
-        />
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() =>
+                  checkPromocode(promocode.value.trim(), setPromoCode)
+                }
+                disabled={
+                  promocode.load || promocode.applied || !promocode.value.trim()
+                }
+                style={[
+                  settingStyle.verifyButton,
+                  {
+                    backgroundColor: promocode.applied
+                      ? "#E8F8E8"
+                      : promocode.invalid
+                      ? "#ED64791A"
+                      : "#F4E8FF",
+                  },
+                ]}
+              >
+                <Text
+                  color={
+                    promocode.applied
+                      ? "#66CE67"
+                      : promocode.invalid
+                      ? "#ED6479"
+                      : colors.purple
+                  }
+                  style={settingStyle.verifyText}
+                  title={
+                    promocode.load
+                      ? "Loading..."
+                      : promocode.applied
+                      ? "Applied"
+                      : promocode.invalid
+                      ? "Invalid"
+                      : "Apply"
+                  }
+                />
+              </TouchableOpacity>
+            </View>
+          )}
 
-        <PickupButton
-          isError={error.payment}
-          isPayment={selectedPayment?.cardNumber || payment?.cardNumber}
-          source={appImages.wallet}
-          title={`${
-            selectedPayment?.cardNumber
-              ? selectedPayment?.cardType +
-                " " +
-                maskCardNumber(selectedPayment?.cardNumber)
-              : payment?.cardNumber
-              ? payment?.cardType + " " + maskCardNumber(payment?.cardNumber)
-              : "Add payment method"
-          }`}
-          onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
-        />
-        <Height />
-        {hasOversized && (
-          <CircleCheck
-            isError={error.oversized}
-            focus={focus}
-            title="I acknowledge that a surcharge may apply to items exceeding 35 lbs or measuring 30” in any direction."
-            onPress={() => {
-              setFocus((pre) => !pre);
-              setError({
-                address: false,
-                phone: false,
-                payment: false,
-                oversized: false,
-              });
-            }}
+          {promocode.discount !== 0 && <Height />}
+          <SpaceText
+            title="Discount"
+            load={promocode.load}
+            visible={promocode.discount === 0}
+            value={`$${(promocode.discount / 100) * BASE_PRICE}`}
           />
-        )}
-        <Height />
-        <Overlay />
-      </ScrollView>
+          <Height />
+          <SpaceText
+            title="Total"
+            load={promocode.load}
+            value={`$${totalPrice}`}
+          />
+
+          <PickupButton
+            isError={error.payment}
+            isPayment={selectedPayment?.cardNumber || payment?.cardNumber}
+            source={appImages.wallet}
+            title={`${
+              selectedPayment?.cardNumber
+                ? selectedPayment?.cardType +
+                  " " +
+                  maskCardNumber(selectedPayment?.cardNumber)
+                : payment?.cardNumber
+                ? payment?.cardType + " " + maskCardNumber(payment?.cardNumber)
+                : "Add payment method"
+            }`}
+            onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
+          />
+          <Height />
+          {hasOversized && (
+            <CircleCheck
+              isError={error.oversized}
+              focus={focus}
+              title="I acknowledge that a surcharge may apply to items exceeding 35 lbs or measuring 30” in any direction."
+              onPress={() => {
+                setFocus((pre) => !pre);
+                setError({
+                  address: false,
+                  phone: false,
+                  payment: false,
+                  oversized: false,
+                });
+              }}
+            />
+          )}
+          <Height />
+          <Overlay />
+        </ScrollView>
+      </KeyboardAvoidingView>
       {!isKeyboard && (
         <MainButton title="Confirm pickup" onPress={onSubmit} load={load} />
       )}

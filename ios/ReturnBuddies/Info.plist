@@ -46,14 +46,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	
 	<key>NSCameraUsageDescription</key>
-	<string>Return buddies requests to access Camera to change profile Photos and upload Return Items Images in the app.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Return buddies requests to access camera to upload item photos in the app.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Return buddies requests to access photos to change profile Photos and upload Return Items Images in the app.</string>
+	<string>Return buddies requests to access photos to upload item photos and return labels in the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Return buddies requests to access photos to change profile Photos and upload Return Items Images in the app.</string>
+	<string>Return buddies requests to access photos to upload item photos and return labels in the app.</string>
+
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

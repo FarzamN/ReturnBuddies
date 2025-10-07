@@ -32,7 +32,6 @@ const PickupSection = ({ data, onPress }) => {
     "Pickup Requested": appImages.pickup,
     "Pickup cancelled": appImages.cancelled,
   };
-  console.log(data.createdAt);
   return (
     <View style={[styles.sectionContainer, globalStyle.ph0]}>
       <View style={globalStyle.ph10}>

@@ -39,10 +39,9 @@ const EditProfile = () => {
     verify: false,
   });
   const [isVerified, setIsVerified] = useState(user?.phoneVerified);
-  console.log(user?.phoneVerified)
   useEffect(() => {
     setIsVerified(user?.phoneVerified);
-}, [user?.phoneVerified,user]);
+  }, [user?.phoneVerified, user]);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteLoad, setDeleteLoad] = useState(false);
 
@@ -63,24 +62,24 @@ const EditProfile = () => {
       });
       return;
     }
-  
-    // Regex to check if phone starts with + and has at least 8 digits after it
-    const phoneRegex = /^\+\d{1,3}\s?\d{6,}$/;
-  
+
+   const phoneRegex = /^\d{10}$/;
+        // const phoneRegex = /^\+\d{1,3}\s?\d{6,}$/;
+
     if (!phoneRegex.test(phoneValue.value)) {
       setPhoneValue({
         error: true,
         value: phoneValue.value,
-        message: "Enter a valid phone number with country code (e.g. +92 3001234567)",
+        message: "Enter a valid phone number (e.g. 123-456-7890)",
       });
       return;
     }
-  
+
     // If valid -> continue verification
     const data = { phone: phoneValue.value };
     phoneVerficationAPI(data, navigate, setVerifyLoad)(dispatch);
   };
-  
+
   const onSubmit = (data) => {
     if (!isVerified) {
       setError({ verify: true });
@@ -121,7 +120,7 @@ const EditProfile = () => {
             <TextInput
               value={phoneValue.value}
               keyboardType="phone-pad"
-              placeholder="+12 345678967"
+              placeholder="123-456-7890"
               style={settingStyle.phoneInput}
               placeholderTextColor="#B0B0B0"
               onChangeText={(text) => {

@@ -96,12 +96,12 @@ const Register = () => {
           keyboardShouldPersistTaps={"always"}
           showsVerticalScrollIndicator={false}
         >
-          {registerInput.map(({ name, p, label }) => {
+          {registerInput.map(({ name, p, label,error }) => {
             const isPassword = name === "password";
             const isError = errors[name];
 
             const rules = {
-              required: required(name),
+              required: required(error),
               pattern: name === "email" && emailPattern,
               minLength: isPassword && minLength,
             };

@@ -40,7 +40,8 @@ const AddNewAddress = ({ route }) => {
       street: item?.street ?? "",
       suite: item?.suite ?? "",
       city: item?.city ?? "",
-      state: item?.state ?? "",
+      // state: item?.state ?? "",
+      state: "NY",
       postalCode: item?.postalCode ?? "",
       isDefault: item?.isDefault ?? 0, // direct bind
     },
@@ -109,6 +110,7 @@ const AddNewAddress = ({ route }) => {
             <MainInput
               small
               noTitle
+              disabled={item.name === "state"}
               key={item.name}
               name={item.name}
               control={control}

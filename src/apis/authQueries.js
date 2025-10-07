@@ -56,8 +56,7 @@ export const loginAPI = (data, showOTP, error, saveEmail, load) => {
         setItem("userID", user._id);
         dispatch(setLogin({ user, token }));
       },
-      onNotFound: (d) => {
-        console.log(d);
+      onNotFound: () => {
         showOTP(true);
         saveEmail(data.email);
       },
@@ -85,7 +84,6 @@ export const registerAPI = async (data, showOTP, error, saveEmail, load) => {
 };
 
 export const verifyOTPAPI = async (data, load, error, verify) => {
-  console.log(data);
   apiRequest({
     data,
     method: "post",
@@ -254,8 +252,8 @@ export const editAddressAPI = (_id, data, goBack, load, error) => {
         goBack();
         getAddressAPI(load)(dispatch);
       },
-      onFailure: ({ message }) => error({ msg: message, visible: true }),
-      onCatchFailure: ({ message }) => error({ msg: message, visible: true }),
+      onFailure: ({ message }) => error({ msg: message, open: true }),
+      onCatchFailure: ({ message }) => error({ msg: message, open: true }),
     });
   };
 };
@@ -391,8 +389,9 @@ export const checkEmailToForgetPasswordAPI = async (
     onFinally: load,
     noNotification: true,
     endpoint: "user/forgot-password",
-    onSuccess: () =>
-      navigate("otp", { number: data.email, type: "forgetPasswrod" }),
+    onSuccess: () => {
+      navigate("otp", { number: data.email, type: "forgetPasswrod" });
+    },
     onFailure: ({ message }) => setError(message),
   });
 };

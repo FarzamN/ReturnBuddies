@@ -45,7 +45,7 @@ const AddPhoneNumber = ({ navigation }) => {
           control={control}
           isError={errors?.phone}
           keyboardType="number-pad"
-          placeholder="Phone number"
+          placeholder="123-456-7890"
           message={errors?.phone?.message}
           rules={{
             required: required("Phone Number"),
