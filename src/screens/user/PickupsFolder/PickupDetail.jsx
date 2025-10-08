@@ -96,8 +96,8 @@ const PickupDetail = ({ route }) => {
     },
     {
       key: "In Transit",
-      label: `Dropped off at ${Carrier}`,
       icon: appImages.pickup_cube,
+      label: "Dropped off at Carrier",
       completedIf: ["In Transit", "Completed"],
     },
   ];

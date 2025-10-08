@@ -25,6 +25,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Height, globalStyle } from "../../../theme/globalStyle";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
+import { getItem } from "../../../utils/storage";
+import { imageURl } from "../../../utils/urls";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -116,12 +118,15 @@ const DraftItem = () => {
               <MainButton
                 style={[
                   styles.button,
-                  { width: undefined, paddingHorizontal: 30,height: 45 },
+                  { width: undefined, paddingHorizontal: 30, height: 45 },
                 ]}
-                textStyle={[styles.buttonText,{
-                  fontSize: 12.5,
-                  fontFamily: fonts[500],
-                }]}
+                textStyle={[
+                  styles.buttonText,
+                  {
+                    fontSize: 12.5,
+                    fontFamily: fonts[500],
+                  },
+                ]}
                 title={`Schedule Pickup for ${returnItemCount} Item${
                   returnItemCount > 1 ? "s" : ""
                 }`}
@@ -129,6 +134,25 @@ const DraftItem = () => {
                   navigate("shippingLabel", { returnLabel: selectedReturns });
                   setSelectedReturns([]);
                 }}
+                // onPress={async () => {
+                //   try {
+                //     const userId = getItem("userID");
+
+                //     const res = await fetch(`${imageURl}api/test`, {
+                //       method: "POST",
+                //       headers: {
+                //         "Content-Type": "application/json",
+                //         Authorization: `Bearer ${getItem("token")}`,
+                //       },
+                //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
+                //     });
+
+                //     const response = await res.json();
+                //     console.log(response);
+                //   } catch (error) {
+                //     console.error("Error sending test notification:", error);
+                //   }
+                // }}
               />
             ) : (
               <></>
@@ -199,7 +223,7 @@ const DraftItem = () => {
       ) : (
         <PrimeryTab currentTab="Home" />
       )} */}
-        <PrimeryTab currentTab="Home" />
+      <PrimeryTab currentTab="Home" />
 
       <CustomAlert
         show={alert.visible}

@@ -1,10 +1,13 @@
+import axios from "axios";
+import { Platform } from "react-native";
 import Splash from "./src/screens/splash";
 import { colors } from "./src/theme/colors";
 import TabNav from "./src/navigaton/TabNav";
 import AuthNav from "./src/navigaton/AuthNav";
 import React, { useEffect, useState } from "react";
-import { getFAQsAPI } from "./src/apis/authQueries";
+import { getFAQsAPI, sendPlayerIdToBackend } from "./src/apis/authQueries";
 import { useDispatch, useSelector } from "react-redux";
+import { getItem, setItem } from "./src/utils/storage";
 import { NotifierWrapper } from "react-native-notifier";
 import { getBasePriceAPI } from "./src/apis/draftQueries";
 import { OneSignal, LogLevel } from "react-native-onesignal";
@@ -33,6 +36,7 @@ const App = () => {
     if (user != null) {
       getBasePriceAPI()(dispatch);
       getFAQsAPI()(dispatch);
+      sendPlayerIdToBackend(user._id);
     }
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, [user]);

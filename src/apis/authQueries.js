@@ -9,10 +9,23 @@ import {
   updatePaymentCard,
 } from "../redux/slices/authSlice";
 import instance from "../utils/urls";
+import { Platform } from "react-native";
 import { getItem, setItem } from "../utils/storage";
 import { apiRequest, catchFun, showNotification } from "../function";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
+export const sendPlayerIdToBackend = async () => {
+  const userId = await getItem("userID");
+  const playerId = await getItem("notification_id");
+  apiRequest({
+    data: { userId, playerId, os: Platform.OS },
+    method: "post",
+    noNotification: true,
+    endpoint: "user/register-device",
+    onSuccess: (e) => console.log("sendPlayerIdToBackend", e),
+  });
+};
 
 export const googleLoginAPI = (idToken) => {
   return async (dispatch) => {
