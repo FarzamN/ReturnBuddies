@@ -43,7 +43,7 @@ const PickupMethod = () => {
       <Header leftTitle="Pickup method" />
       {iOS && <Height />}
       <Text
-        style={[styles.draftTitle, { fontSize: 14 }]}
+        style={styles.draftTitle}
         title={"How should we collect your items?"}
       />
 

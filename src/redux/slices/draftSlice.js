@@ -15,7 +15,7 @@ const initialState = {
   },
   labelID: [],
   getBaseData: {
-    BASE_PRICE: 99.9,
+    BASE_PRICE: 11.99,
     ADDITIONAL_ITEM_PRICE: 1,
     FREE_ITEMS_THRESHOLD: 10,
   },
