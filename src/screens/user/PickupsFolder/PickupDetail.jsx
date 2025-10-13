@@ -217,7 +217,7 @@ const PickupDetail = ({ route }) => {
           disable
           title={"Total"}
           source={appImages.priceTag}
-          detail={`$${data?.totalPrice}`}
+          detail={`$${Number(data?.totalPrice).toFixed(2) ?? 0}`}
         />
         {!cancelled && (
           <TouchableOpacity
@@ -255,7 +255,7 @@ const PickupDetail = ({ route }) => {
       </ScrollView>
 
       <CustomAlert
-        isNote="No fees "
+        isNote="No fees"
         show={showDelete}
         showProgress={load}
         cancelText="Keep pickup"

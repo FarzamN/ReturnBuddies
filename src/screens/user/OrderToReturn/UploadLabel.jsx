@@ -81,7 +81,7 @@ const UploadLabel = ({ route }) => {
   };
 
   const handleUpload = () => {
-    if (!isEdit && !labelDocs) {
+    if (!isEdit && labelDocs.name === "") {
       setError((prev) => ({ ...prev, label: true }));
       return;
     }

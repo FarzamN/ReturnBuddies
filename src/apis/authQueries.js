@@ -14,10 +14,11 @@ import { getItem, setItem } from "../utils/storage";
 import { apiRequest, catchFun, showNotification } from "../function";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { OneSignal } from "react-native-onesignal";
 
 export const sendPlayerIdToBackend = async () => {
   const userId = await getItem("userID");
-  const playerId = await getItem("notification_id");
+  const playerId = await OneSignal.User.pushSubscription.getIdAsync();
   apiRequest({
     data: { userId, playerId, os: Platform.OS },
     method: "post",
