@@ -6,12 +6,7 @@ import {
   MainButton,
   Validation,
 } from "../../components";
-import {
-  iOS,
-  required,
-  minLength,
-  emailPattern,
-} from "../../utils/constants";
+import { iOS, required, minLength, emailPattern } from "../../utils/constants";
 import {
   loginAPI,
   appleLoginAPI,

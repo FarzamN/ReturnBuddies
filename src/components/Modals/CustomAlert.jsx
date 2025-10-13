@@ -63,7 +63,11 @@ const CustomAlert = (props) => {
           {message}
         </RNText>
         {secMessage && (
-          <Text style={[styles.message, messageStyle]} center title={message} />
+          <Text
+            style={[styles.message, messageStyle]}
+            center
+            title={secMessage}
+          />
         )}
         <Height />
         <Space_evenly>

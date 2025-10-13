@@ -269,13 +269,13 @@ const ConfirmPickup = () => {
             title="Discount"
             load={promocode.load}
             visible={promocode.discount === 0}
-            value={`$${(promocode.discount / 100) * BASE_PRICE}`}
+            value={`$${((promocode.discount / 100) * BASE_PRICE).toFixed(2)}`}
           />
           <Height />
           <SpaceText
             title="Total"
             load={promocode.load}
-            value={`$${totalPrice}`}
+            value={`$${0 || totalPrice.toFixed(2)}`}
           />
 
           <PickupButton

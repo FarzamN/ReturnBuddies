@@ -36,7 +36,7 @@ const App = () => {
     if (user != null) {
       getBasePriceAPI()(dispatch);
       getFAQsAPI()(dispatch);
-      sendPlayerIdToBackend(user._id);
+      sendPlayerIdToBackend();
     }
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, [user]);
@@ -60,8 +60,7 @@ const App = () => {
 
     const handleSubscriptionChangeEvent = async (event) => {
       if (event.current.optedIn) {
-        const userId = await OneSignal.User.pushSubscription.getIdAsync();
-        setItem("notification_id", userId);
+        await sendPlayerIdToBackend();
       }
     };
 
