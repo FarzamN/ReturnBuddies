@@ -123,7 +123,7 @@ const DraftItem = () => {
                 textStyle={[
                   styles.buttonText,
                   {
-                    fontSize: 13.5,
+                    fontSize: 14,
                     fontFamily: fonts[500],
                   },
                 ]}

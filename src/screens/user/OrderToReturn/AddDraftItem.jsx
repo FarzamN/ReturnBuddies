@@ -18,7 +18,7 @@ import styles from "../userStyle";
 import buttonStyle from "../userStyle";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { appImages } from "../../../assets";
+import { appImages, fonts } from "../../../assets";
 import { required } from "../../../utils/constants";
 import { showNotification } from "../../../function";
 import { useNavigation } from "@react-navigation/native";
@@ -271,10 +271,14 @@ const AddDraftItem = () => {
         <MainButton
           title="+ Add another item"
           onPress={handleSubmit(handleAdd)}
-          textStyle={buttonStyle.buttonText}
+          textStyle={[buttonStyle.buttonText,{
+            fontSize: 13,
+            fontFamily: fonts[500],
+          }]}
           style={[
             buttonStyle.button,
             {
+              height: 40,
               width: undefined,
               borderRadius: 50,
               paddingHorizontal: scaleSize(20),
