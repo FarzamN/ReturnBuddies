@@ -112,53 +112,53 @@ const DraftItem = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={globalStyle.ph15}
         keyExtractor={(_, index) => index.toString()}
-        ListFooterComponent={
-          <>
-            {selectedCount && draftData ? (
-              <MainButton
-                style={[
-                  styles.button,
-                  { width: undefined, paddingHorizontal: 30, height: 45 },
-                ]}
-                textStyle={[
-                  styles.buttonText,
-                  {
-                    fontSize: 14,
-                    fontFamily: fonts[500],
-                  },
-                ]}
-                title={`Schedule Pickup for ${returnItemCount} Item${
-                  returnItemCount > 1 ? "s" : ""
-                }`}
-                onPress={() => {
-                  navigate("shippingLabel", { returnLabel: selectedReturns });
-                  setSelectedReturns([]);
-                }}
-                // onPress={async () => {
-                //   try {
-                //     const userId = getItem("userID");
+        // ListFooterComponent={
+        //   <>
+        //     {selectedCount && draftData ? (
+        //       <MainButton
+        //         style={[
+        //           styles.button,
+        //           { width: undefined, paddingHorizontal: 30, height: 45 },
+        //         ]}
+        //         textStyle={[
+        //           styles.buttonText,
+        //           {
+        //             fontSize: 14,
+        //             fontFamily: fonts[500],
+        //           },
+        //         ]}
+        //         title={`Schedule Pickup for ${returnItemCount} Item${
+        //           returnItemCount > 1 ? "s" : ""
+        //         }`}
+        //         onPress={() => {
+        //           navigate("shippingLabel", { returnLabel: selectedReturns });
+        //           setSelectedReturns([]);
+        //         }}
+        //         // onPress={async () => {
+        //         //   try {
+        //         //     const userId = getItem("userID");
 
-                //     const res = await fetch(`${imageURl}api/test`, {
-                //       method: "POST",
-                //       headers: {
-                //         "Content-Type": "application/json",
-                //         Authorization: `Bearer ${getItem("token")}`,
-                //       },
-                //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
-                //     });
+        //         //     const res = await fetch(`${imageURl}api/test`, {
+        //         //       method: "POST",
+        //         //       headers: {
+        //         //         "Content-Type": "application/json",
+        //         //         Authorization: `Bearer ${getItem("token")}`,
+        //         //       },
+        //         //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
+        //         //     });
 
-                //     const response = await res.json();
-                //     console.log(response);
-                //   } catch (error) {
-                //     console.error("Error sending test notification:", error);
-                //   }
-                // }}
-              />
-            ) : (
-              <></>
-            )}
-          </>
-        }
+        //         //     const response = await res.json();
+        //         //     console.log(response);
+        //         //   } catch (error) {
+        //         //     console.error("Error sending test notification:", error);
+        //         //   }
+        //         // }}
+        //       />
+        //     ) : (
+        //       <></>
+        //     )}
+        //   </>
+        // }
         ListEmptyComponent={
           <Empty
             title="You have no items to return"
@@ -205,11 +205,22 @@ const DraftItem = () => {
         rightOpenValue={-75}
       />
 
-      {/* {selectedCount && draftData ? (
+      {selectedCount && draftData ? (
         <>
+          <Height />
+
           <MainButton
-            style={[styles.button, { width: undefined, paddingHorizontal: 15 }]}
-            textStyle={styles.buttonText}
+            style={[
+              styles.button,
+              { width: undefined, paddingHorizontal: 30, height: 45 },
+            ]}
+            textStyle={[
+              styles.buttonText,
+              {
+                fontSize: 14,
+                fontFamily: fonts[500],
+              },
+            ]}
             title={`Schedule Pickup for ${returnItemCount} Item${
               returnItemCount > 1 ? "s" : ""
             }`}
@@ -217,13 +228,32 @@ const DraftItem = () => {
               navigate("shippingLabel", { returnLabel: selectedReturns });
               setSelectedReturns([]);
             }}
+            // onPress={async () => {
+            //   try {
+            //     const userId = getItem("userID");
+
+            //     const res = await fetch(`${imageURl}api/test`, {
+            //       method: "POST",
+            //       headers: {
+            //         "Content-Type": "application/json",
+            //         Authorization: `Bearer ${getItem("token")}`,
+            //       },
+            //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
+            //     });
+
+            //     const response = await res.json();
+            //     console.log(response);
+            //   } catch (error) {
+            //     console.error("Error sending test notification:", error);
+            //   }
+            // }}
           />
           <Height />
         </>
       ) : (
         <PrimeryTab currentTab="Home" />
-      )} */}
-      <PrimeryTab currentTab="Home" />
+      )}
+      {/* <PrimeryTab currentTab="Home" /> */}
 
       <CustomAlert
         show={alert.visible}
