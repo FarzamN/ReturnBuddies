@@ -108,6 +108,9 @@ const SchedulePickup = ({ route }) => {
             styles.dateContainer,
             {
               borderWidth: error.date ? 1 : 0,
+              backgroundColor: error.date
+                ? colors.errorBackground
+                : colors.white,
               borderColor: error.date && colors.error,
             },
           ]}
@@ -142,6 +145,9 @@ const SchedulePickup = ({ route }) => {
               flexDirection: "column",
               borderWidth: error.time ? 1 : 0,
               borderColor: error.time && colors.error,
+              backgroundColor: error.time
+                ? colors.errorBackground
+                : colors.white,
             },
           ]}
         >

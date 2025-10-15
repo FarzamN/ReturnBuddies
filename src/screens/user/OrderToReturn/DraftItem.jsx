@@ -3,6 +3,8 @@ import {
   BackHandler,
   RefreshControl,
   Text as RNText,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import {
   Body,
@@ -19,14 +21,13 @@ import styles from "../userStyle";
 import { fonts } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
+import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useMemo, useState } from "react";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Height, globalStyle } from "../../../theme/globalStyle";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
-import { getItem } from "../../../utils/storage";
-import { imageURl } from "../../../utils/urls";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,11 @@ const DraftItem = () => {
 
   // const draftData = [];
   const { draftData } = useSelector((state) => state.draft);
+
+  const flatListRef = useRef(null);
+
+  const scrollToBottom = () =>
+    flatListRef.current.scrollToEnd({ animated: true });
 
   const [isPending, setIsPending] = useState(false);
   const [hasUnselected, setHasUnselected] = useState(false);
@@ -99,7 +105,8 @@ const DraftItem = () => {
         </View>
       )}
 
-      <SwipeListView
+      <FlatList
+        ref={flatListRef}
         refreshControl={
           <RefreshControl
             refreshing={isPending}
@@ -112,53 +119,53 @@ const DraftItem = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={globalStyle.ph15}
         keyExtractor={(_, index) => index.toString()}
-        // ListFooterComponent={
-        //   <>
-        //     {selectedCount && draftData ? (
-        //       <MainButton
-        //         style={[
-        //           styles.button,
-        //           { width: undefined, paddingHorizontal: 30, height: 45 },
-        //         ]}
-        //         textStyle={[
-        //           styles.buttonText,
-        //           {
-        //             fontSize: 14,
-        //             fontFamily: fonts[500],
-        //           },
-        //         ]}
-        //         title={`Schedule Pickup for ${returnItemCount} Item${
-        //           returnItemCount > 1 ? "s" : ""
-        //         }`}
-        //         onPress={() => {
-        //           navigate("shippingLabel", { returnLabel: selectedReturns });
-        //           setSelectedReturns([]);
-        //         }}
-        //         // onPress={async () => {
-        //         //   try {
-        //         //     const userId = getItem("userID");
+        ListFooterComponent={
+          <>
+            {selectedCount && draftData ? (
+              <MainButton
+                style={[
+                  styles.button,
+                  { width: undefined, paddingHorizontal: 30, height: 45 },
+                ]}
+                textStyle={[
+                  styles.buttonText,
+                  {
+                    fontSize: 14,
+                    fontFamily: fonts[500],
+                  },
+                ]}
+                title={`Schedule Pickup for ${returnItemCount} Item${
+                  returnItemCount > 1 ? "s" : ""
+                }`}
+                onPress={() => {
+                  navigate("shippingLabel", { returnLabel: selectedReturns });
+                  setSelectedReturns([]);
+                }}
+                // onPress={async () => {
+                //   try {
+                //     const userId = getItem("userID");
 
-        //         //     const res = await fetch(`${imageURl}api/test`, {
-        //         //       method: "POST",
-        //         //       headers: {
-        //         //         "Content-Type": "application/json",
-        //         //         Authorization: `Bearer ${getItem("token")}`,
-        //         //       },
-        //         //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
-        //         //     });
+                //     const res = await fetch(`${imageURl}api/test`, {
+                //       method: "POST",
+                //       headers: {
+                //         "Content-Type": "application/json",
+                //         Authorization: `Bearer ${getItem("token")}`,
+                //       },
+                //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
+                //     });
 
-        //         //     const response = await res.json();
-        //         //     console.log(response);
-        //         //   } catch (error) {
-        //         //     console.error("Error sending test notification:", error);
-        //         //   }
-        //         // }}
-        //       />
-        //     ) : (
-        //       <></>
-        //     )}
-        //   </>
-        // }
+                //     const response = await res.json();
+                //     console.log(response);
+                //   } catch (error) {
+                //     console.error("Error sending test notification:", error);
+                //   }
+                // }}
+              />
+            ) : (
+              <></>
+            )}
+          </>
+        }
         ListEmptyComponent={
           <Empty
             title="You have no items to return"
@@ -205,7 +212,7 @@ const DraftItem = () => {
         rightOpenValue={-75}
       />
 
-      {selectedCount && draftData ? (
+      {/* {selectedCount && draftData ? (
         <>
           <Height />
 
@@ -252,8 +259,8 @@ const DraftItem = () => {
         </>
       ) : (
         <PrimeryTab currentTab="Home" />
-      )}
-      {/* <PrimeryTab currentTab="Home" /> */}
+      )} */}
+      <PrimeryTab currentTab="Home" />
 
       <CustomAlert
         show={alert.visible}
@@ -264,6 +271,21 @@ const DraftItem = () => {
         }
         message={`Are you sure you want to delete this Bundle?\nThis action cannot be undone.`}
       />
+      {returnItemCount > 0 && (
+        <TouchableOpacity onPress={scrollToBottom}>
+          <Icon
+            type="Ionicons"
+            name="arrow-down-circle"
+            color={colors.purple}
+            size={50}
+            style={{
+              position: "absolute",
+              right: 30,
+              bottom: 120,
+            }}
+          />
+        </TouchableOpacity>
+      )}
     </Body>
   );
 };

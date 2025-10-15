@@ -48,11 +48,8 @@ const App = () => {
     OneSignal.Notifications.requestPermission(false);
 
     const handleWillDisplayEvent = (event) => {
-      const notification = event.notification;
       event.notification.display();
       // if (notification.body && token !== null) getNotificationApi()(dispatch);
-
-      // Extract any additional data from the notification
     };
 
     const handleSubscriptionChangeEvent = async (event) => {

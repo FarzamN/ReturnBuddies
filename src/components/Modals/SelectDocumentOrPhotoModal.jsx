@@ -3,9 +3,9 @@ import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
 import FullImage from "../Helpers/FullImage";
 import { appImages, fonts } from "../../assets";
+import { globalStyle } from "../../theme/globalStyle";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { globalStyle } from "../../theme/globalStyle";
 
 const SelectDocumentOrPhotoModal = ({ onPDF, visible, onClose, onPicture }) => {
   const { bottom } = useSafeAreaInsets();

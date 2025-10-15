@@ -1,3 +1,10 @@
+import {
+  Body,
+  Header,
+  MainInput,
+  Validation,
+  MainButton,
+} from "../../components";
 import { useForm } from "react-hook-form";
 import { wp } from "../../theme/responsive";
 import { Height } from "../../theme/globalStyle";
@@ -5,13 +12,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { minLength, required } from "../../utils/constants";
 import { changepasswordForgetAPI } from "../../apis/authQueries";
-import {
-  Body,
-  Header,
-  MainButton,
-  MainInput,
-  Validation,
-} from "../../components";
 
 const ForgetPassword = ({ route }) => {
   const { email } = route.params;

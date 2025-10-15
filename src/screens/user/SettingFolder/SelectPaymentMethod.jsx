@@ -12,6 +12,7 @@ import { RefreshControl } from "react-native";
 import { iOS } from "../../../utils/constants";
 import { wp } from "../../../theme/responsive";
 import { colors } from "../../../theme/colors";
+import { useFreezeScreen } from "../../../hooks";
 import React, { useEffect, useState } from "react";
 import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,8 @@ const SelectPaymentMethod = ({ route }) => {
   const { getPayments } = useSelector((state) => state.auth) ?? [];
 
   const [load, setLoad] = useState(false);
+  const { Overlay } = useFreezeScreen(load);
+
   const [select, setSelect] = useState({ index: "", data: null });
   const [alert, setAlert] = useState({
     visible: false,
@@ -113,6 +116,7 @@ const SelectPaymentMethod = ({ route }) => {
           deletePaymentAPI(alert._id, setAlert, setLoad)(dispatch)
         }
       />
+      <Overlay />
     </Body>
   );
 };

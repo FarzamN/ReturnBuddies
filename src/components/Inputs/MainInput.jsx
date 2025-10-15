@@ -87,7 +87,11 @@ const MainInput = (props, ref) => {
           {
             borderRadius: rounded ? 50 : 15,
             borderColor: isError ? error : "#EFF0F9",
-            backgroundColor: isError ? "#fff7f7" : disabled ? "#F6F6F6" : white,
+            backgroundColor: isError
+              ? colors.errorBackground
+              : disabled
+              ? "#F6F6F6"
+              : white,
           },
           restyle,
         ]}

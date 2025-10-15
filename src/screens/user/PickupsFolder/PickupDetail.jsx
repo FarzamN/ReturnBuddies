@@ -1,27 +1,3 @@
-/* 
-import { View, Text } from 'react-native'
-import React,{useEffect, useState} from 'react'
-import { pickupDetailAPI } from '../../../apis/pickupQueries';
-import { useDispatch } from 'react-redux';
-
-const PickupDetail = ({route}) => {
-  const { item } = route.params;
-
-  const dispatch = useDispatch();
-  const [load, setLoad] = useState(false);
-    useEffect(() => {
-    pickupDetailAPI(item._id, setLoad)(dispatch);
-  }, []);
-  return (
-    <View>
-      <Text>PickupDetail</Text>
-    </View>
-  )
-}
-
-export default PickupDetail
-*/
-
 import {
   View,
   FlatList,
@@ -61,8 +37,6 @@ const PickupDetail = ({ route }) => {
   const { data, trackingNumber, Carrier } = useSelector(
     (state) => state.pickup.pickupDetailData
   );
-
-  const dd = useSelector((state) => state.pickup.pickupDetailData);
 
   const [load, setLoad] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -205,6 +179,7 @@ const PickupDetail = ({ route }) => {
           source={appImages.location}
           twoDetail={`Notes: ${data?.note}`}
           title={data?.pickupAddress?.street}
+          subTitle={data?.pickupAddress?.suite}
         />
         <PickupButton
           disable

@@ -1,8 +1,7 @@
 import { colors } from "./colors";
-import { fonts } from "../assets";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import responsive, { fontScale, scaleSize } from "./responsive";
+import responsive, { scaleSize } from "./responsive";
 
 export const Row = styled.View`
   flex-direction: row;

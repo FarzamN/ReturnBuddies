@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import {
+  Body,
+  Text,
+  Header,
+  MainInput,
+  Validation,
+  MainButton,
+} from "../../components";
 import { useForm } from "react-hook-form";
 import userStyle from "../user/userStyle";
 import { wp } from "../../theme/responsive";
 import { Height } from "../../theme/globalStyle";
 import { required } from "../../utils/constants";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { checkEmailToForgetPasswordAPI } from "../../apis/authQueries";
-import {
-  Body,
-  Header,
-  MainButton,
-  MainInput,
-  Text,
-  Validation,
-} from "../../components";
 
 const CheckEmail = () => {
   const { navigate } = useNavigation();

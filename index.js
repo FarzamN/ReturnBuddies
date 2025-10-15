@@ -9,9 +9,7 @@ import { PaperProvider, MD2LightTheme } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Root = () => {
-  const theme = {
-    ...MD2LightTheme,
-  };
+  const theme = { ...MD2LightTheme };
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

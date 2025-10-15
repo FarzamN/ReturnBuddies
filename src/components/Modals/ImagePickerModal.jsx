@@ -1,17 +1,11 @@
 import React from "react";
-import { fonts, appImages } from "../../assets";
 import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
 import FullImage from "../Helpers/FullImage";
+import { fonts, appImages } from "../../assets";
 import { globalStyle } from "../../theme/globalStyle";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 const ImagePickerModal = ({ visible, onClose, onPicture, onCamera }) => {
   const { bottom } = useSafeAreaInsets();

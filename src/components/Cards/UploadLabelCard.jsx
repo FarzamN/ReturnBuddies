@@ -17,6 +17,7 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect, isError }) => {
           paddingHorizontal: 10,
           borderWidth: isError ? 1 : 0,
           borderColor: isError && colors.error,
+          backgroundColor: isError ? colors.errorBackground : colors.white,
         },
       ]}
     >

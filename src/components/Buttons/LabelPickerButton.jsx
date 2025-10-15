@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./buttonStyle";
 import { FullImage, Text } from "..";
+import { colors } from "../../theme/colors";
 import { appImages, fonts } from "../../assets";
 import { TouchableOpacity, View } from "react-native";
 import { globalStyle, Row } from "../../theme/globalStyle";
@@ -17,7 +18,8 @@ const LabelPickerButton = (props) => {
         styles.ImageButton,
         globalStyle.row,
         {
-          borderColor: isError ? "red" : "#D1D5DB",
+          borderColor: isError ? colors.error : "#D1D5DB",
+          backgroundColor: isError ? colors.errorBackground : colors.white,
         },
       ]}
     >

@@ -1,4 +1,12 @@
 import {
+  View,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from "react-native";
+
+import {
   Body,
   Text,
   Header,
@@ -16,7 +24,6 @@ import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
 import { maskCardNumber } from "../../../function";
 import React, { useEffect, useState } from "react";
-import { globalStyle, Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import settingStyle from "../SettingFolder/settingStyle";
 import { useNavigation } from "@react-navigation/native";
@@ -25,13 +32,7 @@ import textStyle from "../../../components/Texts/textStyle";
 import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
 import { useFreezeScreen, useIskeyboard } from "../../../hooks";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { globalStyle, Height } from "../../../theme/globalStyle";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const ConfirmPickup = () => {
     payment: false,
     oversized: false,
   });
-  // const totalItemCount = 20;
+  // const totalItemCount = 6;
   const totalItemCount = draftSelectedRetun
     .map((item) => item.products.length)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -153,10 +154,8 @@ const ConfirmPickup = () => {
           <PickupButton
             isError={error.address}
             source={appImages.location}
-            title={
-              selectedAddress?.street || pickupAddress?.street || "Add address"
-            }
-            twoTitle={selectedAddress?.suite || pickupAddress?.suite}
+            title={finalAddress?.street || "Add address"}
+            twoTitle={finalAddress?.suite}
             onPress={() => navigate("selectNewAddress", { isPickup: true })}
           />
           <PickupButton
@@ -184,7 +183,10 @@ const ConfirmPickup = () => {
 
           <Height />
 
-          <SpaceText title="Pickup" value={`$${BASE_PRICE}`} />
+          <SpaceText
+            title="Pickup"
+            value={`$${Number(BASE_PRICE).toFixed(2)}`}
+          />
           <Height />
 
           <SpaceText
@@ -280,7 +282,7 @@ const ConfirmPickup = () => {
 
           <PickupButton
             isError={error.payment}
-            isPayment={selectedPayment?.cardNumber || payment?.cardNumber}
+            isPayment={finalPayment?.cardNumber}
             source={appImages.wallet}
             title={`${
               selectedPayment?.cardNumber
@@ -311,9 +313,9 @@ const ConfirmPickup = () => {
             />
           )}
           <Height />
-          <Overlay />
         </ScrollView>
       </KeyboardAvoidingView>
+      <Overlay />
       {!isKeyboard && (
         <MainButton title="Confirm pickup" onPress={onSubmit} load={load} />
       )}

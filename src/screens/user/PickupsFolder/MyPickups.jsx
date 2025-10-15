@@ -117,7 +117,11 @@ const MyPickups = () => {
         />
       </ScrollView>
 
-      {pathType !== "setting" && <PrimeryTab currentTab="myPickups" />}
+      {pathType !== "setting" ? (
+        <PrimeryTab currentTab="myPickups" />
+      ) : (
+        <Height />
+      )}
     </Body>
   );
 };

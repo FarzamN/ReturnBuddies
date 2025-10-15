@@ -6,8 +6,8 @@ import {
   CheckEmail,
   ForgetPassword,
 } from "../screens/auth";
-import { UserOTP } from "../screens/user";
 import React from "react";
+import { UserOTP } from "../screens/user";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const AuthNavigation = () => {

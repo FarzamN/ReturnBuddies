@@ -1,4 +1,3 @@
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import {
   check,
   request,
@@ -6,9 +5,11 @@ import {
   PERMISSIONS,
   openSettings,
 } from "react-native-permissions";
+
 import { useState } from "react";
-import { Alert, Platform } from "react-native";
 import { iOS } from "../utils/constants";
+import { Alert, Platform } from "react-native";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 
 export const useCameraGallery = () => {
   const [picker, setPicker] = useState(false);

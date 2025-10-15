@@ -14,11 +14,12 @@ const PickupButton = (props) => {
     source,
     onPress,
     isError,
-    isPayment,
+    disable,
+    subTitle,
     twoTitle,
     twoDetail,
+    isPayment,
     isTwoDetail,
-    disable,
   } = props;
   return (
     <TouchableOpacity
@@ -28,17 +29,15 @@ const PickupButton = (props) => {
       style={[
         globalStyle.space_Between,
         styles.PickupCont,
-        { borderWidth: isError ? 1 : 0, borderColor: isError && colors.error },
+        {
+          borderWidth: isError ? 1 : 0,
+          borderColor: isError && colors.error,
+          backgroundColor: isError ? colors.errorBackground : colors.white,
+        },
       ]}
     >
       <Row>
-        {!isPayment && (
-          <FullImage
-            source={source}
-            style={styles.pickupImage}
-            color={isError ? colors.error : undefined}
-          />
-        )}
+        {!isPayment && <FullImage source={source} style={styles.pickupImage} />}
 
         <View>
           {isPayment ? (
@@ -59,6 +58,13 @@ const PickupButton = (props) => {
                 width={width / 1.7}
                 style={styles.pickupTitle}
               />
+              {subTitle && (
+                <Text
+                  title={subTitle}
+                  width={width / 1.7}
+                  style={styles.pickupTitle}
+                />
+              )}
               {twoTitle && (
                 <Text
                   title={twoTitle}
@@ -76,6 +82,7 @@ const PickupButton = (props) => {
               style={styles.pickupDetail}
             />
           )}
+
           {isTwoDetail && (
             <Text
               title={twoDetail}
@@ -87,11 +94,7 @@ const PickupButton = (props) => {
         </View>
       </Row>
       {!disable && (
-        <FullImage
-          source={appImages.edit}
-          color={isError ? colors.error : undefined}
-          style={globalStyle.iconImage}
-        />
+        <FullImage source={appImages.edit} style={globalStyle.iconImage} />
       )}
     </TouchableOpacity>
   );

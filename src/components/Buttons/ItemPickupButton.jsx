@@ -4,8 +4,8 @@ import styles from "./buttonStyle";
 import { useSelector } from "react-redux";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
-import { globalStyle } from "../../theme/globalStyle";
 import Icon from "react-native-dynamic-vector-icons";
+import { globalStyle } from "../../theme/globalStyle";
 
 const ItemPickupButton = (props) => {
   const { title, onPress } = props;

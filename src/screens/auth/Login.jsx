@@ -6,7 +6,6 @@ import {
   MainButton,
   Validation,
 } from "../../components";
-import { iOS, required, minLength, emailPattern } from "../../utils/constants";
 import {
   loginAPI,
   appleLoginAPI,
@@ -27,6 +26,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import appleAuth from "@invertase/react-native-apple-authentication";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { iOS, required, minLength, emailPattern } from "../../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();

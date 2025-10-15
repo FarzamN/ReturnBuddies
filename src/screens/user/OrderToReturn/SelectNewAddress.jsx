@@ -12,6 +12,7 @@ import { RefreshControl } from "react-native";
 import { iOS } from "../../../utils/constants";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
+import { useFreezeScreen } from "../../../hooks";
 import React, { useEffect, useState } from "react";
 import { Height } from "../../../theme/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,8 @@ const SelectNewAddress = ({ route }) => {
   const { getAddress } = useSelector((state) => state.auth) ?? [];
 
   const [load, setLoad] = useState(false);
+  const { Overlay } = useFreezeScreen(load);
+
   const [select, setSelect] = useState({ index: "", data: null });
   const [alert, setAlert] = useState({ visible: false, _id: "" });
 
@@ -104,6 +107,7 @@ const SelectNewAddress = ({ route }) => {
         }
         message={`Are you sure you want to delete this Address?\nThis action cannot be undone.`}
       />
+      <Overlay />
     </Body>
   );
 };

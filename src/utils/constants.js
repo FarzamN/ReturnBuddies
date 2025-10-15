@@ -1,5 +1,5 @@
-import { Platform } from "react-native";
 import { emailRegex } from "./urls";
+import { Platform } from "react-native";
 
 export const OS = Platform.OS;
 export const iOS = Platform.OS === "ios";

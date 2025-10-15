@@ -19,8 +19,8 @@ import { useNavigation } from "@react-navigation/native";
 import { wp, scaleSize } from "../../../theme/responsive";
 import { setLogout } from "../../../redux/slices/authSlice";
 import { setPathType } from "../../../redux/slices/pickupSlice";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import appleAuth from "@invertase/react-native-apple-authentication";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const settingsData = [
   { title: "Profile settings", icon: appImages.user, route: "editProfile" },

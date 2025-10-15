@@ -110,12 +110,12 @@ const AddNewAddress = ({ route }) => {
             <MainInput
               small
               noTitle
-              disabled={item.name === "state"}
               key={item.name}
               name={item.name}
               control={control}
               isError={!!errors[item.name]}
               placeholder={item.placeholder}
+              disabled={item.name === "state"}
               keyboardType={
                 item.name === "postalCode" ? "number-pad" : "default"
               }

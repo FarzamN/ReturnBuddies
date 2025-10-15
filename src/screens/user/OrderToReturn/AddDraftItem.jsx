@@ -239,7 +239,10 @@ const AddDraftItem = () => {
                     ? { uri: images[index].uri }
                     : appImages.camera
                 }
-                onPress={() => setPicker(true)}
+                onPress={() => {
+                  setPicker(true);
+                  setImageErrors([]);
+                }}
                 title={
                   images[index]?.name ||
                   "Take a photo of the item you want to return"
@@ -271,10 +274,13 @@ const AddDraftItem = () => {
         <MainButton
           title="+ Add another item"
           onPress={handleSubmit(handleAdd)}
-          textStyle={[buttonStyle.buttonText,{
-            fontSize: 13,
-            fontFamily: fonts[500],
-          }]}
+          textStyle={[
+            buttonStyle.buttonText,
+            {
+              fontSize: 13,
+              fontFamily: fonts[500],
+            },
+          ]}
           style={[
             buttonStyle.button,
             {

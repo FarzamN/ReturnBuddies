@@ -1,6 +1,6 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
 import { wp } from "../../../theme/responsive";
+import { ScrollView, View } from "react-native";
 import { Body, Header, Text } from "../../../components";
 
 const Terms = () => {

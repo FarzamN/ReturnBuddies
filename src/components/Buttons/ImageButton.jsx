@@ -2,6 +2,7 @@ import React from "react";
 import { FullImage } from "..";
 import styles from "./buttonStyle";
 import { appImages } from "../../assets";
+import { colors } from "../../theme/colors";
 import responsive from "../../theme/responsive";
 import { Text, TouchableOpacity } from "react-native";
 import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
@@ -16,7 +17,8 @@ const ImageButton = (props) => {
         styles.ImageButton,
         globalStyle.row,
         {
-          borderColor: isError ? "red" : "#D1D5DB",
+          borderColor: isError ? colors.error : "#D1D5DB",
+          backgroundColor: isError ? colors.errorBackground : colors.white,
         },
       ]}
     >

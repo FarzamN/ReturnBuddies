@@ -101,7 +101,7 @@ const UploadLabel = ({ route }) => {
     body.append("bundleId", labels._id);
     body.append("date", showDate.date);
     body.append("productIDs", JSON.stringify(productID));
-    labelDocs
+    labelDocs.name !== ""
       ? body.append("label", {
           uri: labelDocs.uri,
           type: labelDocs.type,

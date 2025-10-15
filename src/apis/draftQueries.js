@@ -6,59 +6,76 @@ import {
   setDraftSelectedRetun,
 } from "../redux/slices/draftSlice";
 import { apiRequest } from "../function";
-import instance from "../utils/urls";
-import { getItem } from "../utils/storage";
-
-// export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
-//   return async (dispatch) => {
-//     apiRequest({
-//       data,
-//       method: "post",
-//       endpoint: "addbundle",
-//       contentType: "multipart/form-data",
-//       onSuccess: () => {
-//         confirmOrder(false);
-//         getReturnItem(load)(dispatch);
-//         goBack();
-//       },
-//       onFinally: load,
-//     });
-//   };
-// };
 
 export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
   return async (dispatch) => {
-    load(true);
-    const token = getItem("token");
-    const userid = getItem("userID");
-    const endpoint =
-      "https://returnbuddies-production.up.railway.app/api/addbundle";
-    try {
-      const response = await fetch(endpoint, {
-        body: data,
-        method: "POST",
-        headers: {
-          userid,
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      });
-
-      const resData = await response.json();
-      const { status, message } = resData;
-
-      load(false);
-      if (status === 200) {
+    apiRequest({
+      data,
+      method: "post",
+      endpoint: "addbundle",
+      contentType: "multipart/form-data",
+      onSuccess: () => {
         confirmOrder(false);
         getReturnItem(load)(dispatch);
         goBack();
-      } else {
-        console.log(message);
-      }
-    } catch (err) {
-      load(false);
-      console.log("chatch", err.message);
-    }
+      },
+      onFinally: load,
+    });
+  };
+};
+
+// export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
+//   return async (dispatch) => {
+//     load(true);
+//     const token = getItem("token");
+//     const userid = getItem("userID");
+//     const endpoint =
+//       "https://returnbuddies-production.up.railway.app/api/addbundle";
+//     try {
+//       const response = await fetch(endpoint, {
+//         body: data,
+//         method: "POST",
+//         headers: {
+//           userid,
+//           Authorization: `Bearer ${token}`,
+//           Accept: "application/json",
+//         },
+//       });
+
+//       const resData = await response.json();
+//       const { status, message } = resData;
+
+//       load(false);
+//       if (status === 200) {
+//         confirmOrder(false);
+//         getReturnItem(load)(dispatch);
+//         goBack();
+//       } else {
+//         console.log(message);
+//       }
+//     } catch (err) {
+//       load(false);
+//       console.log("chatch", err.message);
+//     }
+//   };
+// };
+
+export const editLabelAPI = (values, load, goBack, _id) => {
+  return async (dispatch) => {
+    apiRequest({
+      data: values,
+      method: "post",
+      endpoint: "editLabel",
+      contentType: "multipart/form-data",
+      onSuccess: ({ data }) => {
+        const newID = data.bundle._id ?? "";
+        const updatedIDs = newID ? [..._id, newID] : [..._id];
+        getSelectedReturnItem(updatedIDs, load)(dispatch);
+        getReturnItem(load)(dispatch);
+        goBack();
+      },
+      onFinally: load,
+    });
   };
 };
 
@@ -86,29 +103,10 @@ export const getSelectedReturnItem = (bundleIDs, load) => {
   };
 };
 
-export const editLabelAPI = (values, load, goBack, _id) => {
-  return async (dispatch) => {
-    apiRequest({
-      data:values,
-      method: "post",
-      endpoint: "editLabel",
-      contentType: "multipart/form-data",
-      onSuccess: ({ data }) => {
-        const newID = data.bundle._id ?? "";
-        const updatedIDs = newID ? [..._id, newID] : [..._id];
-        getSelectedReturnItem(updatedIDs, load)(dispatch);
-        getReturnItem(load)(dispatch);
-        goBack();
-      },
-      onFinally: load,
-    });
-  };
-};
-
 export const uploadLabelAPI = (values, load, goBack, _id) => {
   return async (dispatch) => {
     apiRequest({
-      data:values,
+      data: values,
       method: "post",
       endpoint: "/uploadLabel",
       contentType: "multipart/form-data",

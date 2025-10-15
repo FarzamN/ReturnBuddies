@@ -50,7 +50,7 @@ const TabNav = () => {
 
 export default TabNav;
 
-const {Navigator,Screen} = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator();
 
 const AllOrderToReturn = () => (
   <Navigator
@@ -82,7 +82,7 @@ const AllOrderToReturn = () => (
 
     <Screen name="myPickupsRoute" component={AllMyPickups} />
     <Screen name="itemsToBePickedup" component={ItemsToBePickedup} />
-  </ Navigator>
+  </Navigator>
 );
 
 const AllAddDraft = () => (
@@ -95,7 +95,7 @@ const AllAddDraft = () => (
     initialRouteName="addDraftItem"
   >
     <Screen name="addDraftItem" component={AddDraftItem} />
-  </ Navigator>
+  </Navigator>
 );
 
 const AllSettings = () => (
@@ -114,7 +114,7 @@ const AllSettings = () => (
     <Screen name="myPickupsRoute" component={AllMyPickups} />
     <Screen name="notification" component={Notification} />
     <Screen name="changePassword" component={ChangePassword} />
-  </ Navigator>
+  </Navigator>
 );
 
 const AllMyPickups = () => (
@@ -130,5 +130,5 @@ const AllMyPickups = () => (
     <Screen name="myPickups" component={MyPickups} />
     <Screen name="pickupDetail" component={PickupDetail} />
     <Screen name="settingRoute" component={AllSettings} />
-  </ Navigator>
+  </Navigator>
 );

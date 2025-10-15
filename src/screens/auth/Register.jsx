@@ -1,4 +1,3 @@
-import { iOS, required, minLength, emailPattern } from "../../utils/constants";
 import {
   Body,
   Text,
@@ -7,6 +6,11 @@ import {
   Validation,
   MainButton,
 } from "../../components";
+import {
+  registerAPI,
+  appleLoginAPI,
+  googleLoginAPI,
+} from "../../apis/authQueries";
 import AuthOTP from "./AuthOTP";
 import styles from "./authStyle";
 import { useDispatch } from "react-redux";
@@ -18,12 +22,8 @@ import { Height, Row } from "../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native";
 import appleAuth from "@invertase/react-native-apple-authentication";
-import {
-  appleLoginAPI,
-  googleLoginAPI,
-  registerAPI,
-} from "../../apis/authQueries";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { iOS, required, minLength, emailPattern } from "../../utils/constants";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -39,6 +39,8 @@ const Register = () => {
   });
   const onSubmit = (value) =>
     registerAPI(value, setShowOTP, setError, setSaveEmail, setLoading);
+
+  // ************ google login *************
 
   const handleGoodleSignin = async () => {
     try {

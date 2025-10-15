@@ -49,7 +49,12 @@ const SchedulePickup = ({ navigation, route }) => {
           />
         </>
       )}
-
+      {isPending && (
+        <>
+          <Height />
+          <Text style={styles.draftTitle} center title="Please wait..." />
+        </>
+      )}
       <Height />
       <ScrollView showsVerticalScrollIndicator={false}>
         {draftSelectedRetun.map((section) => (

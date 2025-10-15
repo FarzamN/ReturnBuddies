@@ -51,7 +51,6 @@ export default StyleSheet.create({
     paddingVertical: 15,
     flexDirection: "row",
     marginTop: scaleSize(10),
-    backgroundColor: colors.white,
   },
   itemCard: {
     elevation: 2,
