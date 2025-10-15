@@ -105,8 +105,9 @@ const DraftItem = () => {
         </View>
       )}
 
-      <FlatList
+      <SwipeListView
         ref={flatListRef}
+        listViewRef={flatListRef}
         refreshControl={
           <RefreshControl
             refreshing={isPending}
