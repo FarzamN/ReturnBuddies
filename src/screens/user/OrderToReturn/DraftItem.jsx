@@ -5,6 +5,7 @@ import {
   Text as RNText,
   FlatList,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import {
   Body,
@@ -105,113 +106,118 @@ const DraftItem = () => {
         </View>
       )}
 
-      <SwipeListView
-        ref={flatListRef}
-        listViewRef={flatListRef}
-        refreshControl={
-          <RefreshControl
-            refreshing={isPending}
-            colors={[colors.purple]}
-            tintColor={colors.purple}
-            onRefresh={() => getReturnItem(setIsPending)(dispatch)}
-          />
-        }
-        data={draftData}
+      <ScrollView
+        nestedScrollEnabled
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={globalStyle.ph15}
-        keyExtractor={(_, index) => index.toString()}
-        ListFooterComponent={
-          <>
-            {selectedCount && draftData ? (
-              <MainButton
-                style={[
-                  styles.button,
-                  { width: undefined, paddingHorizontal: 30, height: 45 },
-                ]}
-                textStyle={[
-                  styles.buttonText,
-                  {
-                    fontSize: 14,
-                    fontFamily: fonts[500],
-                  },
-                ]}
-                title={`Schedule Pickup for ${returnItemCount} Item${
-                  returnItemCount > 1 ? "s" : ""
-                }`}
-                onPress={() => {
-                  navigate("shippingLabel", { returnLabel: selectedReturns });
-                  setSelectedReturns([]);
-                }}
-                // onPress={async () => {
-                //   try {
-                //     const userId = getItem("userID");
+        ref={flatListRef}
+      >
+        <SwipeListView
+          nestedScrollEnabled
+          scrollEnabled={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={isPending}
+              colors={[colors.purple]}
+              tintColor={colors.purple}
+              onRefresh={() => getReturnItem(setIsPending)(dispatch)}
+            />
+          }
+          data={draftData}
+          contentContainerStyle={globalStyle.ph15}
+          keyExtractor={(_, index) => index.toString()}
+          ListFooterComponent={
+            <>
+              {selectedCount && draftData ? (
+                <MainButton
+                  style={[
+                    styles.button,
+                    { width: undefined, paddingHorizontal: 30, height: 45 },
+                  ]}
+                  textStyle={[
+                    styles.buttonText,
+                    {
+                      fontSize: 14,
+                      fontFamily: fonts[500],
+                    },
+                  ]}
+                  title={`Schedule Pickup for ${returnItemCount} Item${
+                    returnItemCount > 1 ? "s" : ""
+                  }`}
+                  onPress={() => {
+                    navigate("shippingLabel", { returnLabel: selectedReturns });
+                    setSelectedReturns([]);
+                  }}
+                  // onPress={async () => {
+                  //   try {
+                  //     const userId = getItem("userID");
 
-                //     const res = await fetch(`${imageURl}api/test`, {
-                //       method: "POST",
-                //       headers: {
-                //         "Content-Type": "application/json",
-                //         Authorization: `Bearer ${getItem("token")}`,
-                //       },
-                //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
-                //     });
+                  //     const res = await fetch(`${imageURl}api/test`, {
+                  //       method: "POST",
+                  //       headers: {
+                  //         "Content-Type": "application/json",
+                  //         Authorization: `Bearer ${getItem("token")}`,
+                  //       },
+                  //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
+                  //     });
 
-                //     const response = await res.json();
-                //     console.log(response);
-                //   } catch (error) {
-                //     console.error("Error sending test notification:", error);
-                //   }
-                // }}
-              />
-            ) : (
-              <></>
-            )}
-          </>
-        }
-        ListEmptyComponent={
-          <Empty
-            title="You have no items to return"
-            titleStyle={{ fontFamily: fonts[600], fontSize: 19 }}
-            customText={() => (
-              <RNText
-                style={[
-                  styles.draftCustomText,
-                  {
-                    color: colors.grey,
-                  },
-                ]}
-              >
-                Tap the{" "}
-                <Text
-                  title="+"
-                  color={colors.purple}
-                  style={styles.draftCustomText}
-                />{" "}
-                button to start returning!
-              </RNText>
-            )}
-          />
-        }
-        renderItem={({ item }) => (
-          <ReturnSection
-            section={item}
-            onSelect={toggleSelect}
-            selected={selectedReturns.includes(item._id)}
-          />
-        )}
-        renderHiddenItem={({ item, index }, rowMap) => (
-          <HiddenDelete
-            height={70}
-            radius={12}
-            alignItems="center"
-            onPress={() => {
-              rowMap[index]?.closeRow();
-              setAlert({ visible: true, _id: item._id });
-            }}
-          />
-        )}
-        disableRightSwipe
-        rightOpenValue={-75}
-      />
+                  //     const response = await res.json();
+                  //     console.log(response);
+                  //   } catch (error) {
+                  //     console.error("Error sending test notification:", error);
+                  //   }
+                  // }}
+                />
+              ) : (
+                <></>
+              )}
+            </>
+          }
+          ListEmptyComponent={
+            <Empty
+              title="You have no items to return"
+              titleStyle={{ fontFamily: fonts[600], fontSize: 19 }}
+              customText={() => (
+                <RNText
+                  style={[
+                    styles.draftCustomText,
+                    {
+                      color: colors.grey,
+                    },
+                  ]}
+                >
+                  Tap the{" "}
+                  <Text
+                    title="+"
+                    color={colors.purple}
+                    style={styles.draftCustomText}
+                  />{" "}
+                  button to start returning!
+                </RNText>
+              )}
+            />
+          }
+          renderItem={({ item }) => (
+            <ReturnSection
+              section={item}
+              onSelect={toggleSelect}
+              selected={selectedReturns.includes(item._id)}
+            />
+          )}
+          renderHiddenItem={({ item, index }, rowMap) => (
+            <HiddenDelete
+              height={70}
+              radius={12}
+              alignItems="center"
+              onPress={() => {
+                rowMap[index]?.closeRow();
+                setAlert({ visible: true, _id: item._id });
+              }}
+            />
+          )}
+          disableRightSwipe
+          rightOpenValue={-75}
+        />
+      </ScrollView>
 
       {/* {selectedCount && draftData ? (
         <>
