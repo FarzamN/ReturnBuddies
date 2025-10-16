@@ -37,7 +37,8 @@ const settingsData = [
     route: "notification",
   },
   { title: "Support", icon: appImages.support, route: "support" },
-  { title: "Privacy", icon: appImages.shield, route: "privacy" },
+  { title: "Privacy Policy", icon: appImages.shield, route: "privacy" },
+  { title: "Terms & Conditions", icon: appImages.shield, route: "term" },
   { title: "Log out", icon: appImages.logout, type: "logout" },
 ];
 
@@ -55,8 +56,12 @@ const Setting = () => {
       if (item.title === "Pickups") {
         dispatch(setPathType("setting"));
         navigate("myPickupsRoute");
+      } else if (item.route === "privacy" || item.route === "term") {
+        navigate("privacy", { type: item.route }); // pass route key instead of title
+        return; // stop further navigation
+      } else {
+        navigate(item.route);
       }
-      navigate(item.route);
     }
   };
 

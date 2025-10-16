@@ -198,7 +198,7 @@ const UploadLabel = ({ route }) => {
         />
 
         <>
-          <RequiredText title={"Return item by"} required />
+          <RequiredText title={"Return by date"} required />
           <SelectDate
             isError={error.date}
             title={showDate.date || "Select Date"}
