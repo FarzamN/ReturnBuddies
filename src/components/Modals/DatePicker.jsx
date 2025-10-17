@@ -15,29 +15,29 @@ const DatePicker = ({ visible, onClose, onPress }) => {
   return (
     <Modal
       isVisible={visible}
-      animationIn="bounceInDown"
-      animationOut="bounceOutDown"
       onBackdropPress={onClose}
+      animationIn="bounceInDown"
       onBackButtonPress={onClose}
+      animationOut="bounceOutDown"
       style={styles.modalContainer}
     >
       <View
         style={{
           padding: 20,
-          backgroundColor: "#fff",
-          borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          backgroundColor: colors.white,
         }}
       >
         <Calendar
-          minDate={moment().format("YYYY-MM-DD")}
-          current={selected || moment().format("YYYY-MM-DD")}
+          current={selected}
           onDayPress={(day) => setSelected(day.dateString)}
+          minDate={moment().add(3, "days").format("YYYY-MM-DD")}
           markedDates={{
             [selected]: {
               selected: true,
-              selectedColor: "#A24BF4",
-              selectedTextColor: "#ffffff",
+              selectedColor: colors.purple,
+              selectedTextColor: colors.white,
             },
           }}
           renderArrow={(item) => (
@@ -50,13 +50,13 @@ const DatePicker = ({ visible, onClose, onPress }) => {
           )}
           theme={{
             textSectionTitleColor: "#999999",
-            selectedDayBackgroundColor: "#A24BF4",
-            selectedDayTextColor: "#ffffff",
-            todayTextColor: "#A24BF4",
-            dayTextColor: "#000000",
+            selectedDayBackgroundColor: colors.purple,
+            selectedDayTextColor: colors.white,
+            todayTextColor: colors.purple,
+            dayTextColor: colors.black,
             textDisabledColor: "#cccccc",
-            arrowColor: "#A24BF4",
-            monthTextColor: "#000",
+            arrowColor: colors.purple,
+            monthTextColor: colors.black,
             borderRadius: 20,
             backgroundColor: "#F9ECFF",
 
@@ -76,7 +76,7 @@ const DatePicker = ({ visible, onClose, onPress }) => {
             activeOpacity={0.7}
             style={{
               flex: 1,
-              borderColor: "#A24BF4",
+              borderColor: colors.purple,
               borderWidth: 1,
               padding: 12,
               borderRadius: 50,
@@ -85,7 +85,11 @@ const DatePicker = ({ visible, onClose, onPress }) => {
             }}
           >
             <Text
-              style={{ color: "#A24BF4", fontFamily: fonts[400], fontSize: 16 }}
+              style={{
+                color: colors.purple,
+                fontFamily: fonts[400],
+                fontSize: 16,
+              }}
             >
               Cancel
             </Text>
@@ -96,7 +100,7 @@ const DatePicker = ({ visible, onClose, onPress }) => {
             onPress={() => onPress(selected)}
             style={{
               flex: 1,
-              backgroundColor: "#A24BF4",
+              backgroundColor: colors.purple,
               padding: 12,
               borderRadius: 50,
               marginLeft: 10,

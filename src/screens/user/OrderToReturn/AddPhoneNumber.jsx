@@ -3,19 +3,46 @@ import { useState } from "react";
 import styles from "../userStyle";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { ScrollView } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { wp } from "../../../theme/responsive";
-import { Height } from "../../../theme/globalStyle";
+import { globalStyle, Height } from "../../../theme/globalStyle";
 import { required } from "../../../utils/constants";
 import { addPhoneNumberAPI } from "../../../apis/authQueries";
-import { Body, Header, MainButton, MainInput, Text } from "../../../components";
+import {
+  Body,
+  CircleCheck,
+  Header,
+  MainButton,
+  MainInput,
+  Text,
+  Validation,
+} from "../../../components";
 
 const AddPhoneNumber = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { navigate } = navigation;
   const { user } = useSelector((state) => state.auth);
   const [load, setLoad] = useState(false);
+  const [phoneValue, setPhoneValue] = useState({
+    error: false,
+    value: "",
+    message: "",
+  });
+  const phoneRegex = /^\d{10}$/;
+
   const onSubmit = (e) => {
+    if (!confirm.value) {
+      setConfirm((prev) => ({ ...prev, error: true }));
+      return;
+    }
+    if (!phoneRegex.test(phoneValue.value)) {
+      setPhoneValue({
+        error: true,
+        message: "Enter a valid phone number (e.g. 123-456-7890)",
+      });
+      return;
+    }
     const data = {
       phone: e.phone,
       name: user.name,
@@ -23,6 +50,10 @@ const AddPhoneNumber = ({ navigation }) => {
     addPhoneNumberAPI(data, "addPhone", navigation, setLoad)(dispatch);
   };
 
+  const [confirm, setConfirm] = useState({
+    error: false,
+    value: false,
+  });
   const {
     control,
     handleSubmit,
@@ -51,8 +82,37 @@ const AddPhoneNumber = ({ navigation }) => {
             required: required("Phone Number"),
           }}
         />
+        <Validation isError={phoneValue.error} message={phoneValue.message} />
+
+        <Height />
         <Height />
 
+        <View style={{ paddingRight: wp(3) }}>
+          <CircleCheck
+            isError={confirm.error}
+            focus={confirm.value}
+            title="I agree to receive one-time security codes from the ReturnBuddies App. Message frequency varies and is based solely on your account activity. Message and data rates may apply. Reply STOP to cancel. Reply HELP for assistance."
+            onPress={() =>
+              setConfirm((prev) => ({ value: !prev.value, error: false }))
+            }
+          />
+        </View>
+        <Height />
+        <TouchableOpacity
+          onPress={() => navigate("privacy", { type: "privacy" })}
+        >
+          <Text
+            style={[
+              globalStyle.a,
+              {
+                marginLeft: 28,
+              },
+            ]}
+            title="Privacy Policy"
+          />
+        </TouchableOpacity>
+
+        <Height />
         <MainButton
           load={load}
           title="Verify"

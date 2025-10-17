@@ -22,7 +22,7 @@ export const sendPlayerIdToBackend = async () => {
   apiRequest({
     data: { userId, playerId, os: Platform.OS },
     method: "post",
-    noNotification: true,
+    // noNotification: true,
     endpoint: "user/register-device",
     onSuccess: (e) => console.log("sendPlayerIdToBackend", e),
   });
@@ -37,6 +37,7 @@ export const googleLoginAPI = (idToken) => {
       onSuccess: ({ user, token }) => {
         setItem("token", token);
         setItem("userID", user._id);
+        sendPlayerIdToBackend();
         dispatch(setLogin({ user, token }));
       },
     });
@@ -52,6 +53,7 @@ export const appleLoginAPI = (idToken) => {
       onSuccess: ({ user, token }) => {
         setItem("token", token);
         setItem("userID", user._id);
+        sendPlayerIdToBackend();
         dispatch(setLogin({ user, token }));
       },
     });
@@ -65,9 +67,10 @@ export const loginAPI = (data, showOTP, error, saveEmail, load) => {
       method: "post",
       noNotification: true,
       endpoint: "user/login",
-      onSuccess: ({ user, token, otp }) => {
+      onSuccess: ({ user, token }) => {
         setItem("token", token);
         setItem("userID", user._id);
+        sendPlayerIdToBackend();
         dispatch(setLogin({ user, token }));
       },
       onNotFound: () => {

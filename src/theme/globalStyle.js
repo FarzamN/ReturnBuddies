@@ -36,6 +36,11 @@ export const globalStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  a: {
+    color: "#3545EE",
+    textDecorationColor: "#3545EE",
+    textDecorationLine: "underline",
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",

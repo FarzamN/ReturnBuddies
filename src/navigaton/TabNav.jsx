@@ -74,6 +74,7 @@ const AllOrderToReturn = () => (
     <Screen name="confirmPickup" component={ConfirmPickup} />
     <Screen name="selectNewAddress" component={SelectNewAddress} />
 
+    <Screen name="privacy" component={Privacy} />
     <Screen name="userOTP" component={UserOTP} />
     <Screen name="addNewAddress" component={AddNewAddress} />
     <Screen name="addPhoneNumber" component={AddPhoneNumber} />

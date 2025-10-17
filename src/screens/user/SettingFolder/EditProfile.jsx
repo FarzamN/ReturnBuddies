@@ -6,8 +6,9 @@ import {
   FullImage,
   MainButton,
   Validation,
-  RequiredText,
   CustomAlert,
+  RequiredText,
+  CircleCheck,
 } from "../../../components";
 import {
   editProfileAPI,
@@ -30,13 +31,14 @@ import { View, TextInput, ScrollView, TouchableOpacity } from "react-native";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
-  const { navigate, goBack } = useNavigation();
   const { isKeyboard } = useIskeyboard();
+  const { navigate, goBack } = useNavigation();
 
   const { user } = useSelector((state) => state.auth);
 
   const [error, setError] = useState({
     verify: false,
+    confirm: false,
   });
   const [isVerified, setIsVerified] = useState(user?.phoneVerified);
   useEffect(() => {
@@ -51,6 +53,7 @@ const EditProfile = () => {
     error: false,
     value: user?.phone,
     message: "",
+    confirm: false,
   });
 
   const onVerify = () => {
@@ -63,8 +66,8 @@ const EditProfile = () => {
       return;
     }
 
-   const phoneRegex = /^\d{10}$/;
-        // const phoneRegex = /^\+\d{1,3}\s?\d{6,}$/;
+    const phoneRegex = /^\d{10}$/;
+    // const phoneRegex = /^\+\d{1,3}\s?\d{6,}$/;
 
     if (!phoneRegex.test(phoneValue.value)) {
       setPhoneValue({
@@ -83,6 +86,10 @@ const EditProfile = () => {
   const onSubmit = (data) => {
     if (!isVerified) {
       setError({ verify: true });
+      return;
+    }
+    if (!phoneValue.confirm) {
+      setError({ confirm: true });
       return;
     }
     editProfileAPI(data, goBack, setIsPending)(dispatch);
@@ -160,6 +167,16 @@ const EditProfile = () => {
             </TouchableOpacity>
           </View>
           <Validation isError={phoneValue.error} message={phoneValue.message} />
+        </View>
+        <View style={{ paddingRight: wp(3) }}>
+          <CircleCheck
+            isError={error.confirm}
+            focus={phoneValue.confirm}
+            title="I agree to receive one-time security codes from the ReturnBuddies App. Message frequency varies and is based solely on your account activity. Message and data rates may apply. Reply STOP to cancel. Reply HELP for assistance."
+            onPress={() =>
+              setPhoneValue((prev) => ({ ...prev, confirm: !prev.confirm }))
+            }
+          />
         </View>
 
         {/* email input */}
