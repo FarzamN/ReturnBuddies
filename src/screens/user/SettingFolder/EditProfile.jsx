@@ -28,6 +28,7 @@ import { useNavigation } from "@react-navigation/native";
 import inputStyles from "../../../components/Inputs/inputStyle";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { View, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import { phoneRegex } from "../../../utils/urls";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,10 @@ const EditProfile = () => {
   });
 
   const onVerify = () => {
+    setPhoneValue({
+      error: false,
+      message: "",
+    });
     if (!phoneValue.value) {
       setPhoneValue({
         error: true,
@@ -65,9 +70,6 @@ const EditProfile = () => {
       });
       return;
     }
-
-    const phoneRegex = /^\d{10}$/;
-    // const phoneRegex = /^\+\d{1,3}\s?\d{6,}$/;
 
     if (!phoneRegex.test(phoneValue.value)) {
       setPhoneValue({
@@ -80,7 +82,7 @@ const EditProfile = () => {
 
     // If valid -> continue verification
     const data = { phone: phoneValue.value };
-    phoneVerficationAPI(data, navigate, setVerifyLoad)(dispatch);
+    phoneVerficationAPI(data, navigate, setVerifyLoad, setPhoneValue)(dispatch);
   };
 
   const onSubmit = (data) => {
@@ -139,15 +141,17 @@ const EditProfile = () => {
             <TouchableOpacity
               onPress={onVerify}
               activeOpacity={0.7}
-              disabled={verifyLoad || isVerified}
+              disabled={verifyLoad || isVerified || !phoneValue.confirm}
               style={[
                 settingStyle.verifyButton,
                 {
                   backgroundColor: isVerified
                     ? "#E8F8E8"
+                    : !phoneValue.confirm
+                    ? "#e7e7e7" // grey when not checked
                     : error.verify
                     ? "#ED64791A"
-                    : "#F4E8FF",
+                    : colors.purple + "1A",
                 },
               ]}
             >
@@ -155,6 +159,8 @@ const EditProfile = () => {
                 color={
                   isVerified
                     ? "#66CE67"
+                    : !phoneValue.confirm
+                    ? "#808080" // grey text
                     : error.verify
                     ? "#ED6479"
                     : colors.purple
@@ -168,6 +174,7 @@ const EditProfile = () => {
           </View>
           <Validation isError={phoneValue.error} message={phoneValue.message} />
         </View>
+        <Height />
         <View style={{ paddingRight: wp(3) }}>
           <CircleCheck
             isError={error.confirm}

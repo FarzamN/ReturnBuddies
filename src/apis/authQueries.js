@@ -93,6 +93,7 @@ export const registerAPI = async (data, showOTP, error, saveEmail, load) => {
     onSuccess: () => {
       showOTP(true);
       saveEmail(data.email);
+      sendPlayerIdToBackend();
     },
 
     onCatchFailure: (message) => error({ msg: message, visible: true }),
@@ -165,16 +166,35 @@ export const changePasswordAPI = async (data, load, goBack) => {
   }
 };
 
-export const addPhoneNumberAPI = (data, type, navigation, load) => {
+export const addPhoneNumberAPI = (
+  data,
+  type,
+  navigation,
+  load,
+  setPhoneValue
+) => {
   return async (dispatch) => {
     apiRequest({
       data,
       method: "post",
       onFinally: load,
+      noNotification: true,
       endpoint: "user/updatePhone",
       onSuccess: ({ OTP }) => {
         dispatch(setOTP(OTP));
         navigation.navigate("userOTP", { number: data.phone, type });
+      },
+      onCatchFailure: ({ message }) => {
+        setPhoneValue({
+          error: true,
+          message,
+        });
+      },
+      onFailure: ({ message }) => {
+        setPhoneValue({
+          error: true,
+          message,
+        });
       },
     });
   };
@@ -346,17 +366,20 @@ export const deleteAddressAPI = (_id, setAlert, load) => {
   };
 };
 
-export const phoneVerficationAPI = (data, nav, load) => {
+export const phoneVerficationAPI = (data, nav, load, setPhoneValue) => {
   return async (dispatch) => {
     apiRequest({
       data,
       method: "post",
       onFinally: load,
+      noNotification: true,
       endpoint: "user/phoneVerfication",
       onSuccess: ({ otp }) => {
         dispatch(setOTP(otp));
         nav("userOTP", { number: data.phone, type: "verifyPhoneNumber" });
       },
+      onFailure: ({ message }) => setPhoneValue({ error: true, message }),
+      onCatchFailure: ({ message }) => setPhoneValue({ error: true, message }),
     });
   };
 };

@@ -96,7 +96,7 @@ const UserOTP = ({ navigation, route }) => {
       <Text
         center
         style={authStyle.otpSub}
-        title={`Enter the OTP code we sent to\n${number}. ${otp}`}
+        title={`Enter the OTP code we sent to\n${number}.`}
       />
       <Height />
       <Height />

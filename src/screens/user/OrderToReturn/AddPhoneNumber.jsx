@@ -18,6 +18,7 @@ import {
   Text,
   Validation,
 } from "../../../components";
+import { phoneRegex } from "../../../utils/urls";
 
 const AddPhoneNumber = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -26,17 +27,19 @@ const AddPhoneNumber = ({ navigation }) => {
   const [load, setLoad] = useState(false);
   const [phoneValue, setPhoneValue] = useState({
     error: false,
-    value: "",
     message: "",
   });
-  const phoneRegex = /^\d{10}$/;
 
   const onSubmit = (e) => {
+    setPhoneValue({
+      error: false,
+      message: "",
+    });
     if (!confirm.value) {
       setConfirm((prev) => ({ ...prev, error: true }));
       return;
     }
-    if (!phoneRegex.test(phoneValue.value)) {
+    if (!phoneRegex.test(e.phone)) {
       setPhoneValue({
         error: true,
         message: "Enter a valid phone number (e.g. 123-456-7890)",
@@ -47,7 +50,13 @@ const AddPhoneNumber = ({ navigation }) => {
       phone: e.phone,
       name: user.name,
     };
-    addPhoneNumberAPI(data, "addPhone", navigation, setLoad)(dispatch);
+    addPhoneNumberAPI(
+      data,
+      "addPhone",
+      navigation,
+      setLoad,
+      setPhoneValue
+    )(dispatch);
   };
 
   const [confirm, setConfirm] = useState({

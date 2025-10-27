@@ -19,8 +19,8 @@ const CircleCheck = (props) => {
       <Icon
         size={20}
         type={focus ? "Ionicons" : "Entypo"}
-        color={focus ? colors.purple : isError ? colors.error : colors.grey}
         name={focus ? "checkmark-circle" : "circle"}
+        color={focus ? colors.purple : isError ? colors.error : colors.grey}
       />
       <Text
         title={title}
@@ -34,7 +34,7 @@ const CircleCheck = (props) => {
 export default CircleCheck;
 
 const checkBoxText = {
-  fontSize: 14,
+  fontSize: 13,
   marginLeft: 7,
   fontFamily: fonts[400],
   top: fontScale(iOS ? 0 : 1),

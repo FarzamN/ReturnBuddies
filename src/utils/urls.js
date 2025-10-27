@@ -1,5 +1,6 @@
 import axios from "axios";
 
+export const phoneRegex = /^(\+?\d{1,3})?\d{10}$/;
 export const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
 const url = "https://returnbuddies-production.up.railway.app/";

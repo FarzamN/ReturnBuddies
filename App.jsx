@@ -33,7 +33,7 @@ const App = () => {
     if (user != null) {
       getBasePriceAPI()(dispatch);
       getFAQsAPI()(dispatch);
-      sendPlayerIdToBackend();
+      // sendPlayerIdToBackend();
     }
     navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, [user]);
