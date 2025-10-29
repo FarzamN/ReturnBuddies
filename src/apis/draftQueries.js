@@ -147,7 +147,7 @@ export const getBasePriceAPI = () => {
   };
 };
 
-export const confirmPickupAPI = (data, nav, load) => {
+export const confirmPickupAPI = (data, nav, load, error) => {
   return async (dispatch) => {
     apiRequest({
       data,
@@ -169,12 +169,10 @@ export const confirmPickupAPI = (data, nav, load) => {
           })
         );
       },
-      onFailure: ({ message }) => {
-        console.log(message);
-      },
-      onCatchFailure: ({ message }) => {
-        console.log(message);
-      },
+      onFailure: ({ message }) =>
+        error((props) => ({ ...props, payment: true, paymentString: message })),
+      onCatchFailure: ({ message }) =>
+        error((props) => ({ ...props, payment: true, paymentString: message })),
       onFinally: load,
     });
   };

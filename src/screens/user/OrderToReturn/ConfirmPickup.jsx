@@ -15,6 +15,7 @@ import {
   CircleCheck,
   PickupButton,
   ItemPickupButton,
+  Validation,
 } from "../../../components";
 
 import moment from "moment";
@@ -70,6 +71,8 @@ const ConfirmPickup = () => {
     phone: false,
     payment: false,
     oversized: false,
+    payment: false,
+    paymentString: "",
   });
   // const totalItemCount = 6;
   const totalItemCount = draftSelectedRetun
@@ -101,7 +104,16 @@ const ConfirmPickup = () => {
   const finalAddress = selectedAddress?.street
     ? selectedAddress
     : pickupAddress;
+
   const onSubmit = () => {
+    setError({
+      address: false,
+      phone: false,
+      payment: false,
+      oversized: false,
+      payment: false,
+      paymentString: "",
+    });
     if (!finalAddress?.street) {
       setError((prev) => ({ ...prev, address: true }));
       return;
@@ -134,7 +146,7 @@ const ConfirmPickup = () => {
       pickupAddress: finalAddress._id,
       bundleId: draftSelectedRetun.map((item) => item._id),
     };
-    confirmPickupAPI(value, navigate, setLoad)(dispatch);
+    confirmPickupAPI(value, navigate, setLoad, setError)(dispatch);
   };
   useEffect(() => {
     if (phone) setError((prev) => ({ ...prev, phone: false }));
@@ -296,6 +308,9 @@ const ConfirmPickup = () => {
             onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
           />
           <Height />
+
+          <Validation isError={error.payment} message={error.paymentString} />
+          {error.payment && <Height />}
           {hasOversized && (
             <CircleCheck
               isError={error.oversized}

@@ -94,8 +94,6 @@ const AddPhoneNumber = ({ navigation }) => {
         <Validation isError={phoneValue.error} message={phoneValue.message} />
 
         <Height />
-        <Height />
-
         <View style={{ paddingRight: wp(3) }}>
           <CircleCheck
             isError={confirm.error}
@@ -107,6 +105,7 @@ const AddPhoneNumber = ({ navigation }) => {
           />
         </View>
         <Height />
+
         <TouchableOpacity
           onPress={() => navigate("privacy", { type: "privacy" })}
         >
