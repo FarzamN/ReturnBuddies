@@ -309,8 +309,11 @@ const ConfirmPickup = () => {
           />
           <Height />
 
-          <Validation isError={error.payment} message={error.paymentString} />
-          {error.payment && <Height />}
+          <Validation
+            isError={error.paymentString}
+            message={error.paymentString}
+          />
+          {error.paymentString && <Height />}
           {hasOversized && (
             <CircleCheck
               isError={error.oversized}
