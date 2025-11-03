@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NotifierWrapper } from "react-native-notifier";
 import { getBasePriceAPI } from "./src/apis/draftQueries";
+import { StripeProvider } from "@stripe/stripe-react-native";
 import { OneSignal, LogLevel } from "react-native-onesignal";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
@@ -53,9 +54,8 @@ const App = () => {
     };
 
     const handleSubscriptionChangeEvent = async (event) => {
-      if (event.current.optedIn) {
-        await sendPlayerIdToBackend();
-      }
+      if (event.current.optedIn)
+        if (user != null) await sendPlayerIdToBackend();
     };
 
     // Handle notifications shown in foreground
@@ -88,13 +88,21 @@ const App = () => {
   }, 3000);
   return (
     <NavigationContainer>
-      <NotifierWrapper>
-        {showSplash ? (
-          <Splash />
-        ) : (
-          <>{user == null ? <AuthNav /> : <TabNav />}</>
-        )}
-      </NotifierWrapper>
+      <StripeProvider
+        publishableKey={
+          "pk_live_51JzTs2Kk0elFW1liNnnXN1Pr3r9Qak4v02CiSIl2WK58Ju7nlnCiGvr1DD1q4NwH8rIXgR5HJlkVtMYQXY9AZyCF00NKobvkyg"
+        }
+        merchantIdentifier="merchant.identifier" // required for Apple Pay
+        urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      >
+        <NotifierWrapper>
+          {showSplash ? (
+            <Splash />
+          ) : (
+            <>{user == null ? <AuthNav /> : <TabNav />}</>
+          )}
+        </NotifierWrapper>
+      </StripeProvider>
     </NavigationContainer>
   );
 };

@@ -117,3 +117,74 @@ export const apiRequest = async ({
     onFinally?.(false);
   }
 };
+
+const dd = {
+  id: "pm_1SPNPIKk0elFW1liN09TVpxc",
+  paymentMethodType: "Card",
+  livemode: true,
+  billingDetails: {
+    email: null,
+    phone: null,
+    name: "Farzam",
+    address: {
+      state: null,
+      country: null,
+      line2: null,
+      city: null,
+      line1: null,
+      postalCode: null,
+    },
+  },
+  AuBecsDebit: {
+    fingerprint: null,
+    last4: null,
+    bsbNumber: null,
+  },
+  USBankAccount: {
+    accountHolderType: "Unknown",
+    bankName: null,
+    fingerprint: null,
+    accountType: "Unknown",
+    last4: null,
+    routingNumber: null,
+    linkedAccount: null,
+    supportedNetworks: null,
+    preferredNetworks: null,
+  },
+  customerId: null,
+  BacsDebit: {
+    fingerprint: null,
+    last4: null,
+    sortCode: null,
+  },
+  SepaDebit: {
+    bankCode: null,
+    country: null,
+    last4: null,
+    fingerprint: null,
+  },
+  Fpx: {
+    bank: "",
+  },
+  Upi: {
+    vpa: null,
+  },
+  Ideal: {
+    bankIdentifierCode: "",
+    bankName: "",
+  },
+  Card: {
+    funding: "debit",
+    preferredNetwork: null,
+    country: "PK",
+    threeDSecureUsage: {
+      isSupported: true,
+    },
+    fingerprint: null,
+    expMonth: 5,
+    availableNetworks: ["mastercard"],
+    brand: "MasterCard",
+    last4: "7802",
+    expYear: 2029,
+  },
+};

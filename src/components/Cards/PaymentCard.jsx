@@ -3,27 +3,14 @@ import { FullImage } from "..";
 import { iOS } from "../../utils/constants";
 import { colors } from "../../theme/colors";
 import { appImages, fonts } from "../../assets";
-import { maskCardNumber } from "../../function";
-import { fontScale } from "../../theme/responsive";
+import { Row, Space_Between } from "../../theme/globalStyle";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import { globalStyle, Row, Space_Between } from "../../theme/globalStyle";
 
-const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
-  const getCardType = (cardNumber) => {
-    if (!cardNumber) return null;
-    const firstDigit = cardNumber[0];
-    if (firstDigit === "3") return "amex";
-    if (firstDigit === "4") return "visa";
-    if (firstDigit === "5") return "master";
-    return "unknown";
-  };
-
-  const cardType = getCardType(data?.cardNumber);
-
+const PaymentCard = ({ data, onPress, focus, disabled }) => {
   const CARD_TYPES = {
-    master: {
+    mastercard: {
       image: appImages.master,
-      displayName: "Master",
+      displayName: "MasterCard",
     },
     amex: {
       image: appImages.amex,
@@ -39,9 +26,14 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
     },
   };
 
-  const getCardInfo = (cardType) => {
-    return CARD_TYPES[cardType] || CARD_TYPES.default;
+  // Map Stripe brand to your CARD_TYPES keys
+  const getCardInfo = (brand) => {
+    if (!brand) return CARD_TYPES.default;
+    const key = brand.toLowerCase(); // e.g. "MasterCard" -> "mastercard"
+    return CARD_TYPES[key] || CARD_TYPES.default;
   };
+
+  const cardInfo = getCardInfo(data?.brand);
 
   return (
     <TouchableOpacity
@@ -49,26 +41,19 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
       activeOpacity={0.7}
       style={[
         styles.cardContainer,
-        {
-          borderColor: focus ? colors.purple : colors.borderColor,
-        },
+        { borderColor: focus ? colors.purple : colors.borderColor },
       ]}
       onPress={onPress}
     >
       <Space_Between style={styles.cardContent}>
         <Row style={styles.cardInfo}>
-          <FullImage
-            source={getCardInfo(cardType).image}
-            style={styles.cardLogo}
-          />
+          <FullImage source={cardInfo.image} style={styles.cardLogo} />
           <View style={styles.cardDetails}>
             <Text style={styles.cardTypeText}>
-              {`${getCardInfo(cardType).displayName} ${maskCardNumber(
-                data?.cardNumber
-              )}`}
+              {`${cardInfo.displayName} ${"•••• " + data?.last4}`}
             </Text>
             <Text style={styles.expiryText}>
-              Expires {data?.expirationDate}
+              Expires {data?.exp_month}/{data?.exp_year}
             </Text>
           </View>
         </Row>
@@ -78,13 +63,14 @@ const PaymentCard = ({ data, onPress, focus, disabled, onEdit }) => {
             <Text style={styles.defaultText}>Default</Text>
           </View>
         )}
-        <TouchableOpacity
+
+        {/* <TouchableOpacity
           onPress={onEdit}
           activeOpacity={0.7}
           style={globalStyle.ml10}
         >
           <FullImage source={appImages.edit} style={globalStyle.iconImage} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </Space_Between>
     </TouchableOpacity>
   );
@@ -98,7 +84,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
   },
-
   cardContent: {
     alignItems: "center",
   },
@@ -134,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#67CE67",
     fontFamily: fonts[500],
-    top: fontScale(iOS ? 0 : 1),
+    top: iOS ? 0 : 1,
   },
 });
 

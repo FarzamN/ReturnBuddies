@@ -34,11 +34,13 @@ import { checkPromocode } from "../../../apis/pickupQueries";
 import { confirmPickupAPI } from "../../../apis/draftQueries";
 import { useFreezeScreen, useIskeyboard } from "../../../hooks";
 import { globalStyle, Height } from "../../../theme/globalStyle";
+import { useStripe } from "@stripe/stripe-react-native";
 
 const ConfirmPickup = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
   const { isKeyboard } = useIskeyboard();
+  const { createPaymentMethod } = useStripe();
 
   const { draftSelectedRetun, getBaseData } = useSelector(
     (state) => state.draft
@@ -71,7 +73,6 @@ const ConfirmPickup = () => {
     phone: false,
     payment: false,
     oversized: false,
-    payment: false,
     paymentString: "",
   });
   // const totalItemCount = 6;
@@ -105,15 +106,18 @@ const ConfirmPickup = () => {
     ? selectedAddress
     : pickupAddress;
 
-  const onSubmit = () => {
+  console.log({ finalPayment });
+
+  const onSubmit = async () => {
     setError({
       address: false,
       phone: false,
       payment: false,
       oversized: false,
-      payment: false,
       paymentString: "",
     });
+
+    // === Basic validation ===
     if (!finalAddress?.street) {
       setError((prev) => ({ ...prev, address: true }));
       return;
@@ -122,9 +126,12 @@ const ConfirmPickup = () => {
       setError((prev) => ({ ...prev, phone: true }));
       return;
     }
-
-    if (!finalPayment?.cardNumber) {
-      setError((prev) => ({ ...prev, payment: true }));
+    if (!finalPayment?.stripePaymentMethodId) {
+      setError((prev) => ({
+        ...prev,
+        payment: true,
+        paymentString: "Please select a valid payment method",
+      }));
       return;
     }
     if (hasOversized && !focus) {
@@ -132,22 +139,38 @@ const ConfirmPickup = () => {
       return;
     }
 
-    const tzDate = momentTimeZone.tz(date, "America/New_York").format();
+    try {
+      setLoad(true);
 
-    const value = {
-      note,
-      phone,
-      pickupDate: tzDate,
-      pickupTime: time,
-      total: totalPrice,
-      pickupType: pickupMethod,
-      Payment: finalPayment._id,
-      isOversize: focus ? 1 : 0,
-      pickupAddress: finalAddress._id,
-      bundleId: draftSelectedRetun.map((item) => item._id),
-    };
-    confirmPickupAPI(value, navigate, setLoad, setError)(dispatch);
+      // convert date to timezone format
+      const tzDate = momentTimeZone.tz(date, "America/New_York").format();
+
+      const payload = {
+        note,
+        phone,
+        pickupTime: time,
+        total: totalPrice,
+        pickupDate: tzDate,
+        pickupType: pickupMethod,
+        isOversize: focus ? 1 : 0,
+        pickupAddress: finalAddress._id,
+        payment: finalPayment.stripePaymentMethodId,
+        bundleId: draftSelectedRetun.map((item) => item._id),
+      };
+
+      await confirmPickupAPI(payload, navigate, setLoad, setError)(dispatch);
+    } catch (err) {
+      console.error("❌ Confirm pickup error:", err);
+      setError((prev) => ({
+        ...prev,
+        payment: true,
+        paymentString: "Something went wrong while confirming pickup",
+      }));
+    } finally {
+      setLoad(false);
+    }
   };
+
   useEffect(() => {
     if (phone) setError((prev) => ({ ...prev, phone: false }));
     if (finalPayment?.cardNumber)
@@ -294,25 +317,17 @@ const ConfirmPickup = () => {
 
           <PickupButton
             isError={error.payment}
-            isPayment={finalPayment?.cardNumber}
+            isPayment={finalPayment?.last4}
             source={appImages.wallet}
             title={`${
-              selectedPayment?.cardNumber
-                ? selectedPayment?.cardType +
-                  " " +
-                  maskCardNumber(selectedPayment?.cardNumber)
-                : payment?.cardNumber
-                ? payment?.cardType + " " + maskCardNumber(payment?.cardNumber)
+              finalPayment?.brand
+                ? finalPayment?.brand + " " + "•••• " + finalPayment?.last4
                 : "Add payment method"
             }`}
             onPress={() => navigate("selectPaymentMethod", { isPickup: true })}
           />
-          <Height />
 
-          <Validation
-            isError={error.paymentString}
-            message={error.paymentString}
-          />
+          <Validation isError={error.payment} message={error.paymentString} />
           {error.paymentString && <Height />}
           {hasOversized && (
             <CircleCheck
