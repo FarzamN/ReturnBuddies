@@ -93,7 +93,7 @@ const App = () => {
           "pk_live_51JzTs2Kk0elFW1liNnnXN1Pr3r9Qak4v02CiSIl2WK58Ju7nlnCiGvr1DD1q4NwH8rIXgR5HJlkVtMYQXY9AZyCF00NKobvkyg"
         }
         merchantIdentifier="merchant.identifier" // required for Apple Pay
-        urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+        urlScheme="retrunbuddies" // required for 3D Secure and bank redirects
       >
         <NotifierWrapper>
           {showSplash ? (
