@@ -1,8 +1,8 @@
 import Splash from "./src/screens/splash";
 import { colors } from "./src/theme/colors";
 import TabNav from "./src/navigaton/TabNav";
+import  { useEffect, useState } from "react";
 import AuthNav from "./src/navigaton/AuthNav";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NotifierWrapper } from "react-native-notifier";
 import { getBasePriceAPI } from "./src/apis/draftQueries";
@@ -12,18 +12,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { getFAQsAPI, sendPlayerIdToBackend } from "./src/apis/authQueries";
-
+import { STRIPE_PUBLISHABLE_KEY,ONESIGNAL_APP_ID,iosClientId,webClientId } from "./src/constants";
 const App = () => {
   const dispatch = useDispatch();
-  const ONESIGNAL_APP_ID = "249b4107-fde7-41c1-9d81-b3c4fa097156";
 
   const { user } = useSelector((state) => state.auth);
 
   GoogleSignin.configure({
-    webClientId:
-      "44903643593-lqp344riggspaem55elarln5esgubu3d.apps.googleusercontent.com",
-    iosClientId:
-      "44903643593-371v24l963qnkr4hn370mh5ovt7gvrr1.apps.googleusercontent.com",
+    webClientId,
+    iosClientId,
     offlineAccess: true,
     forceCodeForRefreshToken: true,
   });
@@ -89,9 +86,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <StripeProvider
-        publishableKey={
-          "pk_live_51JzTs2Kk0elFW1liNnnXN1Pr3r9Qak4v02CiSIl2WK58Ju7nlnCiGvr1DD1q4NwH8rIXgR5HJlkVtMYQXY9AZyCF00NKobvkyg"
-        }
+        publishableKey={STRIPE_PUBLISHABLE_KEY}
         merchantIdentifier="merchant.identifier" // required for Apple Pay
         urlScheme="retrunbuddies" // required for 3D Secure and bank redirects
       >
