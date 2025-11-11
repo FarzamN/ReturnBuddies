@@ -61,7 +61,6 @@ const AddPaymentMethod = ({ route }) => {
           billingDetails: { name: cardHolderName },
         },
       });
-
       if (stripeError) {
         console.log("Stripe error:", stripeError);
         setError(stripeError.message);
@@ -81,11 +80,11 @@ const AddPaymentMethod = ({ route }) => {
         isDefault: getPayments.length === 0 ? 1 : isDefault ? 1 : 0,
       };
 
-      if (editing) {
-        editPaymentAPI(item._id, cardInfo, goBack, setLoad)(dispatch);
-      } else {
-        addPaymentAPI(cardInfo, goBack, setLoad)(dispatch);
-      }
+      // if (editing) {
+      //   editPaymentAPI(item._id, cardInfo, goBack, setLoad)(dispatch);
+      // } else {
+      //   addPaymentAPI(cardInfo, goBack, setLoad)(dispatch);
+      // }
     } catch (err) {
       console.error("Error creating payment method:", err);
       setError("Something went wrong while adding the card.");
