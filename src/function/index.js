@@ -3,6 +3,9 @@ import instance from "../utils/urls";
 import { getItem } from "../utils/storage";
 import { Notifier } from "react-native-notifier";
 import Component from "../components/Helpers/CustomToast";
+import { LogLevel, OneSignal } from "react-native-onesignal";
+import { ONESIGNAL_APP_ID } from "../constants";
+import { sendPlayerIdToBackend } from "../apis/authQueries";
 
 export const showNotification = (title, message) => {
   Notifier.showNotification({
@@ -118,73 +121,35 @@ export const apiRequest = async ({
   }
 };
 
-const dd = {
-  id: "pm_1SPNPIKk0elFW1liN09TVpxc",
-  paymentMethodType: "Card",
-  livemode: true,
-  billingDetails: {
-    email: null,
-    phone: null,
-    name: "Farzam",
-    address: {
-      state: null,
-      country: null,
-      line2: null,
-      city: null,
-      line1: null,
-      postalCode: null,
-    },
-  },
-  AuBecsDebit: {
-    fingerprint: null,
-    last4: null,
-    bsbNumber: null,
-  },
-  USBankAccount: {
-    accountHolderType: "Unknown",
-    bankName: null,
-    fingerprint: null,
-    accountType: "Unknown",
-    last4: null,
-    routingNumber: null,
-    linkedAccount: null,
-    supportedNetworks: null,
-    preferredNetworks: null,
-  },
-  customerId: null,
-  BacsDebit: {
-    fingerprint: null,
-    last4: null,
-    sortCode: null,
-  },
-  SepaDebit: {
-    bankCode: null,
-    country: null,
-    last4: null,
-    fingerprint: null,
-  },
-  Fpx: {
-    bank: "",
-  },
-  Upi: {
-    vpa: null,
-  },
-  Ideal: {
-    bankIdentifierCode: "",
-    bankName: "",
-  },
-  Card: {
-    funding: "debit",
-    preferredNetwork: null,
-    country: "PK",
-    threeDSecureUsage: {
-      isSupported: true,
-    },
-    fingerprint: null,
-    expMonth: 5,
-    availableNetworks: ["mastercard"],
-    brand: "MasterCard",
-    last4: "7802",
-    expYear: 2029,
-  },
+export const setupOneSignal = (user) => {
+  OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+  OneSignal.initialize(ONESIGNAL_APP_ID);
+  OneSignal.Notifications.requestPermission(false);
+  const handleWillDisplayEvent = (event) => {
+    event.notification.display();
+  };
+
+  const handleSubscriptionChangeEvent = async (event) => {
+    if (event.current.optedIn && user != null) {
+      await sendPlayerIdToBackend();
+    }
+  };
+  OneSignal.Notifications.addEventListener(
+    "foregroundWillDisplay",
+    handleWillDisplayEvent
+  );
+  OneSignal.User.pushSubscription.addEventListener(
+    "change",
+    handleSubscriptionChangeEvent
+  );
+  return () => {
+    OneSignal.Notifications.removeEventListener(
+      "foregroundWillDisplay",
+      handleWillDisplayEvent
+    );
+    OneSignal.User.pushSubscription.removeEventListener(
+      "change",
+      handleSubscriptionChangeEvent
+    );
+  };
 };
