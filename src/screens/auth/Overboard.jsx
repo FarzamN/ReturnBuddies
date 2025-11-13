@@ -1,11 +1,3 @@
-import {
-  View,
-  Text,
-  Image,
-  StatusBar,
-  StyleSheet,
-  SafeAreaView,
-} from "react-native";
 import React, { useRef } from "react";
 import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
@@ -13,6 +5,8 @@ import { MainButton } from "../../components";
 import { appImages, fonts } from "../../assets";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import { globalStyle, Height } from "../../theme/globalStyle";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View, Text, Image, StatusBar, StyleSheet } from "react-native";
 import { hp, wp, width, height, scaleSize } from "../../theme/responsive";
 
 const onboardingArray = [

@@ -1,7 +1,8 @@
 import React from "react";
 import { colors } from "../../theme/colors";
+import { StatusBar, View } from "react-native";
 import { globalStyle } from "../../theme/globalStyle";
-import { SafeAreaView, StatusBar, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Body = ({ children, style, horizontal, purple }) => {
   return (

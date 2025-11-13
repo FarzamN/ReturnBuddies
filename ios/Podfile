@@ -46,12 +46,20 @@ target 'ReturnBuddies' do
   config = use_native_modules!
   use_frameworks! :linkage => :static
   use_modular_headers!
+
+# --- Fix for React Native 0.82.x missing fast_float ---
+pod 'fast_float', :podspec => '../node_modules/react-native/third-party-podspecs/fast_float.podspec'
+pod 'RCT-Folly', :podspec => '../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec'
+# -------------------------------------------------------
+
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
-  )
+    :app_path => "#{Pod::Config.instance.installation_root}/..")
 
+
+pod 'NitroMmkv', :path => '../node_modules/react-native-mmkv'
+# -------------------------------------------------------
 pod "FirebaseCoreInternal", :modular_headers => true
 pod "GoogleUtilities", :modular_headers => true
 pod "FirebaseAuthInterop", :modular_headers => true

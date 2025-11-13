@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -20,27 +22,25 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-    <key>CFBundleTypeRole</key>
-    <string>Editor</string>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>com.googleusercontent.apps.44903643593-371v24l963qnkr4hn370mh5ovt7gvrr1</string>
-    </array>
-  </dict>
-
-  <dict>
-    <key>CFBundleTypeRole</key>
-    <string>Editor</string>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>retrunbuddies</string>
-    </array>
-  </dict>
-</array>
-
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.44903643593-371v24l963qnkr4hn370mh5ovt7gvrr1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>retrunbuddies</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -52,14 +52,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	
 	<key>NSCameraUsageDescription</key>
 	<string>Return buddies requests to access camera to upload item photos in the app.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Return buddies requests to access photos to upload item photos and return labels in the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Return buddies requests to access photos to upload item photos and return labels in the app.</string>
-
+	<key>RCTNewArchEnabled</key>
+	<true/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

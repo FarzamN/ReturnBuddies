@@ -68,7 +68,7 @@ const AddPaymentMethod = ({ route }) => {
         return;
       }
 
-      console.log("✅ Stripe payment method created:", paymentMethod);
+      console.log("✅ Stripe payment method created:", paymentMethod.id);
 
       const cardInfo = {
         cardHolderName,
@@ -79,7 +79,7 @@ const AddPaymentMethod = ({ route }) => {
         exp_year: paymentMethod.Card.expYear,
         isDefault: getPayments.length === 0 ? 1 : isDefault ? 1 : 0,
       };
-
+      setLoad(false);
       // if (editing) {
       //   editPaymentAPI(item._id, cardInfo, goBack, setLoad)(dispatch);
       // } else {
