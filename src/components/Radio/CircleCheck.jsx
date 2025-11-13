@@ -5,8 +5,8 @@ import { iOS } from "../../utils/constants";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import { fontScale } from "../../theme/responsive";
-import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle } from "../../theme/globalStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const CircleCheck = (props) => {
   const { focus, onPress, title, isError } = props;
@@ -16,10 +16,9 @@ const CircleCheck = (props) => {
       activeOpacity={0.7}
       style={[globalStyle.row]}
     >
-      <Icon
+      <DynamicIcon
         size={20}
-        type={focus ? "Ionicons" : "Entypo"}
-        name={focus ? "checkmark-circle" : "circle"}
+        name={focus ? "CircleCheck" : "Circle"}
         color={focus ? colors.purple : isError ? colors.error : colors.grey}
       />
       <Text

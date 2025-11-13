@@ -3,7 +3,7 @@ import helperStyle from "./helperStyle";
 import { Text, View } from "react-native";
 import { colors } from "../../theme/colors";
 import { fontScale } from "../../theme/responsive";
-import Icon from "react-native-dynamic-vector-icons";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CustomToast = ({ title, message }) => {
@@ -12,7 +12,7 @@ const CustomToast = ({ title, message }) => {
   return (
     <View style={[helperStyle.toastCont, { marginTop }]}>
       <View style={helperStyle.ToastIconBox}>
-        <Icon size={20} color={colors.white} name="close" type="Ionicons" />
+        <DynamicIcon size={20} color={colors.white} name="CircleX" />
       </View>
       <View style={{ width: "90%" }}>
         <Text

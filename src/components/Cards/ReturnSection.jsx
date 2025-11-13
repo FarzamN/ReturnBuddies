@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./cardStyle";
 import { colors } from "../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
 import buttonStyle from "../../screens/user/userStyle";
 import { ReturnInnerCard, MainButton, Text } from "..";
 import { useNavigation } from "@react-navigation/native";
-import { globalStyle, Height, Row } from "../../theme/globalStyle";
+import { globalStyle, Row } from "../../theme/globalStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 import { View, Pressable, FlatList, Text as RNText } from "react-native";
 
 const ReturnSection = (props) => {
@@ -32,12 +32,7 @@ const ReturnSection = (props) => {
         <View style={{ flex: 1 }}>
           <Row>
             {selected && (
-              <Icon
-                size={20}
-                name="checkbox"
-                type="Ionicons"
-                color={colors.purple}
-              />
+              <DynamicIcon size={20} name="SquareCheck" color={colors.purple} />
             )}
             <RNText
               style={[styles.BundleName, { marginLeft: selected ? 5 : 0 }]}

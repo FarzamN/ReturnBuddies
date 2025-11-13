@@ -4,13 +4,13 @@ import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
 import { View, StatusBar } from "react-native";
 import { appImages, fonts } from "../../../assets";
-import Icon from "react-native-dynamic-vector-icons";
 import { width, wp } from "../../../theme/responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { getPickupAPI } from "../../../apis/pickupQueries";
 import { getReturnItem } from "../../../apis/draftQueries";
 import { Body, Empty, MainButton } from "../../../components";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
+import DynamicIcon from "../../../utils/DynamicLucideIcon";
 
 const TrackPickup = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -30,10 +30,9 @@ const TrackPickup = ({ navigation }) => {
       <View style={[globalStyle.flex, { justifyContent: "space-between" }]}>
         <Space_Between style={{ marginTop: StatusBar.currentHeight + 20 }}>
           <View />
-          <Icon
+          <DynamicIcon
             size={20}
-            name="close"
-            type="AntDesign"
+            name="CircleX"
             color={colors.black}
             onPress={() => replace("draftItem")}
           />

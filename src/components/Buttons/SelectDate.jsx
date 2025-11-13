@@ -3,8 +3,8 @@ import { Text } from "..";
 import styles from "./buttonStyle";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
-import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle } from "../../theme/globalStyle";
+import { CalendarRange } from "lucide-react-native";
 
 const SelectDate = (props) => {
   const { title, isError, onPress } = props;
@@ -23,9 +23,7 @@ const SelectDate = (props) => {
         },
       ]}
     >
-      <Icon
-        type="Ionicons"
-        name="calendar-outline"
+      <CalendarRange
         size={20}
         color={isError ? "red" : colors.black}
         style={{ marginRight: 10 }}

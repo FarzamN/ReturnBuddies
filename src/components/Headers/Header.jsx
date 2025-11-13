@@ -4,10 +4,10 @@ import { AddButton, Text } from "..";
 import { appImages } from "../../assets";
 import { wp } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import { Image, TouchableOpacity, View } from "react-native";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const Header = (props) => {
   const { goBack, navigate } = useNavigation();
@@ -28,9 +28,9 @@ const Header = (props) => {
           activeOpacity={0.7}
           onPress={onBackPress ? onBackPress : goBack}
         >
-          <Icon
-            type="Ionicons"
-            name="arrow-back"
+          <DynamicIcon
+            strokeWidth={2}
+            name="ArrowLeft"
             size={20}
             color={colors.black}
           />

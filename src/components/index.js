@@ -12,7 +12,6 @@ import CircleCheck from "./Radio/CircleCheck.jsx";
 import MainInput from "./Inputs/MainInput";
 
 // Helpers
-import PlusBox from "./Helpers/PlusBox";
 import Oversize from "./Helpers/Oversize";
 
 import HiddenDelete from "./Helpers/HiddenDelete";
@@ -78,7 +77,6 @@ export {
   Body,
   Empty,
   Header,
-  PlusBox,
   Oversize,
   FullImage,
   PrimeryTab,

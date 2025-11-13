@@ -3,7 +3,7 @@ import moment from "moment";
 import styles from "./cardStyle";
 import { FullImage, Text } from "..";
 import { colors } from "../../theme/colors";
-import Icon from "react-native-dynamic-vector-icons";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import { View, FlatList, TouchableOpacity } from "react-native";
 
@@ -37,13 +37,12 @@ const UploadLabelCard = ({ data, selectedReturns, onItemSelect, isError }) => {
           const isSelected = selectedReturns.includes(item._id);
           return (
             <Row>
-              <Icon
+              <DynamicIcon
                 size={22}
                 style={{ marginRight: 5 }}
                 onPress={() => onItemSelect(item._id)}
                 color={isSelected ? colors.purple : colors.grey}
-                type={isSelected ? "Ionicons" : "MaterialIcons"}
-                name={isSelected ? "checkbox" : "check-box-outline-blank"}
+                name={isSelected ? "square-check" : "square"}
               />
               <TouchableOpacity
                 activeOpacity={0.7}

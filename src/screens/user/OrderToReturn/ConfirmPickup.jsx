@@ -23,7 +23,6 @@ import { appImages } from "../../../assets";
 import momentTimeZone from "moment-timezone";
 import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
-import { maskCardNumber } from "../../../function";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import settingStyle from "../SettingFolder/settingStyle";

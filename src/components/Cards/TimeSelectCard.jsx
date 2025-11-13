@@ -5,7 +5,7 @@ import { fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { width } from "../../theme/responsive";
 import { TouchableOpacity } from "react-native";
-import Icon from "react-native-dynamic-vector-icons";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 import { globalStyle } from "../../theme/globalStyle";
 
 const TimeSelectCard = ({ data, focus, onPress, index, disabled }) => {
@@ -30,11 +30,10 @@ const TimeSelectCard = ({ data, focus, onPress, index, disabled }) => {
         color={focus ? colors.purple : disabled ? "#A9A9A9" : colors.black}
         style={{ fontFamily: fonts[500], fontSize: 12 }}
       />
-      <Icon
+      <DynamicIcon
         size={22}
-        type={focus ? "Ionicons" : "Entypo"}
+        name={focus ? "CheckCircle2" : "Circle"}
         color={focus ? colors.purple : disabled ? "#A9A9A9" : colors.grey}
-        name={focus ? "checkmark-circle" : "circle"}
       />
     </TouchableOpacity>
   );

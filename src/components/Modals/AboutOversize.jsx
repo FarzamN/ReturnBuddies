@@ -6,7 +6,7 @@ import { colors } from "../../theme/colors";
 import { View, Text as T } from "react-native";
 import { appImages, fonts } from "../../assets";
 import { Height } from "../../theme/globalStyle";
-import Icon from "react-native-dynamic-vector-icons";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const AboutOversize = ({ visible, onClose }) => {
   return (
@@ -21,10 +21,9 @@ const AboutOversize = ({ visible, onClose }) => {
     >
       <View style={[styles.modalBox]}>
         <Height />
-        <Icon
+        <DynamicIcon
           size={25}
-          name="close"
-          type="AntDesign"
+          name="CircleX"
           onPress={onClose}
           color={colors.description}
           style={styles.oversizeClose}

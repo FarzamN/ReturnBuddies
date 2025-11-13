@@ -5,9 +5,9 @@ import Modal from "react-native-modal";
 import React, { useState } from "react";
 import { colors } from "../../theme/colors";
 import { Calendar } from "react-native-calendars";
-import Icon from "react-native-dynamic-vector-icons";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Height, Space_Between } from "../../theme/globalStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const DatePicker = ({ visible, onClose, onPress }) => {
   const [selected, setSelected] = useState();
@@ -41,11 +41,12 @@ const DatePicker = ({ visible, onClose, onPress }) => {
             },
           }}
           renderArrow={(item) => (
-            <Icon
+            <DynamicIcon
               size={20}
-              type="Entypo"
               color={colors.black}
-              name={`chevron-${item}`}
+              name={`Chevron${
+                item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+              }`}
             />
           )}
           theme={{

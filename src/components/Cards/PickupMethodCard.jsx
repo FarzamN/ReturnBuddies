@@ -1,10 +1,10 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import { Text } from "..";
 import styles from "./cardStyle";
 import { colors } from "../../theme/colors";
-import { TouchableOpacity } from "react-native";
-import Icon from "react-native-dynamic-vector-icons";
 import { Space_Between } from "../../theme/globalStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const PickupMethodCard = ({ data, onPress, focus }) => {
   return (
@@ -20,11 +20,10 @@ const PickupMethodCard = ({ data, onPress, focus }) => {
     >
       <Space_Between>
         <Text title={data.title} style={styles.pickupMethodTitle} />
-        <Icon
+        <DynamicIcon
+          name={focus ? "CheckCircle2" : "Circle"}
           size={22}
-          type={focus ? "Ionicons" : "Entypo"}
           color={focus ? colors.purple : colors.grey}
-          name={focus ? "checkmark-circle" : "circle"}
         />
       </Space_Between>
       <Text title={data.detail} style={styles.pickupMethodDetail} />

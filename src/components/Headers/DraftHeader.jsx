@@ -4,11 +4,11 @@ import styles from "./headerStyle";
 import { useSelector } from "react-redux";
 import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
-import Icon from "react-native-dynamic-vector-icons";
 import { scaleSize, wp } from "../../theme/responsive";
+import { Space_Between } from "../../theme/globalStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar, TouchableOpacity } from "react-native";
-import { Row, Space_Between } from "../../theme/globalStyle";
 
 const DraftHeader = (props) => {
   const { pickup } = props;
@@ -37,12 +37,7 @@ const DraftHeader = (props) => {
         activeOpacity={0.7}
         onPress={() => navigate("settingRoute")}
       >
-        <Icon
-          size={22}
-          type="Ionicons"
-          color={colors.black}
-          name="settings-outline"
-        />
+        <DynamicIcon size={22} color={colors.black} name="Settings" />
       </TouchableOpacity>
     </Space_Between>
   );

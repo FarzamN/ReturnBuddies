@@ -4,10 +4,10 @@ import styles from "./cardStyle";
 import { FullImage, Text } from "..";
 import { colors } from "../../theme/colors";
 import { appImages, fonts } from "../../assets";
-import Icon from "react-native-dynamic-vector-icons";
 import { scaleSize, width } from "../../theme/responsive";
 import { Row, Divider, globalStyle } from "../../theme/globalStyle";
 import { Text as RNText, TouchableOpacity, View } from "react-native";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const PickupSection = ({ data, onPress }) => {
   const all_products = data?.bundleId.flatMap((item) => item.products);
@@ -121,12 +121,7 @@ const PickupSection = ({ data, onPress }) => {
             color={data?.status === "Pickup Cancelled" ? "#9E2424" : "#318252"}
           />
         </Row>
-        <Icon
-          size={20}
-          type="Feather"
-          name="chevron-right"
-          color={colors.black}
-        />
+        <DynamicIcon size={20} name="chevron-right" color={colors.black} />
       </TouchableOpacity>
     </View>
   );

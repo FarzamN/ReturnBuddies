@@ -4,8 +4,8 @@ import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import responsive from "../../theme/responsive";
-import Icon from "react-native-dynamic-vector-icons";
 import { globalStyle, Space_Between } from "../../theme/globalStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const Oversize = ({ focus, onPress, onAboutPress }) => {
   return (
@@ -15,11 +15,10 @@ const Oversize = ({ focus, onPress, onAboutPress }) => {
         onPress={onPress}
         style={globalStyle.row}
       >
-        <Icon
-          size={20}
+        <DynamicIcon
+          size={18}
           style={{ marginRight: 5 }}
-          type={focus ? "Ionicons" : "Feather"}
-          name={focus ? "checkmark-circle" : "circle"}
+          name={focus ? "CheckCircle2" : "Circle"}
           color={focus ? colors.purple : colors.lightGrey}
         />
         <Text title={"Oversized Item?"} />

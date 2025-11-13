@@ -22,13 +22,13 @@ import styles from "../userStyle";
 import { fonts } from "../../../assets";
 import { colors } from "../../../theme/colors";
 import { wp } from "../../../theme/responsive";
-import Icon from "react-native-dynamic-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Height, globalStyle } from "../../../theme/globalStyle";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
+import DynamicIcon from "../../../utils/DynamicLucideIcon";
 
 const DraftItem = () => {
   const dispatch = useDispatch();
@@ -280,11 +280,10 @@ const DraftItem = () => {
       />
       {returnItemCount > 0 && (
         <TouchableOpacity onPress={scrollToBottom}>
-          <Icon
-            type="Ionicons"
-            name="arrow-down-circle"
+          <DynamicIcon
+            name="CircleArrowDown"
             color={colors.purple}
-            size={50}
+            size={35}
             style={{
               position: "absolute",
               right: 30,

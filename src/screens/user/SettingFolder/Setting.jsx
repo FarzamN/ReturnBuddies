@@ -12,7 +12,7 @@ import settingStyle from "./settingStyle";
 import { colors } from "../../../theme/colors";
 import { FullImage } from "../../../components";
 import { appImages, fonts } from "../../../assets";
-import Icon from "react-native-dynamic-vector-icons";
+import DynamicIcon from "../../../utils/DynamicLucideIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { globalStyle } from "../../../theme/globalStyle";
 import { useNavigation } from "@react-navigation/native";
@@ -84,11 +84,10 @@ const Setting = () => {
         }}
       />
 
-      <Icon
+      <DynamicIcon
         size={20}
-        type="Ionicons"
         onPress={goBack}
-        name="arrow-back"
+        name="ArrowLeft"
         color={colors.black}
         style={styles.backButton}
       />
@@ -117,11 +116,10 @@ const Setting = () => {
                 />
               </View>
               <Text style={styles.itemText}>{item.title}</Text>
-              <Icon
+              <DynamicIcon
                 size={18}
                 color="#666"
-                type="Entypo"
-                name="chevron-right"
+                name="ChevronRight"
                 style={styles.chevron}
               />
             </TouchableOpacity>

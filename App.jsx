@@ -12,19 +12,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { getFAQsAPI, sendPlayerIdToBackend } from "./src/apis/authQueries";
-import {
-  iosClientId,
-  webClientId,
-  STRIPE_PUBLISHABLE_KEY,
-} from "./src/constants";
 
 const App = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
   GoogleSignin.configure({
-    webClientId,
-    iosClientId,
+    webClientId: process.env.webClientId,
+    iosClientId: process.env.iosClientId,
     offlineAccess: true,
     forceCodeForRefreshToken: true,
   });
@@ -51,7 +46,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <StripeProvider
-        publishableKey={STRIPE_PUBLISHABLE_KEY}
+        publishableKey={process.env.STRIPE_PUBLISHABLE_KEY}
         merchantIdentifier="merchant.identifier" // required for Apple Pay
         urlScheme="retrunbuddies"
       >

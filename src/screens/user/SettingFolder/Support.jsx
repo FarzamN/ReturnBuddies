@@ -12,10 +12,10 @@ import { useSelector } from "react-redux";
 import settingStyle from "./settingStyle";
 import { colors } from "../../../theme/colors";
 import { appImages, fonts } from "../../../assets";
-import Icon from "react-native-dynamic-vector-icons";
 import responsive, { wp } from "../../../theme/responsive";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { Body, FullImage, Header, Text } from "../../../components";
+import DynamicIcon from "../../../utils/DynamicLucideIcon";
 
 const Support = () => {
   const { getFaqs } = useSelector((state) => state.auth);
@@ -119,11 +119,11 @@ const Support = () => {
                 }
               >
                 <Text style={styles.FAQSectionText} title={item.question} />
-                <Icon
+                <DynamicIcon
                   size={20}
                   type="Entypo"
                   color={colors.black}
-                  name={`chevron-${isExpanded(index) ? "up" : "down"}`}
+                  name={`Chevron${isExpanded(index) ? "Up" : "Down"}`}
                 />
               </Pressable>
               {isExpanded(index) && (

@@ -1,11 +1,9 @@
-import moment from "moment";
 import instance from "../utils/urls";
 import { getItem } from "../utils/storage";
 import { Notifier } from "react-native-notifier";
 import Component from "../components/Helpers/CustomToast";
-import { LogLevel, OneSignal } from "react-native-onesignal";
-import { ONESIGNAL_APP_ID } from "../constants";
 import { sendPlayerIdToBackend } from "../apis/authQueries";
+import { LogLevel, OneSignal } from "react-native-onesignal";
 
 export const showNotification = (title, message) => {
   Notifier.showNotification({
@@ -23,56 +21,6 @@ export const showNotification = (title, message) => {
 };
 
 export const catchFun = (msg) => showNotification(msg, "Internal server error");
-
-export const getNextWeekdays = (count) => {
-  const days = [];
-  let current = moment();
-
-  while (days.length < count) {
-    const dayOfWeek = current.day();
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-      days.push(moment(current));
-    }
-    current = current.add(1, "day");
-  }
-
-  return days;
-};
-
-export const maskCardNumber = (cardNumber) => {
-  if (!cardNumber) return "•••• •••• •••• ••••";
-  const lastFour = cardNumber.slice(-4);
-  return `•••• ${lastFour}`;
-};
-
-export const cardValidator = {
-  getCardType: (number) => {
-    const num = number.replace(/\s/g, "");
-    if (/^4/.test(num)) return "Visa";
-    if (/^5[1-5]/.test(num)) return "Master";
-    if (/^3[47]/.test(num)) return "Amex";
-    if (/^6(?:011|5)/.test(num)) return "Discover";
-    return "Unknown";
-  },
-
-  isValidCardNumber: (number) => {
-    const num = number.replace(/\s/g, "");
-    if (!/^\d+$/.test(num)) return "Only numbers allowed";
-
-    // Luhn algorithm
-    let sum = 0;
-    for (let i = 0; i < num.length; i++) {
-      let digit = parseInt(num[i]);
-      if ((num.length - i) % 2 === 0) {
-        digit *= 2;
-        if (digit > 9) digit -= 9;
-      }
-      sum += digit;
-    }
-
-    return sum % 10 === 0 || "Invalid card number";
-  },
-};
 
 export const apiRequest = async ({
   method = "get",
@@ -123,7 +71,7 @@ export const apiRequest = async ({
 
 export const setupOneSignal = (user) => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-  OneSignal.initialize(ONESIGNAL_APP_ID);
+  OneSignal.initialize(process.env.ONESIGNAL_APP_ID);
   OneSignal.Notifications.requestPermission(false);
   const handleWillDisplayEvent = (event) => {
     event.notification.display();

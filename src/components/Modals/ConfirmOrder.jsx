@@ -3,9 +3,9 @@ import styles from "./modalStyle";
 import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
 import React, { useEffect, useState } from "react";
-import Icon from "react-native-dynamic-vector-icons";
 import { View, Text, TouchableOpacity } from "react-native";
 import { globalStyle, Height } from "../../theme/globalStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
   const agreements = [
@@ -47,9 +47,8 @@ const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
             onPress={() => toggleCheck(index)}
             style={[globalStyle.row, { marginBottom: 10 }]}
           >
-            <Icon
-              type="Ionicons"
-              name={checked[index] ? "radio-button-on" : "radio-button-off"}
+            <DynamicIcon
+              name={checked[index] ? "CircleCheck" : "Circle"}
               size={22}
               color={checked[index] ? colors.purple : "#E6E4E0"}
             />
