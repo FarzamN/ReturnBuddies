@@ -159,9 +159,7 @@ const Login = () => {
               social
               apple
               title="Login"
-              onPress={() =>
-                handleAppleSignin().then((user) => console.log(user))
-              }
+              onPress={handleAppleSignin}
             />
           )}
         </ScrollView>

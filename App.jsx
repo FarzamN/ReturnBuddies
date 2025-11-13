@@ -1,7 +1,7 @@
 import Splash from "./src/screens/splash";
 import { colors } from "./src/theme/colors";
 import TabNav from "./src/navigaton/TabNav";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AuthNav from "./src/navigaton/AuthNav";
 import { useDispatch, useSelector } from "react-redux";
 import { NotifierWrapper } from "react-native-notifier";
@@ -12,11 +12,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import navigationColor from "react-native-system-navigation-bar";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { getFAQsAPI, sendPlayerIdToBackend } from "./src/apis/authQueries";
-import { STRIPE_PUBLISHABLE_KEY,ONESIGNAL_APP_ID,iosClientId,webClientId } from "./src/constants";
+import {
+  STRIPE_PUBLISHABLE_KEY,
+  ONESIGNAL_APP_ID,
+  iosClientId,
+  webClientId,
+} from "./src/constants";
 const App = () => {
   const dispatch = useDispatch();
-
-  const { user } = useSelector((state) => state.auth);
+  const { user, getPayments } = useSelector((state) => state.auth);
 
   GoogleSignin.configure({
     webClientId,

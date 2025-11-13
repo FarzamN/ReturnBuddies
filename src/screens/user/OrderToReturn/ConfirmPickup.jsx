@@ -106,8 +106,6 @@ const ConfirmPickup = () => {
     ? selectedAddress
     : pickupAddress;
 
-  console.log({ finalPayment });
-
   const onSubmit = async () => {
     setError({
       address: false,
@@ -154,7 +152,8 @@ const ConfirmPickup = () => {
         pickupType: pickupMethod,
         isOversize: focus ? 1 : 0,
         pickupAddress: finalAddress._id,
-        payment: finalPayment.stripePaymentMethodId,
+        customerId: finalPayment.stripeCustomerId,
+        paymentMethodId: finalPayment.stripePaymentMethodId,
         bundleId: draftSelectedRetun.map((item) => item._id),
       };
 

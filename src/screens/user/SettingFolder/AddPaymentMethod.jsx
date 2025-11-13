@@ -19,10 +19,10 @@ import { colors } from "../../../theme/colors";
 import { iOS } from "../../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { addPaymentAPI } from "../../../apis/authQueries";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { useStripe, CardField } from "@stripe/stripe-react-native";
 import { wp, scaleSize, verticalScale } from "../../../theme/responsive";
-import { addPaymentAPI, editPaymentAPI } from "../../../apis/authQueries";
 
 const AddPaymentMethod = ({ route }) => {
   const { item, editing } = route?.params || {};
@@ -30,7 +30,7 @@ const AddPaymentMethod = ({ route }) => {
   const { goBack } = useNavigation();
   const { createPaymentMethod } = useStripe();
 
-  const { getPayments } = useSelector((state) => state.auth) ?? [];
+  const { getPayments, user } = useSelector((state) => state.auth) ?? [];
 
   const [cardHolderName, setCardHolderName] = useState(
     item?.cardHolderName ?? ""
@@ -62,13 +62,10 @@ const AddPaymentMethod = ({ route }) => {
         },
       });
       if (stripeError) {
-        console.log("Stripe error:", stripeError);
         setError(stripeError.message);
         setLoad(false);
         return;
       }
-
-      console.log("✅ Stripe payment method created:", paymentMethod.id);
 
       const cardInfo = {
         cardHolderName,
@@ -78,13 +75,10 @@ const AddPaymentMethod = ({ route }) => {
         exp_month: paymentMethod.Card.expMonth,
         exp_year: paymentMethod.Card.expYear,
         isDefault: getPayments.length === 0 ? 1 : isDefault ? 1 : 0,
+        name: user.name,
+        email: user.email,
       };
-      setLoad(false);
-      // if (editing) {
-      //   editPaymentAPI(item._id, cardInfo, goBack, setLoad)(dispatch);
-      // } else {
-      //   addPaymentAPI(cardInfo, goBack, setLoad)(dispatch);
-      // }
+      addPaymentAPI(cardInfo, goBack, setLoad)(dispatch);
     } catch (err) {
       console.error("Error creating payment method:", err);
       setError("Something went wrong while adding the card.");
