@@ -19,9 +19,7 @@ const DraftHeader = (props) => {
     <Space_Between
       style={{
         paddingHorizontal: wp(5),
-        marginTop: iOS
-          ? scaleSize(20)
-          : StatusBar.currentHeight + scaleSize(20),
+        marginTop: iOS ? scaleSize(0) : StatusBar.currentHeight + scaleSize(20),
       }}
     >
       <Text

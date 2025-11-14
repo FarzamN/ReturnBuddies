@@ -101,16 +101,19 @@ const MainInput = (props, ref) => {
           colors: {
             ...DefaultTheme.colors,
             background: "#f5f5f5",
-            error: error,
+            error,
           },
         }}
         right={
           password && (
-            <TextInput.Icon
-              icon={show ? "eye" : "eye-off"}
-              color={isError ? error : "#E1E1E1"}
-              rippleColor={isError ? error : purple}
+            <TextInput.Affix
+              text={show ? "Show" : "Hide"}
               onPress={() => setShow((prev) => !prev)}
+              textStyle={{
+                fontSize: 13,
+                fontFamily: fonts[400],
+                color: isError ? error : grey,
+              }}
             />
           )
         }

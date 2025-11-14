@@ -26,7 +26,7 @@ export default StyleSheet.create({
   headerCont: {
     height: responsive.height(48),
     marginBottom: iOS ? 0 : wp(4),
-    marginTop: iOS ? scaleSize(10) : StatusBar.currentHeight + scaleSize(20),
+    marginTop: iOS ? 0 : StatusBar.currentHeight + scaleSize(20),
   },
   logoStyle: {
     width: wp(10),

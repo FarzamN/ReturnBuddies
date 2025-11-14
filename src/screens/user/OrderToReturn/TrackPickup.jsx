@@ -28,7 +28,9 @@ const TrackPickup = ({ navigation }) => {
   return (
     <Body horizontal={wp(4)}>
       <View style={[globalStyle.flex, { justifyContent: "space-between" }]}>
-        <Space_Between style={{ marginTop: StatusBar.currentHeight + 20 }}>
+        <Space_Between
+          style={{ marginTop: iOS ? 0 : StatusBar.currentHeight + 20 }}
+        >
           <View />
           <DynamicIcon
             size={20}

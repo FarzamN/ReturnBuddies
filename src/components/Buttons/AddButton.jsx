@@ -1,10 +1,10 @@
 import { Text } from "..";
 import React from "react";
-import { Plus } from "lucide-react-native";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import { globalStyle } from "../../theme/globalStyle";
 import buttonStyle from "../../screens/user/userStyle";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const AddButton = ({ onPress }) => {
   return (
@@ -18,7 +18,7 @@ const AddButton = ({ onPress }) => {
         { width: undefined, borderRadius: 50 },
       ]}
     >
-      <Plus size={17} color={colors.purple} />
+      <DynamicIcon name="Plus" size={17} color={colors.purple} />
       <Text
         title=" Add"
         color={colors.purple}

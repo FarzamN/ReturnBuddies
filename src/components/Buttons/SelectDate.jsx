@@ -4,7 +4,7 @@ import styles from "./buttonStyle";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import { globalStyle } from "../../theme/globalStyle";
-import { CalendarRange } from "lucide-react-native";
+import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const SelectDate = (props) => {
   const { title, isError, onPress } = props;
@@ -14,19 +14,20 @@ const SelectDate = (props) => {
       activeOpacity={0.7}
       style={[
         globalStyle.row,
-        globalStyle.center,
         styles.selectDate,
+        globalStyle.center,
         {
-          backgroundColor: isError ? colors.background : "#EFE1F7",
           borderStyle: isError ? "dashed" : "solid",
           borderColor: isError ? "red" : "#EFE1F7",
+          backgroundColor: isError ? colors.background : "#EFE1F7",
         },
       ]}
     >
-      <CalendarRange
+      <DynamicIcon
         size={20}
-        color={isError ? "red" : colors.black}
+        name="CalendarRange"
         style={{ marginRight: 10 }}
+        color={isError ? "red" : colors.black}
       />
       <Text
         title={title}
