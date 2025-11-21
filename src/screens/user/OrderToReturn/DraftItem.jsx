@@ -147,25 +147,6 @@ const DraftItem = () => {
                     navigate("shippingLabel", { returnLabel: selectedReturns });
                     setSelectedReturns([]);
                   }}
-                  // onPress={async () => {
-                  //   try {
-                  //     const userId = getItem("userID");
-
-                  //     const res = await fetch(`${imageURl}api/test`, {
-                  //       method: "POST",
-                  //       headers: {
-                  //         "Content-Type": "application/json",
-                  //         Authorization: `Bearer ${getItem("token")}`,
-                  //       },
-                  //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
-                  //     });
-
-                  //     const response = await res.json();
-                  //     console.log(response);
-                  //   } catch (error) {
-                  //     console.error("Error sending test notification:", error);
-                  //   }
-                  // }}
                 />
               ) : (
                 <></>
@@ -219,54 +200,6 @@ const DraftItem = () => {
         />
       </ScrollView>
 
-      {/* {selectedCount && draftData ? (
-        <>
-          <Height />
-
-          <MainButton
-            style={[
-              styles.button,
-              { width: undefined, paddingHorizontal: 30, height: 45 },
-            ]}
-            textStyle={[
-              styles.buttonText,
-              {
-                fontSize: 14,
-                fontFamily: fonts[500],
-              },
-            ]}
-            title={`Schedule Pickup for ${returnItemCount} Item${
-              returnItemCount > 1 ? "s" : ""
-            }`}
-            onPress={() => {
-              navigate("shippingLabel", { returnLabel: selectedReturns });
-              setSelectedReturns([]);
-            }}
-            // onPress={async () => {
-            //   try {
-            //     const userId = getItem("userID");
-
-            //     const res = await fetch(`${imageURl}api/test`, {
-            //       method: "POST",
-            //       headers: {
-            //         "Content-Type": "application/json",
-            //         Authorization: `Bearer ${getItem("token")}`,
-            //       },
-            //       body: JSON.stringify({ userId }), // ✅ Must stringify the object
-            //     });
-
-            //     const response = await res.json();
-            //     console.log(response);
-            //   } catch (error) {
-            //     console.error("Error sending test notification:", error);
-            //   }
-            // }}
-          />
-          <Height />
-        </>
-      ) : (
-        <PrimeryTab currentTab="Home" />
-      )} */}
       <PrimeryTab currentTab="Home" />
 
       <CustomAlert
@@ -276,7 +209,8 @@ const DraftItem = () => {
         onConfirmPressed={() =>
           deleteBundle(alert._id, setAlert, setIsPending)(dispatch)
         }
-        message={`Are you sure you want to delete this Bundle?\nThis action cannot be undone.`}
+        title="Delete this item group?"
+        message="This will remove all items in this group from your home screen."
       />
       {returnItemCount > 0 && (
         <TouchableOpacity onPress={scrollToBottom}>

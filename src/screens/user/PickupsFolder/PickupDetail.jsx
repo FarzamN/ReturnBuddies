@@ -194,7 +194,7 @@ const PickupDetail = ({ route }) => {
           source={appImages.priceTag}
           detail={`$${Number(data?.totalPrice).toFixed(2) ?? 0}`}
         />
-        {!cancelled && (
+        {!cancelled && data?.status !== "Completed" && (
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => setShowDelete(true)}

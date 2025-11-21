@@ -121,7 +121,7 @@ const PickupSection = ({ data, onPress }) => {
             color={data?.status === "Pickup Cancelled" ? "#9E2424" : "#318252"}
           />
         </Row>
-        <DynamicIcon size={20} name="chevron-right" color={colors.black} />
+        <DynamicIcon size={20} name="ChevronRight" color={colors.black} />
       </TouchableOpacity>
     </View>
   );

@@ -32,7 +32,11 @@ const ReturnSection = (props) => {
         <View style={{ flex: 1 }}>
           <Row>
             {selected && (
-              <DynamicIcon size={20} name="SquareCheck" color={colors.purple} />
+              <DynamicIcon
+                size={20}
+                name="CheckCircle2"
+                color={colors.purple}
+              />
             )}
             <RNText
               style={[styles.BundleName, { marginLeft: selected ? 5 : 0 }]}

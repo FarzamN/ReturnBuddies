@@ -17,21 +17,21 @@ const Notification = () => {
       title: "Pickup Updates",
       detail:
         "Messages confirming your scheduled pickup, item pickup, and dropoff.",
-      value: false,
+      value: true,
     },
     {
       _id: "PickupReminder",
       title: "Pickup Reminder",
       detail:
         "A morning message letting you know a pickup is scheduled for today.",
-      value: false,
+      value: true,
     },
     {
       _id: "LabelIssues",
       title: "Label Issues",
       detail:
         "Messages if your return label is missing, inval_id, or can’t be processed.",
-      value: false,
+      value: true,
     },
   ]);
 
@@ -40,20 +40,20 @@ const Notification = () => {
       _id: "AccountSecurity",
       title: "Account & Security",
       detail: "Important account, support and security related messages.",
-      value: false,
+      value: true,
     },
     {
       _id: "DraftReminder",
       title: "Draft Reminders",
       detail: "Reminder to finish scheduling items saved in drafts.",
-      value: false,
+      value: true,
     },
     {
       _id: "PickupConfirmation",
       title: "Pickup Confirmations",
       detail:
         "Details of when your pickup is scheduled, upcoming, completed, or rescheduled.",
-      value: false,
+      value: true,
     },
   ]);
 
@@ -106,7 +106,7 @@ const Notification = () => {
     <Body horizontal={wp(4)}>
       <Header leftTitle="Notifications" />
       <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled>
-        <Text style={settingStyle.settingTitle} title="Text Message" />
+        <Text style={settingStyle.settingTitle} title="In-App Notification" />
         <FlatList
           data={textData}
           nestedScrollEnabled
