@@ -27,12 +27,9 @@ export const pickupDetailAPI = (id, load) => {
     // );
     apiRequest({
       endpoint: `/get-pickup-by-id/${id}`,
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: ({ data, trackingNumber, Carrier }) => {
+        dispatch(setPickupDetailData({ data, trackingNumber, Carrier }));
       },
-      // onSuccess: ({ data, trackingNumber, Carrier }) => {
-      //   dispatch(setPickupDetailData({ data, trackingNumber, Carrier }));
-      // },
       onFinally: load,
     });
   };
