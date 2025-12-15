@@ -14,7 +14,7 @@ const PickupSection = ({ data, onPress }) => {
 
   const updatedStatus = {
     "Pickup Requested": "Pickup Requested",
-    delivered: "Delivered",
+    Delivered: "Delivered",
     "Pickup Cancelled": "Cancelled",
     Inspected: "At RB Warehouse",
     "Picked Up": "Picked up by RB",
@@ -25,7 +25,7 @@ const PickupSection = ({ data, onPress }) => {
   const statusImage = {
     Inspected: appImages.pickup,
     "Picked Up": appImages.pickup,
-    delivered: appImages.pickup,
+    Delivered: appImages.pickup,
     "In Transit": appImages.pickup,
     Completed: appImages.complete,
     "Pickup Cancelled": appImages.cancelled,

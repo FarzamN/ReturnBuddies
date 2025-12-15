@@ -22,9 +22,6 @@ export const getPickupAPI = (load) => {
 };
 export const pickupDetailAPI = (id, load) => {
   return async (dispatch) => {
-    // console.log(
-    //   `https://returnbuddies-production.up.railway.app/api/get-pickup-by-id/${id}`
-    // );
     apiRequest({
       endpoint: `/get-pickup-by-id/${id}`,
       onSuccess: ({ data, trackingNumber, Carrier }) => {

@@ -22,7 +22,7 @@ export const sendPlayerIdToBackend = async () => {
   apiRequest({
     data: { userId, playerId, os: Platform.OS },
     method: "post",
-    // noNotification: true,
+    noNotification: true,
     endpoint: "user/register-device",
     onSuccess: (e) => console.log("sendPlayerIdToBackend", e),
   });

@@ -48,7 +48,7 @@ const Register = () => {
       const { data } = await GoogleSignin.signIn();
       googleLoginAPI(data.idToken)(dispatch);
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
     }
   };
 

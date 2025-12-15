@@ -53,9 +53,7 @@ const Login = () => {
       await GoogleSignin.hasPlayServices();
       const { data } = await GoogleSignin.signIn();
       googleLoginAPI(data.idToken)(dispatch);
-    } catch (error) {
-      console.log("error", error);
-    }
+    } catch (error) {}
   };
 
   // ************ apple login *************
