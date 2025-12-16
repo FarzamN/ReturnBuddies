@@ -5,32 +5,24 @@ import { FullImage, Text } from "..";
 import { colors } from "../../theme/colors";
 import { appImages, fonts } from "../../assets";
 import { scaleSize, width } from "../../theme/responsive";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { Row, Divider, globalStyle } from "../../theme/globalStyle";
 import { Text as RNText, TouchableOpacity, View } from "react-native";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const PickupSection = ({ data, onPress }) => {
   const all_products = data?.bundleId.flatMap((item) => item.products);
 
   const updatedStatus = {
-    "Pickup Requested": "Pickup Requested",
-    Delivered: "Delivered",
-    "Pickup Cancelled": "Cancelled",
-    Inspected: "At RB Warehouse",
-    "Picked Up": "Picked up by RB",
-    "In Transit": "Dropped off at Carrier",
-    Completed: "Completed",
-  };
-
-  const statusImage = {
-    Inspected: appImages.pickup,
-    "Picked Up": appImages.pickup,
-    Delivered: appImages.pickup,
-    "In Transit": appImages.pickup,
-    Completed: appImages.complete,
-    "Pickup Cancelled": appImages.cancelled,
-    "Pickup Requested": appImages.pickup,
-    "Pickup cancelled": appImages.cancelled,
+    Delivered: {
+      title: "Delivered",
+      img: appImages.delivered,
+    },
+    Completed: { title: "Completed", img: appImages.complete },
+    Inspected: { title: "At RB Warehouse", img: appImages.pickup },
+    "Picked Up": { title: "Picked up by RB", img: appImages.pickup },
+    "Pickup Cancelled": { title: "Cancelled", img: appImages.cancelled },
+    "Pickup Requested": { title: "Pickup Requested", img: appImages.pickup },
+    "In Transit": { title: "Dropped off at Carrier", img: appImages.pickup },
   };
   return (
     <View style={[styles.sectionContainer, globalStyle.ph0]}>
@@ -112,12 +104,12 @@ const PickupSection = ({ data, onPress }) => {
       >
         <Row>
           <FullImage
-            source={statusImage[data?.status]}
+            source={updatedStatus[data?.status]?.img}
             style={pickupStyle.statusImage}
           />
           <Text
             style={styles.pickupDetailText}
-            title={updatedStatus[data?.status]}
+            title={updatedStatus[data?.status]?.title}
             color={data?.status === "Pickup Cancelled" ? "#9E2424" : "#318252"}
           />
         </Row>

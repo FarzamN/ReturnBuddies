@@ -4,7 +4,7 @@ import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import { globalStyle } from "../../theme/globalStyle";
 import buttonStyle from "../../screens/user/userStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 
 const AddButton = ({ onPress }) => {
   return (

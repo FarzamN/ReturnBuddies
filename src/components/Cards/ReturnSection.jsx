@@ -5,7 +5,7 @@ import buttonStyle from "../../screens/user/userStyle";
 import { ReturnInnerCard, MainButton, Text } from "..";
 import { useNavigation } from "@react-navigation/native";
 import { globalStyle, Row } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { View, Pressable, FlatList, Text as RNText } from "react-native";
 
 const ReturnSection = (props) => {

@@ -5,9 +5,9 @@ import Modal from "react-native-modal";
 import React, { useState } from "react";
 import { colors } from "../../theme/colors";
 import { Calendar } from "react-native-calendars";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Height, Space_Between } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const DatePicker = ({ visible, onClose, onPress }) => {
   const [selected, setSelected] = useState();

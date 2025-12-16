@@ -1,10 +1,10 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import { Text } from "..";
 import styles from "./cardStyle";
 import { colors } from "../../theme/colors";
+import { TouchableOpacity } from "react-native";
 import { Space_Between } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 
 const PickupMethodCard = ({ data, onPress, focus }) => {
   return (

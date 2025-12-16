@@ -44,6 +44,7 @@ export const appImages = {
   truck: require(`./images/Icons/truck.png`),
   delete: require("./images/Icons/trash.png"),
   pickup: require("./images/Icons/pickup.png"),
+  delivered: require("./images/Icons/delivered.png"),
   google: require(`./images/Icons/google.png`),
   wallet: require(`./images/Icons/wallet.png`),
   camera: require(`./images/Icons/camera.png`),

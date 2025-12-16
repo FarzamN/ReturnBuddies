@@ -6,9 +6,9 @@ import { colors } from "../../theme/colors";
 import { iOS } from "../../utils/constants";
 import { scaleSize, wp } from "../../theme/responsive";
 import { Space_Between } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar, TouchableOpacity } from "react-native";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 
 const DraftHeader = (props) => {
   const { pickup } = props;

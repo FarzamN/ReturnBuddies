@@ -6,7 +6,7 @@ import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import { fontScale } from "../../theme/responsive";
 import { globalStyle } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 
 const CircleCheck = (props) => {
   const { focus, onPress, title, isError } = props;

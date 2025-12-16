@@ -4,8 +4,8 @@ import Modal from "react-native-modal";
 import { colors } from "../../theme/colors";
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { globalStyle, Height } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const ConfirmOrder = ({ visible, onClose, onPress, load }) => {
   const agreements = [

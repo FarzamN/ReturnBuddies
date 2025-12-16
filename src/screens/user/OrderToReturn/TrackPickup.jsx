@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPickupAPI } from "../../../apis/pickupQueries";
 import { getReturnItem } from "../../../apis/draftQueries";
 import { Body, Empty, MainButton } from "../../../components";
+import { DynamicIcon } from "../../../utils/DynamicLucideIcon";
 import { globalStyle, Height, Space_Between } from "../../../theme/globalStyle";
-import DynamicIcon from "../../../utils/DynamicLucideIcon";
 
 const TrackPickup = ({ navigation }) => {
   const dispatch = useDispatch();

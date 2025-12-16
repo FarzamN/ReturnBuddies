@@ -3,7 +3,7 @@ import moment from "moment";
 import styles from "./cardStyle";
 import { FullImage, Text } from "..";
 import { colors } from "../../theme/colors";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { globalStyle, Row } from "../../theme/globalStyle";
 import { View, FlatList, TouchableOpacity } from "react-native";
 

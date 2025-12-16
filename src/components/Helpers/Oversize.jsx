@@ -4,8 +4,8 @@ import { appImages } from "../../assets";
 import { colors } from "../../theme/colors";
 import { TouchableOpacity } from "react-native";
 import responsive from "../../theme/responsive";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { globalStyle, Space_Between } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const Oversize = ({ focus, onPress, onAboutPress }) => {
   return (

@@ -1,7 +1,7 @@
 import {
-  FlatList,
   View,
   Linking,
+  FlatList,
   Pressable,
   ScrollView,
   TouchableOpacity,
@@ -13,9 +13,9 @@ import settingStyle from "./settingStyle";
 import { colors } from "../../../theme/colors";
 import { appImages, fonts } from "../../../assets";
 import responsive, { wp } from "../../../theme/responsive";
+import { DynamicIcon } from "../../../utils/DynamicLucideIcon";
 import { globalStyle, Height } from "../../../theme/globalStyle";
 import { Body, FullImage, Header, Text } from "../../../components";
-import DynamicIcon from "../../../utils/DynamicLucideIcon";
 
 const Support = () => {
   const { getFaqs } = useSelector((state) => state.auth);
@@ -32,22 +32,22 @@ const Support = () => {
     for (let i = 0; i < parts.length; i++) {
       output.push(
         <Text
+          title={parts[i]}
           key={`text-${i}`}
           style={styles.FAQcontentText}
-          title={parts[i]}
         />
       );
       if (emails && emails[i]) {
         output.push(
           <TouchableOpacity
+            key={`email-${i}`}
             activeOpacity={0.7}
             onPress={() => Linking.openURL(emails[i])}
-            key={`email-${i}`}
           >
             <Text
               style={[
                 styles.FAQcontentText,
-                { fontFamily: fonts[600], top: 5 },
+                { fontFamily: fonts[600], top: 3 },
               ]}
               title={emails[i]}
             />

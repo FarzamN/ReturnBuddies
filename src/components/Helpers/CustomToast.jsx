@@ -3,7 +3,7 @@ import helperStyle from "./helperStyle";
 import { Text, View } from "react-native";
 import { colors } from "../../theme/colors";
 import { fontScale } from "../../theme/responsive";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CustomToast = ({ title, message }) => {

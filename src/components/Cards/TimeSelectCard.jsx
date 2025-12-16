@@ -5,8 +5,8 @@ import { fonts } from "../../assets";
 import { colors } from "../../theme/colors";
 import { width } from "../../theme/responsive";
 import { TouchableOpacity } from "react-native";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
 import { globalStyle } from "../../theme/globalStyle";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 
 const TimeSelectCard = ({ data, focus, onPress, index, disabled }) => {
   return (

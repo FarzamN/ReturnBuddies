@@ -25,10 +25,10 @@ import { wp } from "../../../theme/responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
+import { DynamicIcon } from "../../../utils/DynamicLucideIcon";
 import { Height, globalStyle } from "../../../theme/globalStyle";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getReturnItem, deleteBundle } from "../../../apis/draftQueries";
-import DynamicIcon from "../../../utils/DynamicLucideIcon";
 
 const DraftItem = () => {
   const dispatch = useDispatch();

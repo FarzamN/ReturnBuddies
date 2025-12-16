@@ -51,11 +51,11 @@ export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
 //         getReturnItem(load)(dispatch);
 //         goBack();
 //       } else {
-//         console.log(message);
+//         console.error(message);
 //       }
 //     } catch (err) {
 //       load(false);
-//       console.log("chatch", err.message);
+//       console.error("chatch", err.message);
 //     }
 //   };
 // };

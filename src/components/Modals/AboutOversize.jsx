@@ -6,7 +6,7 @@ import { colors } from "../../theme/colors";
 import { View, Text as T } from "react-native";
 import { appImages, fonts } from "../../assets";
 import { Height } from "../../theme/globalStyle";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 
 const AboutOversize = ({ visible, onClose }) => {
   return (

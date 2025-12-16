@@ -6,8 +6,8 @@ import { wp } from "../../theme/responsive";
 import { colors } from "../../theme/colors";
 import { useNavigation } from "@react-navigation/native";
 import { globalStyle, Row } from "../../theme/globalStyle";
+import { DynamicIcon } from "../../utils/DynamicLucideIcon";
 import { Image, TouchableOpacity, View } from "react-native";
-import DynamicIcon from "../../utils/DynamicLucideIcon";
 
 const Header = (props) => {
   const { goBack, navigate } = useNavigation();
