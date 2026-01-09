@@ -6,6 +6,7 @@ import {
   setDraftSelectedRetun,
 } from "../redux/slices/draftSlice";
 import { apiRequest } from "../function";
+import { setLogout } from "../redux/slices/authSlice";
 
 export const uploadReturnItems = (data, confirmOrder, load, goBack) => {
   return async (dispatch) => {
@@ -140,8 +141,12 @@ export const getBasePriceAPI = () => {
   return async (dispatch) => {
     apiRequest({
       endpoint: `get-baseprice`,
+      noNotification: true,
       onSuccess: ({ data }) => {
         dispatch(setGetBaseData(data));
+      },
+      onCatchFailure: (err) => {
+        if (err === "Unauthorized: Invalid token") dispatch(setLogout());
       },
     });
   };

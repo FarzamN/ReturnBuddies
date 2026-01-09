@@ -481,8 +481,12 @@ export const changepasswordForgetAPI = async (data, error, load, nav) => {
 export const getFAQsAPI = () => {
   return async (dispatch) => {
     apiRequest({
+      noNotification: true,
       endpoint: "get-all-faq",
       onSuccess: ({ data }) => dispatch(setFaqs(data)),
+      onCatchFailure: (err) => {
+        if (err === "Unauthorized: Invalid token") dispatch(setLogout());
+      },
     });
   };
 };
