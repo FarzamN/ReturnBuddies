@@ -9,7 +9,7 @@ import { NotifierWrapper } from "react-native-notifier";
 import { getBasePriceAPI } from "./src/apis/draftQueries";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import navigationColor from "react-native-system-navigation-bar";
+// import navigationColor from "react-native-system-navigation-bar";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { getFAQsAPI, sendPlayerIdToBackend } from "./src/apis/authQueries";
 
@@ -32,7 +32,7 @@ const App = () => {
       getFAQsAPI()(dispatch);
       // sendPlayerIdToBackend();
     }
-    navigationColor.setNavigationColor(colors.background, "dark", "navigation");
+    // navigationColor.setNavigationColor(colors.background, "dark", "navigation");
   }, [user]);
 
   useEffect(() => {
